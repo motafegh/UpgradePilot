@@ -12,7 +12,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from hashlib import sha256
-from typing import Any
+from typing import Any, Literal
 
 from .api import (
     GitHubApiClient,
@@ -60,6 +60,20 @@ class WorkflowJob:
     status: str
     conclusion: str | None
     steps: tuple[WorkflowStep, ...] | None
+
+    @property
+    def start_phase(self) -> Literal["started", "unstarted_at_observation", "unknown"]:
+        """Interpret only positive lifecycle witnesses in the retained job snapshot."""
+        step_started = any(
+            step.status == "in_progress"
+            or (step.status == "completed" and step.conclusion in {"success", "failure", "timed_out"})
+            for step in self.steps or ()
+        )
+        if self.status == "queued":
+            return "unknown" if step_started else "unstarted_at_observation"
+        if self.status == "in_progress" or step_started:
+            return "started"
+        return "unknown"
 
 
 @dataclass(frozen=True, slots=True)

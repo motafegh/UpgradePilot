@@ -73,9 +73,10 @@ from .native_boundary import (
     exact_investigation_target,
     validate_native_boundary,
 )
-from .native_codecs import SCOPED_CI_FAMILIES, decode_native_value, family_contract
+from .native_codecs import ASSOCIATION_COVERAGE_CODEC, SCOPED_CI_FAMILIES, decode_native_value, family_contract
 from .native_representation import NativeReconstructionError
 from .native_workflow_instances import validate_prepared_workflow, validate_scoped_command
+from .native_workflow_association import validate_scoped_workflow_associations
 
 
 @dataclass(frozen=True, slots=True)
@@ -399,6 +400,15 @@ def _validate_coverage_material(
         correlation = result.runtime_correlation
         if correlation is None:
             continue
+        if correlation.scoped is not None:
+            if instances is None:
+                raise _invalid("Scoped association lacks its prepared workflow input.")
+            validate_scoped_workflow_associations(correlation, supplied, instances)
+            continue
+        if correlation.state == "partially_correlated" or any(
+            job.association is not None for job in correlation.jobs
+        ):
+            raise _invalid("Scoped association results lack their workflow evidence boundary.")
         skipped_job_shape = correlation.state == "correlated_with_skipped_jobs"
         matched_jobs = correlation.state == "correlated" or skipped_job_shape
         skipped_jobs = {
@@ -889,12 +899,21 @@ def reconstruct_ci_projection(
         _decode(records, "runtime_dependency_state"),
     )
     scoped = any(workflow.prepared is not None for workflow in workflows)
+    association_shape = records["ci_coverage"].codec_version == ASSOCIATION_COVERAGE_CODEC
     if any(
         records[family].outcome == "recorded"
-        and (records[family].codec_version == version) != scoped
+        and (records[family].codec_version == version
+             or (family == "ci_coverage" and association_shape)) != scoped
         for family, (version, _) in SCOPED_CI_FAMILIES.items()
     ):
         raise _invalid("CI family versions disagree with their retained scoped inputs.")
+    if association_shape and not (
+        coverage is not None and any(
+            workflow.runtime_correlation is not None and workflow.runtime_correlation.scoped is not None
+            for workflow in coverage.workflows
+        )
+    ):
+        raise _invalid("Association codec has no retained scoped correspondence.")
     if not isinstance(inputs.dependency_result, DependencyVersionChange) and any(
         records[family].outcome == "recorded"
         for family in ("ci_inputs", "ci_coverage", "runtime_dependency_state")

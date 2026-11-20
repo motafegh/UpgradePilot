@@ -1,0 +1,880 @@
+{
+  "scope": "milestone 4 exact-attempt job and step correspondence with lifecycle controls",
+  "baseline_commit": "7994ba7e",
+  "wheel_sha256": "b8c904596c16550d43333be523709d80d250cd0ffb1abc4b1a29f9b7ff612309",
+  "installed_module_parity": true,
+  "installed_module_count": 120,
+  "dependency_basis": "explicit read-only development site-packages via .pth",
+  "pip_check": "No broken requirements found.",
+  "tests": {
+    "focused": {
+      "tests": 73,
+      "unittest_seconds": 0.525,
+      "outcome": "OK",
+      "log_sha256": "e5e0d712142014263a1c6951132bdeb8691deb8b43c99ee67c813d7e28dbb1d3"
+    },
+    "full_product": {
+      "tests": 1175,
+      "unittest_seconds": 231.356,
+      "outcome": "OK",
+      "log_sha256": "3b96d6a2f6c0a359c26b4543ca20569f769e9fe381fcd6923967e6f0aeb4d4dd"
+    },
+    "consumer_architecture": {
+      "tests": 25,
+      "unittest_seconds": 1.699,
+      "outcome": "OK",
+      "log_sha256": "2b6270041a3f54bf21bec9318ddba37f3bcbbf0fe5651287934cb98fe5dff4ba"
+    }
+  },
+  "source_test_sha256": {
+    "src/upgradepilot/ci/executable_selection.py": "f19bfb0a29b554a846710457c403ee7801269f48f3a863354a3622738e813b41",
+    "src/upgradepilot/ci/native_codec.py": "27c1d89395e8ce9c5c2df4371c7042693364fdd726154215f6a1045c267032bc",
+    "src/upgradepilot/ci/native_scoped_codec.py": "6d0d49e709f4af1535fd219c0fe6785c7e0430249eb3d9f8bc8bf6a59c4ce1a3",
+    "src/upgradepilot/ci/runtime_execution.py": "b3a11cbf06541e2e2ed68fd52a7ec956a87ffeae758466a816ea94752632df76",
+    "src/upgradepilot/ci/workflow_runtime_correlation.py": "6cd4687323afe3543f576e12cbb167b2d91c7bd7f4c64f93e2daed7bcf269d8d",
+    "src/upgradepilot/github/actions.py": "f457c0892835048a651449bcda2989ba8bd7dd85483eab09f3ddd7552d9d0a1e",
+    "src/upgradepilot/workspace/native_capture.py": "2f39576e84a403aac45a29cef884be31fb58ada2d88c05b798877b51aa0882d4",
+    "src/upgradepilot/workspace/native_codecs.py": "595863699426ae2d7fe31a10ce8a769d580c930a419c57d5b5c5e4b5fabc2c32",
+    "src/upgradepilot/workspace/native_projection.py": "0e02f7c9b83fa62b4496875e04e69925259266e1a66375a4541f2c3a8cc9266e",
+    "src/upgradepilot/workspace/native_workflow_association.py": "23ea7d47901ada1c5acce481bbfaad9e36a152df70023957de0c353fb5291aba",
+    "tests/fixtures/github/mapproxy-runtime-attempt.json": "317716a70d5e34f87d30936976cbc4a8fc479bbbfee3e5117f7352983fc23bf7",
+    "tests/test_ci_matrix_identity.py": "2f6901406e0e2ff45cf43cbe971a06cb6e51f8449dffd1427c846479bc7524a6",
+    "tests/test_ci_matrix_runtime_association.py": "0282b94719efd94752bf4336281811bd6f885ffe419186d1796cfa97c58541b7",
+    "tests/test_workspace_native_reconstruction.py": "0513654ed4558166f0ae5ee4c8c39b721b45619eba0890e146c312487c65d8e4"
+  },
+  "scoped_association": {
+    "genuine": {
+      "digest": "a4a722f3f84596ea0080948d5d76b6551b0952137a809d98b5e42f20594b94fc",
+      "native_sha256": "39128f41e07596b870d0f274e0da340827b2651e426c09a3d45eabd817705663",
+      "versions": {
+        "ci_inputs": 2,
+        "ci_coverage": 5,
+        "runtime_dependency_state": 2
+      },
+      "description": {
+        "run_id": 43457921398,
+        "run_attempt": 1,
+        "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+        "raw_job_count": 8,
+        "raw_step_count": 79,
+        "association_state": "correlated",
+        "association_reason": "scoped_jobs_and_steps_correlated",
+        "aggregate_coverage": "supported_runtime_correlated",
+        "associations": [
+          {
+            "job_key": "test",
+            "slot": 0,
+            "kind": "matrix",
+            "job_id": 131996881880,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.12",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests 🏗️",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "test",
+            "slot": 1,
+            "kind": "matrix",
+            "job_id": 131996881564,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.13",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests 🏗️",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "test",
+            "slot": 2,
+            "kind": "matrix",
+            "job_id": 131996881411,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests 🏗️",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "test",
+            "slot": 3,
+            "kind": "matrix",
+            "job_id": 131996881633,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.15",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests 🏗️",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "coverage",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881258,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests with coverage 🏗️",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 5,
+                "number": 8,
+                "name": "Create coverage report",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 6,
+                "number": 9,
+                "name": "Upload Coverage Artifact",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "doc",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881440,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 2,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 3,
+                "name": "Install doc dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 4,
+                "name": "Run documentation build",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "lint",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881382,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 2,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 3,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 4,
+                "name": "Install requirements",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 5,
+                "name": "flake8 Lint",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "typechecking",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881059,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 2,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 3,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 4,
+                "name": "Install requirements",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 5,
+                "name": "mypy Static Typechecking",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          }
+        ],
+        "unmatched": [],
+        "unassigned": [],
+        "package_assessments": [
+          {
+            "job": "test",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "test",
+            "slot": 1,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "test",
+            "slot": 2,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "test",
+            "slot": 3,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "coverage",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "lint",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "typechecking",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          }
+        ]
+      }
+    },
+    "controlled-fail-fast": {
+      "digest": "9446db1dd4636af7b0fdc89557f14816e221ef3d93341b66c50aa42fd70724fa",
+      "native_sha256": "805de4f417b370c560c2754c00ee3a67a9c0d2c37809b2ab700fec37e6eb2ece",
+      "versions": {
+        "ci_inputs": 2,
+        "ci_coverage": 5,
+        "runtime_dependency_state": 2
+      },
+      "description": {
+        "run_id": 43457921398,
+        "run_attempt": 1,
+        "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+        "raw_job_count": 7,
+        "raw_step_count": 51,
+        "association_state": "partially_correlated",
+        "association_reason": "scoped_job_or_step_correspondence_partial",
+        "aggregate_coverage": "unresolved",
+        "associations": [
+          {
+            "job_key": "test",
+            "slot": 0,
+            "kind": "matrix",
+            "job_id": 131996881880,
+            "job_status": "completed",
+            "job_conclusion": "failure",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.12",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "failure"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests 🏗️",
+                "status": "completed",
+                "conclusion": "skipped"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "test",
+            "slot": 1,
+            "kind": "matrix",
+            "job_id": 131996881564,
+            "job_status": "completed",
+            "job_conclusion": "cancelled",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.13",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [
+              {
+                "source_index": 3,
+                "reason": "runtime_step_match_missing"
+              },
+              {
+                "source_index": 4,
+                "reason": "runtime_step_match_missing"
+              }
+            ],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "coverage",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881258,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 3,
+                "name": "Install packages",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 4,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 5,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 6,
+                "name": "Install dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 4,
+                "number": 7,
+                "name": "Run tests with coverage 🏗️",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 5,
+                "number": 8,
+                "name": "Create coverage report",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 6,
+                "number": 9,
+                "name": "Upload Coverage Artifact",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "doc",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881440,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 2,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 3,
+                "name": "Install doc dependencies ⏬",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 4,
+                "name": "Run documentation build",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "lint",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881382,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 2,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 3,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 4,
+                "name": "Install requirements",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 5,
+                "name": "flake8 Lint",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          },
+          {
+            "job_key": "typechecking",
+            "slot": 0,
+            "kind": "ordinary",
+            "job_id": 131996881059,
+            "job_status": "completed",
+            "job_conclusion": "success",
+            "start_phase": "started",
+            "witness_steps": [
+              {
+                "source_index": 0,
+                "number": 2,
+                "name": "Checkout sources",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 1,
+                "number": 3,
+                "name": "Use python 3.14",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 2,
+                "number": 4,
+                "name": "Install requirements",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "source_index": 3,
+                "number": 5,
+                "name": "mypy Static Typechecking",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "step_problems": [],
+            "explicit_job_name": null
+          }
+        ],
+        "unmatched": [
+          {
+            "job": "test",
+            "slot": 2,
+            "reason": "runtime_job_evidence_missing",
+            "candidate_job_ids": []
+          },
+          {
+            "job": "test",
+            "slot": 3,
+            "reason": "runtime_job_evidence_missing",
+            "candidate_job_ids": []
+          }
+        ],
+        "unassigned": [
+          {
+            "id": 131996881411,
+            "reason": "runtime_job_identity_witness_missing",
+            "status": "queued",
+            "conclusion": null,
+            "start_phase": "unstarted_at_observation"
+          }
+        ],
+        "package_assessments": [
+          {
+            "job": "test",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "test",
+            "slot": 1,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "test",
+            "slot": 2,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "test",
+            "slot": 3,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "coverage",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "lint",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "job": "typechecking",
+            "slot": 0,
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence"
+          }
+        ]
+      }
+    }
+  },
+  "cold": {
+    "scoped_sqlite_revisions": [
+      "genuine",
+      "controlled-fail-fast"
+    ],
+    "native_parity": true,
+    "historical_encoded_compatibility": [
+      "mapproxy-genuine-baseline",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "milestone-3-ci-coverage-v4"
+    ],
+    "historical_v4_matrix_state": "static_job_strategy_unsupported",
+    "evaluator_reentry": false,
+    "network_access": false
+  },
+  "normal_installed_cli": {
+    "normal_installed_semantic_parity": true,
+    "historical_report_opens": [
+      "mapproxy-genuine-baseline",
+      "mapproxy-offline-replay",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "applypilot-original-genuine",
+      "applypilot-current-ci-diagnostic",
+      "applypilot-missing-steps-diagnostic",
+      "mapproxy-legacy-counts-diagnostic"
+    ],
+    "semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+    "requests": 16,
+    "saved_report_reopened": true
+  },
+  "architecture": {
+    "experiment_dependency_boundaries": "OK",
+    "product_python_files": 120
+  },
+  "proof_limits": "Later-command execution qualification and final normal matrix/report delivery remain pending."
+}

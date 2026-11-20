@@ -107,7 +107,7 @@ class ScopedCommandIdentityTests(unittest.TestCase):
         coverage = evaluate_dependency_ci_coverage(dependency, (workflow,), source_contexts=(context,))
         runtime = evaluate_runtime_dependency_state(dependency, (workflow,), coverage, source_contexts=(context,))
         self.assertEqual(coverage.state, "supported_not_correlated")
-        self.assertEqual(coverage.workflows[0].runtime_correlation.reason, "static_job_strategy_unsupported")
+        self.assertEqual(coverage.workflows[0].runtime_correlation.reason, "scoped_job_correspondence_unresolved")
         self.assertEqual(len(runtime.assessments), 7)
         self.assertTrue(all(not isinstance(a.result, RequirementSatisfiedAtCommandCompletion)
                             for a in runtime.assessments))
@@ -198,7 +198,7 @@ class ScopedCommandIdentityTests(unittest.TestCase):
         records = {record.family: record for record in boundary.records}
         self.assertEqual([records[f].codec_version for f in (
             "ci_inputs", "ci_coverage", "runtime_dependency_state",
-        )], [2, 4, 2])
+        )], [2, 5, 2])
         workflow_result = coverage.workflows[0]
         first, second, *rest = workflow_result.consumptions
         swapped = replace(first, command_location=second.command_location)

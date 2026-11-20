@@ -2,6 +2,13 @@
 
 from dataclasses import replace
 
+from .workflow_runtime_correlation import (
+    ScopedWorkflowRuntimeEvidence,
+    UnassignedRuntimeJob,
+    UnmatchedWorkflowJobInstance,
+    WorkflowJobAssociationBasis,
+    WorkflowRuntimeStepProblem,
+)
 from ..github.workflow_definition import JobProblem, ReusableWorkflowJobDefinition, WorkflowDefinition, WorkflowDefinitionProblem
 from ..github.workflow_instance_commands import WorkflowRunScriptIdentity
 from ..github.workflow_matrix import MatrixCoordinate, MatrixExpansion, MatrixExpansionProblem, MatrixExpansionRow, MatrixLiteral
@@ -139,8 +146,66 @@ _SUCCESSOR_FIELDS = {
 def scoped_ci_layouts(historical: tuple[RecordLayout, ...]) -> tuple[RecordLayout, ...]:
     """Use the successor fields only in the three versioned CI family roots."""
     return tuple(
-        replace(layout, fields=layout.fields + (_SUCCESSOR_FIELDS[layout.variant],),
-                omitted_none_fields=())
+        replace(
+            layout,
+            fields=layout.fields + (_SUCCESSOR_FIELDS[layout.variant],),
+            omitted_none_fields=tuple(
+                name for name in layout.omitted_none_fields
+                if name != _SUCCESSOR_FIELDS[layout.variant][0]
+            ),
+        )
         if layout.variant in _SUCCESSOR_FIELDS else layout
         for layout in historical
     ) + SCOPED_LAYOUTS
+
+
+_ASSOCIATION_LAYOUTS = (
+    RecordLayout("workflow_runtime_step_problem", WorkflowRuntimeStepProblem, (
+        ("source_index", int), ("reason", str),
+    )),
+    RecordLayout("workflow_job_association_basis", WorkflowJobAssociationBasis, (
+        ("explicit_job_name", _optional(str)),
+        ("witness_step_numbers", SequenceOf(int)),
+        ("step_problems", SequenceOf(RecordRef("workflow_runtime_step_problem"))),
+    )),
+    RecordLayout("unmatched_workflow_job_instance", UnmatchedWorkflowJobInstance, (
+        ("instance", _INSTANCE), ("reason", str), ("candidate_job_ids", SequenceOf(int)),
+    )),
+    RecordLayout("unassigned_runtime_job", UnassignedRuntimeJob, (
+        ("job", RecordRef("workflow_job")), ("reason", str),
+        ("candidate_instances", SequenceOf(_INSTANCE)),
+    )),
+    RecordLayout("scoped_workflow_runtime_evidence", ScopedWorkflowRuntimeEvidence, (
+        ("run_id", int), ("run_attempt", int), ("head_sha", str),
+        ("unmatched_instances", SequenceOf(RecordRef("unmatched_workflow_job_instance"))),
+        ("unassigned_jobs", SequenceOf(RecordRef("unassigned_runtime_job"))),
+        ("unresolved_source_jobs", SequenceOf(int)),
+    )),
+)
+
+
+def association_ci_layouts(scoped: tuple[RecordLayout, ...]) -> tuple[RecordLayout, ...]:
+    """Coverage v5 retains associations and their independent step outcomes."""
+    layouts = []
+    for layout in scoped:
+        if layout.variant == "workflow_runtime_correlation_result_v3":
+            layout = replace(
+                layout,
+                fields=(
+                    ("state", LiteralValues((
+                        "correlated", "correlated_with_skipped_jobs", "partially_correlated", "unresolved",
+                    ))),
+                ) + layout.fields[1:] + (
+                    ("scoped", _optional(RecordRef("scoped_workflow_runtime_evidence"))),
+                ),
+                omitted_none_fields=(),
+            )
+        elif layout.variant == "workflow_runtime_job_correlation":
+            layout = replace(
+                layout, fields=layout.fields + (
+                    ("association", _optional(RecordRef("workflow_job_association_basis"))),
+                ),
+                omitted_none_fields=(),
+            )
+        layouts.append(layout)
+    return tuple(layouts) + _ASSOCIATION_LAYOUTS

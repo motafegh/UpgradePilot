@@ -1,9 +1,9 @@
-"""Correlate exact static workflow jobs/steps with exact-attempt runtime evidence.
+"""Correlate exact static workflow jobs and steps with one captured attempt.
 
 GitHub provider modules own the factual static and runtime records. This CI module owns only
 the deterministic relationship between those independently acquired records for the bounded
-ordinary-workflow class admitted by the current design. Unsupported or ambiguous shapes stay
-explicitly unresolved rather than being guessed into execution evidence.
+ordinary route or the prepared literal-matrix route. The latter first compares compatible
+job origins and then preserves independent step matches and omissions for established jobs.
 
 Correlation answers identity only. Runtime status/conclusion is preserved on the matched
 ``WorkflowStep`` but is not interpreted here as dependency installation, exercise, or success.
@@ -11,12 +11,14 @@ Correlation answers identity only. Runtime status/conclusion is preserved on the
 
 from __future__ import annotations
 
+from collections import Counter
 from collections.abc import Sequence
 from dataclasses import dataclass, replace
 from typing import Literal
 
 from ..github.actions import WorkflowJob, WorkflowRun, WorkflowStep
 from ..github.repository import RepositoryTextFile
+from ..github.workflow_instance_commands import materialize_workflow_job_instance
 from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
@@ -36,7 +38,7 @@ from ..github.workflow_specialization import (
 
 type CorrelatableWorkflowStep = RunStepDefinition | UsesStepDefinition
 type WorkflowRuntimeCorrelationState = Literal[
-    "correlated", "correlated_with_skipped_jobs", "unresolved"
+    "correlated", "correlated_with_skipped_jobs", "partially_correlated", "unresolved"
 ]
 
 
@@ -50,6 +52,45 @@ class WorkflowRuntimeStepCorrelation:
 
 
 @dataclass(frozen=True, slots=True)
+class WorkflowRuntimeStepProblem:
+    source_index: int
+    reason: str
+
+
+@dataclass(frozen=True, slots=True)
+class WorkflowJobAssociationBasis:
+    """Affirmative source witnesses and independent omissions for one associated job."""
+
+    explicit_job_name: str | None
+    witness_step_numbers: tuple[int, ...]
+    step_problems: tuple[WorkflowRuntimeStepProblem, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class UnmatchedWorkflowJobInstance:
+    instance: WorkflowJobInstanceIdentity
+    reason: str
+    candidate_job_ids: tuple[int, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class UnassignedRuntimeJob:
+    job: WorkflowJob
+    reason: str
+    candidate_instances: tuple[WorkflowJobInstanceIdentity, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class ScopedWorkflowRuntimeEvidence:
+    run_id: int
+    run_attempt: int
+    head_sha: str
+    unmatched_instances: tuple[UnmatchedWorkflowJobInstance, ...]
+    unassigned_jobs: tuple[UnassignedRuntimeJob, ...]
+    unresolved_source_jobs: tuple[int, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class WorkflowRuntimeJobCorrelation:
     """One static steps job matched to one runtime job plus its user-step matches."""
 
@@ -57,6 +98,7 @@ class WorkflowRuntimeJobCorrelation:
     runtime_job: WorkflowJob
     steps: tuple[WorkflowRuntimeStepCorrelation, ...]
     job_instance: WorkflowJobInstanceIdentity | None = None
+    association: WorkflowJobAssociationBasis | None = None
 
     @property
     def skipped_without_steps(self) -> bool:
@@ -72,10 +114,11 @@ class WorkflowRuntimeCorrelationResult:
     reason: str
     detail: str
     jobs: tuple[WorkflowRuntimeJobCorrelation, ...] = ()
+    scoped: ScopedWorkflowRuntimeEvidence | None = None
 
     @property
     def has_job_matches(self) -> bool:
-        return self.state in {"correlated", "correlated_with_skipped_jobs"}
+        return self.state in {"correlated", "correlated_with_skipped_jobs", "partially_correlated"}
 
 
 def correlate_workflow_runtime(
@@ -95,6 +138,13 @@ def correlate_workflow_runtime(
     steps are allowed between those user-declared steps. An explicitly skipped completed
     job with a supplied empty step list retains its job identity without step matches.
     """
+
+    if (
+        prepared is not None and isinstance(prepared.definition, WorkflowDefinition)
+        and any(isinstance(job, StepsJobDefinition) and job.strategy is not None
+                for job in prepared.definition.jobs)
+    ):
+        return _correlate_prepared_matrix(source, run, jobs, prepared)
 
     if source.revision != run.head_sha:
         return _unresolved(
@@ -238,6 +288,285 @@ def correlate_workflow_runtime(
         ),
         jobs=tuple(correlations),
     )
+
+
+@dataclass(frozen=True, slots=True)
+class _DeclaredJob:
+    instance: WorkflowJobInstanceIdentity
+    job: StepsJobDefinition
+    name: str | None
+    step_names: dict[str, CorrelatableWorkflowStep]
+    step_problems: tuple[WorkflowRuntimeStepProblem, ...]
+
+
+def _literal_job_name(job: StepsJobDefinition) -> str | None:
+    name = job.name
+    return name.text if name is not None and not name.contains_expression and name.text.strip() else None
+
+
+def _declared_job(
+    instance: WorkflowJobInstanceIdentity,
+    job: StepsJobDefinition,
+    original: StepsJobDefinition,
+) -> _DeclaredJob:
+    named_steps = []
+    problems = []
+    for step in job.steps:
+        if isinstance(step, StepProblem):
+            problems.append(WorkflowRuntimeStepProblem(step.source_index, "static_step_unresolved"))
+            continue
+        # Runner defaults are qualified only on the original literal declaration.
+        # A generated unnamed run step cannot gain a guessed display witness.
+        display_step = step if step.name is not None else original.steps[step.source_index]
+        assert isinstance(display_step, (RunStepDefinition, UsesStepDefinition))
+        name = _static_step_runtime_display_name(job.key, display_step)
+        if isinstance(name, WorkflowRuntimeCorrelationResult):
+            problems.append(WorkflowRuntimeStepProblem(step.source_index, name.reason))
+        else:
+            named_steps.append((name, step))
+    counts = Counter(name for name, _ in named_steps)
+    step_names = {}
+    for name, step in named_steps:
+        if counts[name] == 1:
+            step_names[name] = step
+        else:
+            problems.append(WorkflowRuntimeStepProblem(step.source_index, "duplicate_static_step_name"))
+    return _DeclaredJob(instance, job, _literal_job_name(job), step_names, tuple(problems))
+
+
+@dataclass(frozen=True, slots=True)
+class _JobComparison:
+    matches: tuple[WorkflowRuntimeStepCorrelation, ...] = ()
+    problems: tuple[WorkflowRuntimeStepProblem, ...] = ()
+    explicit_name: str | None = None
+    conflict: bool = False
+
+    @property
+    def has_witness(self) -> bool:
+        return self.explicit_name is not None or bool(self.matches)
+
+
+def _compare_job(
+    declared: _DeclaredJob,
+    job: WorkflowJob,
+    by_name: dict[str, list[WorkflowStep]],
+    observed_witness_names: set[str],
+    distinct_step_names: set[str],
+    invalid_step_order: bool,
+) -> _JobComparison | None:
+    if declared.name is not None and declared.name != job.name:
+        return None
+    shared = observed_witness_names & declared.step_names.keys()
+    if observed_witness_names - declared.step_names.keys():
+        if declared.name is not None or shared & distinct_step_names:
+            return _JobComparison(conflict=True)
+        # An unresolved source step can account for an otherwise foreign name.
+        # This origin remains possible but contributes no affirmative witness.
+        return _JobComparison() if declared.step_problems else None
+    if invalid_step_order:
+        return _JobComparison(conflict=declared.name is not None or bool(shared))
+    matches = []
+    problems = list(declared.step_problems)
+    for name, step in declared.step_names.items():
+        rows = by_name.get(name)
+        if rows and len(rows) == 1:
+            matches.append(WorkflowRuntimeStepCorrelation(step, rows[0], declared.instance))
+        else:
+            reason = (
+                "runtime_step_match_ambiguous" if rows
+                else "runtime_steps_unavailable" if job.steps is None
+                else "runtime_step_match_missing"
+            )
+            problems.append(WorkflowRuntimeStepProblem(step.source_index, reason))
+    numbers = tuple(match.runtime_step.number for match in matches)
+    if any(current <= prior for prior, current in zip(numbers, numbers[1:])):
+        return _JobComparison(conflict=True)
+    return _JobComparison(tuple(matches), tuple(problems), declared.name)
+
+
+# Bound the cross-product work separately from the provider's individual input limits.
+_MAX_ASSOCIATION_COMPARISON_WORK = 500_000
+
+
+def _correlate_prepared_matrix(
+    source: RepositoryTextFile,
+    run: WorkflowRun,
+    jobs: Sequence[WorkflowJob],
+    prepared: PreparedWorkflowJobInstances,
+) -> WorkflowRuntimeCorrelationResult:
+    """Collect all competing origins before committing any job association."""
+    if source.revision != run.head_sha:
+        return _unresolved("workflow_revision_mismatch", "The exact source differs from the captured run head.")
+    if prepared.definition.source != source:
+        return _unresolved("workflow_source_mismatch", "Prepared instances belong to another source.")
+    definition = prepared.definition
+    assert isinstance(definition, WorkflowDefinition)
+    declared = []
+    unknown_origins = {}
+    for job in prepared.jobs:
+        original = definition.jobs[job.source_index]
+        if job.state != "complete":
+            unknown_origins[job.source_index] = (
+                _literal_job_name(original) if isinstance(original, StepsJobDefinition) else None
+            )
+        for instance in job.instances:
+            assert isinstance(original, StepsJobDefinition)
+            view = materialize_workflow_job_instance(definition, instance)
+            declared.append(_declared_job(instance.identity, view, original))
+    if prepared.problem is not None:
+        unknown_origins = dict.fromkeys(range(len(definition.jobs)))
+
+    step_name_counts = Counter(name for entry in declared for name in entry.step_names)
+    distinct_step_names = {name for name, count in step_name_counts.items() if count == 1}
+    counts = Counter(job.job_id for job in jobs)
+    row_reasons: dict[int, str] = {}
+    candidate_rows: dict[WorkflowJobInstanceIdentity, list[int]] = {
+        entry.instance: [] for entry in declared
+    }
+    row_comparisons: dict[int, list[tuple[_DeclaredJob, _JobComparison]]] = {}
+    starters = sum(1 + len(entry.job.steps) for entry in declared) + len(unknown_origins)
+    observations = sum(1 + len(job.steps or ()) for job in jobs)
+    if starters * observations > _MAX_ASSOCIATION_COMPARISON_WORK:
+        return _scoped_result(
+            run, (),
+            tuple(UnmatchedWorkflowJobInstance(entry.instance, "association_work_limit", ()) for entry in declared),
+            tuple(UnassignedRuntimeJob(job, "association_work_limit", ()) for job in jobs),
+            tuple(unknown_origins),
+        )
+
+    for row, job in enumerate(jobs):
+        if job.run_id != run.run_id or job.head_sha != run.head_sha:
+            row_reasons[row] = "runtime_job_scope_mismatch"
+            continue
+        by_name: dict[str, list[WorkflowStep]] = {}
+        for step in job.steps or ():
+            by_name.setdefault(step.name, []).append(step)
+        # Additional runner setup/post rows are allowed. A name admitted for a
+        # different source origin is material and cannot be ignored as runner noise.
+        seen_witnesses = set(by_name).intersection(step_name_counts)
+        # Repeated display rows may be a scoped step problem, but cannot make
+        # one source origin look uniquely compatible by eliminating its siblings.
+        observed = {name for name in seen_witnesses if len(by_name[name]) == 1}
+        numbers = tuple(step.number for step in job.steps or ())
+        invalid_order = any(prior >= current for prior, current in zip(numbers, numbers[1:]))
+        if job.status == "queued" and job.start_phase == "unknown":
+            invalid_order = True  # A queued snapshot conflicts with positive start witnesses.
+        if job.status == "completed" and job.conclusion == "skipped" and job.start_phase == "started":
+            invalid_order = True  # An explicitly skipped job cannot supply a positive start witness.
+        comparisons = []
+        for entry in declared:
+            pair = _compare_job(entry, job, by_name, observed, distinct_step_names, invalid_order)
+            if pair is not None:
+                comparisons.append((entry, pair))
+        if not observed and any(pair.explicit_name is not None for _, pair in comparisons):
+            comparisons = [
+                (entry, pair) for entry, pair in comparisons if pair.explicit_name is not None
+            ]
+        row_comparisons[row] = comparisons
+        has_signal = bool(seen_witnesses) or any(
+            pair.explicit_name is not None or pair.conflict for _, pair in comparisons
+        )
+        if has_signal:
+            for entry, _ in comparisons:
+                candidate_rows[entry.instance].append(row)
+        if counts[job.job_id] != 1:
+            row_reasons[row] = "duplicate_runtime_job_id"
+        elif any(pair.conflict for _, pair in comparisons):
+            row_reasons[row] = "conflicting_job_or_step_witnesses"
+        elif not has_signal:
+            row_reasons[row] = "runtime_job_identity_witness_missing"
+        elif any(name is None or name == job.name for name in unknown_origins.values()):
+            row_reasons[row] = "static_competing_origin_unresolved"
+        elif len(comparisons) != 1 or not comparisons[0][1].has_witness:
+            row_reasons[row] = "static_job_match_ambiguous" if comparisons else "static_job_match_missing"
+
+    matches = {}
+    unassigned = []
+    for row, job in enumerate(jobs):
+        reason = row_reasons.get(row)
+        comparisons = row_comparisons.get(row, [])
+        if reason is None:
+            (entry, pair), = comparisons
+            # Test the reciprocal relation against all observed contenders, including
+            # ambiguous rows. Never remove a winner and infer another by elimination.
+            if len(candidate_rows[entry.instance]) == 1:
+                matches[entry.instance] = WorkflowRuntimeJobCorrelation(
+                    entry.job, job, pair.matches, entry.instance,
+                    WorkflowJobAssociationBasis(
+                        pair.explicit_name,
+                        tuple(step.runtime_step.number for step in pair.matches),
+                        pair.problems,
+                    ),
+                )
+                continue
+            reason = "runtime_job_match_ambiguous"
+        candidates = (
+            () if reason == "runtime_job_identity_witness_missing"
+            else tuple(entry.instance for entry, _ in comparisons)
+        )
+        unassigned.append(UnassignedRuntimeJob(job, reason, candidates))
+    unmatched = []
+    for entry in declared:
+        if entry.instance not in matches:
+            candidates = candidate_rows[entry.instance]
+            unmatched.append(UnmatchedWorkflowJobInstance(
+                entry.instance, "runtime_job_match_unresolved" if candidates else "runtime_job_evidence_missing",
+                tuple(dict.fromkeys(jobs[row].job_id for row in candidates)),
+            ))
+    return _scoped_result(
+        run, tuple(matches[entry.instance] for entry in declared if entry.instance in matches),
+        tuple(unmatched), tuple(unassigned), tuple(unknown_origins),
+    )
+
+
+def _scoped_result(
+    run: WorkflowRun,
+    matches: tuple[WorkflowRuntimeJobCorrelation, ...],
+    unmatched: tuple[UnmatchedWorkflowJobInstance, ...],
+    unassigned: tuple[UnassignedRuntimeJob, ...],
+    unresolved_sources: tuple[int, ...],
+) -> WorkflowRuntimeCorrelationResult:
+    partial = unmatched or unassigned or unresolved_sources or any(
+        match.association.step_problems and not match.skipped_without_steps for match in matches
+    )
+    if not matches:
+        state, reason = "unresolved", "scoped_job_correspondence_unresolved"
+    elif partial:
+        state, reason = "partially_correlated", "scoped_job_or_step_correspondence_partial"
+    elif any(match.skipped_without_steps for match in matches):
+        state, reason = "correlated_with_skipped_jobs", "scoped_jobs_correlated_with_skips"
+    else:
+        state, reason = "correlated", "scoped_jobs_and_steps_correlated"
+    return WorkflowRuntimeCorrelationResult(
+        state, reason,
+        f"Associated {len(matches)} declared jobs; {len(unmatched)} declared and "
+        f"{len(unassigned)} reported jobs remain unassociated. Step evidence is retained per job.",
+        matches, ScopedWorkflowRuntimeEvidence(
+            run.run_id, run.run_attempt, run.head_sha, unmatched, unassigned, unresolved_sources,
+        ),
+    )
+
+
+def find_correlated_runtime_step(
+    correlation: WorkflowRuntimeCorrelationResult,
+    *,
+    job_key: str,
+    step_source_index: int,
+    instance: WorkflowJobInstanceIdentity | None,
+) -> WorkflowRuntimeStepCorrelation | None:
+    jobs = tuple(
+        job for job in correlation.jobs
+        if job.static_job.key == job_key and job.job_instance == instance
+        and (instance is None or job.static_job.source_index == instance.job_source_index)
+    )
+    if len(jobs) != 1:
+        return None
+    steps = tuple(
+        step for step in jobs[0].steps if step.static_step.source_index == step_source_index
+    )
+    if len(steps) == 1 and steps[0].job_instance == instance:
+        return steps[0]
+    return None
 
 
 def _correlate_job_steps(

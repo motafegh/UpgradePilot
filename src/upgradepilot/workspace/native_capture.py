@@ -44,6 +44,7 @@ from .native_boundary import (
     validate_native_boundary,
 )
 from .native_codecs import (
+    ASSOCIATION_COVERAGE_CODEC, ASSOCIATION_PRODUCER_VERSION,
     FAMILY_CONTRACTS, SCOPED_CI_FAMILIES, SCOPED_CI_PRODUCER_VERSION,
     decode_native_value, encode_native_value, family_contract,
 )
@@ -162,14 +163,22 @@ class NativeInvestigationCapture:
         runtime: RuntimeDependencyStateResult,
     ) -> None:
         if any(workflow.prepared is not None for workflow in inputs):
+            has_associations = any(
+                item.runtime_correlation is not None and item.runtime_correlation.scoped is not None
+                for item in coverage.workflows
+            )
             for family, value in (
                 ("ci_inputs", inputs),
                 ("ci_coverage", coverage),
                 ("runtime_dependency_state", runtime),
             ):
                 codec_version, method = SCOPED_CI_FAMILIES[family]
+                producer_version = SCOPED_CI_PRODUCER_VERSION
+                if family == "ci_coverage" and has_associations:
+                    codec_version = ASSOCIATION_COVERAGE_CODEC
+                    producer_version = ASSOCIATION_PRODUCER_VERSION
                 self._record(
-                    family, value, method=method, version=SCOPED_CI_PRODUCER_VERSION,
+                    family, value, method=method, version=producer_version,
                     codec_version=codec_version,
                 )
             return

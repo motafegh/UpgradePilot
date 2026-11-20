@@ -24,7 +24,10 @@ from ..github.workflow_definition import (
 )
 from ..github.workflow_environment import observe_workflow_environment_value
 from .runtime_execution import assess_correlated_step_execution
-from .workflow_runtime_correlation import WorkflowRuntimeCorrelationResult
+from .workflow_runtime_correlation import (
+    WorkflowRuntimeCorrelationResult,
+    find_correlated_runtime_step,
+)
 
 
 type ExecutableSelectionState = Literal["established", "unresolved"]
@@ -210,12 +213,14 @@ def establish_executable_selection(
             provider_reference=provider_step.reference.text,
         )
 
-    provider_correlation = _find_step_correlation(
+    script = location.script_identity
+    provider_correlation = find_correlated_runtime_step(
         correlation,
         job_key=job.key,
         step_source_index=provider_step.source_index,
+        instance=script.instance if script is not None else None,
     )
-    if provider_correlation is None:
+    if provider_correlation is None or provider_correlation.static_step != provider_step:
         return _unresolved(
             location,
             executable=executable,
@@ -285,26 +290,6 @@ def _setup_python_update_environment(mapping: StaticMappingValue | None) -> bool
         return True
     if folded == "false":
         return False
-    return None
-
-
-def _find_step_correlation(
-    correlation: WorkflowRuntimeCorrelationResult,
-    *,
-    job_key: str,
-    step_source_index: int,
-):
-    for correlated_job in correlation.jobs:
-        if correlated_job.static_job.key != job_key:
-            continue
-        return next(
-            (
-                item
-                for item in correlated_job.steps
-                if item.static_step.source_index == step_source_index
-            ),
-            None,
-        )
     return None
 
 

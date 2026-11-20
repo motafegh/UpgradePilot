@@ -876,6 +876,7 @@ LAYOUTS = (
             ("detail", str),
             ("jobs", SequenceOf(RecordRef("workflow_runtime_job_correlation"))),
         ),
+        omitted_none_fields=("scoped",),
     ),
     RecordLayout(
         "workflow_runtime_job_correlation",
@@ -885,7 +886,7 @@ LAYOUTS = (
             ("runtime_job", RecordRef("workflow_job")),
             ("steps", SequenceOf(RecordRef("workflow_runtime_step_correlation"))),
         ),
-        omitted_none_fields=("job_instance",),
+        omitted_none_fields=("job_instance", "association"),
     ),
     RecordLayout(
         "workflow_runtime_step_correlation",

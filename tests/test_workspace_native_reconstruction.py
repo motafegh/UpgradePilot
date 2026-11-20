@@ -664,13 +664,15 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         # decision. This independent schema check catches drift even in unexercised variants.
         layouts = INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS
         scoped_successor_fields = {
-            "static_command_location": "script_identity",
-            "workflow_dependency_coverage_input": "prepared",
-            "static_dependency_consumption_evidence": "job_instance",
-            "direct_package_invocation_evidence": "job_instance",
-            "static_workflow_dependency_problem": "job_instance",
-            "workflow_runtime_job_correlation": "job_instance",
-            "workflow_runtime_step_correlation": "job_instance",
+            "static_command_location": ("script_identity",),
+            "workflow_dependency_coverage_input": ("prepared",),
+            "static_dependency_consumption_evidence": ("job_instance",),
+            "direct_package_invocation_evidence": ("job_instance",),
+            "static_workflow_dependency_problem": ("job_instance",),
+            "workflow_runtime_job_correlation": ("job_instance", "association"),
+            "workflow_runtime_step_correlation": ("job_instance",),
+            "workflow_runtime_correlation_result": ("scoped",),
+            "workflow_runtime_correlation_result_v3": ("scoped",),
         }
         for layout in layouts + IMPACT_LAYOUTS + CALLER_SOURCE_LAYOUTS:
             with self.subTest(variant=layout.variant):
@@ -685,9 +687,9 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                     # Source codec 1 predates the explicitly versioned move observation.
                     expected = tuple(name for name in expected if name != "repository_move")
                 if layout.variant in scoped_successor_fields:
-                    name = scoped_successor_fields[layout.variant]
-                    expected = tuple(field for field in expected if field != name)
-                    self.assertEqual(layout.omitted_none_fields, (name,))
+                    names = scoped_successor_fields[layout.variant]
+                    expected = tuple(field for field in expected if field not in names)
+                    self.assertEqual(layout.omitted_none_fields, names)
                 self.assertEqual(
                     tuple(name for name, _ in layout.fields),
                     expected,
