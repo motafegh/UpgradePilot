@@ -1,0 +1,268 @@
+{
+  "disposition": "accepted_within_ADR-0014_and_plan_scope",
+  "product_commit": "f1213c4a0836e1a085bc2875c278d4e6f6315b4b",
+  "product_tree": "8449b108a18f3abdb74447121fc1a0ecd070d0be",
+  "input": {
+    "repository": "mapproxy/mapproxy",
+    "pull_request": 1559,
+    "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+    "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "run_id": 43457921398,
+    "run_attempt": 1,
+    "workflow_path": ".github/workflows/test.yml",
+    "workflow_sha256": "fb052b6c542e85ccc7448c325d47c03bf1ba3e2453caec02130b898d47821738",
+    "provider_ledger_sha256": "0e39c5935f6ca4d296cf802e57a7eec44ca4c72d7ca185213e1c53def6580a29",
+    "evidence_mode": "retained provider transport; modified controls kept separate; no live acquisition"
+  },
+  "environment": {
+    "installed_modules_matched": 120,
+    "wheel_sha256": "435396039d3c4527799ac32fd4d3370b374337c7a846e6c359ac5d89540a3931",
+    "normal_console_and_store_run_full_report_parity": true,
+    "historical_reports": [
+      "mapproxy-genuine-baseline",
+      "mapproxy-offline-replay",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "applypilot-original-genuine",
+      "applypilot-current-ci-diagnostic",
+      "applypilot-missing-steps-diagnostic",
+      "mapproxy-legacy-counts-diagnostic"
+    ],
+    "historical_native": [
+      "mapproxy-genuine-baseline",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control"
+    ],
+    "prior_sqlite_revisions": [
+      {
+        "lineage": "mapproxy-retained-input",
+        "codec": 4,
+        "digest": "9aa513c28be184040bc238e59985ab8c4422678490c8b85620b3d5ae372a7268"
+      },
+      {
+        "lineage": "genuine",
+        "codec": 5,
+        "digest": "a4a722f3f84596ea0080948d5d76b6551b0952137a809d98b5e42f20594b94fc"
+      },
+      {
+        "lineage": "controlled-fail-fast",
+        "codec": 5,
+        "digest": "9446db1dd4636af7b0fdc89557f14816e221ef3d93341b66c50aa42fd70724fa"
+      }
+    ]
+  },
+  "commands": [
+    "python -m pip wheel --no-build-isolation --no-deps --no-index (Git archive source)",
+    "python -m pip check",
+    "upgradepilot mapproxy/mapproxy 1559 --save-report <path>",
+    "upgradepilot --open-report <path>",
+    "python -m unittest discover -s tests",
+    "python -m unittest discover -s experiments/tests -p <affected-consumer-module>",
+    "python tools/check_experiment_boundaries.py"
+  ],
+  "installed_console": {
+    "replayed": 16,
+    "expected": 16
+  },
+  "matrix_report_and_workspace_recoveries": {
+    "genuine": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "c9a6d6ea32e64d778d14e937f02f44a7",
+      "report_sha256": "989f4293bfbba6f00c447df495e6beade2873e1db213bf2410bfd42a3ade9931",
+      "cross_variant_execution_refused": true,
+      "revision_digest": "a926a501a039ef02cb34a3eb5374ca270b5d6ab87a9def4e086312ec8881b085",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 8,
+      "commands": 7,
+      "reopened_sha256": "c5755c5a989d98f72f9c1058387e837648bb55a8178e30770523bd59bd4f2c30"
+    },
+    "mixed": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "d79b4d2775044d59bc3efb14ed4cc349",
+      "report_sha256": "a7914cb51b3cab8d4259b3fcd0ce4ff6876aa03250dde7ac03881c7c13969f2d",
+      "revision_digest": "dc1268f3f5c65ac6dcb7b39c5a4fd479e3b54a4e404fa38ef9625b2e942cc368",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 9,
+      "commands": 7,
+      "reopened_sha256": "5f85d8cbea67ce321d684f1622ab6039e3db1528b636ce81fd6747a86d848e0a"
+    },
+    "explicit-skip": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "b9df227ff4954e2993861767abe0d8ee",
+      "report_sha256": "d45405158edea0df9afc8540415d69741c017ee3b011a94584a0af3c44a94da5",
+      "revision_digest": "39fa83e6243ddd80fabee0b418b5b92e0f2815e313dbdbc366dd5dcc9bf1f8bf",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 9,
+      "commands": 7,
+      "reopened_sha256": "ad8cb69ffe7d7e02e1c4deb03af96cafce9cc3650d22bf54e2ac7c26eda2ffe0"
+    },
+    "named-skip": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "e8b1a60dbfd348bcb533119a61bc5a92",
+      "report_sha256": "11f599f7a85e9afafb968ec0ea53be0e0245e886a43531de17833ffa866091f2",
+      "revision_digest": "f09b828a5786b9f43d89a70650208c12aa7772f12b17c29dbaccdf5b1107227c",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 8,
+      "commands": 7,
+      "reopened_sha256": "1fe44135824564765ad85470cf59a234367a43d0102e192ba06856739f5e0977"
+    },
+    "cancelled-phase-unknown": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "4bcc0d06dab04924bbe8178f45facc75",
+      "report_sha256": "e003f4857c224479b48e631ec155932ad3611ff0e7d3e3757b10a5116794f0fe",
+      "revision_digest": "9caa423582b43548b98a9904d488ac7fe2d08a4c006e7362b87f398961910217",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 9,
+      "commands": 7,
+      "reopened_sha256": "6f4237135d69b7d433be8d70b513c01c0ef2cf424cbbb884a6fd715416f84800"
+    },
+    "install-then-cancel": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "58296cbe2ca3489692f332529d7f6be7",
+      "report_sha256": "256778f3efdd120f0ca5cd46a3a1e09e4d74c852b7065731c81ce22ec0b07113",
+      "revision_digest": "124150faac8ebdb24b1bc84e3ee44ca490eb8f76dba88fd10a043dcc323eddb0",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 8,
+      "commands": 7,
+      "reopened_sha256": "a46c2bbedc8fd98a6b52e4f062dd9ae41c7e1f8a77d75f36637704c0d540e093"
+    },
+    "missing-install": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "9a1ce93720da463bb01c61251894c0b4",
+      "report_sha256": "98d47a24cdfde56970116b3643932b0975790c48da7ac8c3a95740dcf99341ce",
+      "revision_digest": "ad8e099688e827efdf4f5ed99bb955e9ac03a6e386614e3e07f42252ea87f53e",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 8,
+      "commands": 7,
+      "reopened_sha256": "eecf3fdbd57ee858c2322463b21adce4c2869e4361703850ca67e6e554fef3f0"
+    },
+    "dynamic-matrix": {
+      "replayed": 16,
+      "expected": 16,
+      "provider_responses": 16,
+      "revision_id": "fe2aa2fe10ad4f17a7fb7cf0ee828994",
+      "report_sha256": "efc8d244050fb04520f40732b2c5666983a63f5ed3a26f9cb6aa09eef016c87a",
+      "revision_digest": "a5005620a05ae936b5022121f6203dc6e0a58d49ebd512067df854e2de8b383f",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 13,
+      "commands": 3,
+      "reopened_sha256": "aa0526765d58288fafd3f0026de9ca9cdb8c911418febff55ac7eab85160b4c1"
+    }
+  },
+  "ordinary_ci_parity": {
+    "applypilot": {
+      "substantive_report_parity": true,
+      "ci_state": "unresolved",
+      "ci_reason": "correlated_dependency_consumption_execution_not_successful",
+      "additive_workflow_source_facts": 9
+    },
+    "server-nexe-frozen": {
+      "substantive_report_parity": true,
+      "ci_state": "supported_runtime_correlated",
+      "ci_reason": "successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
+      "additive_workflow_source_facts": 8
+    },
+    "server-nexe-missing-install": {
+      "substantive_report_parity": true,
+      "ci_state": "supported_not_correlated",
+      "ci_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "additive_workflow_source_facts": 8
+    }
+  },
+  "regression": {
+    "full_installed_tests": 1182,
+    "seconds": 232.43,
+    "full_installed_log_sha256": "751c0e97b1690f37fc764af0b6df6d46f20308d8f9c94dcd0d54258e66fa3f2f",
+    "consumer_tests": {
+      "test_investigator_ci_presentation.py": 7,
+      "test_retained_native_ci_baseline_comparison.py": 11,
+      "test_current_ci_owner_diagnostic.py": 12
+    },
+    "experiment_boundaries": "passed",
+    "shell_controls": 32,
+    "shell_control_receipt_sha256": "94f7813fc150252c575bef25c9065d4d961865ed616819262b53ea9852cb2004",
+    "dependency_consistency": "passed"
+  },
+  "private_verifier_corrections": [
+    "The missing-install oracle initially used the wrong zero-based index. Static index 3 is the step observed as runtime step 6.",
+    "The ordinary parity checker now compares retained native material and reference edges independently of generated record IDs, and accounts for older generator metadata and additive workflow-source presentation facts."
+  ],
+  "open_propositions": [
+    "All seven installed package states remain unresolved.",
+    "Soup Sieve behavior exercised by tests and whole-upgrade compatibility remain unestablished.",
+    "No admitted retained evidence establishes that a completed cancellation never started.",
+    "Independent learner ownership and maintainer usefulness remain open."
+  ]
+}
