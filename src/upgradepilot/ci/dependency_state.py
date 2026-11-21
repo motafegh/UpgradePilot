@@ -218,12 +218,7 @@ def evaluate_runtime_dependency_state(
                 "CI workflow result path does not match its exact workflow definition"
             )
 
-        candidates = tuple(
-            consumption
-            for consumption in workflow_result.consumptions
-            if consumption.state == "supported"
-            and consumption.mechanism == "direct_requirements"
-        )
+        candidates = workflow_result.direct_requirements_candidates
         if not candidates:
             continue
 

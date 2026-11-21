@@ -36,7 +36,8 @@ from .github.pull_request import (
     PullRequestIdentity,
     PullRequestDescriptionObservation,
 )
-from .github.repository import GitHubRepositoryClient
+from .github.repository import GitHubRepositoryClient, RepositoryTextFile
+from .github.workflow_specialization import prepare_matrix_workflow_job_instances
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,15 +102,18 @@ def prepare_ci_evidence(
         if evidence
         else ()
     )
-    workflow_inputs = tuple(
-        WorkflowDependencyCoverageInput(
-            run,
-            jobs,
-            repository_client.get_exact_head_workflow_file(identity, run),
-            sources,
+    workflows = []
+    for run, jobs in evidence:
+        definition = repository_client.get_exact_head_workflow_file(identity, run)
+        prepared = (
+            prepare_matrix_workflow_job_instances(definition)
+            if isinstance(definition, RepositoryTextFile) and definition.revision == run.head_sha
+            else None
         )
-        for run, jobs in evidence
-    )
+        workflows.append(WorkflowDependencyCoverageInput(
+            run, jobs, definition, sources, prepared=prepared,
+        ))
+    workflow_inputs = tuple(workflows)
     coverage = evaluate_dependency_ci_coverage(
         inputs.dependency, workflow_inputs, source_contexts=inputs.source_contexts
     )

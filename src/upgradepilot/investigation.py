@@ -174,6 +174,7 @@ class PublicPullRequestInvestigation:
         ArtifactServiceabilityImpactAssessment | None
     ) = None
     workspace_revision: CheckpointRevision | None = None
+    ci_workflow_inputs: tuple[WorkflowDependencyCoverageInput, ...] = ()
 
 
 def investigate_public_pull_request(
@@ -260,6 +261,7 @@ def investigate_public_pull_request(
 
     target_python_result: TargetPythonEvidence | None = None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
+    coverage_inputs: tuple[WorkflowDependencyCoverageInput, ...] = ()
     ci_coverage_result: DependencyCICoverageResult | None = None
     runtime_dependency_state_result: RuntimeDependencyStateResult | None = None
     package_result: PackageReleaseResult | None = None
@@ -295,7 +297,7 @@ def investigate_public_pull_request(
             acquired_inputs, actions_client, repository_client
         )
         workflow_evidence = prepared_ci.workflow_evidence
-        coverage_inputs = list(prepared_ci.inputs)
+        coverage_inputs = prepared_ci.inputs
         ci_coverage_result = prepared_ci.coverage
         runtime_dependency_state_result = prepared_ci.runtime
         native_capture.capture_ci(
@@ -561,6 +563,7 @@ def investigate_public_pull_request(
         target_python_result=target_python_result,
         workflow_evidence=workflow_evidence,
         ci_coverage_result=ci_coverage_result,
+        ci_workflow_inputs=coverage_inputs,
         runtime_dependency_state_result=runtime_dependency_state_result,
         package_result=package_result,
         upstream_repository_result=upstream_repository_result,
@@ -590,7 +593,7 @@ def investigate_public_pull_request(
 
 def _compose_target_artifact_environments(
     ci_coverage_result: DependencyCICoverageResult,
-    coverage_inputs: list[WorkflowDependencyCoverageInput],
+    coverage_inputs: tuple[WorkflowDependencyCoverageInput, ...],
     source_contexts: tuple[DependencySourceContext, ...],
 ) -> tuple[DependencySourceArtifactEnvironmentResult, ...]:
     """Interpret only CI-supported direct-requirements source/workflow/job relationships."""

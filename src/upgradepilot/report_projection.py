@@ -10,6 +10,7 @@ Absent inputs stay explicit, and an empty candidate horizon never becomes absenc
 
 from __future__ import annotations
 
+from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from hashlib import sha256
 from importlib.metadata import PackageNotFoundError, version
@@ -20,7 +21,11 @@ from packaging.utils import canonicalize_version
 
 from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult
 from .caller_signature.source_evidence import CallerSignatureSources
-from .ci.dependency_exercise import DependencyCICoverageResult
+from .ci.dependency_exercise import (
+    DependencyCICoverageResult, WorkflowDependencyCoverageInput,
+    WorkflowDependencyCoverageResult,
+)
+from .ci.consumption import StaticDependencyConsumptionEvidence
 from .ci.job_log_diagnostic import CIJobLogDiagnostic
 from .ci.dependency_state import (
     RequirementSatisfiedAtCommandCompletion,
@@ -37,6 +42,7 @@ from .github.actions import WorkflowJob, WorkflowRun
 from .github.changelog import ChangelogPathDiscoveryProblem
 from .github.pull_request import PullRequestIdentity
 from .github.tag import GitHubTagCommitProblem
+from .github.workflow_specialization import WorkflowJobInstance, WorkflowJobInstanceIdentity
 from .impact.artifact_serviceability import (
     ArtifactServiceabilityEvidenceProblem,
     ArtifactServiceabilityImpactCandidate,
@@ -226,6 +232,7 @@ def project_ci_report(
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...],
     ci_coverage_result: DependencyCICoverageResult | None,
     runtime_dependency_state_result: RuntimeDependencyStateResult | None,
+    workflow_inputs: tuple[WorkflowDependencyCoverageInput, ...] = (),
 ) -> CIReport:
     """Copy admitted CI-native fields through the full report's single CI mapping.
 
@@ -240,6 +247,7 @@ def project_ci_report(
         dependency_result=dependency_result,
         ci_coverage_result=ci_coverage_result,
         runtime_dependency_state_result=runtime_dependency_state_result,
+        workflow_inputs=workflow_inputs,
     )
     identity = _pull_request_identity(pull_request)
     if isinstance(dependency_result, DependencyVersionChange):
@@ -299,6 +307,7 @@ def project_investigation_report(
         dependency_result=result.dependency_result,
         ci_coverage_result=result.ci_coverage_result,
         runtime_dependency_state_result=result.runtime_dependency_state_result,
+        workflow_inputs=result.ci_workflow_inputs,
     )
     _project_packages(p)
     _project_upstream(p)
@@ -497,6 +506,7 @@ def _project_ci(
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...],
     ci_coverage_result: DependencyCICoverageResult | None,
     runtime_dependency_state_result: RuntimeDependencyStateResult | None,
+    workflow_inputs: tuple[WorkflowDependencyCoverageInput, ...],
 ) -> None:
     run_refs = []
     remaining_step_bytes = _REPORTED_STEP_DETAIL_BYTES
@@ -548,6 +558,14 @@ def _project_ci(
             )
         )
     ci = ci_coverage_result
+    command_scopes: dict[int, tuple[
+        StaticDependencyConsumptionEvidence, tuple[ReportFact, ...], tuple[str, ...]
+    ]] = {}
+    if workflow_inputs and (
+        workflow_evidence != tuple((item.run, item.jobs) for item in workflow_inputs)
+        or (ci is not None and len(ci.workflows) != len(workflow_inputs))
+    ):
+        raise ReportValidationError("CI report inputs do not match the recorded workflows.")
     if ci is None:
         p.not_evaluated("ci", "CI dependency coverage", "ci.dependency_exercise")
     else:
@@ -565,6 +583,7 @@ def _project_ci(
             if unresolved
             else None,
         )
+        command_index = 0
         for i, workflow in enumerate(ci.workflows, 1):
             workflow_ref = p.source(
                 "workflow_source",
@@ -579,6 +598,20 @@ def _project_ci(
                     _fact("revision", "Static revision", pull_request.head_sha),
                 ),
             )
+            workflow_input = workflow_inputs[i - 1] if workflow_inputs else None
+            if workflow_input is not None and workflow_input.definition.path != workflow.workflow_path:
+                raise ReportValidationError("CI report workflow path differs from its input.")
+            scoped_sources = (workflow_ref, run_refs[i - 1]) if workflow_input is not None else ()
+            instance_facts = (
+                _project_scoped_ci_jobs(p, i, workflow, workflow_input, scoped_sources)
+                if workflow_input is not None else {}
+            )
+            for candidate in workflow.direct_requirements_candidates:
+                command_index += 1
+                if candidate.job_instance in instance_facts:
+                    command_scopes[command_index] = (
+                        candidate, instance_facts[candidate.job_instance], scoped_sources,
+                    )
             facts = [
                 _fact(
                     "static_consumption",
@@ -708,6 +741,12 @@ def _project_ci(
             _fact("step_source_index", "Static step index", c.step_source_index),
             _fact("command", "Command", c.command),
         ]
+        scope_sources = ()
+        if i in command_scopes:
+            candidate, scope_facts, scope_sources = command_scopes[i]
+            if c != candidate:
+                raise ReportValidationError("CI command assessment differs from its scoped candidate.")
+            facts.extend(scope_facts)
         outcome = assessment.result
         positive = isinstance(outcome, RequirementSatisfiedAtCommandCompletion)
         if positive:
@@ -749,6 +788,14 @@ def _project_ci(
                     outcome.blocking_dimension,
                 )
             )
+        if not positive and assessment.execution is not None:
+            execution = assessment.execution
+            facts.extend((
+                _fact("execution_state", "Exact command execution", execution.state),
+                _fact("execution_basis", "Execution basis", execution.basis),
+                _fact("execution_reason", "Execution reason", execution.reason),
+                _fact("runtime_step_number", "Runtime step number", execution.runtime_step_number),
+            ))
         if c.command_location is not None:
             location = c.command_location
             facts.extend(
@@ -811,12 +858,171 @@ def _project_ci(
             strength="recorded_fact" if positive else "unresolved",
             proposition="Command-completion satisfaction only; fresh installation, later use and behavior are not established.",
             facts=tuple(facts),
-            source_ids=(source, *run_refs),
+            source_ids=(source, *(scope_sources or run_refs)),
             limitations=outcome.limitations if positive else (),
             question="What requirement state was established at this exact command?"
             if not positive
             else None,
         )
+
+
+def _instance_facts(instance: WorkflowJobInstance) -> tuple[ReportFact, ...]:
+    identity = instance.identity
+    return (
+        _fact("job_source_index", "Job source index", identity.job_source_index),
+        _fact("job_kind", "Job context", identity.kind),
+        _fact("expansion_slot", "Expansion slot", identity.expansion_slot),
+        *(
+            _fact(f"coordinate_{i}", item.name, f"{item.literal.spelling} ({item.literal.kind})")
+            for i, item in enumerate(instance.coordinates, 1)
+        ),
+    )
+
+
+def _reported_job_facts(job: WorkflowJob) -> tuple[ReportFact, ...]:
+    return (
+        _fact("runtime_job_id", "Reported job ID", job.job_id),
+        _fact("runtime_job_name", "Reported job name", job.name),
+        _fact("runtime_status", "Reported job status", job.status),
+        _fact("runtime_conclusion", "Reported job conclusion", job.conclusion),
+        _fact("runtime_start_phase", "Reported start phase", job.start_phase),
+    )
+
+
+def _project_scoped_ci_jobs(
+    p: _ReportEvidence,
+    workflow_index: int,
+    workflow: WorkflowDependencyCoverageResult,
+    workflow_input: WorkflowDependencyCoverageInput,
+    sources: tuple[str, ...],
+) -> dict[WorkflowJobInstanceIdentity, tuple[ReportFact, ...]]:
+    prepared = workflow_input.prepared
+    if prepared is None:
+        return {}
+
+    run = workflow_input.run
+    attempt = (
+        _fact("run_id", "Run", run.run_id),
+        _fact("run_attempt", "Attempt", run.run_attempt),
+    )
+    correlation = workflow.runtime_correlation
+    scoped = correlation.scoped if correlation is not None else None
+    matches = {job.job_instance: job for job in correlation.jobs} if correlation else {}
+    unmatched = {item.instance: item for item in scoped.unmatched_instances} if scoped else {}
+    dependency_facts = defaultdict(list)
+    for index, item in enumerate(workflow.consumptions, 1):
+        dependency_facts[item.job_instance].append(_fact(
+            f"consumption_{index}", "Static dependency consumption",
+            f"{item.command} | {item.state} | {item.reason}",
+        ))
+    for index, item in enumerate(workflow.invocations, 1):
+        dependency_facts[item.job_instance].append(_fact(
+            f"invocation_{index}", "Static direct exercise candidate",
+            f"{item.command} | {item.state} | {item.reason}",
+        ))
+    for index, item in enumerate(workflow.version_requests or (), 1):
+        dependency_facts[item.job_instance].append(_fact(
+            f"request_{index}", "Static version request", item.request.requirement_token,
+        ))
+    candidate_counts = Counter(item.job_instance for item in workflow.direct_requirements_candidates)
+    identity_facts = {}
+
+    for job in prepared.jobs:
+        if job.state != "complete":
+            problem = job.problem or (job.expansion.problem if job.expansion else None)
+            assert problem is not None
+            p.assess(
+                f"ci-job-instance-{workflow_index}-{job.source_index}-source",
+                f"CI job declaration {job.job_key or job.source_index}",
+                "ci.workflow_runtime_correlation", "unresolved", problem.detail,
+                reason=problem.reason, status="problem", strength="unresolved",
+                proposition="The declared job has unresolved instance scope.",
+                facts=attempt, source_ids=sources,
+            )
+        for instance in job.instances:
+            identity = instance.identity
+            scope = (*attempt, *_instance_facts(instance))
+            identity_facts[identity] = scope
+            match = matches.get(identity)
+            problem = unmatched.get(identity)
+            facts = [
+                *scope,
+                _fact("static_job", "Declared job", identity.job_key),
+                *dependency_facts[identity],
+                _fact(
+                    "requirements_candidates", "Runtime requirements assessments",
+                    candidate_counts[identity] or "no admitted candidate",
+                ),
+            ]
+            if match is not None and match.association is not None:
+                basis = match.association
+                facts.extend((
+                    *_reported_job_facts(match.runtime_job),
+                    _fact("explicit_name", "Source-defined job name", basis.explicit_job_name),
+                    _fact("step_witnesses", "Ordered step witnesses",
+                          ", ".join(map(str, basis.witness_step_numbers)) or "none"),
+                    *(
+                        _fact(f"step_{step.runtime_step.number}", "Matched reported step",
+                              f"{step.runtime_step.number} {step.runtime_step.name} | "
+                              f"{step.runtime_step.status} | {step.runtime_step.conclusion}")
+                        for step in match.steps
+                    ),
+                    *(
+                        _fact(f"step_problem_{i}", "Unresolved step",
+                              f"static step {item.source_index} | {item.reason}")
+                        for i, item in enumerate(basis.step_problems, 1)
+                    ),
+                ))
+                state, reason = "associated", "source_defined_job_correspondence"
+                detail = "The reported job corresponds to this declared context."
+            else:
+                state = "unresolved"
+                reason = (
+                    problem.reason if problem is not None else
+                    correlation.reason if correlation is not None else
+                    "runtime_job_correspondence_unavailable"
+                )
+                detail = "No reported job is associated with this declared context."
+                if problem is not None and problem.candidate_job_ids:
+                    facts.append(_fact("candidate_job_ids", "Candidate reported jobs",
+                                       ", ".join(map(str, problem.candidate_job_ids))))
+            p.assess(
+                f"ci-job-instance-{workflow_index}-{identity.job_source_index}-{identity.expansion_slot}",
+                f"CI job instance {identity.job_key}", "ci.workflow_runtime_correlation",
+                state, detail, reason=reason,
+                status="available" if state == "associated" else "problem",
+                strength="recorded_fact" if state == "associated" else "unresolved",
+                proposition="Reported job and step evidence for one declared context.",
+                facts=tuple(facts), source_ids=sources,
+            )
+    if prepared.problem is not None:
+        p.assess(
+            f"ci-job-instance-{workflow_index}-workflow",
+            "CI workflow job declarations", "ci.workflow_runtime_correlation",
+            "unresolved", prepared.problem.detail, reason=prepared.problem.reason,
+            status="problem", strength="unresolved",
+            proposition="The workflow has unresolved declared job scope.",
+            facts=attempt, source_ids=sources,
+        )
+    for item in scoped.unassigned_jobs if scoped else ():
+        p.assess(
+            f"ci-job-instance-{workflow_index}-reported-{item.job.job_id}",
+            "Unassigned reported CI job", "ci.workflow_runtime_correlation",
+            "unassigned", "This reported job has unresolved declared context.",
+            reason=item.reason, status="problem", strength="unresolved",
+            proposition="Reported lifecycle evidence with unresolved origin.",
+            facts=(
+                *attempt, *_reported_job_facts(item.job),
+                *(
+                    _fact(f"candidate_{i}", "Candidate declared context",
+                          f"{identity.job_key!r} | source index {identity.job_source_index} | "
+                          f"expansion slot {identity.expansion_slot}")
+                    for i, identity in enumerate(item.candidate_instances, 1)
+                ),
+            ),
+            source_ids=sources,
+        )
+    return identity_facts
 
 
 def _project_packages(p: _ReportProjection) -> None:

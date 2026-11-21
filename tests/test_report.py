@@ -38,6 +38,7 @@ def _ci_report(investigation):
         workflow_evidence=investigation.workflow_evidence,
         ci_coverage_result=investigation.ci_coverage_result,
         runtime_dependency_state_result=investigation.runtime_dependency_state_result,
+        workflow_inputs=investigation.ci_workflow_inputs,
     )
 
 

@@ -146,6 +146,15 @@ class WorkflowDependencyCoverageResult:
     version_requests: tuple[WorkflowDependencyVersionRequest, ...] | None = None
     version_request_jobs: tuple[StepsJobDefinition, ...] = ()
 
+    @property
+    def direct_requirements_candidates(self) -> tuple[StaticDependencyConsumptionEvidence, ...]:
+        """Return the ordered bases of the runtime package-state assessments."""
+        return tuple(
+            consumption for consumption in self.consumptions
+            if consumption.state == "supported"
+            and consumption.mechanism == "direct_requirements"
+        )
+
 
 @dataclass(frozen=True, slots=True)
 class DependencyCICoverageResult:

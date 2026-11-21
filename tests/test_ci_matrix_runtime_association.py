@@ -3,6 +3,7 @@
 from dataclasses import replace
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
@@ -12,16 +13,25 @@ from upgradepilot.ci.executable_selection import establish_executable_selection
 from upgradepilot.ci.runtime_execution import assess_exact_command_execution
 from upgradepilot.ci.runtime_strengthening import candidate_from_consumption
 from upgradepilot.ci.workflow_runtime_correlation import correlate_workflow_runtime
+from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.github.actions import GitHubActionsClient, WorkflowJob, WorkflowStep
+from upgradepilot.github.pull_request import ChangedFile
 from upgradepilot.github.workflow_command_analysis import analyze_run_step_commands
 from upgradepilot.github.workflow_instance_commands import materialize_workflow_job_instance, run_script_identity
 from upgradepilot.github.workflow_specialization import prepare_workflow_job_instances
+from upgradepilot.investigation import investigate_public_pull_request
+from upgradepilot.pypi.release import PackageReleaseProblem
+from upgradepilot.report_file import decode_report, encode_report
+from upgradepilot.report_projection import project_ci_report, project_investigation_report
+from upgradepilot.workspace.checkpoint_store import CheckpointStore
+from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
 from upgradepilot.workspace.native_boundary import encode_native_boundary, read_native_boundary
 from upgradepilot.workspace.native_codecs import encode_native_value
 from upgradepilot.workspace.native_projection import reconstruct_ci_projection
 from upgradepilot.workspace.native_representation import NativeReconstructionError
 
 from test_ci_matrix_identity import _capture, _dependency_and_source, _mapproxy_input
+from test_github_client import _observation
 from test_investigation import _Harness
 
 
@@ -71,6 +81,90 @@ def _with_source(workflow, content):
 
 
 class MatrixAssociationTests(unittest.TestCase):
+    def test_normal_investigation_delivers_mixed_matrix_rows_with_no_raw_step_budget(self):
+        workflow = frozen_workflow()
+        definition = workflow.definition
+        dependency, context = _dependency_and_source(
+            definition, "requirements-tests.txt", "soupsieve"
+        )
+        harness = _Harness()
+        harness.package_client.get_release.side_effect = None
+        harness.package_client.get_release.return_value = PackageReleaseProblem(
+            "version_not_found", "soupsieve", "soupsieve", "4.0",
+            "https://pypi.org/pypi/soupsieve/4.0/json", "Controlled unrelated package response.",
+        )
+        identity = replace(
+            harness.identity, repository=definition.repository, head_sha=definition.revision
+        )
+        harness.pull_client.get_pull_request_observation.return_value = _observation(identity)
+        harness.pull_client.get_changed_files.return_value = (
+            ChangedFile("requirements-tests.txt", "modified", 1, 1, 2,
+                        "-soupsieve==3.0.4\n+soupsieve==4.0"),
+        )
+        harness.repository_client.get_exact_head_workflow_file.return_value = definition
+        harness.actions_client.get_exact_head_workflow_runs.return_value = (workflow.run,)
+        cancelled_id = 131996881564
+        skipped_id = 131996881411
+        absent_id = 131996881633
+        jobs = _edit_job(
+            workflow, cancelled_id, conclusion="cancelled",
+            steps=tuple(step for step in _job(workflow, cancelled_id).steps if step.number < 6),
+        )
+        workflow = replace(workflow, jobs=jobs)
+        harness.actions_client.get_workflow_jobs.return_value = tuple(
+            job for job in _edit_job(workflow, skipped_id, conclusion="skipped", steps=())
+            if job.job_id != absent_id
+        )
+        with TemporaryDirectory() as directory:
+            store = CheckpointStore.create(Path(directory) / "workspace", schema_version=2)
+            with patch(
+                "upgradepilot.investigation_inputs.analyze_dependency_change",
+                return_value=DependencyChangeAnalysis(dependency, (context,)),
+            ):
+                result = investigate_public_pull_request(
+                    identity.repository, identity.number,
+                    workspace_host=InvestigationWorkspaceHost(store=store), **harness.kwargs(),
+                )
+            revision = store.read_selected_revision(result.workspace_revision.revision_id).revision
+            recovered = reconstruct_ci_projection(revision.boundary, expected_target=revision.boundary.target)
+
+        with patch("upgradepilot.report_projection._REPORTED_STEP_DETAIL_BYTES", 0):
+            report = decode_report(encode_report(project_investigation_report(result)))
+            partial = project_ci_report(
+                pull_request=recovered.inputs.pull_request,
+                dependency_result=recovered.inputs.dependency_result,
+                workflow_evidence=tuple((item.run, item.jobs) for item in recovered.workflow_inputs),
+                ci_coverage_result=recovered.ci_coverage_result,
+                runtime_dependency_state_result=recovered.runtime_dependency_state_result,
+                workflow_inputs=recovered.workflow_inputs,
+            )
+
+        def job_facts(assessments):
+            return {
+                item.assessment_id: (item.state, item.reason, {f.name: f.value for f in item.facts})
+                for item in assessments if item.assessment_id.startswith("ci-job-instance-")
+            }
+
+        rows = job_facts(report.assessments)
+        self.assertEqual(rows, job_facts(partial.assessments))
+        self.assertEqual(len(rows), 9)  # Eight declared job contexts and one unassigned skip.
+        self.assertEqual(rows["ci-job-instance-1-0-0"][2]["runtime_job_id"], "131996881880")
+        self.assertEqual(rows["ci-job-instance-1-0-1"][2]["runtime_conclusion"], "cancelled")
+        self.assertEqual(rows["ci-job-instance-1-0-2"][0], "unresolved")
+        self.assertEqual(rows["ci-job-instance-1-0-3"][0], "unresolved")
+        self.assertEqual(
+            rows[f"ci-job-instance-1-reported-{skipped_id}"][2]["runtime_conclusion"], "skipped"
+        )
+        self.assertTrue(any(f.name == "reported_steps_omission"
+                            for item in report.sources for f in item.identity))
+        commands = [item for item in report.assessments if item.assessment_id.startswith("runtime-command-")]
+        self.assertEqual(len(commands), 7)
+        self.assertTrue(all(item.state == "unresolved" for item in commands))
+        self.assertEqual(
+            [next(f.value for f in item.facts if f.name == "execution_state") for item in commands],
+            ["supported", "unresolved", "unresolved", "unresolved", "supported", "supported", "supported"],
+        )
+
     def test_frozen_install_execution_keeps_later_command_package_and_test_proofs_distinct(self):
         workflow = frozen_workflow()
         dependency, context = _dependency_and_source(workflow.definition, "requirements-tests.txt", "soupsieve")

@@ -673,6 +673,10 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         allowed = {"bound", "rejected", "undetermined"}
     elif assessment_id.startswith("ci-workflow-"):
         allowed = vocabularies["ci"]
+    elif assessment_id.startswith("ci-job-instance-"):
+        allowed = {"associated", "unresolved", "unassigned"}
+        if (state == "associated") != (status == "available"):
+            raise ReportValidationError("CI job instance state/status combination is invalid.")
     elif assessment_id.startswith("runtime-command-"):
         allowed = {
             "satisfied_at_command_completion",

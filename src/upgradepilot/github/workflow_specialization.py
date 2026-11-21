@@ -23,7 +23,7 @@ from yaml.nodes import MappingNode, Node, ScalarNode, SequenceNode
 from .repository import RepositoryTextFile
 from .workflow_definition import (
     JobProblem, SourceSpan, StepProblem, StepsJobDefinition,
-    WorkflowDefinitionProblem, WorkflowDefinitionResult,
+    WorkflowDefinition, WorkflowDefinitionProblem, WorkflowDefinitionResult,
     _parse_workflow_definition_with_syntax, _span,
 )
 from .workflow_matrix import (
@@ -148,13 +148,31 @@ def prepare_workflow_job_instances(source: RepositoryTextFile) -> PreparedWorkfl
 
     Expansion completeness and field resolution are independent. An unsupported run
     expression need not erase another readable field or the declared combinations.
-    Resource refusal is atomic for the affected job. No result is fed to the legacy
-    CI/Target consumers until their scope migration is qualified.
+    Resource refusal is atomic for the affected job.
     """
+    return _prepare_workflow_job_instances(*_parse_workflow_definition_with_syntax(source))
+
+
+def prepare_matrix_workflow_job_instances(
+    source: RepositoryTextFile,
+) -> PreparedWorkflowJobInstances | None:
+    """Prepare strategy-bearing workflows and preserve ordinary CI interpretation elsewhere."""
     definition, root = _parse_workflow_definition_with_syntax(source)
+    if not isinstance(definition, WorkflowDefinition) or not any(
+        isinstance(job, StepsJobDefinition) and job.strategy is not None
+        for job in definition.jobs
+    ):
+        return None
+    return _prepare_workflow_job_instances(definition, root)
+
+
+def _prepare_workflow_job_instances(
+    definition: WorkflowDefinitionResult, root: Node | None,
+) -> PreparedWorkflowJobInstances:
     if isinstance(definition, WorkflowDefinitionProblem):
         return PreparedWorkflowJobInstances(definition, (), ())
     assert isinstance(root, MappingNode)
+    source = definition.source
     root_fields = _fields(root)
     jobs_node = root_fields["jobs"]
     assert isinstance(jobs_node, MappingNode)

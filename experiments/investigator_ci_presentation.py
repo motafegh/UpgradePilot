@@ -145,6 +145,7 @@ def compose_ci_presentation(
         workflow_evidence=tuple((w.run, w.jobs) for w in projection.workflow_inputs),
         ci_coverage_result=projection.ci_coverage_result,
         runtime_dependency_state_result=projection.runtime_dependency_state_result,
+        workflow_inputs=projection.workflow_inputs,
     )
     return CIPresentation(target, ci, native_basis, interpretation)
 

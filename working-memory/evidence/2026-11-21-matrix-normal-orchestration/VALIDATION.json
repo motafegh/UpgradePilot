@@ -1,0 +1,130 @@
+{
+  "milestone": 6,
+  "baseline_commit": "928533f4ae01be01c35e609f089518bc1fdc8f3f",
+  "implementation_diff_sha256": "990278c7186f93ff51a28ec5f57f9d70fe610332ceb419f027dfe401dacee927",
+  "case": {
+    "repository": "mapproxy/mapproxy",
+    "pull_number": 1559,
+    "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "workflow": ".github/workflows/test.yml",
+    "run_id": 43457921398,
+    "run_attempt": 1,
+    "input": "frozen genuine provider observation replay; controls labeled separately"
+  },
+  "installed": {
+    "installed_modules_matched": 120,
+    "wheel_sha256": "aa9e98907f355efaa154d06d7463381400c5376daa170a65778c8224191ba065",
+    "normal_console_and_store_run_full_report_parity": true,
+    "historical_reports": [
+      "mapproxy-genuine-baseline",
+      "mapproxy-offline-replay",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "applypilot-original-genuine",
+      "applypilot-current-ci-diagnostic",
+      "applypilot-missing-steps-diagnostic",
+      "mapproxy-legacy-counts-diagnostic"
+    ],
+    "historical_native": [
+      "mapproxy-genuine-baseline",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control"
+    ],
+    "prior_sqlite_revisions": [
+      {
+        "lineage": "mapproxy-retained-input",
+        "codec": 4,
+        "digest": "9aa513c28be184040bc238e59985ab8c4422678490c8b85620b3d5ae372a7268"
+      },
+      {
+        "lineage": "genuine",
+        "codec": 5,
+        "digest": "a4a722f3f84596ea0080948d5d76b6551b0952137a809d98b5e42f20594b94fc"
+      },
+      {
+        "lineage": "controlled-fail-fast",
+        "codec": 5,
+        "digest": "9446db1dd4636af7b0fdc89557f14816e221ef3d93341b66c50aa42fd70724fa"
+      }
+    ]
+  },
+  "console_entry": {
+    "replayed": 16,
+    "expected": 16
+  },
+  "cold_recovery": {
+    "genuine": {
+      "revision_id": "fef5f27a438c4dc99b36d968e2312b0d",
+      "provider_responses": 16,
+      "report_sha256": "d1350dd0b11c75d5a4918b4b8ef25044f1aafecc0b4bda6ad4e3c0e148cdd7d2",
+      "cross_variant_execution_refused": true,
+      "revision_digest": "4ff377f9ef305d79906130bfe338737d463f9e6f4a2acc02f966fd4358716c3a",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 8,
+      "commands": 7,
+      "reopened_sha256": "e702061137740c0dc9e94d6ca39da0f560590cdde00383e9bc3c00dbff6b98ef"
+    },
+    "mixed": {
+      "revision_id": "c99e6faea8bb4f56abf0b20c2174d9c6",
+      "provider_responses": 16,
+      "report_sha256": "814fc755d30e921886e50d4f2f44facdaaef00fd0efe6201d4cdfd5cedf2190a",
+      "revision_digest": "c513ce04e12873103e1b5387013ce20fcc5a763fef08c2384161610d04fb6af9",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 9,
+      "commands": 7,
+      "reopened_sha256": "1146544a2075ccc14bd05ea1b87c4f627fb126dd76e9322ff73af0033c8b7461"
+    },
+    "explicit-skip": {
+      "revision_id": "8f4cf7c3521643c9b886c37627d35e08",
+      "provider_responses": 16,
+      "report_sha256": "b5e7956e62e261ad14cf97b2837a5e692b4054bb1a3ba327e0568265fe8c10d1",
+      "revision_digest": "a5609c7af1d5b5380c8dee6c5f2b1a207e08c1403592d04ded146192d7d4304b",
+      "report_reopened": true,
+      "ci_only_parity": true,
+      "database_unchanged": true,
+      "native_codecs": {
+        "ci_inputs": 2,
+        "ci_coverage": 6,
+        "runtime_dependency_state": 3
+      },
+      "contexts": 9,
+      "commands": 7,
+      "reopened_sha256": "f842007d8ffad16874a5f438780568e6f555307d347e757c8ddd22f104e75f80"
+    }
+  },
+  "verification": {
+    "full_installed": {
+      "command": "python -m unittest discover -s tests",
+      "tests": 1182,
+      "seconds": 237.113,
+      "log_sha256": "5b181035c1174925407381f65cc4a6fe0a8de51d333848619746e238cc818b9f",
+      "result": "passed"
+    },
+    "affected_experiment_consumers": {
+      "test_investigator_ci_presentation.py": 7,
+      "test_retained_native_ci_baseline_comparison.py": 11,
+      "test_current_ci_owner_diagnostic.py": 12,
+      "result": "passed"
+    },
+    "experiment_boundaries": "passed",
+    "pip_check": "passed",
+    "cold_provider_model_shell_parser_evaluator_reentry": false,
+    "optional_raw_step_budget_exhaustion_regression": "passed"
+  }
+}
