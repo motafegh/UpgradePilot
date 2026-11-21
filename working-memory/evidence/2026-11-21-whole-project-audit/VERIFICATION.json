@@ -1,0 +1,177 @@
+{
+  "inspected_commit": "2e74f20836424030d547b79113737f2c758bd4d4",
+  "inspected_tree": "a179cb0b6cca5c886f57bcd2fb997f5e98774fee",
+  "kernel": "6.18.58.1-microsoft-standard-WSL2",
+  "python": "3.12.3",
+  "installed_module_parity_count": 120,
+  "isolation": "Cleared process environment, private Git checkout of pinned commit, only loopback active in a network namespace, normal non-root identity, capabilities dropped, umask 022.",
+  "clean_install": {
+    "source": "git archive of exact inspected commit",
+    "inputs": "Locally cached wheel archives matched by distribution, resolved version and interpreter compatibility",
+    "wheel_sha256": "5badef40dd1f0f6405fda3b1b61d1ea0dc83c13123d3b4e6216a4154ece44916",
+    "dependency_check": "pass",
+    "optional_experiment_group": "absent",
+    "both_entry_points": "matching help outside checkout",
+    "installed_dependency_versions": [
+      "certifi==2026.6.17",
+      "charset-normalizer==3.4.9",
+      "idna==3.18",
+      "packaging==26.2",
+      "pip==24.0",
+      "PyYAML==6.0.3",
+      "requests==2.34.2",
+      "setuptools==84.2.1",
+      "tree-sitter==0.25.0",
+      "tree-sitter-bash==0.25.1",
+      "tree-sitter-batch==0.11.1",
+      "tree-sitter-pwsh==0.38.1",
+      "upgradepilot==0.0.0",
+      "urllib3==2.7.0",
+      "wheel==0.47.0"
+    ],
+    "wheel_input_hashes": {
+      "certifi-2026.6.17-py3-none-any.whl": "2227dcbaafe0d2f59279d1762ddddc37783ed4354594f194ffc31d20f41fc3db",
+      "charset_normalizer-3.4.9-cp312-cp312-manylinux_2_17_x86_64.whl": "5e226f6218febc71f6c1fc2fafb91c226f75bdc1d8fb12d66823716e891608fd",
+      "idna-3.18-py3-none-any.whl": "7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2",
+      "packaging-26.2-py3-none-any.whl": "5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e",
+      "pyyaml-6.0.3-cp312-cp312-manylinux_2_17_x86_64.whl": "ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc",
+      "requests-2.34.2-py3-none-any.whl": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "setuptools-84.2.1-py3-none-any.whl": "ca140b45d5325a9478f880e351484f62fef15f336462e449ca0c03c873d589c2",
+      "tree_sitter-0.25.0-cp312-cp312-manylinux_2_17_x86_64.whl": "241a90c815a354594d3147012ce470cfc797695ab768e29198815e147ef3c165",
+      "tree_sitter_bash-0.25.1-cp310-abi3-manylinux_2_17_x86_64.whl": "3f484c4bb8796cde7a87ca351e6116f09653edac0eb3c6d238566359dd28b117",
+      "tree_sitter_batch-0.11.1-cp310-abi3-manylinux_2_5_x86_64.whl": "03957e781f130e76843531719d731519db9eb1e8981c5ded44923b872b87f4b9",
+      "tree_sitter_pwsh-0.38.1-cp310-abi3-manylinux_2_5_x86_64.whl": "0ffe5b41624927a67f650b430e206589fd3a629e4b59f45bd559aadc6c8805cb",
+      "upgradepilot-0.0.0-py3-none-any.whl": "5badef40dd1f0f6405fda3b1b61d1ea0dc83c13123d3b4e6216a4154ece44916",
+      "urllib3-2.7.0-py3-none-any.whl": "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897",
+      "wheel-0.47.0-py3-none-any.whl": "212281cab4dff978f6cedd499cd893e1f620791ca6ff7107cf270781e587eced"
+    },
+    "install_log": {
+      "name": "clean-install.log",
+      "sha256": "7aaf8a1afb36bd3fa582b790de5e52c76f5c2d0f0f22d0b7af382134b69aabbb"
+    },
+    "focused_investigation": {
+      "name": "clean-investigation.log",
+      "sha256": "99ae7011fe84627bd0475a7b3351bdbcc1695feb565cc74c9c3ed10a0d5f08e8",
+      "tests": 16,
+      "runner_seconds": 0.125
+    },
+    "commands": [
+      "python -m venv PRIVATE_VENV",
+      "python -m pip install --no-index --find-links LOCAL_WHEELS setuptools wheel",
+      "python -m pip wheel --no-build-isolation --no-deps --no-index --wheel-dir LOCAL_WHEELS SOURCE_EXPORT",
+      "python -m pip install --no-index --find-links LOCAL_WHEELS PRODUCT_WHEEL",
+      "python -m pip check",
+      "upgradepilot --help",
+      "python -m upgradepilot --help"
+    ]
+  },
+  "focused_matching_prior_install": [
+    {
+      "test_pattern": "test_investigation.py",
+      "name": "test_investigation.py.log",
+      "sha256": "c0296608a9c0e8094f03eeabfa9dd9f327ab46ed2c850af7f0f09f642faabb46",
+      "tests": 16,
+      "runner_seconds": 0.13
+    },
+    {
+      "test_pattern": "test_ci_matrix_runtime_association.py",
+      "name": "test_ci_matrix_runtime_association.py.log",
+      "sha256": "6c0e7154e2d811b29c8716066aae4530d48f6fcc20ff8dc82239a9aad3627ece",
+      "tests": 12,
+      "runner_seconds": 0.676
+    },
+    {
+      "test_pattern": "test_caller_signature_ci_delivery.py",
+      "name": "test_caller_signature_ci_delivery.py.log",
+      "sha256": "04b207ec57e66ea1b72adbcaa8cea6089f2579eb68e19f2f204a88ffb9e9de30",
+      "tests": 6,
+      "runner_seconds": 16.01
+    },
+    {
+      "test_pattern": "test_report_file.py",
+      "name": "test_report_file.py.log",
+      "sha256": "fc4c2931d826fdf9b0e86ffa1cfe8c0853740785be8422229562ca76e7ef3774",
+      "tests": 10,
+      "runner_seconds": 0.08
+    },
+    {
+      "test_pattern": "test_workspace_checkpoint_reconstruction.py",
+      "name": "test_workspace_checkpoint_reconstruction.py.log",
+      "sha256": "293ec9ef5dd54c1ac134f4674b3519a1c1999165bf9d92f5921300f2b81fd3a9",
+      "tests": 12,
+      "runner_seconds": 37.799
+    },
+    {
+      "test_pattern": "test_lm_studio_loopback_transport.py",
+      "name": "test_lm_studio_loopback_transport.py.log",
+      "sha256": "a6707d4eff38012da33ddc34bc6dc076a3b17151cfc9aef223c8790cbe64c3da",
+      "tests": 2,
+      "runner_seconds": 0.0
+    }
+  ],
+  "full_regression": {
+    "command": "python -m unittest discover -s tests -v",
+    "initial_attempt": {
+      "name": "full-product.log",
+      "sha256": "62b55c370b9c1899e61e47d583826ffe5e3398224dce2950675a41b57d7b5933",
+      "tests": 1182,
+      "runner_seconds": 245.1,
+      "exit": 1,
+      "failures": 3,
+      "skips": 1,
+      "diagnosis": [
+        "Loopback was inactive for two observer checks",
+        "Git export lacked the checkout marker needed by a Workspace location fixture",
+        "Root-mapped user skipped a filesystem permissions check"
+      ]
+    },
+    "harness_rechecks": {
+      "name": "harness-recheck.log",
+      "sha256": "4a0e2fa2863242774113284581a747df2efce1c7ef180696671a98455f1bceb2",
+      "tests": 6,
+      "runner_seconds": 1.595
+    },
+    "corrected_clean_install_attempt": {
+      "name": "full-product-clean.log",
+      "sha256": "b8267e27a9f1f4e6b877d7040d1ef145eadd4ac74549a7887ba34e7f0846f9ff",
+      "tests": 1182,
+      "runner_seconds": 233.291,
+      "exit": 0,
+      "failures": 0,
+      "skips": 0
+    }
+  },
+  "experiment_boundary": {
+    "ok": true,
+    "errors": [],
+    "artifacts": 128,
+    "python_modules": 119,
+    "internal_import_edges": 252,
+    "legacy_private_symbols": 31,
+    "product_python_files": 120,
+    "command": "python tools/check_experiment_boundaries.py"
+  },
+  "controlled_provider_review": {
+    "name": "provider-boundary-review.log",
+    "sha256": "5a17ec205e902a6ceb577340c0aee6ae08ea756ca00f293c2146e8cbecad0d36",
+    "observations": [
+      "Private and internal dispositions admitted by shared PR observation with synthetic provider responses.",
+      "Normal local model wrapper leaves Requests redirect default enabled. Verified through installed interface inspection and a stubbed send."
+    ],
+    "scope": "No real authenticated or private access, model invocation, redirect, or remote request."
+  },
+  "retained_cli_review": {
+    "name": "retained-cli-review.log",
+    "sha256": "f94889077779c304ba7f890b1eb513aab0ebde2629e8b52bc5d96f948a76fcb6",
+    "cases": [
+      "MapProxy",
+      "ApplyPilot CI replay",
+      "CARLA/OpenCV",
+      "Pydantic/Soup Sieve",
+      "AV-Tracer source-only and combined"
+    ],
+    "assertions": "Four matched report digests and offline verdicts; MapProxy attempt facts and seven unresolved package states; AV-Tracer archive member checksums and six offline report, Workspace and source operations.",
+    "scope": "Reader verification over earlier observations."
+  },
+  "proof_limit": "The local runs do not establish fresh hosted or live-provider behavior, field reliability, model repeatability, or independent maintainer usefulness."
+}

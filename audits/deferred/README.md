@@ -8,5 +8,6 @@ Current deferred audits:
 
 - [DEFERRED — AUDIT-004 — uv.lock Resolution-Satisfiability Evidence Boundary](../2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md)
 - [DEFERRED — AUDIT-015 — Native page granularity, payload and publication cost](../2026-11-06_AUDIT-015_native-page-granularity-payload-and-publication-cost.md) — validated measured access/cost opportunities; no performance implementation selected. Re-enter on explicit selection or a required interactive native-consumer latency need.
+- [DEFERRED — AUDIT-016 — Whole-project product and design](../2026-11-21_AUDIT-016_whole-project-product-and-design.md) — completed review with two priority trust findings and a ranked set of product and AI opportunities. Re-enter the relevant finding on explicit follow-up selection.
 
 Deferred does **not** mean rejected. Re-enter one only when its reassessment trigger becomes current, it is explicitly selected, or it is promoted into the scheduled lifecycle with a concrete activation trigger and owning plan. The audit remains non-controlling until the relevant responsibility owner is changed through the normal governance process.
