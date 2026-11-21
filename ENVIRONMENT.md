@@ -63,6 +63,17 @@ python -c 'import sys; print(sys.executable)'
 
 `pyproject.toml` is the package/dependency authority; do not duplicate its dependency list here.
 
+The shared WSL development `.venv` uses an editable UpgradePilot install. Its console command loads
+`src/upgradepilot` from this checkout, so source edits are visible when the CLI starts again.
+Verify import origin explicitly before attributing a result to a checkout revision.
+
+```bash
+env -u PYTHONPATH .venv/bin/python -c 'import upgradepilot; print(upgradepilot.__file__)'
+```
+
+Refresh the install when package metadata or dependencies change. Use a separately built and
+verified wheel in an isolated environment for installed-artifact qualification.
+
 ### Timing-counter interpretation
 
 This environment has demonstrated disagreement between standard WSL monotonic readings and raw/process-CPU readings across multiple local controls. A separately qualified Windows Stopwatch/QPC envelope tracked the raw intervals in the [November6 timing evidence](working-memory/evidence/2026-11-06-independent-host-timing/RESULTS.md). Cause and future clock calibration are not established. For a material user-waiting-time claim, recheck clock agreement and retain the labelled independent interval; keep inner CPU/counter readings and launch/instrumentation overhead separate. Do not infer pauses, multithreading or a universal WSL rate from CPU exceeding a standard monotonic reading. Product deadline/counter semantics and machine clock settings were not changed by the diagnostic.
