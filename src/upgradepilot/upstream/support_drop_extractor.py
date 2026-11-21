@@ -80,16 +80,18 @@ def build_lm_studio_session() -> requests.Session:
     return session
 
 
-def _post_without_ambient_proxy(*args: object, **kwargs: object) -> Response:
+def _post_to_local_model(
+    url: str, *, json: dict[str, Any], timeout: float
+) -> Response:
     with build_lm_studio_session() as session:
-        return session.post(*args, **kwargs)
+        return session.post(url, json=json, timeout=timeout, allow_redirects=False)
 
 
 class LocalSupportDropExtractor:
     """Run the accepted one-shot LM Studio support-drop candidate extraction."""
 
     def __init__(self, *, post: HttpPost | None = None) -> None:
-        self._post = post or _post_without_ambient_proxy
+        self._post = post or _post_to_local_model
 
     def extract(
         self,

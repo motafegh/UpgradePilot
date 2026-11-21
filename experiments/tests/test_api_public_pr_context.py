@@ -983,7 +983,11 @@ def staged_http_control(policy, *, noise=24, invoke=None, response_transform=Non
 
     session = TrialPublicSession(policy=policy)
     pull = dict(number=7, title='Bump vendor', state='open', merged=False, user={'login': 'bot'},
-                base={'ref': 'main', 'sha': BASE}, head={'ref': 'update', 'sha': SHA}, changed_files=2,
+                base={
+                    'ref': 'main', 'sha': BASE,
+                    'repo': {'full_name': 'owner/target', 'private': False, 'visibility': 'public'},
+                },
+                head={'ref': 'update', 'sha': SHA}, changed_files=2,
                 body='Authored control description')
     target_paths = [f'a_noise{i:02}.py' for i in range(noise)] + ['z_case.py', 'requirements.txt']
     library_paths = [f'vendor/noise{i:02}.py' for i in range(noise)] + [

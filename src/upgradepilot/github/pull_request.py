@@ -280,6 +280,20 @@ class GitHubPullRequestClient(GitHubApiClient):
                 raise GitHubResponseError(
                     "GitHub returned a different pull-request number than requested."
                 )
+            # The base repository owns the PR. Its head may belong to a fork.
+            base_repository = required_mapping(base, "repo")
+            returned_repository = required_str(base_repository, "full_name")
+            if returned_repository.casefold() != repository.casefold():
+                raise GitHubResponseError(
+                    "GitHub returned a different pull-request base repository than requested."
+                )
+            if (
+                required_bool(base_repository, "private")
+                or required_str(base_repository, "visibility") != "public"
+            ):
+                raise GitHubResponseError(
+                    "GitHub did not confirm that the pull-request base repository is public."
+                )
             return PullRequestIdentity(
                 repository=repository,
                 number=number,

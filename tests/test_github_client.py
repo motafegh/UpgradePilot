@@ -78,7 +78,15 @@ def _pull_request_payload(identity: PullRequestIdentity) -> dict[str, object]:
         "state": identity.state,
         "merged": identity.merged,
         "user": {"login": identity.author},
-        "base": {"ref": identity.base_ref, "sha": identity.base_sha},
+        "base": {
+            "ref": identity.base_ref,
+            "sha": identity.base_sha,
+            "repo": {
+                "full_name": identity.repository,
+                "private": False,
+                "visibility": "public",
+            },
+        },
         "head": {"ref": identity.head_ref, "sha": identity.head_sha},
         "changed_files": identity.changed_files,
     }
@@ -205,6 +213,58 @@ class GitHubPullRequestClientTests(unittest.TestCase):
         _, kwargs = session.get.call_args
         self.assertEqual(kwargs["timeout"], (3.05, 15.0))
         self.assertNotIn("Authorization", kwargs["headers"])
+
+    def test_public_base_repository_allows_case_variation_and_fork_head(self) -> None:
+        expected = _identity(changed_files=1)
+        payload = _pull_request_payload(expected)
+        payload["base"]["repo"]["full_name"] = expected.repository.lower()
+        payload["head"]["repo"] = {"full_name": "contributor/glyphsLib"}
+        session = Mock()
+        session.get.return_value = _response(payload)
+
+        identity = GitHubPullRequestClient(session=session).get_pull_request_observation(
+            expected.repository, expected.number
+        ).identity
+
+        self.assertEqual(identity, expected)
+
+    def test_unconfirmed_public_base_is_refused_before_description_retention(self) -> None:
+        expected = _identity(changed_files=1)
+        for fields, reason in (
+            ({"private": True, "visibility": "private"}, "is public"),
+            ({"private": False, "visibility": "internal"}, "is public"),
+            ({"private": True, "visibility": "public"}, "is public"),
+            ({"private": False}, "visibility"),
+            ({"visibility": "public"}, "private"),
+            ({"private": False, "visibility": "public", "full_name": "other/repository"}, "different"),
+        ):
+            with self.subTest(fields=fields):
+                payload = _pull_request_payload(expected)
+                payload["base"]["repo"] = {"full_name": expected.repository, **fields}
+                payload["body"] = "Synthetic description."
+                session = Mock()
+                session.get.return_value = _response(payload)
+                clock = Mock()
+                client = GitHubPullRequestClient(session=session, now=clock)
+
+                with self.assertRaisesRegex(GitHubResponseError, reason):
+                    client.get_pull_request_observation(expected.repository, expected.number)
+
+                clock.assert_not_called()
+                session.get.assert_called_once()
+
+    def test_changed_files_refuses_a_base_that_is_no_longer_public(self) -> None:
+        identity = _identity(changed_files=1)
+        reread = _pull_request_payload(identity)
+        reread["base"]["repo"].update(private=True, visibility="private")
+        session = Mock()
+        session.get.side_effect = [
+            _response([_changed_file(1)]),
+            _response(reread),
+        ]
+
+        with self.assertRaisesRegex(GitHubResponseError, "is public"):
+            GitHubPullRequestClient(session=session).get_changed_files(identity)
 
     def test_404_preserves_nonexistence_or_access_ambiguity(self) -> None:
         """HTTP 404 must retain GitHub's absence-versus-access ambiguity."""

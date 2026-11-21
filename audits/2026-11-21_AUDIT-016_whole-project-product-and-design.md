@@ -152,3 +152,7 @@ The [Charter](../PROJECT_CHARTER.md) and accepted specs own allowed product and 
 [Public-safe verification receipt](../working-memory/evidence/2026-11-21-whole-project-audit/VERIFICATION.json) · [Verification progression](../working-memory/2026-11-21_whole-project-product-audit_lbd-cycle.md#evidence-and-verification-progression)
 
 The audit used controlled local verification and retained public-safe evidence. It leaves current provider availability, hosted behavior at the pinned revision, model repeatability, field coverage, and independent human usefulness open. Negative experiment conclusions apply at their recorded method and evaluation horizons. Confidence in individual findings follows the cited source trace or controlled observation.
+
+## Follow-up resolution
+
+The November 21 [trust boundary Build](../working-memory/2026-11-21_audit-trust-boundary-repairs_build.md) resolved F1 and F2. It checked the shared public base repository guard through all three CLI profiles and the local model adapter's refusal to follow redirects. The clean installed regression passed 1,186 tests without skips. The audit observations above retain the inspected revision and original proof horizon.

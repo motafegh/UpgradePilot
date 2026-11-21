@@ -92,7 +92,7 @@ GitHub access is **anonymous by default**, even when an unrelated `GITHUB_TOKEN`
 upgradepilot pydantic/pydantic 13432 --github-auth token-env
 ```
 
-The explicit mode rejects a missing or empty token before acquisition. Do not put the token value in a command argument, command history, or shared logs. Proxy/transport configuration remains a separate environment concern; public API rate limits and network failures can still prevent acquisition.
+The explicit mode rejects a missing or empty token before acquisition. In either mode, GitHub must confirm the requested base repository is public before UpgradePilot retains the PR description or requests changed files. Keep tokens out of command arguments, history, and shared logs. Public API rate limits and network failures can still prevent acquisition.
 
 ### Save and reopen a report
 
