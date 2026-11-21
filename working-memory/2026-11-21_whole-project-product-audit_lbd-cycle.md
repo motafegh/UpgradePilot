@@ -14,6 +14,12 @@ Ali added a request to identify future AI and model opportunities during the aud
 
 Planning checks verified the local references and heading anchors, nine product coverage rows, six AI opportunity rows, and the link from the live handoff. This verification covers the plan and its routing. Product verification remains part of audit execution.
 
+## Pre-audit documentation reconciliation
+
+Ali requested that confirmed documentation drift be corrected before starting the audit. The live handoff now puts the matrix acceptance and the hosted verification boundary before dated qualification history. The old November 12 execution and ownership handoffs are time-scoped, and the ApplyPilot entry identifies its original report as the before-fix capture. The README documents saved workflow facts, scoped matrix evidence and the combined caller/signature profile. The documentation map points to the implemented delivery and the AV-Tracer example. ADR-0014 time-scopes its design context and links the installed acceptance while preserving the accepted method.
+
+Verification used the editable WSL Python 3.12.3 environment. All 18 focused CLI tests passed with networking isolated. Offline CLI checks covered help, combined-profile argument guards, MapProxy attempt facts, unavailable-source exit 7, and AV-Tracer saved report and exact Workspace revision/source inspection. The initial local extraction used default directory permissions and the Workspace reader rejected it. Repeating the documented extraction with an owner-only umask passed, with all published checksums verified. The eight checked documents resolved their local links and Markdown anchors. Product source, tests, and hosted workflow match the matrix acceptance tree by path comparison. Audit execution remains pending.
+
 UP-SKILL:upgradepilot-planning-design
 
 UP-SKILL:upgradepilot-repository-audit

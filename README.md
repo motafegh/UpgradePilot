@@ -14,7 +14,7 @@ It is decision support—not an automatic merge bot, generic vulnerability scann
 
 ## For reviewers: what this project demonstrates
 
-UpgradePilot investigates a real public dependency-update pull request using exact repository/PR identity plus bounded GitHub, CI, PyPI, upstream, repository, target-environment, and command-derived runtime dependency-state evidence. The current CLI produces a traceable evidence report; the application also carries artifact-serviceability, selected target-environment, and bounded direct-requirements/pip command-completion state through the normal investigation path. It deliberately preserves `missing`, `unresolved`, `unsupported`, and conflicting evidence instead of turning weak evidence into a confident recommendation.
+UpgradePilot investigates a real public dependency-update pull request using exact repository/PR identity plus bounded GitHub, CI, PyPI, upstream, repository, target-environment, and command-derived runtime dependency-state evidence. The CLI produces a traceable report that can include artifact serviceability, selected target environments, and dependency-command evidence in supported ordinary and literal matrix jobs. It preserves `missing`, `unresolved`, `unsupported`, and conflicting evidence as explicit results.
 
 The project is intentionally different from generic dependency automation or generic AI code review. Dependabot/Renovate can create and manage update PRs, while coding/review agents can propose or review changes; UpgradePilot focuses on the narrower decision problem of **what the available dependency-specific evidence actually establishes for this repository and where the evidence is still insufficient**.
 
@@ -113,7 +113,7 @@ upgradepilot --open-report report.json --show-source source-1
 
 This offline command displays literal HTML/Markdown with attribution and limitations. It removes nonprinting terminal controls for display while preserving saved text; it follows no links, executes no content and writes no files. The default summary does not dump the description. Durability is opt-in through `--save-report` or the explicit Workspace store below. Producer-result text and reference-only sources are not retained original text.
 
-For a saved artifact-capability or package-metadata record, use `--show-facts SOURCE_ID` with `--open-report`. This view shows the selected fact names and values, including exact wheel tags or distribution filenames and digests where recorded. It carries the saved report and source context and preservation limits. Choose one inspection option per invocation.
+Use `--show-facts SOURCE_ID` with `--open-report` to inspect saved artifact capabilities, package metadata, or a workflow execution source. For a workflow source, the view groups GitHub-reported job and step outcomes for the captured attempt by numeric job ID. Older or incomplete reports may retain only job rows or counts. For package and artifact sources, the view includes values such as distribution filenames, digests and wheel tags where recorded. Each view preserves the saved report identity, source context, and retention limits. Choose one inspection option per invocation.
 
 Saving never replaces an existing destination. Reopening validates the file and displays the original report identity, generation time and examined revisions without GitHub/model requests. It cannot be combined with investigation or authentication arguments. Obtain a new investigation to examine later CI or repository changes. Generation time does not substitute for missing source-acquisition times.
 
@@ -122,7 +122,7 @@ The output starts with `UpgradePilot public pull-request evidence`, then reposit
 | Output | How to interpret it |
 |---|---|
 | `Dependency change`, package and versions | The admitted exact transition, or a precise unsupported reason; unsupported input does not imply compatibility |
-| `CI dependency coverage`, workflow execution sources | Recorded workflow outcomes and separately interpreted dependency consumption; neither a green job nor a static command alone proves the changed path ran |
+| `CI dependency coverage`, workflow execution sources | Reported outcomes for the captured attempt, alongside the admitted dependency-consumption and command evidence. Supported literal matrices preserve each job variant and its own step correspondence. Installed-package state and later use require separate evidence. |
 | `Package evidence`, `Upstream repository`, `Upstream interval authority` | Evidence availability and attribution at those boundaries; inspect recorded problems before relying on later stages |
 | `Upstream support-drop result` | A bounded grounded result or recorded limitation, not a complete inventory of every possible impact |
 | `Runtime dependency state`, `Command-completion requirement state` | Scoped direct-requirements/pip satisfaction or its blocker; successful completion does not prove fresh installation, later use or compatibility |
@@ -154,6 +154,12 @@ The saved format remains schema1 with explicit new caller/signature assessment s
 
 For this profile, exit0 means requested delivery completed, including an honest partial or unsupported result. Exit9 rejects the selected Workspace revision. Exit10 reports hard analysis failure. Exit11 reports publication failure, conflict or acknowledgement uncertainty. Existing input/acquisition/response/report/source codes2–8 still apply. Publication takes precedence over producer, report and external-save errors. Inspect evidence coverage separately from command success.
 
+### Add one selected historical CI job
+
+The explicit `caller-signature-ci` profile combines caller/signature analysis with a bounded log observation from one selected failed GitHub Actions job. It requires `--expected-base`, `--expected-head`, positive `--ci-run-id`, `--ci-run-attempt`, and `--ci-job-id`, and a private `--workspace-store`. Use the exact PR head and attempt when selecting the job. Access to the log depends on GitHub permissions, and a missing log remains an explicit evidence problem.
+
+A retained error excerpt can support an exact-job observation. Loaded-module identity and whether the proposed update caused the failure require separate proof. The [AV-Tracer example](examples/av-tracer/README.md) provides saved source-only and combined reports with exact offline Workspace opening commands.
+
 ### Diagnose a failed or incomplete run
 
 | Symptom | Meaning / next check |
@@ -165,7 +171,7 @@ For this profile, exit0 means requested delivery completed, including an honest 
 | Exit 4 / `GitHub response could not establish the required evidence` | The returned response did not establish the required contract; retain the reported detail for diagnosis |
 | Exit 5 / `Report save failed` | The report could not be saved as requested; inspect the destination and failure detail. Existing files are protected |
 | Exit 6 / `Saved report rejected` | The file is unreadable, unsupported, malformed or inconsistent; no new investigation was performed |
-| Exit 7 / `Source unavailable` | The exact source ID is absent or has no retained original text; no refresh was attempted |
+| Exit 7 / `Source unavailable` | The source ID is absent or the requested original text or selected facts view is unavailable. Use the source inventory to check its kind and retention. |
 | Exit 8 / `Report projection rejected` | Canonical native data failed integrity, target or material-basis checks; no report or action was fabricated |
 | Local semantic provider problem or unresolved support-drop result | Check server/model configuration and the recorded detail; a running server alone does not establish a valid semantic response |
 | Proxy/TLS failure or unexpected 401 | Diagnose proxy/transport separately; for 401 under explicit token-env mode, check token validity without displaying its value. See [credential and proxy diagnosis](ENVIRONMENT.md#7-github-credential-and-proxy-caveat); do not globally change VPN/proxy settings |
@@ -264,7 +270,7 @@ The route is controlled by [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPI
 D0 → D1 → B1 → B2 → B3 → B4 → B5 → X1 → C1
 ```
 
-The route file defines stage order and required outcomes only. [`MEMORY.md`](MEMORY.md) states the live selected position.
+The experimental checkpoint can be selected earlier when its evidence gate is met. The [route plan](plans/UPGRADEPILOT_90_DAY_PLAN.md#4-route-overview) defines that sequencing. [`MEMORY.md`](MEMORY.md) states the live selected position.
 
 ## Learning by building
 

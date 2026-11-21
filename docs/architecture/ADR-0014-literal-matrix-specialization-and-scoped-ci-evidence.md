@@ -1,6 +1,6 @@
 # ADR-0014 — Literal matrix specialization and scoped CI evidence
 
-**Status — Accepted architecture and supported-scope direction.** Ali agreed to the proposed architecture and general direction on 2026-11-18, subject to the complete end-to-end implementation and verification requirements in the [implementation and qualification plan](../../plans/LITERAL_MATRIX_CI_EVIDENCE_IMPLEMENTATION_AND_QUALIFICATION_PLAN.md). Method-specific qualification remains an implementation gate. Build starts after the requested plan review.
+**Status — Accepted architecture and supported-scope direction.** Ali accepted the architecture on 2026-11-18, subject to the end-to-end implementation and method-specific verification requirements in the [implementation and qualification plan](../../plans/LITERAL_MATRIX_CI_EVIDENCE_IMPLEMENTATION_AND_QUALIFICATION_PLAN.md). The [installed-product acceptance receipt](../../working-memory/evidence/2026-11-21-matrix-final-acceptance/RESULTS.md) records the verified implementation and its proof limits.
 
 **Responsibility —** Interpret literal GitHub Actions matrix variants, preserve their source and command identity, and associate supported variants with reported runtime steps.
 
@@ -8,7 +8,7 @@
 
 ## Context
 
-MapProxy's retained workflow declares four Python versions and a singleton Pillow version. Its recorded attempt has four test jobs and four ordinary jobs. The product exposes their reported step outcomes. Dependency reasoning still encounters an unsupported matrix strategy, and the original install script contains a matrix expression that the shell parser cannot interpret directly.
+MapProxy's retained workflow declares four Python versions and a singleton Pillow version. Its recorded attempt has four test jobs and four ordinary jobs. Before this decision, the product exposed their reported step outcomes but declined dependency reasoning for the matrix strategy. The original install script contained a matrix expression that the shell parser could not interpret directly.
 
 A private source-only probe specialized all four combinations and reused the existing command parser. Each script became analyzable with four commands. The changed requirements install remained the second command and stayed outside existing runtime-strengthening eligibility. The four command locations were identical across combinations. The original script was 112 UTF-8 bytes and the specialized script was 90 bytes. Extending association alone would leave both a command-proof gap and an identity collision. [Design evidence](../../working-memory/2026-11-18_literal-matrix-dependency-evidence_design-cycle.md)
 
@@ -76,7 +76,7 @@ Record the association basis and witness references beside the runtime ID. Sourc
 
 ### 6. Treat later sequential commands as a separate method extension
 
-The current accepted rule admits a sole ordinary command and the first ordinary command of a sequential Bash/sh script. Specializing a matrix does not widen that rule.
+The predecessor rule admitted a sole ordinary command and the first ordinary command of a sequential Bash/sh script. Matrix specialization alone leaves that rule intact. The method below defines the separate later-command extension.
 
 For the MapProxy script, propose qualifying a later ordinary command when the selected GitHub Bash/sh execution profile establishes fail-fast behavior and the complete parsed script has a supported straight-line structure. The structural classifier must positively rule out early successful termination and changes to error handling before the target. It must account for shell builtins, functions, traps, status lists, pipes, nested/asynchronous control flow, and masked or dynamic behavior. Unsupported structures keep command execution unresolved even if the step reports success.
 
