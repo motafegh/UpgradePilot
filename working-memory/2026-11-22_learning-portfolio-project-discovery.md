@@ -111,3 +111,32 @@ Need to reconcile at least: the learner's actual reasons for pausing AegisLab, a
 ## 10. Decision state
 
 **Portfolio transition undecided.** Evidence strongly supports evaluating a **resume/repurpose** route before starting a new repo. Recommend discussing the real stoppage reasons and choosing a concrete 1–2 week recovery/ownership demonstration as the next discriminating check; only then commit to longer weekly allocation or revise AegisLab's existing Core Charter. Continue supervising UpgradePilot `main` separately.
+
+
+## 11. User clarification and AI-first learning requirements — 2026-11-22
+
+**New user-supplied insight:** The learner is uncertain how to choose or shape a project when AI can perform much of coding, architecture and implementation. The project must plausibly (1) accelerate *personally transferable* technical mastery, (2) improve hiring evidence, (3) sustain interest through **observable progress**, and (4) address an actual useful problem. The learner tentatively recalls pausing AegisLab partly because it **did not include enough AI engineering** and progress was not sufficiently visible. This is **self-reported, uncertain recollection**, not a verified sole or primary cause. Do not erase the documented July experience with repetition, explanation-calibration and scope; the causes could interact.
+
+**Important new factual check (AegisLab governing sources as of July 2026):**
+- The accepted [AegisLab Core Charter](https://github.com/motafegh/AegisLab/blob/main/docs/plans/AegisLab%20%E2%80%94%20Core%20Charter%20v1.0.md) expressly excludes ML, LLM investigators/agents, LangGraph/MCP, distributed frameworks, substantial dashboards, autonomous response and cloud deployment from **Core**, deferring these to later charters. It pursues evidence-backed SSH event collection, normalization, detection, incidents, evaluation and replay across **network namespaces, Docker and separate VMs**.
+- The [Core Execution Map](https://github.com/motafegh/AegisLab/blob/main/docs/plans/AegisLab%20%E2%80%94%20Core%20Execution%20Map.md) runs M0–M17. The current published stage is **M5 Docker**; the shared evidence pipeline, detection, report, evaluation and resilience are mostly M8–M17, after Docker, VM and three-environment comparison. This sequencing creates a **long value-visibility gap** for someone seeking a working detector or applied AI quickly.
+- AegisLab's deferment was a deliberate sound learning/boundary decision for its *original* Core, not proof that security detection or AegisLab is wrong. However, under the new four-part objective, the same sequencing may now be suboptimal. Any new AI-centric outcome would require an **explicit Charter/scope revision** in the AegisLab owning repository after user decision. Our branch does not change it.
+
+**Distinctions to preserve in future discussion:**
+1. **AI-assisted engineering:** AI drafts code, analyses, fixes and plans; human defines requirements, controls and proof, then independently explains, tests, diagnoses and can transfer the mechanism. This is a **development method**, not an AI-engineering product skill by itself.
+2. **Engineering AI systems:** model/API behavior, retrieval/tool boundaries, structured output, hallucination/semantic evaluation, data quality, latency/cost, fallback, monitoring, prompt/config/version reproducibility and deployment. This is a **technical product responsibility** that should be materially exercised for an AI-engineering career objective.
+3. **Security of AI systems:** prompt injection, unsafe tool permissions, evidence laundering, data leakage, evaluation attacks, agent authorization and failure containment. A separate responsibility with strong overlap and a likely demonstrable niche; requires realistic controlled cases and safe target boundaries.
+4. **AI applied to security operations:** security telemetry/detection plus bounded AI triage/explanation/next-evidence suggestions. Must preserve deterministic events/evidence, explicit uncertain conclusions, and human control for response.
+
+**Emerging design criterion:** Use a **short time-to-visible-value path**, not 18 successive infrastructure gates before the first meaningful user-facing result. A first demonstration should run an end-to-end task early (e.g. retained SSH logs → deterministic incident → evidence-backed AI triage or explicit refusal), then increase live operational realism. The exact mix remains a hypothesis until compared to other AI-first security options and the learner's intended role. Existing AegisLab can provide network/SSH test fixtures; it need not be retained unchanged or reused solely because code/plans already exist.
+
+**AI-first learning contract to test, not impose as a rigid code-without-AI rule:**
+- Human predicts one meaningful input/output/failure condition **before** using AI; AI can design/implement quickly.
+- Human can trace the actual code's data flow and evidence/permission boundary, selects acceptance tests, personally runs and interprets a changed or failed case.
+- Engineer ownership is sampled through a small **unseen modification or diagnosis** without an AI-provided complete answer; permit documentation and targeted AI guidance after the attempt.
+- Every short milestone ends with a demonstrable live behavior, an output artifact, an honest test/proof, and a concise explanation; no ceremony for routine tasks.
+- Track not just number of features or LoC but **novel capability demonstrated**, **independent diagnosis/transfer**, **security or AI-specific failure cases handled**, **observable value**, and **time until first end-to-end result**.
+
+**Preliminary direction:** Re-evaluate AegisLab's original Core versus an **explicitly re-chartered AI-security-operations vertical slice** versus a more AI-native **agent/tool security and evaluation** project. Compare genuinely different product tasks and user value, not just technology counts. Avoid copying the UpgradePilot evidence/report architecture or building a generic AI wrapper. This is still strategic analysis, **not authorization to restructure AegisLab, move local files or alter main**.
+
+**Next discriminating discussion:** Which category is intrinsically interesting enough to sustain repeated operation and diagnosis: operating actual Linux/network security events with AI triage, securing AI agent/tool execution, or evaluating hostile prompts and model output? The answer should be checked against a concrete prototype and realistic operator task rather than a preference poll alone.
