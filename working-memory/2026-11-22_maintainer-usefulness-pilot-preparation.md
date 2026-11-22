@@ -40,3 +40,9 @@ If the report helps on matched evidence, the next investment can target the demo
 **Technical packet preparation is complete. The independent pilot remains unfrozen.** At least two eligible participants must be confirmed. Their independence and exposure need checking, the draft key needs independent evidence adjudication, and final allocation and equivalent delivery need verification before the study freeze. The November 11 record is the last known reviewer availability decision. No new availability was assumed, no reviewer was contacted, and zero reviewer outcomes were collected. [Reviewer readiness history](2026-11-11_ai-only-maintainer-evaluation-feasibility_and_design_lbd-cycle.md)
 
 Re-enter at eligibility and independent key review using the prepared packets. A report-only presentation comparison or an AI-only exercise would answer a different question and has no independent human usefulness result here.
+
+## Repository handoff
+
+Ali selected direct public repository delivery so participants can download their ZIP and write `review.md` in the same assigned folder. The three folders contain separate prompts and plain ZIPs. The prompts limit reviewers to their assigned materials, require disclosure of accidental exposure, and ask them to hold submissions until Ali authorizes publication.
+
+This delivery relies on participant adherence. The repository gives public access to the other assignments and the draft key. Record this exposure risk in the study manifest and check participant exposure before accepting any outcome as independent. The underlying [packet receipt](evidence/2026-11-22-maintainer-usefulness-preparation/PACKET_RECEIPT.json) still identifies the same bytes. Access checks, adjudication, eligibility, and reviewer outcomes remain pending.
