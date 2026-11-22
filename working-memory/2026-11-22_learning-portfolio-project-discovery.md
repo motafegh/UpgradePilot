@@ -140,3 +140,29 @@ Need to reconcile at least: the learner's actual reasons for pausing AegisLab, a
 **Preliminary direction:** Re-evaluate AegisLab's original Core versus an **explicitly re-chartered AI-security-operations vertical slice** versus a more AI-native **agent/tool security and evaluation** project. Compare genuinely different product tasks and user value, not just technology counts. Avoid copying the UpgradePilot evidence/report architecture or building a generic AI wrapper. This is still strategic analysis, **not authorization to restructure AegisLab, move local files or alter main**.
 
 **Next discriminating discussion:** Which category is intrinsically interesting enough to sustain repeated operation and diagnosis: operating actual Linux/network security events with AI triage, securing AI agent/tool execution, or evaluating hostile prompts and model output? The answer should be checked against a concrete prototype and realistic operator task rather than a preference poll alone.
+
+
+## 12. Explicit AI-first portfolio options and smallest discriminating trial
+
+**These are options for discussion, not selected execution or an amendment of AegisLab's original Core Charter.**
+
+| Option | AI-engineering depth | Security/system-operations exposure | Fast observable value | Main defect to test |
+| --- | --- | --- | --- | --- |
+| Resume original AegisLab Core unchanged | Low before post-Core scope; AI is explicitly excluded | Strong Linux, SSH, Docker/VM and telemetry | Slow: environment parity comes before primary detection/report milestones | May reproduce the learner's AI/motivation and slow-progress concerns |
+| **Re-charter AegisLab to an AI-assisted security investigation vertical slice** | Moderate/high if LLM grounding, failure handling and evaluation are first-class | Strong if real local telemetry, ingestion, services and diagnosis follow | Possible within 1–2 weeks using retained genuine lab logs and a deterministic baseline | Risk of adding a cosmetic LLM summarizer rather than defensible security decisions; must earn added utility |
+| AI agent/tool authorization security evaluator | High for tool interfaces, prompt injection, policy enforcement, adversarial tests and safe sandbox behavior | Medium unless coupled to real Linux/network service operations | Fast if tested with controlled read-only simulated tools | May repeat UpgradePilot's trust/evidence contract work with little actual infrastructure novelty |
+| Continue short security micro-labs | Low on explicit AI engineering unless later added | Strong foundation breadth and learner activity | Fast per lab | Disconnected projects may fail to demonstrate one integrated AI security product |
+
+**Four simultaneous success obligations, not one combined arbitrary score:**
+1. **Transferable learner skill:** personally run, explain, change and diagnose at least one behavior introduced by the milestone; distinguish AI-authored changes from independent demonstration.
+2. **Hiring evidence:** concise reproducible architecture, threat model, clean run, meaningful adversarial/failure tests, measured model-vs-baseline behavior and honest ownership disclosure.
+3. **Intrinsic engagement/progress:** demonstrable end-to-end vertical slice and a visible new user-visible result every short cycle; no multi-week preparatory infrastructure as a default.
+4. **Actual usefulness hypothesis:** name a plausible operator task and compare with manual source review and a simple deterministic baseline; utility is unproven until independent users/cases support it.
+
+**Proposed narrow, reversible exploration (not authorized Build):** use retained, synthetic-or-authorized-lab SSH authentication event samples as input; establish deterministic event/threshold truth and source identities; ask an optional local LLM to formulate a **bounded, cited triage explanation** including material uncertainty; verify valid/invalid structured response, fabricated event references, a malicious instruction embedded in lower-trust log text, missing events and provider failure. Never let the model authorize response/blocking, execute tools or transform its own output into ground truth. Finish with a simple CLI or report that shows one operator what happened and what still needs verification. Compare raw logs, deterministic baseline, and AI-assisted view on the same cases. An end-to-end demo early would test interest and actual AI engineering before committing to Docker/VM expansion.
+
+**Re-entry / rejection gates:** If a small offline triage slice proves trivial with a deterministic template, does not require meaningful AI capabilities, or reproduces uncomfortable evidence/report repetition without new operations, do not expand it. Consider AI agent/tool-authorization evaluation or a different operational-security problem instead. If the slice is useful and the learner shows ownership, consider formally modifying AegisLab's charter to make one early full loop prior to three-environment parity and admit AI engineering with explicit evaluator and safety requirements.
+
+**Current external reference anchors:** [NIST NICE components 2026](https://www.nist.gov/news-events/news/2026/04/nice-releases-nice-framework-components-v220) ties work to demonstrable tasks/knowledge/skills, [OWASP LLM Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/?lang=us) supplies concrete human/tool authority risks, and [Stack Overflow Developer Survey 2025](https://survey.stackoverflow.co/2025/ai) shows high AI uptake alongside developer distrust of AI accuracy. These references motivate **measurement and validation**, not a promise of employment, product adoption, or that AI can independently own every production responsibility.
+
+**Decision state:** open. Discuss interest, employment target, and first practical experiment before modifying AegisLab or assigning weekly hours.
