@@ -133,3 +133,61 @@ The schedule is a **sampling plan**, not a promise to master these topics in fou
 Track only: **topic and concrete task; dated source revision; first unaided explanation/prediction; observed command/test/result; assistance level; diagnosed or modified changed case; one remaining gap; next delayed recall date**. Store in the current relevant learning cycle or a justified canonical learning artifact, not a global noisy spreadsheet, separate status system or new skill-label taxonomy. A single sentence can suffice for a routine recovery.
 
 The long-term decision is not "have we memorized four months?" It is "can the learner now **operate, challenge, repair and explain** the engineering responsibilities most valuable for future work and hiring, while remaining capable of researching unfamiliar details?" Retain documentation as an external memory rather than requiring comprehensive recall. Reassess the recovery queue monthly and prune low-value topics.
+
+
+## 7. Cross-project collaboration and future instruction/specification decision — 2026-11-22
+
+**User direction:** Preserve the portfolio/audit recommendations and historical knowledge recovery decisions already recorded, then decide **how to execute each direction** and whether existing assistants need new, targeted instructions or specifications for their distinct jobs. The user has not yet approved a full new cross-project instruction framework; this is a **coordination design for future joint decisions**, not permission to add blanket AI rules, edit main or restart workstreams. Prioritize usable execution over more files.
+
+### Status reconciliation before choosing instructions
+
+- **UpgradePilot `main` checked at `90601aa156913ed12afe683f27e15fe64990a185`** on November 22. The qualified CI first-view design and the exposed F4 development-review limits remain the current observed basis in its `MEMORY.md`; no independent human usefulness or speed effect has been established.
+- **AegisLab `main` advanced separately to `feed0b428f94e2e3cf936de89b455ac90537ff1e`** by November 22. Its active `PROJECT_STATE.md` now reports **accepted Core Charter v2** (`docs/plans/AegisLab — Core Charter v2.0.md`) and **Capability Execution Map v2**; this supersedes the previously tentative/awaiting-adoption language in this research document. A first runnable **Stage B synthetic SSH-auth incident CLI** with 15 reported passing tests was committed at `d6abf89da`. This is a *repository handoff report*, not an independent test rerun by this supervising session and not a claim of true live sensor evidence or learner mastery. Latest commit `feed0b428` records **Stage C local model-list HTTP transport reachability**, with an ambient WSL HTTP proxy bypass needed; no loaded model, successful inference, or AI quality result is proven by this connection check.
+- This is an example of **parallel-workstream drift**: learning/strategy records must present their facts at the observed commit and defer to the live respective repo owner. Never send a stale “please adopt v2 and begin Stage B” prompt to the assistant that has already done so. Future instructions must begin with current-state reconciliation.
+
+### Distinct workstreams (scope, evidence and limits)
+
+| Workstream | Primary outcome | Existing owner / likely AI role | Next question or gate |
+| --- | --- | --- | --- |
+| **AegisLab implementation** | Safe, observable Linux security events and evaluated AI-assisted investigation with agent controls | AegisLab `AGENTS.md`, active v2 Charter/stage map, AI Collaboration Protocol; build/debug assistant | Stage B learner changed-case proof; Stage C model result vs baseline; later live Stage D. Avoid letting AI implementation progress be mistaken for personal skill. |
+| **UpgradePilot product and usefulness** | Reliable, maintainable evidence-backed dependency update CLI and actual maintainer utility | UpgradePilot `MEMORY.md`, Charter, specifications, selected product plan and `OPERATING_GUIDE.md`; bounded build + independent evaluation | Qualified CI first-view presentation Build with preserved states, then real comparable usability evaluation; stay within six personal hours. |
+| **UpgradePilot public portfolio** | Clear employer-facing capability, demonstration and AI attribution without provenance loss | `README.md`, `docs/README.md`, existing `examples/`, proposed `docs/portfolio/`; editor/reviewer posture | Approve security/rights/metadata/license choices, then do short entry-point and reproducible offline walkthrough; do not mass-delete history or claim a release. |
+| **Knowledge recovery / transfer** | Retain and independently apply selected four-month engineering concepts while learning new ones | `learning/README.md`, `OPERATING_GUIDE.md`, existing Learning-Only/learning-artifact skills; focused mentor/evaluator posture | Start with one UpgradePilot source-to-report changed-case explanation; use staged recall and cross-apply to AegisLab mechanisms; no exhaustive rereading or new curriculum. |
+| **Career and hiring evidence** | Personally defensible project stories, interview-grade diagnostics and honest AI collaboration disclosures | Small curated portfolio artifacts and personal practice; no new repo authority | Show what actually ran, was personally diagnosed, and was independently understood; no unsupported readiness/adoption claims. |
+| **Independent supervision / coordination** | Prevent drift, contradictory instructions, unconstrained AI-generated work and time-budget erosion | This research branch; existing per-repo current-state owners; supervisor/reviewer posture | Verify milestone evidence and learning ownership at bounded intervals; keep product and learning state separate; do not silently mutate other workstreams. |
+
+### Decision procedure for new AI instructions, specs or plans
+
+**Use existing governance first.** UpgradePilot already has extensive `AGENTS.md`, `OPERATING_GUIDE.md`, local `.agents/skills/`, `docs/` specifications/ADRs and learning artifacts. AegisLab now has active `AGENTS.md`, Core Charter v2, stage map, AI Collaboration Protocol, Learning Preferences and learning state. Do not create a second root governance file or paste a cross-repo mega-prompt into both repositories merely for apparent consistency.
+
+| Artifact type | Use only when… | Proper owner and shape | Do not use for… |
+| --- | --- | --- | --- |
+| **Agent instruction / working protocol** | A repeated cross-session behavior is currently missing, unclear, contradictory or demonstrably costly | Update relevant existing `AGENTS.md`, assistant protocol or a focused skill; concise precedence, input source, stop/authority, expected output | Redoing accepted project semantics or making every tiny task a ceremony |
+| **Product specification / acceptance contract** | An actual implemented behavior requires durable cross-implementation meaning, security invariants or tests | Existing product-spec owner or active AegisLab Charter/module contract; include positive, negative and proof/non-proof cases | Career scheduling, one-off exercise instructions or aspirational future features |
+| **Bounded plan / handoff** | A selected next responsibility has multiple steps, dependencies, side effects or proof gates | One short plan with scope, entry, stop, success and ownership; update current status owner only upon real change | Reopening settled design, parallel redundant roadmaps or claiming software has shipped |
+| **Learning session / transfer protocol** | User needs to recover a real skill or ownership gap | Existing learning method + minimal practical task/changed case; one assistance and evidence note | Inference of mastery from AI code, forcing hand coding or duplication of historical study artifacts |
+| **Portfolio / editorial guide** | Public reviewer cannot readily identify product, proof and personal contribution | README/one curated portfolio path, short demo, factual evidence links | Rewriting source architecture, mass archival or claims of product-market validation |
+
+**Admission gate for ANY new document:** (1) name its distinct durable owner, (2) identify a real current gap that existing artifacts cannot satisfy, (3) define its expected operational decision/test or repeated behavior, (4) keep it smaller than the cost of the problem it solves, and (5) nominate links/status that need reconciliation. Otherwise **use a short prompt or an existing section**, not another file.
+
+### Multi-assistant boundary and review design
+
+- Keep assistants' **roles explicit by task**: builder, learning mentor, independent reviewer, public portfolio editor and strategy supervisor. The roles may share one model, but independence must not be claimed when the assistant has prior case exposure or participated in building the artifact.
+- Builders may implement/commit within their authorized repo and current scope; reviewers check claims against observed tests/artifacts and note missing evidence. Reviewers should not silently change active source or invent external independent evaluation.
+- Time control is about **learner time**. Additional AI coding does not justify consuming extra learner review hours; supply compact verified milestone receipts, source paths, unresolved issues and one learner-owned exercise.
+- For active work, the respective repo's live status and normative docs take priority over this research branch. Strategy records capture past decisions and proposals, not real-time implementation status.
+- Reuse code/knowledge across projects deliberately where a shared engineering principle is valuable, but avoid cloning UpGradePilot's long evidence/report/governance infrastructure into AegisLab.
+
+### Recommended next joint decision sequence (not yet authorized for execution)
+
+**Decision 1 — Workstream responsibility/priority:** Confirm the provisional allocation (20 h AegisLab, 6 h UpgradePilot, 4 h career/transfer) and select one specific near-term outcome per direction. The AegisLab assistant is already implementing v2, so supervise from the actual Stage B/C proof state rather than repeating its kickoff.
+
+**Decision 2 — Learning/ownership:** Select the first 60–90-minute diagnostic session, initially UpgradePilot CLI→evidence→report/test flow; record demonstrated vs guided knowledge and one changed case, then decide what must be relearned. Cross-transfer relevant lessons into AegisLab.
+
+**Decision 3 — Product/public presentation:** For UpgradePilot, complete the admitted CI first-view Build or explicitly choose the limited README/portfolio-first alternative. Set the separate security/rights review and true example readability as acceptance gates; don't combine product and marketing claims.
+
+**Decision 4 — AI guidance edits:** After those concrete choices, compare how existing guidance actually supports them. Draft *only* the smallest targeted amendment (likely an AegisLab Stage B learner-ownership handoff, or a concise UpgradePilot public-portfolio editing brief) **if** existing guidance proves insufficient. Never invent a broad second instruction/spec regime without evidence.
+
+**Review cadence:** brief weekly project/learning evidence snapshot and a meaningful four-week reassessment around December 20. Change hours or process sooner on observed safety risk, repeated role confusion, real user value or serious learner block—not because an agent has capacity for more docs.
+
+**Non-actions recorded:** No additional canonical instructions, product specifications, source, root README, branch merges, release, license decision, repository deletion, or main-branch state edits are authorized or performed by this research update. AegisLab live progress is an independently observed source-read snapshot and may change after this date.
