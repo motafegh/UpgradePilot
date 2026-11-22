@@ -60,3 +60,54 @@ Do not equate repository existence, framework names, commits, generated code, su
 ## 7. Decision gate
 
 **Not reached.** Need comparable artifacts for existing candidates, user context about why they stopped, a practical ownership-gap assessment, and a bounded first demonstration for the best alternative. A prior project may be the right answer; a new repo is not presumed better.
+
+
+## 8. First inventory — 2026-11-22 (read-only, provisional)
+
+The authenticated GitHub account `motafegh` lists **24 owned repositories**. The WSL `~/projects` folder includes multiple Git repositories, independent learning folders, and numerous Sentinel worktrees. **A separate worktree is not automatically a distinct portfolio project.** No local project was checked out, edited, built, installed or started. The research-branch-only record contains no raw packet captures, credentials, model artifacts, secrets or local private source excerpts.
+
+### Strongest directly relevant candidates
+
+| Candidate | Inspectable evidence | Actual status and open question | Initial fit |
+| --- | --- | --- | --- |
+| [AegisLab](https://github.com/motafegh/AegisLab) | 2026-07-18 `PROJECT_STATE.md`, Core Charter, M5 Docker playbook, learning state and worklog. Guided network-namespace SSH authentication success/failure, trust, sockets, process and log correlation; deliberate deferral of remaining formal M4 work as repetitive. | M5 Docker Phase 0/adapter **planned but not yet implemented**; downstream event collector, detection, incident, replay and environment parity remain unbuilt. Repository tracked files are primarily documentation/runbooks. Independent reproduction not demonstrated. Clean local worktree at inventory. | **Highest candidate for a resumed operational-security capstone**, with scope-control risk. |
+| [ai-security-engineering-labs](https://github.com/motafegh/ai-security-engineering-labs) | Flexible 2026-07 learning-by-doing ladder; local modified session tracker records the Handshake and Who's Listening experiments with actual source/evidence; local Traffic Inspector has real packet-capture artifacts and a detailed final review. | Public repo tracker is older than the local working copy; local `PROJECT_STATUS.md` still calls Traffic Inspector active, even though its local final review and captures exist. Much practical local work is **uncommitted**, including the small API source. Python security automation/web/API portions remain planned. | **Highest candidate for rapid, varied hands-on foundational micro-labs**, but requires honest status/packaging/ownership reconciliation before a portfolio claim. |
+| [CyberSecEngineer](https://github.com/motafegh/CyberSecEngineer) | 2026-07 secure-lab/foundations/distributed/AI-security curriculum, capstone specs, lab evidence, small shell system-auditor; Phase 1 reconciliation explicitly restarted from archived earlier work. | 167 tracked Markdown files, zero tracked Python files, some script/Compose material and local hands-on observations; many uncommitted edits, archive/restarters and ambitious principal-architect roadmap. The Phase-0 capstone README still says not started and has incomplete checklist; individual lab progress may exist elsewhere. | **Useful learning reference and source of selected exercises**, but poor candidate for another large top-level planning vehicle without severe scope reduction. |
+| [chainguardian-ai](https://github.com/motafegh/chainguardian-ai) | Old smart-contract security/ML/LLM/chain provenance project; 235 tracked Python files, 21 tracked files under test paths, Docker and application infrastructure; last local commit 2026-01-01. Historical verification report and README advertise strong accuracy/production outcomes. | The advertised metrics and full-stack operability were **not independently rerun or audited here**; scope overlaps Sentinel and may create a high-cost modernization/dependency burden. An untracked `MASTERY_EXECUTION_PLAN.md` explicitly recognizes the need to convert AI-assisted build into personally owned understanding. | Good for *targeted system comprehension/API/MLOps salvage*; not first choice as the new main security-operations learning project. |
+
+### Other relevant projects
+
+- [SENTINEL](https://github.com/motafegh/sentinel-) is already a large evidence/ML/agent/smart-contract research portfolio, not a novel operational-security foundation. Its README explicitly distinguishes earlier learner work from later substantially AI-led R4 continuation.
+- [PersianLLM-API](https://github.com/motafegh/PersianLLM-API) provides an existing Python FastAPI/RAG service, container files and a few tests; last local commit 2025-12-08. It could be used for a **small service hardening/deployment exercise**, but the broad RAG/cloud roadmap is not the same as a security-telemetry product. Local source edits are present.
+- [JobHunter](https://github.com/motafegh/jobhunter) is a recently active AI-first career intelligence product; substantial existing evidence and application engineering, but similar research/evidence orchestration pressures to UpgradePilot. Not a preferred source of missing Linux/network/defensive-operations exposure.
+- [warden](https://github.com/motafegh/warden) is a June 2026 Foundry/contract-scaffold project; the README remains mostly default framework instructions. `learning_warden` is a study mirror, not independent mature product evidence.
+- `cybersecurity_learning` and `j_to_s` are local lesson/curriculum workspaces, not automatically deployable portfolio products. The former's written mission favors open-source/local-first lab work without paid/KYC dependencies. `cyberpractice` looked empty in the bounded directory listing.
+- [EdgePilot](https://github.com/motafegh/EdgePilot) is presently charter/architecture/trading-research bootstrap, not a security-detection learning candidate. [Document-Processing-Pipeline](https://github.com/motafegh/Document-Processing-Pipeline) exposes a placeholder README in the inspected remote; `hushyar-ai-Persian-RAG` is empty on GitHub but has local source. The remaining account repos include small Git/GitHub Actions/Solidity learning exercises and should not be interpreted as 24 completed products.
+
+### Previously undocumented learning and stoppage context discovered
+
+- **AegisLab:** the owner explicitly advanced from remaining formal M4 namespace tests toward Docker because repetition had lower current learning value; a July 18 worklog also records frustration when the route and learning depth were not visible enough. This explains a *phase transition*, not necessarily the **ultimate reason the entire project paused**.
+- **CyberSecEngineer:** a July 7 local reconciliation intentionally archived prior Phase-1 work for a fresh start; this is a clear restart event, not proof that earlier learning never occurred or an explanation for later abandonment.
+- **ai-security-engineering-labs:** four recorded sessions on July 12 completed Handshake and Who's Listening; uncommitted Traffic Inspector evidence exists beyond the still-active tracker entry. The reason this project later paused is not established from those artifacts.
+- **ChainGuardian:** the local mastery plan says the AI-assisted system needed deeper independent comprehension; this is a documented ownership pressure, not proof of a specific reason for pausing.
+- Other project pause reasons must be supplied by the learner or found in exact dated records; commit inactivity alone cannot establish motivation.
+
+### Provisional comparative judgement
+
+**Two credible paths now exist:**
+1. **Resume AegisLab** as the one deeper security-detection capstone, preserving its existing observable SSH/network baseline and using a small genuine Docker/telemetry/detection milestone to test renewed learning yield. Its original three-environment contract and sequential gates may be too heavy for a short learning/portfolio cycle, so scope changes would require an explicit owner decision, not silent plan bypass.
+2. **Resume ai-security-engineering-labs** as a short-lab execution ladder to cover missing network, web/API security, defensive automation and CI competencies quickly. Prioritize confirming/reconciling locally completed traffic exercises, preserve private captures, and advance only to a bounded next practical lab. Use AegisLab later as a capstone if the foundational exercises surface the need.
+
+Starting an entirely new repository is **not yet warranted** without rejecting these recovery options on concrete grounds. Avoid running both as competing full-time implementations or attempting to combine their governance files automatically.
+
+**Current ranking, not accepted:** AegisLab for cohesive capstone relevance; ai-security-engineering-labs for near-term variety and execution speed; small PersianLLM deployment hardening as a targeted alternate; CyberSecEngineer as a reference; ChainGuardian as optional later salvage. The correct order could reverse depending on *why the learner stopped* and which type of project they will reliably continue.
+
+## 9. Remaining decisive information before switching main learning focus
+
+Need to reconcile at least: the learner's actual reasons for pausing AegisLab, ai-security-engineering-labs, CyberSecEngineer and ChainGuardian; whether an overly structured session style or repetitive steps drove disengagement; which guided concepts can now be reproduced unaided; current local Docker/WSL/packet capture availability if resumption is selected; and how much time can be dedicated to a **single** bounded first deliverable.
+
+**Do not infer that project count equals skill breadth** or that files marked `Complete` equal independent mastery. No candidate has undergone a clean-clone/run acceptance in this read-only review. Local uncommitted changes should be preserved and reviewed before any checkout, pull, branch reset or publication.
+
+## 10. Decision state
+
+**Portfolio transition undecided.** Evidence strongly supports evaluating a **resume/repurpose** route before starting a new repo. Recommend discussing the real stoppage reasons and choosing a concrete 1–2 week recovery/ownership demonstration as the next discriminating check; only then commit to longer weekly allocation or revise AegisLab's existing Core Charter. Continue supervising UpgradePilot `main` separately.
