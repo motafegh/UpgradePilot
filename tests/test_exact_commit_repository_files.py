@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import unittest
 from unittest.mock import Mock
 
@@ -21,7 +22,7 @@ _PATH = "docs/changelog.md"
 def _response(payload: object, *, status: int = 200) -> Mock:
     response = Mock()
     response.status_code = status
-    response.json.return_value = payload
+    response.iter_content.return_value = [json.dumps(payload).encode()]
     return response
 
 

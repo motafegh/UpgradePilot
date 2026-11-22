@@ -156,3 +156,5 @@ The audit used controlled local verification and retained public-safe evidence. 
 ## Follow-up resolution
 
 The November 21 [trust boundary Build](../working-memory/2026-11-21_audit-trust-boundary-repairs_build.md) resolved F1 and F2. It checked the shared public base repository guard through all three CLI profiles and the local model adapter's refusal to follow redirects. The clean installed regression passed 1,186 tests without skips. The audit observations above retain the inspected revision and original proof horizon.
+
+The November 22 [GitHub JSON response guard Build](../working-memory/2026-11-22_github-json-response-size-build.md) resolved F3's per-response gap. The shared reader now streams and limits the decoded body to 8 MiB before parsing. Installed verification covered an oversized-response refusal and the full retained MapProxy report replay. An end-to-end ordinary acquisition budget remains a separate question, pending representative cost evidence.

@@ -28,12 +28,26 @@ responses supplied.
 
 from __future__ import annotations
 
+import json
 import unittest
 from datetime import UTC, datetime
+from gzip import compress
 from hashlib import sha256
-from unittest.mock import Mock
+from io import BytesIO
+from unittest.mock import Mock, patch
 
-from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
+from requests import Response
+from requests.adapters import HTTPAdapter
+from requests.exceptions import ChunkedEncodingError
+from requests.structures import CaseInsensitiveDict
+from urllib3.response import HTTPResponse
+
+from upgradepilot.github.api import (
+    MAX_GITHUB_JSON_RESPONSE_BYTES,
+    GitHubAcquisitionError,
+    GitHubApiClient,
+    GitHubResponseError,
+)
 from upgradepilot.github.pull_request import (
     GitHubPullRequestClient, PullRequestIdentity, MAX_PR_DESCRIPTION_UTF8_BYTES,
 )
@@ -43,6 +57,111 @@ _HEAD_SHA = "f3cda8a94600e58d27f1bc17c99b7693718b6350"
 _OTHER_BASE_SHA = "1" * 40
 _OTHER_HEAD_SHA = "2" * 40
 _REPOSITORY = "googlefonts/glyphsLib"
+
+
+class GitHubJsonTransportTests(unittest.TestCase):
+    _url = "https://api.github.com/repos/example/project"
+
+    @staticmethod
+    def _wire_response(request, body, *, status=200, headers=None):
+        response = Response()
+        response.status_code = status
+        response.url = request.url
+        response.request = request
+        response.headers = CaseInsensitiveDict(headers or {})
+        response.raw = HTTPResponse(
+            body=BytesIO(body), headers=response.headers, preload_content=False
+        )
+        return response
+
+    def test_limit_counts_decoded_bytes_with_compressed_response(self):
+        prefix, suffix = b'{"value":"', b'"}'
+        for extra in (0, 1):
+            with self.subTest(extra=extra):
+                length = MAX_GITHUB_JSON_RESPONSE_BYTES + extra
+                body = prefix + b"a" * (length - len(prefix) - len(suffix)) + suffix
+                compressed = compress(body)
+
+                def send(_adapter, request, **kwargs):
+                    self.assertTrue(kwargs["stream"])
+                    return self._wire_response(
+                        request, compressed,
+                        headers={"Content-Encoding": "gzip", "Content-Length": str(len(compressed))},
+                    )
+
+                with patch.object(HTTPAdapter, "send", send):
+                    client = GitHubApiClient()
+                    if extra:
+                        with self.assertRaises(GitHubAcquisitionError) as caught:
+                            client._get_json_object(self._url, resource="test")
+                        self.assertEqual(caught.exception.reason, "response_size_limit")
+                    else:
+                        decoded = client._get_json_object(self._url, resource="test")
+                        self.assertEqual(len(decoded["value"]), length - len(prefix) - len(suffix))
+
+    def test_stops_before_reading_tail_or_parsing_an_oversized_body_without_length(self):
+        response = _response({})
+
+        def chunks():
+            yield b"x" * MAX_GITHUB_JSON_RESPONSE_BYTES
+            yield b"x"
+            self.fail("read continued after the size limit")
+
+        response.iter_content.return_value = chunks()
+        session = Mock()
+        session.get.return_value = response
+        with patch("upgradepilot.github.api.json.loads") as decode:
+            with self.assertRaises(GitHubAcquisitionError) as caught:
+                GitHubApiClient(session=session)._get_json_array(self._url, resource="changed-file")
+        self.assertEqual(caught.exception.reason, "response_size_limit")
+        decode.assert_not_called()
+        response.close.assert_called_once()
+
+    def test_interrupted_body_remains_distinct_from_malformed_complete_json(self):
+        for interrupted in (True, False):
+            with self.subTest(interrupted=interrupted):
+                response = _response({})
+
+                def chunks():
+                    yield b'{"value":'
+                    if interrupted:
+                        raise ChunkedEncodingError("synthetic read interruption")
+
+                response.iter_content.return_value = chunks()
+                session = Mock()
+                session.get.return_value = response
+                error = GitHubAcquisitionError if interrupted else GitHubResponseError
+                with self.assertRaises(error) as caught:
+                    GitHubApiClient(session=session)._get_json_object(self._url, resource="test")
+                if interrupted:
+                    self.assertEqual(caught.exception.reason, "body_incomplete")
+                response.close.assert_called_once()
+
+    def test_redirect_body_is_discarded_for_both_follow_and_explicit_observation(self):
+        target_url = self._url + "/canonical"
+        requested = []
+
+        def send(_adapter, request, **kwargs):
+            requested.append(request.url)
+            if request.url == target_url:
+                return self._wire_response(request, b'{"value":1}')
+            response = self._wire_response(
+                request, b"", status=301, headers={"Location": target_url}
+            )
+            response.raw.stream = Mock(side_effect=AssertionError("redirect body was read"))
+            return response
+
+        with patch.object(HTTPAdapter, "send", send):
+            client = GitHubApiClient()
+            self.assertEqual(client._get_json_object(self._url, resource="test"), {"value": 1})
+            self.assertEqual(requested, [self._url, target_url])
+            with self.assertRaises(GitHubAcquisitionError) as caught:
+                client._get_json_object(
+                    self._url, resource="test", observe_permanent_redirect=True
+                )
+            self.assertEqual(caught.exception.status_code, 301)
+            self.assertEqual(caught.exception.redirect_location, target_url)
+            self.assertEqual(requested, [self._url, target_url, self._url])
 
 
 def _identity(
@@ -104,7 +223,7 @@ def _observation(identity: PullRequestIdentity, body: object = None):
 def _response(payload: object, *, status_code: int = 200) -> Mock:
     response = Mock()
     response.status_code = status_code
-    response.json.return_value = payload
+    response.iter_content.return_value = [json.dumps(payload).encode()]
     return response
 
 
@@ -315,10 +434,13 @@ class GitHubPullRequestClientTests(unittest.TestCase):
         self.assertEqual(tuple(record.filename for record in records), ("requirements-1.txt",))
 
     def test_get_changed_files_acquires_all_pages_before_post_read(self) -> None:
-        """A full first page must acquire page two before the final PR identity read."""
+        """A large full first page still leaves page two and the final identity read."""
 
         identity = _identity(changed_files=101)
-        first = _response([_changed_file(index) for index in range(100)])
+        patch_text = "@@ -1 +1 @@\n-" + ("a" * 24_000) + "\n+" + ("b" * 24_000)
+        first = _response([
+            {**_changed_file(index), "patch": patch_text} for index in range(100)
+        ])
         second = _response([_changed_file(100)])
         post_read = _response(_pull_request_payload(identity))
         session = Mock()
@@ -327,6 +449,7 @@ class GitHubPullRequestClientTests(unittest.TestCase):
         records = GitHubPullRequestClient(session=session).get_changed_files(identity)
 
         self.assertEqual(len(records), 101)
+        self.assertEqual(records[0].patch, patch_text)
         page_calls = [
             call.kwargs["params"]["page"]
             for call in session.get.call_args_list

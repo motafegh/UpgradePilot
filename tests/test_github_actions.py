@@ -23,6 +23,7 @@ covered by the CI dependency-exercise tests.
 
 from __future__ import annotations
 
+import json
 import unittest
 from unittest.mock import Mock
 
@@ -111,7 +112,7 @@ def _response(payload: object) -> Mock:
 
     response = Mock()
     response.status_code = 200
-    response.json.return_value = payload
+    response.iter_content.return_value = [json.dumps(payload).encode()]
     return response
 
 

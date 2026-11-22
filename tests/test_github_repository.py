@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import unittest
 from unittest.mock import Mock
 
@@ -50,7 +51,7 @@ def _run() -> WorkflowRun:
 def _response(payload: object, *, status: int = 200) -> Mock:
     response = Mock()
     response.status_code = status
-    response.json.return_value = payload
+    response.iter_content.return_value = [json.dumps(payload).encode()]
     return response
 
 
@@ -65,6 +66,26 @@ def _run_detail(*, run_id: int = 1001) -> dict[str, object]:
 
 
 class GitHubRepositoryClientTests(unittest.TestCase):
+    def test_acquires_json_envelope_for_maximum_supported_repository_text(self) -> None:
+        content = b"a" * 1_000_000
+        path = "requirements.txt"
+        session = Mock()
+        session.get.return_value = _response(
+            {
+                "type": "file",
+                "path": path,
+                "encoding": "base64",
+                "content": base64.encodebytes(content).decode(),
+            }
+        )
+
+        result = GitHubRepositoryClient(session=session).get_exact_head_text_file(
+            _identity(), path
+        )
+
+        self.assertIsInstance(result, RepositoryTextFile)
+        self.assertEqual(result.content, content.decode())
+
     def test_resolves_workflow_path_and_returns_exact_head_text(self) -> None:
         workflow_text = "jobs:\n  test:\n    steps:\n      - run: pytest tests\n"
         workflow_bytes = workflow_text.encode()

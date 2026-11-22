@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import unittest
 from unittest.mock import Mock
 
@@ -21,7 +22,7 @@ _TREE = "b" * 40
 def _response(status: int, payload: object) -> Mock:
     response = Mock()
     response.status_code = status
-    response.json.return_value = payload
+    response.iter_content.return_value = [json.dumps(payload).encode()]
     return response
 
 

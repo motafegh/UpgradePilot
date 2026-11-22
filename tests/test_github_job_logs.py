@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import traceback
+import json
 import unittest
 from dataclasses import replace
 from unittest.mock import Mock
@@ -105,7 +106,7 @@ class WorkflowJobLogTests(unittest.TestCase):
         }
         def data_response(payload):
             result = response(200)
-            result.json.return_value = payload
+            result.iter_content.return_value = [json.dumps(payload).encode()]
             return result
         session = Mock()
         session.get.side_effect = (data_response(run_data), data_response(jobs_data))

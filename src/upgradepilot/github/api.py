@@ -8,10 +8,10 @@ error meaning and wording remain provider-owned here.
 
 from __future__ import annotations
 
+import json
 from collections.abc import Mapping
 from typing import Any, Callable, TypeVar
 
-import requests
 from requests import Response, Session
 from requests.exceptions import RequestException, Timeout
 
@@ -31,6 +31,8 @@ from .auth_session import GitHubPublicSession
 GITHUB_API_ROOT = "https://api.github.com"
 GITHUB_API_VERSION = "2022-11-28"
 DEFAULT_TIMEOUT = (3.05, 15.0)
+MAX_GITHUB_JSON_RESPONSE_BYTES = 8 * 1024 * 1024
+_JSON_CHUNK_BYTES = 8192
 
 _T = TypeVar("_T")
 
@@ -138,6 +140,8 @@ class GitHubApiClient:
             kwargs: dict[str, Any] = {
                 "headers": self._headers,
                 "timeout": self._timeout,
+                "stream": True,
+                "hooks": {"response": self._discard_redirect_body},
             }
             if params is not None:
                 kwargs["params"] = params
@@ -155,13 +159,29 @@ class GitHubApiClient:
                 reason="transport_error",
             ) from exc
 
-        if observe_permanent_redirect and response.status_code == 301:
-            raise GitHubAcquisitionError(
-                f"GitHub returned HTTP 301 while acquiring {resource} evidence.",
-                reason="http_error", status_code=301,
-                redirect_location=response.headers.get("Location"),
-            )
-        self._raise_for_status(response, resource=resource)
+        try:
+            if observe_permanent_redirect and response.status_code == 301:
+                raise GitHubAcquisitionError(
+                    f"GitHub returned HTTP 301 while acquiring {resource} evidence.",
+                    reason="http_error", status_code=301,
+                    redirect_location=response.headers.get("Location"),
+                )
+            self._raise_for_status(response, resource=resource)
+        except GitHubAcquisitionError:
+            response.close()
+            raise
+        return response
+
+    @staticmethod
+    def _discard_redirect_body(response: Response, *_args: Any, **_kwargs: Any) -> Response:
+        """Preserve redirect status and headers without letting Requests buffer its body."""
+
+        if response.is_redirect:
+            # Requests consumes redirect bodies even with stream=True, including
+            # when it only prepares the next request. UpgradePilot only needs the headers.
+            response.close()
+            response._content = b""
+            response._content_consumed = True
         return response
 
     @staticmethod
@@ -191,11 +211,31 @@ class GitHubApiClient:
 
     @staticmethod
     def _read_json(response: Response, *, resource: str) -> Any:
-        """Decode a successful body while keeping malformed JSON distinct."""
+        """Read a complete bounded decoded body before parsing provider JSON."""
+
+        body = bytearray()
+        try:
+            for chunk in response.iter_content(chunk_size=_JSON_CHUNK_BYTES):
+                if len(body) + len(chunk) > MAX_GITHUB_JSON_RESPONSE_BYTES:
+                    raise GitHubAcquisitionError(
+                        f"GitHub {resource} response exceeded the "
+                        f"{MAX_GITHUB_JSON_RESPONSE_BYTES}-byte decoded body limit.",
+                        reason="response_size_limit",
+                        status_code=response.status_code,
+                    )
+                body.extend(chunk)
+        except RequestException as exc:
+            raise GitHubAcquisitionError(
+                f"GitHub {resource} response ended before its complete body was acquired.",
+                reason="body_incomplete",
+                status_code=response.status_code,
+            ) from exc
+        finally:
+            response.close()
 
         try:
-            return response.json()
-        except requests.exceptions.JSONDecodeError as exc:
+            return json.loads(body)
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise GitHubResponseError(
                 f"GitHub returned a successful {resource} response that was not valid JSON."
             ) from exc
