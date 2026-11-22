@@ -1,0 +1,143 @@
+{
+  "status": "packet_preparation_verified_study_unfrozen",
+  "client_date": "2026-11-22",
+  "comparison": "same fixed retained packet with or without the actual ordinary CLI report",
+  "product": {
+    "commit": "f3e5b4fdce762baea46bfdae8851ac8a70bcee70",
+    "wheel_sha256": "c73bbdc13f186bffc0808ccaca8e14d444ab92cbf2d34d12c9435f54e4f4607c",
+    "product_version": "0.0.0",
+    "report_schema": 1,
+    "generator": "4",
+    "renderer": "5",
+    "profile": "ordinary anonymous",
+    "input": "ordered offline provider response replay",
+    "model_calls": 0
+  },
+  "transitions": {
+    "opencv": [
+      "opencv-python",
+      "4.2.0.32",
+      "4.8.1.78"
+    ],
+    "mapproxy": [
+      "soupsieve",
+      "3.0.4",
+      "4.0"
+    ],
+    "httpx": [
+      "httpx",
+      "0.27.2",
+      "0.28.1"
+    ]
+  },
+  "proposed_slots": [
+    [
+      "opencv/sources-only",
+      "mapproxy/report-assisted",
+      "httpx/sources-only"
+    ],
+    [
+      "httpx/report-assisted",
+      "mapproxy/sources-only",
+      "opencv/report-assisted"
+    ]
+  ],
+  "readiness_gates": {
+    "material_parity": "verified across six private condition packets",
+    "independent_key_adjudication": "pending",
+    "reviewer_eligibility_and_availability": "unconfirmed",
+    "final_allocation_and_access": "pending",
+    "comparative_outcomes_collected": 0
+  },
+  "private_operator_material_sha256": {
+    "OPERATOR.md": "98e6fb89252da4ea7b96ca449f5c2704d1dc85d88129160e6f9a24969a667a76",
+    "DRAFT-KEY.md": "a02f846d00cb8530bd4df81e5325d5444a7f92feaba31260e3a04e12d795922d",
+    "prepare.py": "26ed82abb7b5c842d2b84624e6609ba733ffeb1b5d23470a54d9890c031f356a"
+  },
+  "cases": [
+    {
+      "case": "opencv",
+      "repository": "carla-simulator/scenario_runner",
+      "pull_number": 1111,
+      "base_sha": "7758d066080f180f8296887ed89b7c723a54706a",
+      "head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+      "source_index_sha256": "8a62a31c0c8ceefa34dc0bfd270d23ce94d2da3c4db72e996ad6e42eafbe8b43",
+      "requests_replayed": 13,
+      "status_only_records": 7,
+      "source_file_count": 7,
+      "source_files": {
+        "01.json": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+        "02.json": "ebd119d7b45f74ab88eaa53b3973d057385172ad15205cd3c9b7d3c370ad3f58",
+        "03.json": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+        "04.json": "a2790a384d7d281e7395679000c35d27768d89dbd7052f725b8f4688beb59915",
+        "05.json": "f9538edd5d6879e10529eed77755cff45338e0533ec6c4b4590ccd3de76709f3",
+        "06.json": "7721441d4bb6530ecf4a3e8bdbafc6181b7c6dfecf423089ea4ff75e815cf10b",
+        "INDEX.md": "1fa02063d4ed9f089aed02b7bde2d0b7057c44055555d2108d770f29dcd01d2b"
+      },
+      "identical_task_sha256": "31ab327816097a8657f85ebe1a1086b1344def5335ca61f3df4444da85ba7b7f",
+      "identical_start_sha256": "ec6646b87e4d87d42d3d3d4849f4e6bc878e18bd6ad465f2d0ff8ccc25cd7d8d",
+      "report_json_sha256": "ab43b3e5e44dc7ebd71c2ab968fea0cd3d8756d0b2b143921e81d40e0319df47",
+      "assisted_report_text_sha256": "d8e0d81b7c9ab8837c634450142a8c331e68a8e81c3f9d33d75899773980957b"
+    },
+    {
+      "case": "mapproxy",
+      "repository": "mapproxy/mapproxy",
+      "pull_number": 1559,
+      "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+      "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "source_index_sha256": "0e39c5935f6ca4d296cf802e57a7eec44ca4c72d7ca185213e1c53def6580a29",
+      "requests_replayed": 16,
+      "status_only_records": 0,
+      "source_file_count": 19,
+      "source_files": {
+        "01.json": "21de0b050cfe6dfc7b0196b1c11860d419a2843b1c61b5c6c2294f149d72866a",
+        "02.json": "468b044be0c86609070319c06b4558dceb9f06016637b171b2d610f856cc5084",
+        "03.json": "21de0b050cfe6dfc7b0196b1c11860d419a2843b1c61b5c6c2294f149d72866a",
+        "04.json": "6caaae1bc9accbcc5f4512fc7127e4da5af8585e1366290b2c52ffa819cc13bc",
+        "05.json": "cb2b1361da178a44936bf731476a4a4aacdc0f53eb515885fc64574da3b33c8b",
+        "06.json": "00c7db3ddb58d0a01530a76a691abfc27aa227b077bf0337169da12e23a7256a",
+        "07.json": "0905fde79836de9b5ff59da8f326b93ed38664fb69c1cf7ffaba5b5d9889e018",
+        "07.txt": "fb052b6c542e85ccc7448c325d47c03bf1ba3e2453caec02130b898d47821738",
+        "08.json": "ae3c0a447da3407c5392c0c9d9f09b120d533cc9de50b3aea5ce42ee8c250787",
+        "09.json": "b858533ffc2285be97a92a687d9793ddfb19a3e2f368a10411b1073ac27ce84b",
+        "10.json": "0853d843e5e6c296cc25c4ae4d0fee73380b7405fad415c53559823445f67434",
+        "11.json": "464daefc754a64689e53a6a182b6a3c7ae774a7eab3eb9355b957f061db44adf",
+        "12.json": "5b4f9ffbd3ad840fe33b62220c7b661bf858de8db8e2261239f90d392a0dbe2b",
+        "13.json": "c9bb595572e16ce2c8e76ab08d735f830b78b6b56b9982de4a71b7872c5b4959",
+        "14.json": "4c314277b2fe0e8b558f9339af869a3cf9ab86d1836fa7a96c9a814128cf8a62",
+        "15.json": "bfc29935db4ffeab621d74bde4d5775dbcf4d001b81e8b8be48d8381f8a08c95",
+        "16.json": "97712f22efb325d6ba9ff288d2c71e1d76c8a89a8948caba55f5492aaf57ced4",
+        "16.txt": "7c01508a58ab9e5dbcb4444834434c52e4bfe803d65e28f551b48f938de25864",
+        "INDEX.md": "d8ac217703af3d0b8d2ba8c039fcc9a9955016eb9f49d5a6cbe1741ac404ccdb"
+      },
+      "identical_task_sha256": "31ab327816097a8657f85ebe1a1086b1344def5335ca61f3df4444da85ba7b7f",
+      "identical_start_sha256": "ec6646b87e4d87d42d3d3d4849f4e6bc878e18bd6ad465f2d0ff8ccc25cd7d8d",
+      "report_json_sha256": "3214f53ecfbf9c2b15d937363d0b97056438402d5e343ebfe6e5a656382b2706",
+      "assisted_report_text_sha256": "e80c2bce79aa9f5ba85a9363b1e60a834892a3e88f3f3699d702c8a1031ff4e5"
+    },
+    {
+      "case": "httpx",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "pull_number": 20,
+      "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+      "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "source_index_sha256": "34fb9393349bf001b4a83bc34e53de0542e1f4d3295f6490412b86e954c9cda2",
+      "requests_replayed": 8,
+      "status_only_records": 2,
+      "source_file_count": 7,
+      "source_files": {
+        "01.json": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+        "02.json": "19af613be7a54b92da1d81a1d1a46102314cba0c1db00e9d91a2af9db9dfbcca",
+        "03.json": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+        "04.json": "a2790a384d7d281e7395679000c35d27768d89dbd7052f725b8f4688beb59915",
+        "05.json": "293bfab7bf587fcd0825f1bd8eed8e6303285ba14801b15659853827cbe30796",
+        "06.json": "7446aaeeb6033d077d6526f0e9e99cc854cf2ff6f51a3f1e18cd361a8f8750c3",
+        "INDEX.md": "e0225a8cb5753e6ddafa249e07250a8a31690ad0ab4b268fb480a7394a84c157"
+      },
+      "identical_task_sha256": "31ab327816097a8657f85ebe1a1086b1344def5335ca61f3df4444da85ba7b7f",
+      "identical_start_sha256": "ec6646b87e4d87d42d3d3d4849f4e6bc878e18bd6ad465f2d0ff8ccc25cd7d8d",
+      "report_json_sha256": "a4532b3793ac20f4ee26af33aa54dd668d8019b9829e558d64632f41672a29b1",
+      "assisted_report_text_sha256": "89aa06a38bc88b81f5f5a57aaab2c2b16b5a2834c16cb7e619570211d8b553a3"
+    }
+  ]
+}
