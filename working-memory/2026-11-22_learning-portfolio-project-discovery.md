@@ -166,3 +166,41 @@ Need to reconcile at least: the learner's actual reasons for pausing AegisLab, a
 **Current external reference anchors:** [NIST NICE components 2026](https://www.nist.gov/news-events/news/2026/04/nice-releases-nice-framework-components-v220) ties work to demonstrable tasks/knowledge/skills, [OWASP LLM Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/?lang=us) supplies concrete human/tool authority risks, and [Stack Overflow Developer Survey 2025](https://survey.stackoverflow.co/2025/ai) shows high AI uptake alongside developer distrust of AI accuracy. These references motivate **measurement and validation**, not a promise of employment, product adoption, or that AI can independently own every production responsibility.
 
 **Decision state:** open. Discuss interest, employment target, and first practical experiment before modifying AegisLab or assigning weekly hours.
+
+
+## 13. Learner agreement and selected next discriminating step — 2026-11-22
+
+**Confirmed by user in current session:** The user strongly agrees with the preceding AI-first learning framework and is interested in both (a) operating realistic defensive security environments and using AI to investigate their events and (b) building and securing AI agents. They want a concrete, practical next-step decision after documenting the discussion. This confirms **interest in both subject areas**, not blanket authorization to modify AegisLab, declare the project selected, run infrastructure, or merge into UpgradePilot main. Preserve this nuance.
+
+**Refined provisional recommendation:** Design one coherent **AI security investigation lab** that makes operational security the source of real problems and bounded AI-agent behavior a genuinely testable subsystem. Prefer reusing AegisLab's existing authorized SSH/network experiment and source artifacts where suitable, but its charter **explicitly prohibits AI in the original Core**; any permanent change needs a later explicit AegisLab owner decision and updated charter/execution map. This is a *proposed product learning direction*, not evidence the product helps a real analyst.
+
+### First practical decision experiment (proposed; no Build authorized)
+
+**Question:** Can a small offline local prototype (1–2 focused weeks, subject to actual progress) prove that this project teaches both operational security and AI/security engineering, produces an inspectable end-to-end operator result, and has a testable usefulness hypothesis **without** another preparatory multi-environment program?
+
+**Operator task:** Given a bounded set of retained *authorized-lab* SSH authentication records, explain whether the evidence shows one observed authentication sequence of interest, distinguish the action/source from the sensor's observation, and state what cannot be concluded or what specific next observation matters.
+
+**Minimal experimental path:**
+1. **Inspect and choose one permitted preexisting input set.** Prefer AegisLab's recorded SSH success, valid unauthorized-key failure and related host/socket logs with source/time/context. If raw retained material lacks needed fields, disclose that; use explicitly synthetic controlled complements without mislabeling them as observed lab data. No live unsafe scanning or attacking.
+2. **Make a tiny runnable baseline quickly.** Parse bounded events (raw/normalized identities and timestamps), implement one deterministic rule such as count of failed authentications within a stated window, render a concise incident/uncertainty result, and test one positive/negative/threshold case. No DB/framework/cloud/VM pipeline before the first demo.
+3. **Add one optional local model responsibility.** Local LLM receives typed facts and selected quoted snippets; proposes a structured, evidence-linked triage explanation or justified refusal. The app verifies referential identities, allowed fields, and output status, and keeps rule truth and action authority outside the model. Compare with the same deterministic result, not a richer input packet.
+4. **Exercise meaningful AI security boundaries.** Attack the explanation with an adversarial instruction embedded in lower-trust log text; inject missing, false or contradictory event references; force model unavailability/invalid output. Model never executes shell commands or authorizes blocking. If agent/tool-security competence is desired in the trial, add *one controlled read-only tool*, e.g. fetch event by approved ID through an allowlisted validation boundary, then test unauthorized/invalid requests. Do not require a general planner or tool framework.
+5. **Show and explain a complete operator result.** One CLI invocation or tiny local view outputs the finding, cited evidence IDs, uncertainty, and observed safety/failure behavior. Show a before/after or model-vs-template comparison with a known limitation; have the learner diagnose one changed-case failure before a completed explanation is supplied.
+6. **Decide, do not automatically expand.** Stop if the AI adds no defensible informational value, the prototype is mainly repeated UpgradePilot-style claim normalization, or the learner is not encountering new operational/system concepts. Redirect toward live telemetry and deployment, or a separate agent-tool security lab, depending on the actual learning/engagement evidence.
+
+**First-session deliverable if selected:** a one-page bounded experiment brief describing the operator, one source record set, exact raw-to-output flow, two expected good outcomes, two adversarial/failure cases, known missing evidence, proof of learner ownership, and the exact code location/branch. Then implement only the first runnable baseline. The user-facing demonstration is a concrete acceptance gate, not an assumed consequence of a README.
+
+**Example success evidence (not percentage target):**
+- An observable end-to-end baseline with correct cited event/source scope, plus a negative and missing-evidence control.
+- AI-assisted output demonstrably differs in a justified way *or* is judged unnecessary with measured evidence and explicit rejection.
+- Prompt-injection and invalid/missing evidence never become trusted instructions or unsupported incident facts, including through any single admitted read-only tool.
+- The learner can personally trace and diagnose a modified incident or broken boundary with limited assistance; record exactly which actions were personally completed.
+- One concise reproducer and comparison fit a credible portfolio narrative while explicitly stating prototype—not production SOC, independent analyst value, or complete AegisLab Core.
+
+**Separately deferred:** permanent AegisLab charter/roadmap changes, public project renaming or splitting, large source imports, Docker/VM three-environment parity, live agentic response actions, external attacks, public cloud, evaluation-population claims, new LLM frameworks, full data platform, autonomous remediation, or recruiting independent users.
+
+### Coordination and current source state
+
+Our independent research and branch-only working memory remain the proper home for this recommendation until the user chooses execution. `UpgradePilot/main` advanced to `90601aa156913ed12afe683f27e15fe64990a185` on 2026-11-22, `Qualify a bounded CI report first view`; this is separate product presentation work and **was not modified** from the research branch. No action is required of that workstream merely because a new career direction is under discussion.
+
+**Next conversational decision:** Select either (i) a bounded prototype conducted without changing AegisLab's accepted Core (with clear isolation and authorized file location), or (ii) a formal AegisLab re-charter **before** a new AI-enabled implementation. Recommend a narrow research prototype first to avoid early architectural lock-in; its eventual incorporation into AegisLab requires an explicit approval and owner change.
