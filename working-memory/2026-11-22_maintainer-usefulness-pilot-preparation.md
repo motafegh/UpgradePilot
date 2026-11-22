@@ -35,14 +35,16 @@ The owner-private operator sheet proposes two slots with opposite conditions for
 
 If the report helps on matched evidence, the next investment can target the demonstrated assistance. If the facts are present but hard to find, test a narrower presentation change. If a necessary premise is absent from both arms, route the missing evidence to its owner. No result from this packet design can establish performance against unrestricted browsing or broader target coverage.
 
-## Readiness and re-entry
+## Readiness at preparation
 
-**Technical packet preparation is complete. The independent pilot remains unfrozen.** At least two eligible participants must be confirmed. Their independence and exposure need checking, the draft key needs independent evidence adjudication, and final allocation and equivalent delivery need verification before the study freeze. The November 11 record is the last known reviewer availability decision. No new availability was assumed, no reviewer was contacted, and zero reviewer outcomes were collected. [Reviewer readiness history](2026-11-11_ai-only-maintainer-evaluation-feasibility_and_design_lbd-cycle.md)
-
-Re-enter at eligibility and independent key review using the prepared packets. A report-only presentation comparison or an AI-only exercise would answer a different question and has no independent human usefulness result here.
+At preparation, technical packet verification was complete and zero reviewer outcomes had been collected. Entry to an independent pilot called for at least two eligible participants, checked independence and exposure, an adjudicated key, final allocation, and equivalent delivery. The November 11 record held the prior reviewer availability decision. [Reviewer readiness history](2026-11-11_ai-only-maintainer-evaluation-feasibility_and_design_lbd-cycle.md)
 
 ## Repository handoff
 
 Ali selected direct public repository delivery so participants can download their ZIP and write `review.md` in the same assigned folder. The three folders contain separate prompts and plain ZIPs. The prompts limit reviewers to their assigned materials, require disclosure of accidental exposure, and ask them to hold submissions until Ali authorizes publication.
 
-This delivery relies on participant adherence. The repository gives public access to the other assignments and the draft key. Record this exposure risk in the study manifest and check participant exposure before accepting any outcome as independent. The underlying [packet receipt](evidence/2026-11-22-maintainer-usefulness-preparation/PACKET_RECEIPT.json) still identifies the same bytes. Access checks, adjudication, eligibility, and reviewer outcomes remain pending.
+Delivery relied on participant adherence because the repository gives public access to the other assignments and the draft key. The [packet receipt](evidence/2026-11-22-maintainer-usefulness-preparation/PACKET_RECEIPT.json) preserves the prepared input hashes and the readiness state at that point.
+
+## Submitted review outcomes
+
+The corrected answer key and both assigned reviews were collected and published after the review work. Both reviewers disclosed prior exposure, and the timing start varied between the two submissions. The [completed development review](evidence/2026-11-22-maintainer-usefulness-preparation/REVIEW_RESULTS.md) links the three original submissions, records the per-case observations, and preserves the limits on independent usefulness and elapsed-time claims.
