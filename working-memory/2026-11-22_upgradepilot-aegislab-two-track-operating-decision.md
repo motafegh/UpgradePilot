@@ -69,3 +69,67 @@ In the next month, the **first commitment is direction-adoption work**, not auto
 ## 5. Status and verification
 
 This is a career/project-time policy and handoff recommendation; no time tracker has been observed, no external human usefulness claim is made and no UpgradePilot source, tests or AegisLab accepted charter is changed by this file. Confirmed live UpgradePilot main head: `90601aa1` (2026-11-22); AegisLab remote head: `939225ac` (2026-11-22).
+
+
+## 6. Historical knowledge recovery, retention and transfer — 2026-11-22
+
+**New owner concern:** After about four months of AI-assisted UpgradePilot engineering, many previously explained concepts may be forgotten, incompletely understood or never demonstrated independently. The learner wants a sustainable way to review and relearn them **while also developing AegisLab, supervising UpgradePilot and preparing for hiring**. This is a real ownership objective, not evidence of a particular personal knowledge deficit. Do not infer mastery from earlier AI-produced notes, approved designs, running tests or the mere presence of 120 source files.
+
+### Existing assets and why not to create a parallel curriculum
+
+The current `learning/README.md` already preserves grounded, commit-pinned learning packages, a fast-relearning route, ownership-depth categories and a distinction between AI-authored study artifacts and proven learner understanding. `OPERATING_GUIDE.md` already defines bounded code/test/evidence learning, a depth-aware AI-first ownership model and Learning-Only work. Use these existing source/learning owners as the learning **material**. Do not create a second canonical live project tracker, duplicate all learning packages, or teach the old chronological milestones one by one. The active `MEMORY.md` continues to own current UpgradePilot status.
+
+The [portfolio presentation strategy](2026-11-22_upgradepilot-public-portfolio-repository-strategy.md) already covers public safety/metadata, entrypoints, provenance-retaining storage, cases and truthful AI contribution. **No duplicate portfolio restructuring decision is needed.** Recovery work should yield personally defensible examples for that strategy, but it does not authorize main changes.
+
+### Selective capability triage, not an exhaustive four-month replay
+
+Select capabilities according to **future relevance × current uncertainty × demonstrated ownership gap**. A first pass is a *hypothesis list for assessment*, not a verified learner-skills evaluation:
+
+| Priority | Capability family | Why/where to test practically |
+| --- | --- | --- |
+| **P0** | Python code navigation, CLI/package layout, interfaces, tests, debugging, Git and environment boundaries | Trace one real CLI input through modules to a report; identify the focused test; change a fixture; distinguish source checkout and installed wheel |
+| **P0** | Evidence / truth / provenance / proof strength / uncertainty | Reopen one MapProxy, ApplyPilot or AV-Tracer report; state exactly what failed/succeeded and what was *not* proven; identify an appropriate next observation |
+| **P0** | Linux process, network, permissions and transport fundamentals as needed | Diagnose an AegisLab service, SSH/auth, socket, routing or collector problem; distinguish command outcome, target effect and sensor observation |
+| **P1** | Dependency/CI mechanics — pip, uv, requirements, environment selection, GitHub Actions jobs/steps and matrix identity | Compare workflow static declarations, actual command outcome, installed-package observation and import/use; reproduce failed/skip/missing controls |
+| **P1** | Data contracts and failure states, persistence/recovery/versioned schema, deterministic replay | Trace saved report/Workspace creation and offline open; inject one missing/invalid/stale version; explain non-proof of recomputation |
+| **P1** | AI/LLM engineering and security — prompt/tool boundaries, provider transport, structured semantic output, hallucination/entailment, evaluation design | Compare local model and deterministic baseline on one sourced case; test an injected low-trust string, malformed response or unavailable model |
+| **P1** | Architecture judgment, module responsibility, ADRs, refactoring and proportionate verification | Explain why one component owns a proposition, locate a boundary test and critique a proposed cross-layer fix |
+| **P2** | Deep package-manager edge cases, every historical CI matrix variant, deferred agent orchestration, all ADRs and every past experiment | Lookup/relearn when selected work truly requires them; recognition is enough in the meantime |
+
+The priority order is adjustable: an actual diagnosed deficit or near-term hiring requirement can change it. For each selected **responsibility**, assign one of the existing project's depth labels: **must master/own; understand operationally; recognize/lookup; defer deliberately**. Avoid whole-library or whole-directory mastery targets.
+
+### Repeatable learning recovery session (about 60–90 minutes, not a new governance cycle)
+
+1. **Retrieve without re-reading (5–10 min):** In your own words sketch the actual purpose, inputs/output, important source path, expected failure and what a success result does **not** prove. Record uncertainty; memory lapse is diagnostic, not failure.
+2. **Reconnect to current evidence (10–20 min):** Inspect current code, one representative focused test and relevant accepted contract. Use the existing frozen learning note only as a reference, explicitly separating its historical revision from present `main`. Do not read all historical worklogs.
+3. **Changed-case practice (25–40 min):** Predict a nontrivial negative/boundary state; reproduce or modify a safe fixture, command or small implementation; run/inspect actual output; identify the responsible layer. AI can scaffold but must not supply the complete diagnosis before the learner attempts.
+4. **Teach back and calibrate (5–10 min):** Explain the observed behavior, what data established it, what remained missing and why one alternative explanation is less likely. Label whether the result was guided, assisted, or independently demonstrated; never infer independence from AI-generated prose.
+5. **Schedule one small delayed check:** within roughly 2–3 days, after a week and after 3–4 weeks when practical. Revisit the *changed case or question*, not the full document. If the second check fails, relearn the narrow concept instead of rereading months of material.
+
+Stop when the mechanism can be applied to the selected need; do not manufacture deeper obligations for low-relevance historical details. A completed learning note is not a passed ownership gate. For persistent gaps, use the existing Learning-Only and artifact process to record one concise source-linked correction or exercise.
+
+### Workload — include recovery inside the agreed proposal, never add a fourth project
+
+Under the provisional **20 h AegisLab / 6 h UpgradePilot / 4 h career+transfer** allocation:
+- **AegisLab 20 h:** majority remains building and running the new project. New Linux/network/AI concepts are learned **in the actual implementation**. Prefer transfer checks over another textbook.
+- **UpgradePilot 6 h maximum:** roughly 1–2 hours, *when justified by the current increment*, may include a concrete product-code or CI/evidence ownership exercise. The remainder stays on bounded product supervision, validation and maintainer usefulness. This is a guideline within six hours, not a newly added budget.
+- **Career and transfer 4 h:** allocate around **two hours** to spaced knowledge recovery/practical transfer and the other **two hours** to portfolio/interview examples, applications and job-market alignment. Protect this time from agents' open-ended requests for more review.
+- On a heavy product week, **one genuinely new transfer exercise across both repositories is sufficient**; do not impose a quiz after every AI commit.
+- A worthwhile combined learning exercise is: **review one UpgradePilot evidence/proof issue, then find its analogous source-vs-observation problem in AegisLab**, while ensuring different runtime mechanisms are actually learned (CI/Python in one, Linux/network/telemetry in the other).
+
+### First four-week recovery route (proposed, adaptive; not scored as completed)
+
+| Week | One principal UpgradePilot memory target | Practical proof | AegisLab / portfolio transfer |
+| --- | --- | --- | --- |
+| 1 | **End-to-end Python product flow and test ownership** | Follow CLI → acquisition → evidence/interpretation → saved report; identify one focused negative test and explain its assertion/non-proof | Trace AegisLab's first input-to-finding flow; sketch a 3-minute interview explanation |
+| 2 | **Evidence strength and CI semantics** | On MapProxy and ApplyPilot, distinguish static step, exact executed command, exit status, installed package state, skipped/missing evidence and target use | Explain command/executor/sensor/target distinctions for SSH evidence |
+| 3 | **Python environments, dependency resolution and recovery** | Compare an installed wheel/venv with repo source, trace one `pip`/`uv` or version/requirements assumption, and deliberately test a failed or unresolved boundary | Debug one AegisLab runtime/deployment/env discrepancy |
+| 4 | **Model/agent trust boundaries and independent diagnosis** | Show why valid citations/structured output do not prove semantic entailment; test one malformed/false/low-trust input or provider failure on an available bounded case | Transfer to an AegisLab local model/agent boundary, or mark transfer blocked if that module is not yet built |
+
+The schedule is a **sampling plan**, not a promise to master these topics in four weeks. Adjust to real AegisLab progress; defer Week 4 hands-on model work if the model is not yet operational. Use existing `learning/` snapshots, `docs/` semantics, `src/` and `tests/` as sources—not new duplicated lessons.
+
+### Minimal progress/ownership evidence (one compact entry per practiced responsibility)
+
+Track only: **topic and concrete task; dated source revision; first unaided explanation/prediction; observed command/test/result; assistance level; diagnosed or modified changed case; one remaining gap; next delayed recall date**. Store in the current relevant learning cycle or a justified canonical learning artifact, not a global noisy spreadsheet, separate status system or new skill-label taxonomy. A single sentence can suffice for a routine recovery.
+
+The long-term decision is not "have we memorized four months?" It is "can the learner now **operate, challenge, repair and explain** the engineering responsibilities most valuable for future work and hiring, while remaining capable of researching unfamiliar details?" Retain documentation as an external memory rather than requiring comprehensive recall. Reassess the recovery queue monthly and prune low-value topics.
