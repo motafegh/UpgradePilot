@@ -21,6 +21,7 @@ from upgradepilot.github.workflow_instance_commands import materialize_workflow_
 from upgradepilot.github.workflow_specialization import prepare_workflow_job_instances
 from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.pypi.release import PackageReleaseProblem
+from upgradepilot.report import render_investigation_report, render_report_facts
 from upgradepilot.report_file import decode_report, encode_report
 from upgradepilot.report_projection import project_ci_report, project_investigation_report
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
@@ -33,6 +34,7 @@ from upgradepilot.workspace.native_representation import NativeReconstructionErr
 from test_ci_matrix_identity import _capture, _dependency_and_source, _mapproxy_input
 from test_github_client import _observation
 from test_investigation import _Harness
+from test_cli import _supported_investigation
 
 
 _FIXTURE = Path(__file__).parent / "fixtures/github/mapproxy-runtime-attempt.json"
@@ -81,6 +83,49 @@ def _with_source(workflow, content):
 
 
 class MatrixAssociationTests(unittest.TestCase):
+    def test_first_view_groups_successful_scoped_commands_and_keeps_detail(self):
+        workflow = frozen_workflow()
+        dependency, context = _dependency_and_source(
+            workflow.definition, "requirements-tests.txt", "soupsieve"
+        )
+        coverage = evaluate_dependency_ci_coverage(dependency, (workflow,), source_contexts=(context,))
+        runtime = evaluate_runtime_dependency_state(
+            dependency, (workflow,), coverage, source_contexts=(context,)
+        )
+        base = _supported_investigation()
+        result = replace(
+            base,
+            pull_request=replace(base.pull_request, repository=workflow.definition.repository,
+                                 head_sha=workflow.definition.revision),
+            dependency_result=dependency, workflow_evidence=((workflow.run, workflow.jobs),),
+            ci_coverage_result=coverage, runtime_dependency_state_result=runtime,
+            ci_workflow_inputs=(workflow,),
+        )
+        normal = project_investigation_report(result)
+        saved = encode_report(normal)
+        reopened = decode_report(saved)
+        self.assertEqual(encode_report(reopened), saved)
+        source, = (item for item in reopened.sources if item.kind == "workflow_execution")
+        for view in (render_investigation_report(normal), render_investigation_report(reopened, saved=True)):
+            opening, detail = view.split("Detailed evidence and action status", 1)
+            self.assertIn("Run 43457921398 attempt 1: 7 successful scoped command observations", opening)
+            self.assertIn("Command: pip install -r requirements-tests.txt", opening)
+            self.assertNotIn("pip install Pillow", opening)
+            steps = {line.partition(": ")[0]: line for line in opening.splitlines() if line.startswith("Step ")}
+            self.assertIn("test (3.12, 13.0.0) (job 131996881880)", steps["Step 6"])
+            self.assertIn("coverage (job 131996881258)", steps["Step 6"])
+            self.assertIn("typechecking (job 131996881059)", steps["Step 4"])
+            self.assertIn("Associated jobs with no admitted command observation: 1.", opening)
+            self.assertEqual(opening.count("Installed version: unresolved"), 1)
+            self.assertIn(f"--show-facts {source.source_id}", opening)
+            self.assertIn("Maintainer action: abstain", detail)
+            self.assertEqual(detail.count("Command-completion requirement state: unresolved"), 7)
+        self.assertIn("Job 131996881880", render_report_facts(reopened, source.source_id))
+
+        with patch("upgradepilot.report_projection._REPORTED_STEP_DETAIL_BYTES", 0):
+            without_step_facts = project_investigation_report(result)
+        self.assertNotIn("CI command execution\n", render_investigation_report(without_step_facts))
+
     def test_normal_investigation_delivers_mixed_matrix_rows_with_no_raw_step_budget(self):
         workflow = frozen_workflow()
         definition = workflow.definition
@@ -164,6 +209,7 @@ class MatrixAssociationTests(unittest.TestCase):
             [next(f.value for f in item.facts if f.name == "execution_state") for item in commands],
             ["supported", "unresolved", "unresolved", "unresolved", "supported", "supported", "supported"],
         )
+        self.assertNotIn("CI command execution\n", render_investigation_report(report, saved=True))
 
     def test_frozen_install_execution_keeps_later_command_package_and_test_proofs_distinct(self):
         workflow = frozen_workflow()

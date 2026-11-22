@@ -115,6 +115,8 @@ This offline command displays literal HTML/Markdown with attribution and limitat
 
 Use `--show-facts SOURCE_ID` with `--open-report` to inspect saved artifact capabilities, package metadata, or a workflow execution source. For a workflow source, the view groups GitHub-reported job and step outcomes for the captured attempt by numeric job ID. Older or incomplete reports may retain only job rows or counts. For package and artifact sources, the view includes values such as distribution filenames, digests and wheel tags where recorded. Each view preserves the saved report identity, source context, and retention limits. Choose one inspection option per invocation.
 
+When a saved or new report has a complete group of exact successful CI command observations that share the same reason for leaving the pip environment unresolved, its opening summarizes the command, jobs and steps, and points to their saved facts. The detailed CI and package-state assessments remain accessible.
+
 Saving never replaces an existing destination. Reopening validates the file and displays the original report identity, generation time and examined revisions without GitHub/model requests. It cannot be combined with investigation or authentication arguments. Obtain a new investigation to examine later CI or repository changes. Generation time does not substitute for missing source-acquisition times.
 
 The output starts with `UpgradePilot public pull-request evidence`, then repository/PR metadata and exact base/head revisions. Read these groups as evidence:

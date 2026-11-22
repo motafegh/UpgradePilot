@@ -9,6 +9,7 @@ Source content can be richer than the displayed summary, enabling non-rendering 
 from __future__ import annotations
 
 import re
+from collections import Counter
 from dataclasses import dataclass
 
 
@@ -122,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 5",
+            f"Recorded generator version: {report.generator_version}; renderer version: 6",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -160,6 +161,7 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
 
     sections = _signature_overview(report, transition)
     sections.extend(_ci_log_overview(report))
+    sections.extend(_ci_command_overview(report, assessments.get("ci")))
     artifact = assessments.get("artifact-candidate")
     if artifact is not None and (artifact.status, artifact.state) == ("available", "established"):
         sections.extend(_artifact_overview(artifact, assessments, report.unknowns))
@@ -184,6 +186,141 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
         *sections,
         "", "Detailed evidence and action status",
     ]
+
+
+def _ci_command_overview(
+    report: InvestigationReport, ci: ReportAssessment | None
+) -> list[str]:
+    """Summarize one attempt whose commands share an exact outcome and package-state limit."""
+
+    if ci is None or (ci.status, ci.state) != ("available", "supported_runtime_correlated"):
+        return []
+    sources = [
+        item for item in report.sources
+        if item.source_id in ci.source_ids and item.kind == "workflow_execution"
+    ]
+    if len(sources) != 1 or sources[0].retention != "selected_facts":
+        return []
+    source = sources[0]
+    attempt = {fact.name: fact.value for fact in source.identity}
+    head = next((fact.value for fact in report.identity if fact.name == "head_sha"), None)
+    if (len(attempt) != len(source.identity) or not head or attempt.get("head_sha") != head
+            or (attempt.get("status"), attempt.get("conclusion")) != ("completed", "success")):
+        return []
+
+    jobs = {}
+    job_ids = set()
+    for item in report.assessments:
+        if not item.assessment_id.startswith("ci-job-instance-"):
+            continue
+        facts = {fact.name: fact.value for fact in item.facts}
+        scope = _ci_job_scope(facts, attempt)
+        job_id = facts.get("runtime_job_id", "")
+        job_name = facts.get("runtime_job_name", "").strip()
+        if (len(facts) != len(item.facts) or scope is None or scope in jobs
+                or source.source_id not in item.source_ids
+                or (item.status, item.state) != ("available", "associated")
+                or not re.fullmatch(r"[1-9][0-9]*", job_id) or job_id in job_ids
+                or not job_name or attempt.get(f"job_{job_id}_name") != job_name
+                or attempt.get(f"job_{job_id}_head_sha") != head
+                or (facts.get("runtime_status"), facts.get("runtime_conclusion")) != ("completed", "success")
+                or (attempt.get(f"job_{job_id}_status"), attempt.get(f"job_{job_id}_conclusion"))
+                != ("completed", "success")):
+            return []
+        job_ids.add(job_id)
+        jobs[scope] = facts
+    if attempt.get("captured_job_count") != str(len(jobs)):
+        return []
+
+    counts = Counter()
+    steps: dict[str, list[str]] = {}
+    commands = set()
+    limits = set()
+    for item in report.assessments:
+        if not item.assessment_id.startswith("runtime-command-"):
+            continue
+        facts = {fact.name: fact.value for fact in item.facts}
+        scope = _ci_job_scope(facts, attempt)
+        job = jobs.get(scope)
+        command = _ci_command_excerpt(facts)
+        step = facts.get("runtime_step_number", "")
+        detail = facts.get("blocking_evidence_detail")
+        # A successful workflow can contain an unresolved command. Group only
+        # explicitly supported observations with the same package-state limit.
+        if (len(facts) != len(item.facts) or job is None or command is None
+                or source.source_id not in item.source_ids or facts.get("revision") != head
+                or (item.status, item.state, item.reason)
+                != ("problem", "unresolved", "manager_environment_needs_lower_source_evidence")
+                or (facts.get("execution_state"), facts.get("execution_reason"))
+                != ("supported", "exact_command_execution_supported")
+                or facts.get("blocking_dimension") != "manager_environment" or not detail
+                or not re.fullmatch(r"[1-9][0-9]*", step)
+                or not job.get(f"step_{step}", "").endswith(" | completed | success")):
+            return []
+        job_id = job["runtime_job_id"]
+        rows = attempt.get(f"job_{job_id}_reported_steps", "").splitlines()
+        step_rows = [row for row in rows if row.startswith(f"{step}. ")]
+        if len(step_rows) != 1 or not step_rows[0].endswith(" | 'completed' | 'success'"):
+            return []
+        counts[scope] += 1
+        commands.add(command)
+        limits.add(detail)
+        steps.setdefault(step, []).append(f"{job['runtime_job_name']} (job {job_id})")
+    if (len(commands) != 1 or len(limits) != 1
+            or any(job.get("requirements_candidates") !=
+                   (str(counts[scope]) if counts[scope] else "no admitted candidate")
+                   for scope, job in jobs.items())
+            or any(count != 1 for count in counts.values())):
+        return []
+
+    lines = [
+        "",
+        "CI command execution",
+        f"Run {attempt['run_id']} attempt {attempt['run_attempt']}: "
+        f"{len(counts)} successful scoped command observations",
+        f"Command: {next(iter(commands))}",
+    ]
+    preview_limit = 8  # Bound the opening; full per-job evidence follows.
+    remaining = preview_limit
+    for step, labels in steps.items():
+        if not remaining:
+            break
+        lines.append(f"Step {step}: " + "; ".join(labels[:remaining]))
+        remaining -= min(remaining, len(labels))
+    if len(counts) > preview_limit:
+        lines.append(f"{len(counts) - preview_limit} more command observations in the detailed evidence.")
+    if len(jobs) > len(counts):
+        lines.append(f"Associated jobs with no admitted command observation: {len(jobs) - len(counts)}.")
+    lines.extend((
+        "Installed version: unresolved for these observations; the effective pip environment is unknown.",
+        f"Inspect the recorded jobs and steps with --open-report PATH --show-facts {source.source_id}.",
+        f"Recorded maintainer action: {report.action.state}",
+    ))
+    return lines
+
+
+def _ci_job_scope(facts: dict[str, str], attempt: dict[str, str]) -> tuple[str, ...] | None:
+    scope = tuple(facts.get(name, "") for name in (
+        "run_id", "run_attempt", "job_source_index", "job_kind", "expansion_slot"
+    ))
+    if (not all(scope) or scope[:2] != (attempt.get("run_id"), attempt.get("run_attempt"))
+            or not all(re.fullmatch(r"[1-9][0-9]*", value) for value in scope[:2])):
+        return None
+    return scope
+
+
+def _ci_command_excerpt(facts: dict[str, str]) -> str | None:
+    """Recover the admitted byte span inside a possibly multi-command script."""
+
+    try:
+        start, end = int(facts["command_start_byte"]), int(facts["command_end_byte"])
+        script = facts["command"].encode()
+        if not 0 <= start < end <= len(script):
+            return None
+        command = script[start:end].decode().strip()
+    except (KeyError, ValueError):
+        return None
+    return command if len(command.splitlines()) == 1 else None
 
 
 def _ci_log_overview(report: InvestigationReport) -> list[str]:
