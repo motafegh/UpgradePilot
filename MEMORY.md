@@ -1,11 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-22
+**Last updated:** 2026-11-23
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
+
+**Retained PR description navigation review complete — November 23.** The [HTTPX comparison](working-memory/2026-11-23_httpx-pr-description-navigation-review.md) verified that a short cue can put the exact saved PR source command beside the recorded publisher/source stop. HTTPX and OpenCV qualified, including OpenCV's original truncation; MapProxy's available-authority and the older reference-only HTTPX controls withheld the cue. **Recommended next decision:** select a bounded renderer Build that reuses the saved source and preserves the unavailable upstream evidence and `abstain`. Passage discovery within the literal description and independent user benefit remain open.
 
 **CI first view delivered — November 22.** The [Build record](working-memory/2026-11-22_ci-first-view-build.md) implements the [offline design comparison](working-memory/2026-11-22_ci-first-view-comparison.md) in renderer 6. The installed normal MapProxy replay shows seven successful command observations grouped by exact step, one shared installed-version limit, and a direct saved-facts route. ApplyPilot and the skipped and missing-step controls retain their detailed outcomes. **1,192 installed product tests passed with zero skips.** The wider maintainer usefulness, timed comparison, and generalized failed-step summary remain separate. Learning is handled separately.
 
