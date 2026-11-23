@@ -28,6 +28,7 @@ from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.report import render_investigation_report, render_report_source
 from upgradepilot.report_file import decode_report, encode_report, save_report
 from upgradepilot.report_projection import project_investigation_report
+from upgradepilot.upstream.repository import UpstreamRepositoryProblem
 from upgradepilot.workspace.checkpoint_revision import CheckpointRevision
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
 from upgradepilot.workspace.native_boundary import exact_investigation_target
@@ -39,8 +40,12 @@ from upgradepilot.workspace.native_projection import (
 from upgradepilot.workspace.native_representation import NativeReconstructionError
 
 
-def _normal(body, *, unsupported=False):
+def _normal(body, *, unsupported=False, upstream_unavailable=False):
     harness = _Harness()
+    if upstream_unavailable:
+        harness.upstream_resolver.resolve.return_value = UpstreamRepositoryProblem(
+            "source_unavailable", "demo", "1.1", "No usable publisher provenance was available."
+        )
     session = Mock()
     identity = harness.identity
     initial = {**_pull_request_payload(identity), "body": body}
@@ -72,6 +77,47 @@ def _changed_record(result, **changes):
 
 
 class PullRequestDescriptionTests(unittest.TestCase):
+    def test_upstream_stop_links_to_exact_saved_description_without_rendering_it(self):
+        body = "Original PR context\n… (truncated)"
+        result, _, _ = _normal(body, upstream_unavailable=True)
+        report = project_investigation_report(result)
+        source = report.sources[0]
+        new_view = render_investigation_report(report)
+        self.assertIn(f"Save with --save-report PATH, then inspect with --open-report PATH "
+                      f"--show-source {source.source_id}.", new_view)
+
+        renamed = replace(source, source_id="source-42")
+
+        def rebind(items):
+            return tuple(replace(item, source_ids=tuple(
+                renamed.source_id if ref == source.source_id else ref for ref in item.source_ids
+            )) for item in items)
+
+        record = replace(
+            report, sources=(renamed, *report.sources[1:]),
+            assessments=rebind(report.assessments), findings=rebind(report.findings),
+            unknowns=rebind(report.unknowns),
+        )
+        reopened = decode_report(encode_report(record))
+        view = render_investigation_report(reopened, saved=True)
+        upstream = view.split("Upstream repository: source_unavailable", 1)[1]
+        stop = upstream.split("Upstream interval authority:", 1)[0]
+        self.assertIn("PR-authored or copied text remains unverified as upstream evidence.", stop)
+        self.assertIn("Inspect with --open-report PATH --show-source source-42.", stop)
+        self.assertNotIn("Save with --save-report", stop)
+        self.assertNotIn(body, view)
+        self.assertIn(body, render_report_source(reopened, "source-42"))
+        self.assertEqual(reopened.action, report.action)
+
+    def test_pr_description_cue_requires_publisher_stop_and_nonempty_retained_body(self):
+        for body, upstream_unavailable in (("saved notes", False), ("", True), ("   ", True), (None, True)):
+            with self.subTest(body=body, upstream_unavailable=upstream_unavailable):
+                result, _, _ = _normal(body, upstream_unavailable=upstream_unavailable)
+                report = project_investigation_report(result)
+                self.assertNotIn(
+                    "Retained PR description is available.", render_investigation_report(report, saved=True)
+                )
+
     def test_actual_provider_to_saved_source_preserves_text_and_unrelated_meaning(self):
         # Public release-note excerpts copied into the retained PR bodies; wrappers and
         # instruction/control text below are explicitly constructed display controls.

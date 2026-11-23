@@ -105,6 +105,8 @@ The saved file preserves structured findings, questions, source identities, alre
 
 New investigations also preserve the first observed PR description when it fits the 256KiB UTF-8 bound. The PR source records its state, observation time, API locator, byte count and digest where available. Empty, missing, null, invalid and oversized bodies remain distinct; older reports may have no recorded description. Copied release notes remain unverified PR context, with upstream coverage unassessed.
 
+When the upstream repository source is unavailable and the report retains a PR description with text, the assessment includes the command to open that source. A new investigation also gives the save option needed for offline inspection.
+
 Use the actual source ID listed by the saved report to inspect retained original text:
 
 ```bash

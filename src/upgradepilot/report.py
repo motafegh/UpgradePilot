@@ -123,13 +123,16 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 6",
+            f"Recorded generator version: {report.generator_version}; renderer version: 7",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
     lines.extend(f"{fact.label}: {fact.value}" for fact in report.identity)
     lines.extend(_first_view_lines(report))
-    lines.extend(_assessment_lines(report.assessments, report.unknowns))
+    lines.extend(_assessment_lines(
+        report.assessments, report.unknowns,
+        pr_description_cue=_pr_description_cue(report, saved=saved),
+    ))
     lines.extend(("", f"Maintainer action: {report.action.state}"))
     lines.extend(f"Action reason: {reason}" for reason in report.action.reasons)
     lines.extend(
@@ -146,6 +149,24 @@ def render_investigation_report(
     lines.extend(("", "Report limits"))
     lines.extend(report.production_limits + report.preservation_limits)
     return _display_lines(lines)
+
+
+def _pr_description_cue(report: InvestigationReport, *, saved: bool) -> tuple[str, ...]:
+    """Direct the reader to recorded PR text without interpreting its contents."""
+
+    sources = [source for source in report.sources if source.kind == "pull_request"]
+    if len(sources) != 1:
+        return ()
+    source = sources[0]
+    states = [fact.value for fact in source.identity if fact.name == "description_state"]
+    if source.retention != "retained_text" or states != ["retained"] or not (source.content or "").strip():
+        return ()
+    inspection = "Inspect with" if saved else "Save with --save-report PATH, then inspect with"
+    return (
+        "",
+        "Retained PR description is available. PR-authored or copied text remains unverified as upstream evidence.",
+        f"{inspection} --open-report PATH --show-source {source.source_id}.",
+    )
 
 
 def _first_view_lines(report: InvestigationReport) -> list[str]:
@@ -471,7 +492,8 @@ def render_ci_report(report: CIReport) -> str:
 
 
 def _assessment_lines(
-    assessments: tuple[ReportAssessment, ...], unknowns: tuple[ReportUnknown, ...]
+    assessments: tuple[ReportAssessment, ...], unknowns: tuple[ReportUnknown, ...],
+    *, pr_description_cue: tuple[str, ...] = (),
 ) -> list[str]:
     lines: list[str] = []
     for assessment in assessments:
@@ -486,6 +508,10 @@ def _assessment_lines(
         lines.append(f"Evidence strength: {assessment.strength}")
         lines.append("Sources: " + ", ".join(assessment.source_ids))
         lines.extend(f"Limitation: {limit}" for limit in assessment.limitations)
+        if (assessment.assessment_id, assessment.status, assessment.state) == (
+            "upstream-repository", "problem", "source_unavailable"
+        ):
+            lines.extend(pr_description_cue)
     lines.extend(("", "Unresolved questions"))
     for unknown in unknowns:
         lines.extend(
