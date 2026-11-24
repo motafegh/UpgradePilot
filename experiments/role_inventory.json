@@ -689,6 +689,60 @@
       ]
     },
     {
+      "path": "experiments/static_api_tools/calls.yaml",
+      "family": "api_source",
+      "maintenance": "retained_development_protocol",
+      "evidence": "working-memory/2026-11-24_static-api-tool-comparison.md",
+      "roles": [
+        "protocol"
+      ]
+    },
+    {
+      "path": "experiments/static_api_tools/compare.py",
+      "family": "api_source",
+      "maintenance": "retained_development_protocol",
+      "evidence": "working-memory/2026-11-24_static-api-tool-comparison.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/static_api_tools/expectations.json",
+      "family": "api_source",
+      "maintenance": "retained_development_protocol",
+      "evidence": "working-memory/2026-11-24_static-api-tool-comparison.md",
+      "roles": [
+        "retained_data"
+      ]
+    },
+    {
+      "path": "experiments/static_api_tools/griffe_static.py",
+      "family": "api_source",
+      "maintenance": "retained_development_protocol",
+      "evidence": "working-memory/2026-11-24_static-api-tool-comparison.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/static_api_tools/prepare.py",
+      "family": "api_source",
+      "maintenance": "retained_development_protocol",
+      "evidence": "working-memory/2026-11-24_static-api-tool-comparison.md",
+      "roles": [
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/static_api_tools/requirements.txt",
+      "family": "api_source",
+      "maintenance": "retained_development_protocol",
+      "evidence": "working-memory/2026-11-24_static-api-tool-comparison.md",
+      "roles": [
+        "protocol"
+      ]
+    },
+    {
       "path": "experiments/step6_support_drop_contract_v2.py",
       "family": "support_drop",
       "maintenance": "historical_research",

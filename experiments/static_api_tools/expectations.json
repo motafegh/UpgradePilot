@@ -1,0 +1,42 @@
+{
+  "proof_class": "fixed-input exposed static comparison",
+  "revisions": {
+    "av_tracer_pr": 11,
+    "av_tracer_base": "527a004918c0f825e97c3583404242605fd58ec2",
+    "av_tracer_head": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "glyphslib_pr": 1145,
+    "glyphslib_base": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+    "glyphslib_head": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+  },
+  "required": {
+    "griffe": "Recover the removal of app from the exact HTTPX Client.__init__ definitions. Scope pytest results to its two selected signatures.",
+    "av_calls": [
+      {"file": "av-tracer/target/backend/tests/test_app.py", "line": 6, "column": 9, "end_line": 6, "end_column": 24},
+      {"file": "av-tracer/starlette/starlette/testclient.py", "line": 399, "column": 8, "end_line": 406, "end_column": 9}
+    ],
+    "glyph_calls": [
+      {"file": "glyphslib/target-proposed/tests/builder/components_test.py", "line": 50, "column": 9, "end_line": 50, "end_column": 45},
+      {"file": "glyphslib/target-proposed/tests/regression_test.py", "line": 59, "column": 1, "end_line": 59, "end_column": 77}
+    ],
+    "baseline": [
+      ["av-entry", "bound"],
+      ["av-httpx-old", "bound"],
+      ["av-httpx-new", "rejected"],
+      ["direct-raises-pytest-old", "bound"],
+      ["parametrize-variadic-pytest-old", "bound"],
+      ["direct-raises-pytest-new", "bound"],
+      ["parametrize-variadic-pytest-new", "bound"],
+      ["parametrize-receiver-unresolved", "undetermined"]
+    ],
+    "control_missing_definition": "The missing proposed HTTPX defining file supplies no verified break or call relation.",
+    "control_unrelated_call": "The synthetic other.TestClient call may match a search pattern, but cannot be paired with the external HTTPX chain.",
+    "control_unresolved_receiver": "A decorator call span must preserve the baseline's unresolved receiver alternative."
+  },
+  "forbidden": [
+    "Runtime applicability, realized failure, package-wide compatibility or merge advice",
+    "Attributing the unrelated call to HTTPX from its name alone",
+    "Treating a missing defining file or unsupported extraction as equivalent signatures",
+    "Treating a static match or empty search as proof of alias dispatch or whole-repository coverage",
+    "Independent maintainer usefulness or measured human time"
+  ]
+}

@@ -1,0 +1,23 @@
+rules:
+  - id: av-candidate
+    languages: [python]
+    message: AV-Tracer candidate call
+    severity: INFO
+    patterns:
+      - pattern-either:
+          - pattern: $NAME(...)
+          - pattern: $RECEIVER.$NAME(...)
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: '^(TestClient|__init__)$'
+  - id: glyph-candidate
+    languages: [python]
+    message: glyphsLib candidate call
+    severity: INFO
+    patterns:
+      - pattern-either:
+          - pattern: $NAME(...)
+          - pattern: $RECEIVER.$NAME(...)
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: '^(raises|parametrize)$'

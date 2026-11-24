@@ -1,0 +1,692 @@
+{
+  "baseline": {
+    "findings": [
+      {
+        "callee_file": "av-tracer/starlette/starlette/testclient.py",
+        "callee_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 378,
+          "line": 367
+        },
+        "caller_file": "av-tracer/target/backend/tests/test_app.py",
+        "caller_origins": [
+          "fastapi.testclient.TestClient"
+        ],
+        "caller_span": {
+          "column": 9,
+          "end_column": 24,
+          "end_line": 6,
+          "line": 6
+        },
+        "id": "av-entry",
+        "keywords": [],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "receiver_mode": "one_receiver_assumed",
+        "unresolved_checks": [],
+        "violations": []
+      },
+      {
+        "callee_file": "av-tracer/httpx-old/httpx/_client.py",
+        "callee_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 646,
+          "line": 620
+        },
+        "caller_file": "av-tracer/starlette/starlette/testclient.py",
+        "caller_origins": [],
+        "caller_span": {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 406,
+          "line": 399
+        },
+        "id": "av-httpx-old",
+        "keywords": [
+          {
+            "name": "app",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "base_url",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "headers",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "transport",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "follow_redirects",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "cookies",
+            "outcome": "named_parameter"
+          }
+        ],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "receiver_mode": "one_receiver_assumed",
+        "unresolved_checks": [],
+        "violations": []
+      },
+      {
+        "callee_file": "av-tracer/httpx-new/httpx/_client.py",
+        "callee_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 662,
+          "line": 639
+        },
+        "caller_file": "av-tracer/starlette/starlette/testclient.py",
+        "caller_origins": [],
+        "caller_span": {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 406,
+          "line": 399
+        },
+        "id": "av-httpx-new",
+        "keywords": [
+          {
+            "name": "app",
+            "outcome": "not_received"
+          },
+          {
+            "name": "base_url",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "headers",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "transport",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "follow_redirects",
+            "outcome": "named_parameter"
+          },
+          {
+            "name": "cookies",
+            "outcome": "named_parameter"
+          }
+        ],
+        "outcome": "rejected",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "receiver_mode": "one_receiver_assumed",
+        "unresolved_checks": [],
+        "violations": [
+          {
+            "parameter": "app",
+            "reason": "unexpected_keyword"
+          }
+        ]
+      },
+      {
+        "callee_file": "glyphslib/pytest-old/src/_pytest/raises.py",
+        "callee_header": {
+          "column": 0,
+          "end_column": 4,
+          "end_line": 109,
+          "line": 104
+        },
+        "caller_file": "glyphslib/target-proposed/tests/builder/components_test.py",
+        "caller_origins": [
+          "pytest.raises"
+        ],
+        "caller_span": {
+          "column": 9,
+          "end_column": 45,
+          "end_line": 50,
+          "line": 50
+        },
+        "id": "direct-raises-pytest-old",
+        "keywords": [],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "receiver_mode": "as_written",
+        "unresolved_checks": [],
+        "violations": []
+      },
+      {
+        "callee_file": "glyphslib/pytest-old/src/_pytest/mark/structures.py",
+        "callee_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 391,
+          "line": 390
+        },
+        "caller_file": "glyphslib/target-proposed/tests/regression_test.py",
+        "caller_origins": [
+          "pytest.mark.parametrize"
+        ],
+        "caller_span": {
+          "column": 1,
+          "end_column": 77,
+          "end_line": 59,
+          "line": 59
+        },
+        "id": "parametrize-variadic-pytest-old",
+        "keywords": [
+          {
+            "name": "ids",
+            "outcome": "variadic_keyword"
+          }
+        ],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "receiver_mode": "one_receiver_assumed",
+        "unresolved_checks": [],
+        "violations": []
+      },
+      {
+        "callee_file": "glyphslib/pytest-new/src/_pytest/raises.py",
+        "callee_header": {
+          "column": 0,
+          "end_column": 4,
+          "end_line": 109,
+          "line": 104
+        },
+        "caller_file": "glyphslib/target-proposed/tests/builder/components_test.py",
+        "caller_origins": [
+          "pytest.raises"
+        ],
+        "caller_span": {
+          "column": 9,
+          "end_column": 45,
+          "end_line": 50,
+          "line": 50
+        },
+        "id": "direct-raises-pytest-new",
+        "keywords": [],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "receiver_mode": "as_written",
+        "unresolved_checks": [],
+        "violations": []
+      },
+      {
+        "callee_file": "glyphslib/pytest-new/src/_pytest/mark/structures.py",
+        "callee_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 391,
+          "line": 390
+        },
+        "caller_file": "glyphslib/target-proposed/tests/regression_test.py",
+        "caller_origins": [
+          "pytest.mark.parametrize"
+        ],
+        "caller_span": {
+          "column": 1,
+          "end_column": 77,
+          "end_line": 59,
+          "line": 59
+        },
+        "id": "parametrize-variadic-pytest-new",
+        "keywords": [
+          {
+            "name": "ids",
+            "outcome": "variadic_keyword"
+          }
+        ],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "receiver_mode": "one_receiver_assumed",
+        "unresolved_checks": [],
+        "violations": []
+      },
+      {
+        "callee_file": "glyphslib/pytest-new/src/_pytest/mark/structures.py",
+        "callee_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 391,
+          "line": 390
+        },
+        "caller_file": "glyphslib/target-proposed/tests/regression_test.py",
+        "caller_origins": [
+          "pytest.mark.parametrize"
+        ],
+        "caller_span": {
+          "column": 1,
+          "end_column": 77,
+          "end_line": 59,
+          "line": 59
+        },
+        "id": "parametrize-receiver-unresolved",
+        "keywords": [
+          {
+            "name": "ids",
+            "outcome": "variadic_keyword"
+          }
+        ],
+        "outcome": "undetermined",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "receiver_mode": "unresolved",
+        "unresolved_checks": [
+          "receiver_binding_unresolved",
+          "full_argument_binding_not_checked"
+        ],
+        "violations": []
+      }
+    ],
+    "parse_problems": {},
+    "seconds": 2.1403142090020992
+  },
+  "comparisons": {
+    "av-tracer": {
+      "lexical_hits": [
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 51,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 65,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 70,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 185,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 362,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 367,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 399,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/target/archive/backend/app/services/engine.py",
+          "line": 142,
+          "occurrences": 1
+        },
+        {
+          "file": "av-tracer/target/backend/tests/test_app.py",
+          "line": 6,
+          "occurrences": 1
+        },
+        {
+          "file": "controls/unrelated.py",
+          "line": 2,
+          "occurrences": 1
+        },
+        {
+          "file": "controls/unrelated.py",
+          "line": 6,
+          "occurrences": 1
+        }
+      ],
+      "lexical_seconds": 0.005674332001945004,
+      "paths": [
+        "av-tracer/fastapi/fastapi/testclient.py",
+        "av-tracer/starlette/starlette/testclient.py",
+        "av-tracer/target/archive/backend/app/services/engine.py",
+        "av-tracer/target/archive/backend/tests/test_sim_fixtures.py",
+        "av-tracer/target/backend/app/__init__.py",
+        "av-tracer/target/backend/app/api/__init__.py",
+        "av-tracer/target/backend/app/core/__init__.py",
+        "av-tracer/target/backend/app/core/config.py",
+        "av-tracer/target/backend/app/main.py",
+        "av-tracer/target/backend/app/models/__init__.py",
+        "av-tracer/target/backend/app/services/__init__.py",
+        "av-tracer/target/backend/tests/test_app.py",
+        "controls/unrelated.py"
+      ],
+      "semgrep_errors": [],
+      "semgrep_matches": [
+        {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 406,
+          "file": "av-tracer/starlette/starlette/testclient.py",
+          "line": 399,
+          "native_origins": [],
+          "native_parse_matches": 1
+        },
+        {
+          "column": 9,
+          "end_column": 24,
+          "end_line": 6,
+          "file": "av-tracer/target/backend/tests/test_app.py",
+          "line": 6,
+          "native_origins": [
+            "fastapi.testclient.TestClient"
+          ],
+          "native_parse_matches": 1
+        },
+        {
+          "column": 0,
+          "end_column": 26,
+          "end_line": 6,
+          "file": "controls/unrelated.py",
+          "line": 6,
+          "native_origins": [],
+          "native_parse_matches": 1
+        }
+      ],
+      "semgrep_paths": {
+        "scanned": [
+          "av-tracer/fastapi/fastapi/testclient.py",
+          "av-tracer/starlette/starlette/testclient.py",
+          "av-tracer/target/archive/backend/app/services/engine.py",
+          "av-tracer/target/archive/backend/tests/test_sim_fixtures.py",
+          "av-tracer/target/backend/app/__init__.py",
+          "av-tracer/target/backend/app/api/__init__.py",
+          "av-tracer/target/backend/app/core/__init__.py",
+          "av-tracer/target/backend/app/core/config.py",
+          "av-tracer/target/backend/app/main.py",
+          "av-tracer/target/backend/app/models/__init__.py",
+          "av-tracer/target/backend/app/services/__init__.py",
+          "av-tracer/target/backend/tests/test_app.py",
+          "controls/unrelated.py"
+        ],
+        "skipped": []
+      },
+      "semgrep_seconds": 0.9935656130001007,
+      "verified_pair_ids": [
+        "av-entry",
+        "av-httpx-new",
+        "av-httpx-old"
+      ]
+    },
+    "glyphslib": {
+      "lexical_hits": [
+        {
+          "file": "glyphslib/target-proposed/tests/builder/components_test.py",
+          "line": 50,
+          "occurrences": 1
+        },
+        {
+          "file": "glyphslib/target-proposed/tests/regression_test.py",
+          "line": 59,
+          "occurrences": 1
+        },
+        {
+          "file": "glyphslib/target-proposed/tests/regression_test.py",
+          "line": 78,
+          "occurrences": 1
+        }
+      ],
+      "lexical_seconds": 0.004999413002224173,
+      "paths": [
+        "glyphslib/target-proposed/tests/builder/components_test.py",
+        "glyphslib/target-proposed/tests/regression_test.py"
+      ],
+      "semgrep_errors": [],
+      "semgrep_matches": [
+        {
+          "column": 9,
+          "end_column": 45,
+          "end_line": 50,
+          "file": "glyphslib/target-proposed/tests/builder/components_test.py",
+          "line": 50,
+          "native_origins": [
+            "pytest.raises"
+          ],
+          "native_parse_matches": 1
+        },
+        {
+          "column": 1,
+          "end_column": 77,
+          "end_line": 59,
+          "file": "glyphslib/target-proposed/tests/regression_test.py",
+          "line": 59,
+          "native_origins": [
+            "pytest.mark.parametrize"
+          ],
+          "native_parse_matches": 1
+        },
+        {
+          "column": 1,
+          "end_column": 82,
+          "end_line": 78,
+          "file": "glyphslib/target-proposed/tests/regression_test.py",
+          "line": 78,
+          "native_origins": [
+            "pytest.mark.parametrize"
+          ],
+          "native_parse_matches": 1
+        }
+      ],
+      "semgrep_paths": {
+        "scanned": [
+          "glyphslib/target-proposed/tests/builder/components_test.py",
+          "glyphslib/target-proposed/tests/regression_test.py"
+        ],
+        "skipped": []
+      },
+      "semgrep_seconds": 1.0075271829991834,
+      "verified_pair_ids": [
+        "direct-raises-pytest-new",
+        "direct-raises-pytest-old",
+        "parametrize-receiver-unresolved",
+        "parametrize-variadic-pytest-new",
+        "parametrize-variadic-pytest-old"
+      ]
+    }
+  },
+  "frozen_glyph_pairs_sha256": "55493ff3661752a708b59dc2776f618d5438f844cf9908fbf81a7d39dd1cdbb4",
+  "griffe": {
+    "httpx-client": {
+      "files": [
+        "av-tracer/httpx-old/httpx/_client.py",
+        "av-tracer/httpx-new/httpx/_client.py"
+      ],
+      "findings": [
+        {
+          "file": "av-tracer/httpx-new/httpx/_client.py",
+          "kind": "Parameter was removed",
+          "line": 639,
+          "object": "httpx._client.Client.__init__",
+          "parameter": "proxies"
+        },
+        {
+          "file": "av-tracer/httpx-new/httpx/_client.py",
+          "kind": "Parameter was removed",
+          "line": 639,
+          "object": "httpx._client.Client.__init__",
+          "parameter": "app"
+        }
+      ],
+      "seconds": 0.023784272001648787,
+      "status": "compared",
+      "unresolved_aliases": []
+    },
+    "httpx-public": {
+      "files": [
+        "av-tracer/httpx-old/httpx/__init__.py",
+        "av-tracer/httpx-new/httpx/__init__.py"
+      ],
+      "reason": "CyclicAliasError: Cyclic aliases detected:\n  httpx.__version__.__version__",
+      "seconds": 0.04183345100318547,
+      "status": "inconclusive_tool_error",
+      "unresolved_aliases": [
+        [
+          "httpx.ASGITransport",
+          "httpx.AsyncBaseTransport",
+          "httpx.AsyncByteStream",
+          "httpx.AsyncHTTPTransport",
+          "httpx.Auth",
+          "httpx.BaseTransport",
+          "httpx.BasicAuth",
+          "httpx.CloseError",
+          "httpx.ConnectError",
+          "httpx.ConnectTimeout",
+          "httpx.CookieConflict",
+          "httpx.DecodingError",
+          "httpx.DigestAuth",
+          "httpx.HTTPError",
+          "httpx.HTTPStatusError",
+          "httpx.HTTPTransport",
+          "httpx.InvalidURL",
+          "httpx.Limits",
+          "httpx.LocalProtocolError",
+          "httpx.MockTransport",
+          "httpx.NetRCAuth",
+          "httpx.NetworkError",
+          "httpx.PoolTimeout",
+          "httpx.ProtocolError",
+          "httpx.Proxy",
+          "httpx.ProxyError",
+          "httpx.QueryParams",
+          "httpx.ReadError",
+          "httpx.ReadTimeout",
+          "httpx.RemoteProtocolError",
+          "httpx.RequestError",
+          "httpx.RequestNotRead",
+          "httpx.ResponseNotRead",
+          "httpx.StreamClosed",
+          "httpx.StreamConsumed",
+          "httpx.StreamError",
+          "httpx.SyncByteStream",
+          "httpx.Timeout",
+          "httpx.TimeoutException",
+          "httpx.TooManyRedirects",
+          "httpx.TransportError",
+          "httpx.URL",
+          "httpx.UnsupportedProtocol",
+          "httpx.WSGITransport",
+          "httpx.WriteError",
+          "httpx.WriteTimeout",
+          "httpx.codes",
+          "httpx.create_ssl_context",
+          "httpx.delete",
+          "httpx.get",
+          "httpx.head",
+          "httpx.options",
+          "httpx.patch",
+          "httpx.post",
+          "httpx.put",
+          "httpx.request",
+          "httpx.stream"
+        ],
+        []
+      ]
+    },
+    "pytest-mark": {
+      "files": [
+        "glyphslib/pytest-old/src/_pytest/mark/structures.py",
+        "glyphslib/pytest-new/src/_pytest/mark/structures.py"
+      ],
+      "findings": [],
+      "seconds": 0.007228099999338156,
+      "status": "compared",
+      "unresolved_aliases": []
+    },
+    "pytest-raises": {
+      "files": [
+        "glyphslib/pytest-old/src/_pytest/raises.py",
+        "glyphslib/pytest-new/src/_pytest/raises.py"
+      ],
+      "findings": [],
+      "seconds": 0.013065078001091024,
+      "status": "compared",
+      "unresolved_aliases": []
+    }
+  },
+  "griffe_missing_definition": {
+    "files": [
+      "av-tracer/httpx-old/httpx/_client.py",
+      "av-tracer/httpx-new/httpx/_client.py"
+    ],
+    "status": "inconclusive_missing_definition"
+  },
+  "griffe_process_seconds": 0.14816440799768316,
+  "pre_run_receipts_sha256": {
+    "attempt-01": "ffd9077f398f23341b05db85e3134879cdbde5cf3c7c16cae449ce0d37918dcf",
+    "attempt-02": "1a82aa5f0f0518d2aac5837f296c2291d25a25092322d7c4ca89eecac615f50f",
+    "attempt-03": "e78fe2a1e863fd02ed4f519d900c073a5f60e95b4dacf436c7fd4ff13dc6dcd6"
+  },
+  "proof_class": "fixed-input exposed static comparison",
+  "raw_output_sha256": {
+    "av-tracer-comparison.json": "f6396da47bac4a6cfd21cf1d224a1cb1c8dee9477c30cd1e372ebd108c1cbda4",
+    "av-tracer-lexical.invocation.json": "4513f1295344dad1d71fbc7f3fbbdda9d151b7abcd509f1962bfa506c1412e16",
+    "av-tracer-lexical.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "av-tracer-lexical.stdout": "d204492304e38d291e0edce302218915a6c4227193600aea2264e3d99e3590f9",
+    "av-tracer-semgrep.invocation.json": "63bd1d22c5aeb6106905cbbf64049bdcc0a2e4bb8ae037691106f70b56e2bc3d",
+    "av-tracer-semgrep.stderr": "8902d7a3bacdcc15d0c5d23483dddc1e68795e8bff62fc03cfa58171512eb1dc",
+    "av-tracer-semgrep.stdout": "06b6fd4571e64d3fa2dbd3deaecd2c11a01f3c38c228e43106684d0d0a5b8fb7",
+    "baseline.json": "3929a51c4071b8d1ca2837a2d4f130348273ace91f27400ed384f2b9a1353d16",
+    "environment.json": "8ce19cc5097a24f2aa442e08547be80fc6cd3d5984525daa93b42b3e330e129c",
+    "glyphslib-comparison.json": "01843935b27a1b5c9c6515a362d9166292ed3a8ad31ee84cfecefc49e19b07cd",
+    "glyphslib-lexical.invocation.json": "c1dd78c52366d9bff8274cf7d0829e32b65b0d52ae80bfb0a5539c3b7c37e6be",
+    "glyphslib-lexical.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "glyphslib-lexical.stdout": "d221ee7bff9b8513888a0649abb13d574ed26b0724fa0aa3187db90d147f1387",
+    "glyphslib-semgrep.invocation.json": "e8272ad6d7e9da7561f2de336c3ce9a743ff9c63759fc5d4b7fa68e8d37ae891",
+    "glyphslib-semgrep.stderr": "c51785e2bf339c7c315cfcfa7d6cfafbb7b8f810fd134fdd53bcc8e31ec5ae9f",
+    "glyphslib-semgrep.stdout": "5b8e40ca26dda2e3c9e7dfa54f22bb8da87f98d4632cac3038bc73365f581391",
+    "griffe-missing.invocation.json": "2420fd6a9bc58d0ad1578f6f881d5c4757cb3e8c3491d1e13bc18b13b8525fa2",
+    "griffe-missing.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "griffe-missing.stdout": "c7ff77a71526301a32c3a3acfd4d9c53b781f47117468a1ba3c0ed04f7177459",
+    "griffe.invocation.json": "cbe0c1f4422e3e3b94dc606e7af140ddf0b32a8ecb76ac7f3932de23456c905f",
+    "griffe.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "griffe.stdout": "ad134f5412c28744752db4f69e8bc293223d2eee7b7cf257cfe8441f0751fa17"
+  },
+  "replay": "Six normalized receipts match after dropping timings and sorting lexical hits. Scope, candidates, outcomes, and warnings reproduced.",
+  "run_date": "2026-11-24",
+  "settings": {
+    "native_package": "0.0.0",
+    "native_python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "offline": "unshare -Urn for coordinator and every subprocess"
+  },
+  "tool_freeze_sha256": "347f3fd448bd77b11e7be55e5bd77e09cec7f608fe07cfe7dcc7494225bd256d",
+  "tool_versions": [
+    "griffe==2.4.1",
+    "semgrep==1.186.0"
+  ],
+  "tool_wheel_digests_sha256": "e46f04750b436a73a19723d8533edef3a5c022c6b591d9a8ffb61d5bd3ee4be8"
+}
