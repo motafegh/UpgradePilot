@@ -50,7 +50,13 @@ from .impact.artifact_serviceability import (
 )
 from .investigation import PublicPullRequestInvestigation
 from .maintainer_action import synthesize_maintainer_action
-from .pypi.release import PackageReleaseEvidence, PackageReleaseIndexProblem
+from .pypi.release import (
+    PackageReleaseEvidence,
+    PackageReleaseEvidenceWithAdvisories,
+    PackageReleaseIndexProblem,
+    PackageReleaseProblem,
+    PackageReleaseResult,
+)
 from .report import (
     CIReport,
     InvestigationReport,
@@ -328,7 +334,7 @@ def project_investigation_report(
     return InvestigationReport(
         str(uuid4()),
         produced.astimezone(UTC).isoformat(),
-        "4",
+        "5",
         product_version,
         auth_mode,
         (
@@ -1025,6 +1031,35 @@ def _project_scoped_ci_jobs(
     return identity_facts
 
 
+def _release_advisory_facts(package: PackageReleaseResult) -> tuple[ReportFact, ...]:
+    if isinstance(package, PackageReleaseProblem):
+        return (_fact(
+            "release_advisory_status", "Release advisories", "Exact release response unavailable or unadmitted.",
+        ),)
+    if not isinstance(package, PackageReleaseEvidenceWithAdvisories):
+        return ()
+    observation = package.advisories
+    status = {
+        "entries_recorded": "Entries recorded by PyPI for this release.",
+        "empty_list": "PyPI returned an explicit empty list for this release.",
+        "field_missing": "PyPI did not include the advisory field in this response.",
+        "malformed": "Advisory field was not admitted because its contents were malformed.",
+        "conflicting_ids": "Advisory field was not admitted because an ID had conflicting withdrawal states.",
+        "over_limit": "Advisory field exceeded the entry limit and was not admitted.",
+    }[observation.state]
+    return (
+        _fact("release_advisory_status", "Release advisories", status),
+        *(
+            fact
+            for index, entry in enumerate(observation.entries, 1)
+            for fact in (
+                _fact(f"release_advisory_entry_{index}_id", "PyPI advisory ID", entry.advisory_id),
+                _fact(f"release_advisory_entry_{index}_state", "PyPI advisory state", entry.state),
+            )
+        ),
+    )
+
+
 def _project_packages(p: _ReportProjection) -> None:
     for key, topic, package in (
         ("package", "Package evidence", p.result.package_result),
@@ -1055,6 +1090,10 @@ def _project_packages(p: _ReportProjection) -> None:
                     package.distribution_file_count,
                 ),
             )
+        advisory_facts = _release_advisory_facts(package)
+        limitation = "Selected metadata retained as identity facts; raw provider JSON is not retained."
+        if advisory_facts:
+            limitation += " PyPI release advisory metadata alone leaves target exposure and mitigation unverified."
         source = p.source(
             "package_metadata",
             locator=package.source_url,
@@ -1073,9 +1112,9 @@ def _project_packages(p: _ReportProjection) -> None:
                 )
                 if available
                 else ()
-            ),
+            ) + advisory_facts,
             retrieved_at=package.retrieved_at.isoformat() if available else None,
-            limitation="Selected metadata retained as identity facts; raw provider JSON is not retained.",
+            limitation=limitation,
         )
         p.assess(
             key,

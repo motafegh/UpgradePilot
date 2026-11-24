@@ -123,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 7",
+            f"Recorded generator version: {report.generator_version}; renderer version: 8",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -540,7 +540,7 @@ def _source_lines(
             lines.extend(
                 f"  {fact.label}: {fact.value}"
                 for fact in source.identity
-                if not fact.name.startswith(("file_", "job_"))
+                if not fact.name.startswith(("file_", "job_", "release_advisory_entry_"))
             )
         lines.append(
             "  Method: recorded domain assessment"

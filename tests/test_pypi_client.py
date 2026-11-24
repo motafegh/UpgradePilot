@@ -13,6 +13,8 @@ from upgradepilot.pypi.release import (
     PackageReleaseEvidence,
     PackageReleaseProblem,
     PyPIReleaseClient,
+    ReleaseAdvisory,
+    ReleaseAdvisoryObservation,
 )
 
 
@@ -77,6 +79,7 @@ class PyPIReleaseClientTests(unittest.TestCase):
         self.assertEqual(result.published_version, "2.4.0")
         self.assertEqual(result.distribution_file_count, 1)
         self.assertEqual(result.retrieved_at, fixed_now)
+        self.assertIs(type(result), PackageReleaseEvidence)
         self.assertEqual(
             result.distribution_files[0].filename,
             "friendly_bard-2.4.0-py3-none-any.whl",
@@ -101,10 +104,10 @@ class PyPIReleaseClientTests(unittest.TestCase):
         session = Mock()
         session.get.return_value = _response(
             200,
-            _release_payload(version="2.4.1"),
+            {**_release_payload(version="2.4.1"), "vulnerabilities": [{"id": "TEST-1", "withdrawn": None}]},
         )
 
-        result = PyPIReleaseClient(session=session).get_release(
+        result = PyPIReleaseClient(session=session, retain_advisories=True).get_release(
             "friendly-bard",
             "2.4.0",
         )
@@ -112,6 +115,49 @@ class PyPIReleaseClientTests(unittest.TestCase):
         self.assertIsInstance(result, PackageReleaseProblem)
         assert isinstance(result, PackageReleaseProblem)
         self.assertEqual(result.state, "identity_mismatch")
+
+    def test_exact_release_advisories_keep_first_seen_order_and_withdrawal_state(self) -> None:
+        reported = {"id": "TEST-1", "withdrawn": None, "details": "Unretained provider text"}
+        withdrawn = {"id": "A" * 128, "withdrawn": "2025-01-01t12:34:56.789z"}
+        session = Mock()
+        session.get.return_value = _response(200, {
+            **_release_payload(), "vulnerabilities": [withdrawn] + [reported] * 31,
+        })
+
+        result = PyPIReleaseClient(session=session, retain_advisories=True).get_release("friendly-bard", "2.4.0")
+
+        self.assertIsInstance(result, PackageReleaseEvidence)
+        self.assertEqual(result.advisories, ReleaseAdvisoryObservation("entries_recorded", (
+            ReleaseAdvisory("A" * 128, "withdrawn"), ReleaseAdvisory("TEST-1", "reported"),
+        )))
+        self.assertEqual(session.get.call_count, 1)
+
+    def test_unadmitted_advisory_fields_preserve_distribution_evidence(self) -> None:
+        reported = {"id": "TEST-1", "withdrawn": None}
+        cases = (
+            ({}, "field_missing"),
+            ({"vulnerabilities": []}, "empty_list"),
+            ({"vulnerabilities": None}, "malformed"),
+            ({"vulnerabilities": {}}, "malformed"),
+        ) + tuple(({"vulnerabilities": rows}, state) for rows, state in (
+            ([reported, None], "malformed"), ([{"id": "TEST-1"}], "malformed"),
+            ([{**reported, "id": "X\nY"}], "malformed"),
+            ([{**reported, "id": "A" * 129}], "malformed"),
+            ([{**reported, "withdrawn": "2025-02-30T00:00:00Z"}], "malformed"),
+            ([{**reported, "withdrawn": "2025-01-01T00:00:00+00:60"}], "malformed"),
+            ([{**reported, "withdrawn": "2025-01-01T00:00:00"}], "malformed"),
+            ([reported, {**reported, "withdrawn": "2025-01-01T00:00:00+04:30"}], "conflicting_ids"),
+            ([reported] * 33, "over_limit"),
+        ))
+        for fields, state in cases:
+            with self.subTest(fields=fields, state=state):
+                session = Mock()
+                session.get.return_value = _response(200, {**_release_payload(), **fields})
+                result = PyPIReleaseClient(session=session, retain_advisories=True).get_release("friendly-bard", "2.4.0")
+                self.assertIsInstance(result, PackageReleaseEvidence)
+                self.assertEqual(result.advisories, ReleaseAdvisoryObservation(state))
+                self.assertEqual(result.distribution_file_count, 1)
+                self.assertEqual(session.get.call_count, 1)
 
     def test_release_404_with_existing_package_is_version_not_found(self) -> None:
         session = Mock()

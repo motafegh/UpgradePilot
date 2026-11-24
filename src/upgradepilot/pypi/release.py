@@ -32,6 +32,12 @@ _PACKAGE_NAME = re.compile(
     r"^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9._-]*[A-Za-z0-9])\Z"
 )
 _SHA256 = re.compile(r"^[0-9a-fA-F]{64}\Z")
+_MAX_RELEASE_ADVISORY_ENTRIES = 32
+_ADVISORY_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
+_WITHDRAWAL_TIMESTAMP = re.compile(
+    r"[0-9]{4}-[0-9]{2}-[0-9]{2}[Tt](?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"
+    r"(?:\.[0-9]+)?(?:[Zz]|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])"
+)
 _T = TypeVar("_T")
 
 type PackageReleaseProblemState = Literal[
@@ -63,6 +69,21 @@ class DistributionFile:
     package_type: str
 
 
+type ReleaseAdvisoryState = Literal["reported", "withdrawn"]
+
+
+@dataclass(frozen=True, slots=True)
+class ReleaseAdvisory:
+    advisory_id: str
+    state: ReleaseAdvisoryState
+
+
+@dataclass(frozen=True, slots=True)
+class ReleaseAdvisoryObservation:
+    state: Literal["entries_recorded", "empty_list", "field_missing", "malformed", "conflicting_ids", "over_limit"]
+    entries: tuple[ReleaseAdvisory, ...] = ()
+
+
 @dataclass(frozen=True, slots=True)
 class PackageReleaseEvidence:
     state: Literal["available"] = field(init=False, default="available")
@@ -80,6 +101,13 @@ class PackageReleaseEvidence:
     @property
     def distribution_file_count(self) -> int:
         return len(self.distribution_files)
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class PackageReleaseEvidenceWithAdvisories(PackageReleaseEvidence):
+    """Ordinary report evidence beyond the fixed caller/signature source layout."""
+
+    advisories: ReleaseAdvisoryObservation
 
 
 @dataclass(frozen=True, slots=True)
@@ -140,6 +168,45 @@ class _MalformedResponse(ValueError):
     pass
 
 
+def _is_withdrawal_timestamp(value: object) -> bool:
+    if not isinstance(value, str) or not _WITHDRAWAL_TIMESTAMP.fullmatch(value):
+        return False
+    try:
+        datetime.fromisoformat(value.upper())
+    except ValueError:
+        return False
+    return True
+
+
+def _release_advisories(data: Mapping[str, Any]) -> ReleaseAdvisoryObservation:
+    """Admit the optional release field without changing package availability."""
+    if "vulnerabilities" not in data:
+        return ReleaseAdvisoryObservation("field_missing")
+    rows = data["vulnerabilities"]
+    if not isinstance(rows, list):
+        return ReleaseAdvisoryObservation("malformed")
+    if len(rows) > _MAX_RELEASE_ADVISORY_ENTRIES:
+        return ReleaseAdvisoryObservation("over_limit")
+    if not rows:
+        return ReleaseAdvisoryObservation("empty_list")
+
+    entries: dict[str, ReleaseAdvisory] = {}
+    for row in rows:
+        if not isinstance(row, dict) or "withdrawn" not in row:
+            return ReleaseAdvisoryObservation("malformed")
+        advisory_id = row.get("id")
+        if not isinstance(advisory_id, str) or not _ADVISORY_ID.fullmatch(advisory_id):
+            return ReleaseAdvisoryObservation("malformed")
+        withdrawn = row["withdrawn"]
+        if withdrawn is not None and not _is_withdrawal_timestamp(withdrawn):
+            return ReleaseAdvisoryObservation("malformed")
+        entry = ReleaseAdvisory(advisory_id, "reported" if withdrawn is None else "withdrawn")
+        if advisory_id in entries and entries[advisory_id] != entry:
+            return ReleaseAdvisoryObservation("conflicting_ids")
+        entries[advisory_id] = entry
+    return ReleaseAdvisoryObservation("entries_recorded", tuple(entries.values()))
+
+
 class PyPIReleaseClient(PyPIJsonApiClient):
     def __init__(
         self,
@@ -148,6 +215,7 @@ class PyPIReleaseClient(PyPIJsonApiClient):
         timeout: tuple[float, float] = DEFAULT_TIMEOUT,
         max_response_bytes: int = DEFAULT_MAX_RESPONSE_BYTES,
         now: Callable[[], datetime] | None = None,
+        retain_advisories: bool = False,
     ) -> None:
         super().__init__(
             session=session,
@@ -156,6 +224,7 @@ class PyPIReleaseClient(PyPIJsonApiClient):
             accept="application/json",
         )
         self._now = now or (lambda: datetime.now(timezone.utc))
+        self._retain_advisories = retain_advisories
 
     def get_release(self, package: str, version: str) -> PackageReleaseResult:
         package = _valid_package(package)
@@ -258,7 +327,7 @@ class PyPIReleaseClient(PyPIJsonApiClient):
                 200,
             )
 
-        return PackageReleaseEvidence(
+        release_fields = dict(
             requested_package=request.package,
             normalized_package=request.normalized_package,
             requested_version=request.version,
@@ -270,6 +339,11 @@ class PyPIReleaseClient(PyPIJsonApiClient):
             distribution_files=files,
             project_urls=project_urls,
         )
+        if self._retain_advisories:
+            return PackageReleaseEvidenceWithAdvisories(
+                **release_fields, advisories=_release_advisories(data),
+            )
+        return PackageReleaseEvidence(**release_fields)
 
     def _get(
         self,
@@ -610,6 +684,7 @@ def _project_url(package: str) -> str:
 __all__ = (
     "DistributionFile",
     "PackageReleaseEvidence",
+    "PackageReleaseEvidenceWithAdvisories",
     "PackageReleaseIndexEvidence",
     "PackageReleaseIndexProblem",
     "PackageReleaseIndexProblemState",

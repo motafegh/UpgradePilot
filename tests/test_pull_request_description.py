@@ -132,7 +132,7 @@ class PullRequestDescriptionTests(unittest.TestCase):
                 result, session, observation = _normal(body)
                 self.assertEqual(session.get.call_count, 3)
                 report = project_investigation_report(result)
-                self.assertEqual(report.generator_version, "4")
+                self.assertEqual(report.generator_version, "5")
                 self.assertEqual((report.assessments, report.findings, report.unknowns, report.action),
                                  (old_report.assessments, old_report.findings, old_report.unknowns, old_report.action))
                 source = report.sources[0]

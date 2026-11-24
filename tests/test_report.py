@@ -5,16 +5,18 @@ from __future__ import annotations
 import unittest
 from dataclasses import asdict, replace
 from datetime import UTC, datetime
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from test_cli import _artifact_candidate_investigation, _supported_investigation
-from test_investigation import _dependency, _Harness, _run
+from test_investigation import _dependency, _Harness, _package, _run
+from test_pypi_client import _release_payload, _response
 
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.environment import UvLockDependencyContext
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun, WorkflowStep
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.investigation import investigate_public_pull_request
+from upgradepilot.pypi.release import PackageReleaseProblem, PyPIReleaseClient, ReleaseAdvisoryObservation
 from upgradepilot.report import (
     ReportFact, render_ci_report, render_investigation_report, render_report_facts,
 )
@@ -68,6 +70,58 @@ def _assert_ci_parity(test, investigation):
 
 
 class ReportProjectionTests(unittest.TestCase):
+    def test_release_advisories_reopen_with_their_exact_package_source(self):
+        investigation = _supported_investigation()
+        proposed_payload = {**_release_payload(name="demo", version="1.1"), "vulnerabilities": []}
+        old_payload = {**_release_payload(name="demo", version="1.0"), "vulnerabilities": [
+            {"id": "TEST-1", "withdrawn": None},
+            {"id": "TEST-2", "withdrawn": "2025-01-01T00:00:00Z"},
+        ]}
+        session = Mock()
+        session.get.side_effect = [_response(200, proposed_payload), _response(200, old_payload)]
+        client = PyPIReleaseClient(session=session, retain_advisories=True)
+        proposed = client.get_release("demo", "1.1")
+        old = client.get_release("demo", "1.0")
+        no_field = ReleaseAdvisoryObservation("field_missing")
+        baseline = project_investigation_report(replace(
+            investigation,
+            package_result=replace(proposed, advisories=no_field),
+            old_package_result=replace(old, advisories=no_field),
+        ))
+        result = replace(investigation, package_result=proposed, old_package_result=old)
+        report = decode_report(encode_report(project_investigation_report(result)))
+
+        self.assertEqual(report.action, baseline.action)
+        self.assertEqual(report.assessments, baseline.assessments)
+        self.assertEqual(report.findings, baseline.findings)
+        self.assertEqual(report.unknowns, baseline.unknowns)
+        sources = {s.locator: s for s in report.sources if s.kind == "package_metadata"}
+        old_source = sources[old.source_url]
+        self.assertEqual(old_source.retrieved_at, old.retrieved_at.isoformat())
+        old_view = render_report_facts(report, old_source.source_id)
+        self.assertIn("Old published package [published_package]: demo==1.0", old_view)
+        self.assertIn("PyPI advisory ID [release_advisory_entry_1_id]: TEST-1", old_view)
+        self.assertIn("PyPI advisory state [release_advisory_entry_2_state]: withdrawn", old_view)
+        self.assertIn("target exposure and mitigation unverified", old_view)
+        proposed_view = render_report_facts(report, sources[proposed.source_url].source_id)
+        self.assertIn("explicit empty list", proposed_view)
+        self.assertNotIn("TEST-1", proposed_view)
+        inventory = render_investigation_report(report)
+        self.assertIn("Release advisories: Entries recorded by PyPI for this release.", inventory)
+        self.assertNotIn("TEST-1", inventory)
+
+    def test_unavailable_release_and_unattempted_old_release_stay_distinct(self):
+        investigation = _supported_investigation()
+        package = _package("1.1")
+        unavailable = PackageReleaseProblem(
+            "identity_mismatch", "demo", "demo", "1.1", package.source_url, "Conflicting version", 200,
+        )
+        report = project_investigation_report(replace(investigation, package_result=unavailable, old_package_result=None))
+        package_source, = (s for s in report.sources if s.kind == "package_metadata")
+        self.assertIn("Exact release response unavailable or unadmitted.", render_report_facts(report, package_source.source_id))
+        old = next(a for a in report.assessments if a.assessment_id == "old-package")
+        self.assertEqual(old.status, "not_evaluated")
+
     def test_attempt_sources_identify_workflows_before_inspection(self):
         investigation = _supported_investigation()
         head = investigation.pull_request.head_sha

@@ -206,7 +206,7 @@ def investigate_public_pull_request(
     pull_client = pull_client or GitHubPullRequestClient(token=token)
     actions_client = actions_client or GitHubActionsClient(token=token)
     repository_client = repository_client or GitHubRepositoryClient(token=token)
-    package_client = package_client or PyPIReleaseClient()
+    package_client = package_client or PyPIReleaseClient(retain_advisories=True)
     release_index_client = release_index_client or PyPIReleaseIndexClient()
     upstream_repository_resolver = (
         upstream_repository_resolver or UpstreamRepositoryResolver()
