@@ -1,0 +1,49 @@
+name: Controlled installer evidence trial
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    name: Installer tags (${{ matrix.python }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10.22', '3.11.18']
+    steps:
+      - name: Check out the selected fixture revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - name: Select the fixture interpreter
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Pin pip in a fresh environment
+        shell: bash
+        run: |
+          python -m venv "$RUNNER_TEMP/installer-evidence-venv"
+          printf '%s\n' 'pip==25.3 --hash=sha256:9655943313a94722b7774661c21049070f6bbb0a1516bf02f7c8d5d9201514cd' > "$RUNNER_TEMP/installer-pip.txt"
+          "$RUNNER_TEMP/installer-evidence-venv/bin/python" -I -m pip --isolated install \
+            --disable-pip-version-check --no-cache-dir --no-deps --only-binary=:all: \
+            --index-url https://pypi.org/simple --require-hashes -r "$RUNNER_TEMP/installer-pip.txt"
+      - name: Capture installer tags
+        shell: bash
+        env:
+          TRIAL_PYTHON: ${{ matrix.python }}
+        run: |
+          "$RUNNER_TEMP/installer-evidence-venv/bin/python" tools/target_installer_trial.py \
+            capture "$RUNNER_TEMP/installer-evidence"
+      - name: Upload the installer observation
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: installer-tags-${{ github.run_attempt }}-${{ matrix.python }}
+          path: ${{ runner.temp }}/installer-evidence
+          if-no-files-found: error
+          retention-days: 1
