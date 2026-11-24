@@ -1,13 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-23
+**Last updated:** 2026-11-24
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
 
-**F4 engineering decision complete — November 23.** The [development acceptance](working-memory/2026-11-23_f4-development-acceptance.md) replays all 37 frozen responses through the current installed CLI. Structured evidence and `abstain` matched the original reports. Keep the CI summary and PR-description cue. The **next product responsibility is bounded design for exact-release advisory visibility** from already fetched PyPI responses. OpenCV and MapProxy supplied advisory rows that the package projection could not preserve. Defer automated passage selection until an observed decision-relevant miss. Ali confirmed human reviewers are unavailable. Independent usefulness remains unmeasured and the [pilot](working-memory/2026-11-23_f4-independent-pilot-readiness.md) can resume when eligible reviewers are available.
+**Exact-release advisory visibility designed — November 24.** The [offline design check](working-memory/2026-11-24_exact-release-advisory-visibility-design.md) matched the old and proposed PyPI responses to six report sources. Three IDs and four explicit empty lists reopened in the existing selected-facts view on prototype copies. Fifteen constructed controls checked the draft admission rules. **Next product responsibility:** implement the [bounded design](plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#preserve-advisory-observations-for-an-exact-release) in the ordinary producer and saved report. The live acquisition path still discards the field.
+
+**F4 engineering decision complete — November 23.** The [development acceptance](working-memory/2026-11-23_f4-development-acceptance.md) replays all 37 frozen responses through the installed CLI. Structured evidence and `abstain` matched the original reports. Keep the CI summary and PR-description cue. Defer automated passage selection until an observed decision-relevant miss. Ali confirmed human reviewers are unavailable. Independent usefulness remains unmeasured and the [pilot](working-memory/2026-11-23_f4-independent-pilot-readiness.md) can resume when eligible reviewers are available.
 
 **Retained PR description navigation delivered — November 23.** Renderer 7 puts the exact offline source command beside the unavailable upstream repository assessment when the report has retained PR text. The [Build record](working-memory/2026-11-23_httpx-pr-description-navigation-build.md) verifies HTTPX and OpenCV, with OpenCV's original truncation intact, and suppression in the MapProxy and historical HTTPX controls. The ordinary HTTPX replay preserved the eight-response ledger and `abstain`. **1,194 installed product tests passed with zero skips.**
 
