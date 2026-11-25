@@ -22,7 +22,7 @@ from unittest.mock import patch
 import test_caller_signature_source_acquisition as acquisition_controls
 
 from upgradepilot.cli import main
-from upgradepilot.report import render_investigation_report
+from upgradepilot.report import ReportFact, ReportSource, render_investigation_report
 from upgradepilot.report_file import read_report, encode_report, ReportValidationError
 from upgradepilot.workspace.checkpoint_revision import CheckpointStorageError, UnconfirmedPublication
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
@@ -271,6 +271,92 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         different = first_view_for(other_reason)
         self.assertIn("Recorded violation: missing_required_positional: path", different)
         self.assertNotIn("Rejected keyword:", different)
+
+    def test_saved_first_view_names_only_adapter_samples_shared_by_the_paired_witnesses(self):
+        code, output, _ = self.live(forwarded=False, durable=False)
+        self.assertEqual(code, 0, output)
+        report = read_report(self.report_path)
+        witnesses = tuple(a for a in report.assessments
+                          if a.assessment_id.startswith("caller-signature-comparison-"))
+        old, proposed = witnesses
+        other_assessments = tuple(a for a in report.assessments if a not in witnesses)
+        self.assertEqual({a.state for a in witnesses}, {"bound"})
+        self.assertNotIn("Sampled adapter versions:", output)
+
+        def sample(source_id, package, version, revision, path):
+            facts = {
+                "role": "constraint_sample", "package": package, "version": version,
+                "repository": f"owner/{package}", "revision": revision, "path": path,
+            }
+            return ReportSource(
+                source_id, "dependency_source", None,
+                tuple(ReportFact(name, name, value) for name, value in facts.items()),
+                "controlled sample", None, "retained_text", "pass\n", "Source evidence",
+            )
+
+        def with_samples(witness, *sources):
+            return replace(witness, source_ids=witness.source_ids + tuple(s.source_id for s in sources))
+
+        later = sample("source-901", "z-adapter", "2.0", "b" * 40, "z_adapter/core.py")
+        earlier = sample("source-902", "a-adapter", "1.0", "a" * 40, "a_adapter/core.py")
+        another_module = sample("source-903", "a-adapter", "1.0", "a" * 40, "a_adapter/api.py")
+        different_version = sample("source-904", "a-adapter", "1.1", "c" * 40, "a_adapter/core.py")
+        different_revision = sample("source-905", "a-adapter", "1.0", "d" * 40, "a_adapter/core.py")
+        missing_version = replace(earlier, identity=tuple(f for f in earlier.identity if f.name != "version"))
+        reference_only = replace(earlier, retention="reference_only", content=None)
+        mixed = replace(proposed, facts=tuple(
+            replace(f, value="alternate-root") if f.name == "root_call_id" else f
+            for f in proposed.facts
+        ))
+        agreed = "Sampled adapter versions: a-adapter 1.0, z-adapter 2.0."
+        controls = (
+            ("shared samples", (later, earlier), with_samples(old, later, earlier),
+             with_samples(proposed, earlier, later), agreed),
+            ("same sample in more than one module", (later, earlier, another_module),
+             with_samples(old, later, earlier, another_module), with_samples(proposed, earlier, later), agreed),
+            ("unrelated sample", (earlier,), old, proposed, None),
+            ("different versions", (earlier, different_version),
+             with_samples(old, earlier), with_samples(proposed, different_version), None),
+            ("different revisions of the same version", (earlier, different_revision),
+             with_samples(old, earlier), with_samples(proposed, different_revision), None),
+            ("same ambiguous package versions", (earlier, different_version),
+             with_samples(old, earlier, different_version), with_samples(proposed, earlier, different_version), None),
+            ("missing version", (missing_version,), with_samples(old, missing_version),
+             with_samples(proposed, missing_version), None),
+            ("reference without retained text", (reference_only,), with_samples(old, reference_only),
+             with_samples(proposed, reference_only), None),
+            ("mixed call roots", (earlier,), with_samples(old, earlier), with_samples(mixed, earlier), None),
+        )
+        for label, sources, old_witness, proposed_witness, expected in controls:
+            with self.subTest(label=label):
+                witness_sources = {
+                    witness.assessment_id: witness.source_ids
+                    for witness in (old_witness, proposed_witness)
+                }
+                selected = replace(
+                    report, sources=report.sources + sources,
+                    assessments=other_assessments + (old_witness, proposed_witness),
+                    findings=tuple(
+                        replace(finding, source_ids=witness_sources[finding.assessment_id])
+                        if finding.assessment_id in witness_sources else finding
+                        for finding in report.findings
+                    ),
+                )
+                path = self.root / "sample-control.json"
+                payload = encode_report(selected)
+                path.write_bytes(payload)
+                code, saved = self.run_cli(["--open-report", str(path)])
+                self.assertEqual(code, 0, saved)
+                first_view = saved.split("\nDetailed evidence and action status", 1)[0]
+                if expected is None:
+                    self.assertNotIn("Sampled adapter versions:", first_view)
+                else:
+                    self.assertIn(f"Proposed 2.0: arguments fit\n{expected}\nApplies under", first_view)
+                    self.assertEqual(first_view.count("Sampled adapter versions:"), 1)
+                if label == "mixed call roots":
+                    self.assertIn("More than one target or compared call is recorded.", first_view)
+                self.assertIn("Maintainer action: abstain", saved)
+                self.assertEqual(path.read_bytes(), payload)
 
     def test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation(self):
         """Exercise the real CLI/application/clients/worker, including absent guards.

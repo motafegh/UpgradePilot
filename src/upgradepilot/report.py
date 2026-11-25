@@ -123,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 8",
+            f"Recorded generator version: {report.generator_version}; renderer version: 9",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -432,6 +432,11 @@ def _signature_overview(
                         lines.append(f"Rejected keyword: {parameter}")
                     else:
                         lines.append(f"Recorded violation: {violation}")
+    paired_witnesses = tuple(witness for rows in witnesses.values() for witness in rows)
+    sampled_adapters = _shared_sampled_adapter_versions(paired_witnesses, report.sources)
+    if sampled_adapters:
+        versions = ", ".join(f"{package} {version}" for package, version in sampled_adapters)
+        lines.append(f"Sampled adapter versions: {versions}.")
     lines.append("Applies under the recorded source and dispatch assumptions. See witness conditions below.")
     open_questions = [unknown for unknown in report.unknowns
                       if unknown.assessment_id == "caller-signature-analysis"]
@@ -439,8 +444,50 @@ def _signature_overview(
     for item in report.assessments:
         if item.assessment_id in {"ci", "runtime"} and item.status == "not_evaluated":
             lines.append(f"{item.topic}: {item.state}")
-    lines.append(_evidence_refs(*(witness for rows in witnesses.values() for witness in rows), *open_questions))
+    lines.append(_evidence_refs(*paired_witnesses, *open_questions))
     return lines
+
+
+def _shared_sampled_adapter_versions(
+    witnesses: tuple[ReportAssessment, ...], sources: tuple[ReportSource, ...],
+) -> tuple[tuple[str, str], ...]:
+    """Summarize the common exact source samples behind the displayed witnesses."""
+    sources_by_id = {source.source_id: source for source in sources}
+    shared_samples: set[tuple[str, str, str, str]] | None = None
+    for witness in witnesses:
+        samples: set[tuple[str, str, str, str]] = set()
+        for source_id in witness.source_ids:
+            source = sources_by_id.get(source_id)
+            if source is None:
+                return ()
+            if source.kind != "dependency_source":
+                continue
+            facts = {fact.name: fact.value for fact in source.identity}
+            role = facts.get("role")
+            if len(facts) != len(source.identity) or role in (None, "", "not recorded"):
+                return ()
+            if role != "constraint_sample":
+                continue
+            package = facts.get("package", "")
+            version = facts.get("version", "")
+            repository = facts.get("repository", "")
+            revision = facts.get("revision", "")
+            sample_identity = (package, version, repository, revision)
+            if source.retention != "retained_text" or any(
+                not value or not value.isprintable() or value != value.strip() or value == "not recorded"
+                for value in sample_identity
+            ):
+                return ()
+            samples.add(sample_identity)
+        # A shared label requires agreement on the recorded source identity, even when
+        # separate modules or paths use the same release.
+        if shared_samples is None:
+            shared_samples = samples
+        elif samples != shared_samples:
+            return ()
+    if not shared_samples or len({package for package, _, _, _ in shared_samples}) != len(shared_samples):
+        return ()
+    return tuple((package, version) for package, version, _, _ in sorted(shared_samples))
 
 
 def _artifact_overview(
