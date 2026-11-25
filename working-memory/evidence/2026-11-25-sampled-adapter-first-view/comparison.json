@@ -1,0 +1,248 @@
+{
+  "av-combined": {
+    "a_first_view": [
+      "Update: httpx 0.25.2 -> 0.28.1",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-28 L6 TestClient",
+      "Compared call: source-29 L399 super().__init__",
+      "Old 0.25.2: arguments fit",
+      "Proposed 0.28.1: arguments rejected",
+      "Rejected keyword: app",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-47, source-14, source-15, source-28, source-29, source-36, source-16, source-35, source-46, source-31, source-30, source-41",
+      "",
+      "Selected historical CI job log (independent recorded observation)",
+      "Run 41416124208 attempt 1, job 125180284415",
+      "Observed error text: TypeError: Client.__init__() got an unexpected keyword argument 'app'",
+      "Installation-summary token: httpx-0.28.1 (log text only, not direct imported-module proof)",
+      "Link to analyzed source: not established as loaded code; upgrade-caused regression: not established.",
+      "Evidence references: source-49, source-48"
+    ],
+    "a_output_sha256": "eadc4596c6bae50c640d111a05d844180858aeb616a623b06fa1a68eb4b4595c",
+    "a_sample_source_inventory_headers": {
+      "source-16": 5231,
+      "source-29": 5426
+    },
+    "action": "abstain",
+    "b_cue_line": 27,
+    "b_first_view_sketch": [
+      "Update: httpx 0.25.2 -> 0.28.1",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-28 L6 TestClient",
+      "Compared call: source-29 L399 super().__init__",
+      "Old 0.25.2: arguments fit",
+      "Proposed 0.28.1: arguments rejected",
+      "Rejected keyword: app",
+      "Sampled adapter versions: fastapi 0.104.1, starlette 0.27.0.",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-47, source-14, source-15, source-28, source-29, source-36, source-16, source-35, source-46, source-31, source-30, source-41",
+      "",
+      "Selected historical CI job log (independent recorded observation)",
+      "Run 41416124208 attempt 1, job 125180284415",
+      "Observed error text: TypeError: Client.__init__() got an unexpected keyword argument 'app'",
+      "Installation-summary token: httpx-0.28.1 (log text only, not direct imported-module proof)",
+      "Link to analyzed source: not established as loaded code; upgrade-caused regression: not established.",
+      "Evidence references: source-49, source-48"
+    ],
+    "b_output_sha256": "0acdfccbda24b664f554b99000838e1e0726e3cfdec9787fba9cd4f9b133d155",
+    "detail_output_unchanged": true,
+    "paired_witnesses": 2,
+    "report_id": "fc0a0f83-a5cb-4c40-a229-2691360de3f0",
+    "report_sha256": "e307eb2843cd4b5a63319b869f06907e8f4d8da867511554994e436acb4f8850",
+    "report_sha256_unchanged": true,
+    "source_association": {
+      "source-16": [
+        "fastapi",
+        "0.104.1"
+      ],
+      "source-29": [
+        "starlette",
+        "0.27.0"
+      ]
+    }
+  },
+  "av-source": {
+    "a_first_view": [
+      "Update: httpx 0.25.2 -> 0.28.1",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-28 L6 TestClient",
+      "Compared call: source-29 L399 super().__init__",
+      "Old 0.25.2: arguments fit",
+      "Proposed 0.28.1: arguments rejected",
+      "Rejected keyword: app",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-47, source-14, source-15, source-28, source-29, source-36, source-16, source-35, source-46, source-31, source-30, source-41"
+    ],
+    "a_output_sha256": "e9a6a0a020866a0575cfae68b2226652a22aea2319e35c1a33af670c732be8b3",
+    "a_sample_source_inventory_headers": {
+      "source-16": 5198,
+      "source-29": 5393
+    },
+    "action": "abstain",
+    "b_cue_line": 27,
+    "b_first_view_sketch": [
+      "Update: httpx 0.25.2 -> 0.28.1",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-28 L6 TestClient",
+      "Compared call: source-29 L399 super().__init__",
+      "Old 0.25.2: arguments fit",
+      "Proposed 0.28.1: arguments rejected",
+      "Rejected keyword: app",
+      "Sampled adapter versions: fastapi 0.104.1, starlette 0.27.0.",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-47, source-14, source-15, source-28, source-29, source-36, source-16, source-35, source-46, source-31, source-30, source-41"
+    ],
+    "b_output_sha256": "1054ef6fc833dfcf51f3cb37fdef80d11efaa710e022054565c11e98488cb1ae",
+    "detail_output_unchanged": true,
+    "paired_witnesses": 2,
+    "report_id": "99a373c2-98d0-43ee-8a4b-2e7c449e82ba",
+    "report_sha256": "85fd07790ebb0e44eecda9b1f6688251e1d0dec7dc2d340dc66beb9105d69bd3",
+    "report_sha256_unchanged": true,
+    "source_association": {
+      "source-16": [
+        "fastapi",
+        "0.104.1"
+      ],
+      "source-29": [
+        "starlette",
+        "0.27.0"
+      ]
+    }
+  },
+  "controls": {
+    "conflicting_revision": "withhold",
+    "disagreeing_witnesses": "withhold",
+    "missing_version": "withhold",
+    "mixed_roots": "preserve existing no-pair summary",
+    "same_sample_different_modules": "deduplicate",
+    "unrelated_ref": "withhold"
+  },
+  "dashboard": {
+    "a_first_view": [
+      "Update: httpx 0.27.2 -> 0.28.1",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-27 L7 TestClient",
+      "Compared call: source-39 L477 super().__init__",
+      "Old 0.27.2: arguments fit",
+      "Proposed 0.28.1: arguments fit",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-49, source-14, source-15, source-27, source-39, source-37, source-29, source-34, source-36, source-50, source-47, source-33, source-30, source-32, source-48, source-41"
+    ],
+    "a_output_sha256": "5b835b2db91fbc0239068fa6535585082df46a5322033488c1cd6ae9606d9865",
+    "a_sample_source_inventory_headers": {
+      "source-29": 6532,
+      "source-39": 6682
+    },
+    "action": "abstain",
+    "b_cue_line": 26,
+    "b_first_view_sketch": [
+      "Update: httpx 0.27.2 -> 0.28.1",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-27 L7 TestClient",
+      "Compared call: source-39 L477 super().__init__",
+      "Old 0.27.2: arguments fit",
+      "Proposed 0.28.1: arguments fit",
+      "Sampled adapter versions: fastapi 0.165.0, starlette 1.10.0.",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-49, source-14, source-15, source-27, source-39, source-37, source-29, source-34, source-36, source-50, source-47, source-33, source-30, source-32, source-48, source-41"
+    ],
+    "b_output_sha256": "4930097709a36b62d244c4f47a96cdf6dbea1ee674d3292ee5a44dbb49459a26",
+    "detail_output_unchanged": true,
+    "paired_witnesses": 4,
+    "report_id": "dca5ec12-084d-47ce-baf7-617eb77c1706",
+    "report_sha256": "cdce1ddfdbd36bfdccd2380058227d371f3be8c17add72c44f4c4fb60577fea4",
+    "report_sha256_unchanged": true,
+    "source_association": {
+      "source-29": [
+        "fastapi",
+        "0.165.0"
+      ],
+      "source-39": [
+        "starlette",
+        "1.10.0"
+      ]
+    }
+  },
+  "direct": {
+    "a_first_view": [
+      "Update: demo 1.0 -> 2.0",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-16 L2 send",
+      "Compared call: source-16 L2 send",
+      "Old 1.0: arguments fit",
+      "Proposed 2.0: arguments fit",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-22, source-14, source-15, source-16, source-18, source-23, source-19, source-21"
+    ],
+    "a_output_sha256": "6e2542d2de54250809654c79ef5193cf3c0a0be72e221e50c579ecd1a183f5a5",
+    "a_sample_source_inventory_headers": {},
+    "action": "abstain",
+    "b_cue_line": null,
+    "b_first_view_sketch": [
+      "Update: demo 1.0 -> 2.0",
+      "",
+      "Caller and signature fit (conditional source evidence)",
+      "Target call: source-16 L2 send",
+      "Compared call: source-16 L2 send",
+      "Old 1.0: arguments fit",
+      "Proposed 2.0: arguments fit",
+      "Applies under the recorded source and dispatch assumptions. See witness conditions below.",
+      "Open: What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+      "CI dependency coverage: not evaluated",
+      "Runtime dependency state: not evaluated",
+      "Evidence references: source-22, source-14, source-15, source-16, source-18, source-23, source-19, source-21"
+    ],
+    "b_output_sha256": "6e2542d2de54250809654c79ef5193cf3c0a0be72e221e50c579ecd1a183f5a5",
+    "controlled_http_responses": 21,
+    "detail_output_unchanged": true,
+    "paired_witnesses": 2,
+    "report_id": "d6de8aaa-e437-4e77-aa0d-d1448d3f2619",
+    "report_sha256": "fddc2224a5543ac762728bb4083bab4479d82693c983122d08c53d1acfe66418",
+    "report_sha256_unchanged": true,
+    "source_association": {}
+  },
+  "offline_reopen": {
+    "literal_sources": [
+      "dashboard:source-29",
+      "dashboard:source-39",
+      "av-source:source-16",
+      "av-source:source-29",
+      "av-combined:source-48"
+    ],
+    "workspace_first_view_matches_saved_report": [
+      "dashboard",
+      "av-source",
+      "av-combined"
+    ]
+  },
+  "pre_sketch_expectations_sha256": "363db9e0aef673ba45131d01bde2154d8b1c25c5dbe3b99bc41cf55c0a1fb456",
+  "verification": "View A opened through the current CLI in separate network-isolated processes. View B is a plain-text addition over the same saved bytes. All constructed probes were reviewed outside the product path."
+}

@@ -1,0 +1,34 @@
+{
+  "dashboard": {
+    "sources": {"source-29": ["fastapi", "0.165.0"], "source-39": ["starlette", "1.10.0"]},
+    "old": "arguments fit",
+    "proposed": "arguments fit",
+    "adapter_line": "Sampled adapter versions: fastapi 0.165.0, starlette 1.10.0."
+  },
+  "av-source": {
+    "sources": {"source-16": ["fastapi", "0.104.1"], "source-29": ["starlette", "0.27.0"]},
+    "old": "arguments fit",
+    "proposed": "arguments rejected",
+    "adapter_line": "Sampled adapter versions: fastapi 0.104.1, starlette 0.27.0."
+  },
+  "av-combined": {
+    "sources": {"source-16": ["fastapi", "0.104.1"], "source-29": ["starlette", "0.27.0"]},
+    "old": "arguments fit",
+    "proposed": "arguments rejected",
+    "adapter_line": "Sampled adapter versions: fastapi 0.104.1, starlette 0.27.0."
+  },
+  "direct": {
+    "sources": {},
+    "old": "arguments fit",
+    "proposed": "arguments fit",
+    "adapter_line": null
+  },
+  "controls": {
+    "unrelated_ref": "withhold",
+    "disagreeing_witnesses": "withhold",
+    "missing_version": "withhold",
+    "conflicting_revision": "withhold",
+    "same_sample_different_modules": "deduplicate",
+    "mixed_roots": "preserve existing no-pair summary"
+  }
+}
