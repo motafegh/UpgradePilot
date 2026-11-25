@@ -1,0 +1,49 @@
+{
+  "maintainer_question": "Does retaining the VCRTool test fixture in PR #61 require removing mix_stderr to bind to the proposed Click constructor?",
+  "selection": "Prefer a case fresh to UpgradePilot with an exact lockfile transition, a direct binding that can answer a maintainer question, and a complete small Python source inventory. The target need not exhibit the incompatibility.",
+  "lexical_pattern": "\\bCliRunner\\s*\\(",
+  "search_scope": "All regular tracked .py files at the exact VCRTool PR head. Run the synthetic controls separately from the real comparison.",
+  "required": {
+    "real_sites": [
+      {
+        "path": "tests/conftest.py",
+        "line": 24,
+        "expression": "CliRunner",
+        "origin": "click.testing.CliRunner",
+        "old": "bound",
+        "proposed": "bound",
+        "origin_state": "conditional"
+      }
+    ],
+    "griffe": {
+      "member": "click.testing.CliRunner.__init__",
+      "removed_parameter": "mix_stderr"
+    },
+    "synthetic": {
+      "removed_keyword": {
+        "line": 5,
+        "old": "bound",
+        "proposed": "rejected"
+      },
+      "unrelated": {
+        "line": 12,
+        "old": "unresolved",
+        "proposed": "unresolved"
+      },
+      "unbound": {
+        "line": 19,
+        "old": "unresolved",
+        "proposed": "unresolved"
+      }
+    },
+    "missing_proposed_definition": "Keep the known old binding and report proposed signature unavailable even when the target span is present.",
+    "receiver_unresolved": "For the same real call, preserve an undetermined outcome when constructor receiver binding is left unresolved."
+  },
+  "forbidden": [
+    "Attributing unrelated or potentially unbound calls to Click",
+    "Claiming proposed compatibility from an absent definition",
+    "Claiming runtime test success, output-behavior equivalence, or merge readiness",
+    "Presenting prior exposure or one local comparison as independent usefulness or measured human time"
+  ],
+  "disposition_rule": "A verified new material call or fewer non-required candidates without a required miss earns a development signal. Equivalent coverage and review volume retain the existing method. Tool errors or file omissions affecting the comparison are inconclusive."
+}

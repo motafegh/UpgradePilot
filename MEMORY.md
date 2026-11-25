@@ -1,13 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-24
+**Last updated:** 2026-11-25
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
 
-**Offline static-tool comparison complete — November 24.** The [experiment and receipt](working-memory/2026-11-24_static-api-tool-comparison.md) recovered all four required call sites and preserved eight native bindings across AV-Tracer and glyphsLib. Semgrep reduced AV-Tracer from 11 text-matching lines to three call spans and matched glyphsLib's three candidates. Griffe found the relevant HTTPX keyword removal on the exact definitions. Its partial package comparison remained inconclusive. Both tools stay in development diagnostics. **Next scoped follow-up:** screen for a separate, less-exposed real update with a maintainer decision that depends on locating a source call. Replicate the measured reduction before considering any product adapter.
+**Static tool transfer trial complete — November 25.** The [VCRTool replay](working-memory/2026-11-25_static-call-site-transfer.md) screened 22 public leads and compared ripgrep and Semgrep across all 14 Python files at the selected PR head. Both found the same sole Click constructor call. Native analysis showed conditional argument fit under Click 8.1.8 and 8.2.0 because the fixture passes no arguments. Griffe confirmed the upstream removal of mix_stderr. The earlier search-volume reduction did not repeat. Keep native binding and defer a product adapter until a concrete search gap justifies reopening the comparison.
+
+**Offline static-tool comparison complete — November 24.** The [experiment and receipt](working-memory/2026-11-24_static-api-tool-comparison.md) recovered all four required call sites and preserved eight native bindings across AV-Tracer and glyphsLib. Semgrep reduced AV-Tracer from 11 text-matching lines to three call spans and matched glyphsLib's three candidates. Griffe found the relevant HTTPX keyword removal on the exact definitions. Its partial package comparison remained inconclusive. Both tools stay in development diagnostics. The [separate case comparison](working-memory/2026-11-25_static-call-site-transfer.md) is complete.
 
 **Controlled installer evidence trial passed — November 24.** The [Build and hosted receipt](working-memory/2026-11-24_controlled-installer-evidence-trial.md) binds both tag artifacts to run `45444178025`, attempt 1 and exact jobs. For the controlled NumPy update, CPython 3.10 lost its published wheel path and 3.11 retained an alternative proposed wheel. The no-evidence baseline stayed unresolved, all six invalid artifact controls were rejected, and 27 installed tests passed. Real target transfer is still required before a product adapter. The [static trial](working-memory/2026-11-24_static-api-tool-comparison.md) is now complete.
 

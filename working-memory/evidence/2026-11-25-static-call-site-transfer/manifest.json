@@ -1,0 +1,238 @@
+{
+  "dependency": {
+    "releases": {
+      "click-old": {
+        "revision": "934813e4d421071a1b3db3973c02fe2721359a6e",
+        "version": "8.1.8"
+      },
+      "click-proposed": {
+        "revision": "219206a18666624072fdbb803901e5eb7ce575a1",
+        "version": "8.2.0"
+      }
+    },
+    "repository": "pallets/click"
+  },
+  "files": [
+    {
+      "bytes": 2915,
+      "git_blob": "f1e54cd5c2700087e3f8b04ff1a519062541296b",
+      "path": "docs/conf.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "10fdb02774c022a22c74070a348e162621cda45f4234bc60d62558fc64122eb9"
+    },
+    {
+      "bytes": 627,
+      "git_blob": "de56687f14f7de58b3e9e3f0ef66abcde8adc846",
+      "path": "tests/conftest.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "d98987236b7eda266194e2846adc4c59f877a03503b9cb66e62ed6ea26aa34c8"
+    },
+    {
+      "bytes": 15642,
+      "git_blob": "2ce6eacefaa80d02993ab1f80a8882c0e1c98980",
+      "path": "tests/test_capture_stereo.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "b9afbb0789906f78803f03684d64e09cd1105c9a8ab50f097ecbe2238f5af8c5"
+    },
+    {
+      "bytes": 34730,
+      "git_blob": "e31db58ef83b05bf9effad63006152eee4653c53",
+      "path": "tests/test_jlip.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "85e7add938e4dd519328524ce8e637b94b2a911e2db89404c58f9d73f07aa3f2"
+    },
+    {
+      "bytes": 2053,
+      "git_blob": "4e0c796e77e42db07c5a42b9bee621e7f785debd",
+      "path": "tests/test_main.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "72e958228e14335c96ff0f7fca878670febd50adcd91f26fdc1bd8f6ca451e74"
+    },
+    {
+      "bytes": 2378,
+      "git_blob": "e7035dbd1ee94a8ccd39ad0b371ea9acedee8065",
+      "path": "tests/test_sircs.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "d55ea60cc67efffcff710f6bd5c6765607205a071418ce39fbd73ff16c5a4d0e"
+    },
+    {
+      "bytes": 3826,
+      "git_blob": "a144f7c773f5bfa07012453ca7eacd7dc1e77e8a",
+      "path": "tests/test_utils.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "cc36b3ed0a670e40cbaa3da2415109e8f8dd18fae6175bf44cc24853c7250fda"
+    },
+    {
+      "bytes": 80,
+      "git_blob": "c912445ca6c883c78f2254f829ea88b694d25b53",
+      "path": "vcrtool/__init__.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "89590d53d268147978dfc6f07e2ec10493df15fbff5b52f130ab33e8c49dab48"
+    },
+    {
+      "bytes": 123,
+      "git_blob": "25e757a7123aa217ff55eddeb9bef17c4fc4200f",
+      "path": "vcrtool/__main__.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "329f23261939a04c1a61b49d11a37cd930530ee0c3c9ef67c247f7b5aa1c1482"
+    },
+    {
+      "bytes": 7759,
+      "git_blob": "5778faf328c7c38ff6155174de39a85ccaabd7c9",
+      "path": "vcrtool/capture_stereo.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "fd66f3f4680aa00479a03848b7af5c4532859c02487221d24de9799a11612f67"
+    },
+    {
+      "bytes": 19506,
+      "git_blob": "5d2ca0d56d0e7d8110c10179d773f065e5a4c968",
+      "path": "vcrtool/jlip.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "561d8ca92e0aeef82beb065eeae518c54a7969a8182d0f3b2dfd295eb8d5c5a6"
+    },
+    {
+      "bytes": 1366,
+      "git_blob": "4037d66f9bfa9fe188aebdf77a977f385f899586",
+      "path": "vcrtool/main.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "c4f23559bc9810d8f7c6f0519926c9d089bf0dc91a296c03a6e4ec4e709d85d2"
+    },
+    {
+      "bytes": 1282,
+      "git_blob": "23d9047b20d7c1e46c79b325b11c820e500e1200",
+      "path": "vcrtool/sircs.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "fd5f0563a1aeb0316d0b58866706aa0d92c0b3dde9d80a63dfe1e96e63689b59"
+    },
+    {
+      "bytes": 5397,
+      "git_blob": "7ece4535f41e49fc35b2e91c19cf9e05235ba765",
+      "path": "vcrtool/utils.py",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "28a6ca758db46a74eb81de1c4742bebe0f94bc9466e41cc041e02bb7b436eec1"
+    },
+    {
+      "bytes": 186562,
+      "git_blob": "849da7176ab9e699f4deea08ef78c5a606fdb9e2",
+      "path": "poetry.lock",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "cbeaf62a789b5941528d5db2f3cc938e6a4ea9dd28981b112d68c38a0282fa40"
+    },
+    {
+      "bytes": 7149,
+      "git_blob": "01c5f198005924c956248a61a6f5030afc2af0f2",
+      "path": "pyproject.toml",
+      "repository": "Tatsh/vcrtool",
+      "revision": "4193c3e9f8ec4d975f917b213fab3191c423e445",
+      "role": "head",
+      "sha256": "f41688714bb074f104a841576128de0ee39a78e85213c873d42c7da844ecd4ce"
+    },
+    {
+      "bytes": 186561,
+      "git_blob": "6212bf38d40ca76b60a7a08de0d6c63d263f7c12",
+      "path": "poetry.lock",
+      "repository": "Tatsh/vcrtool",
+      "revision": "2b6f313b427a224c7af089d741c65b6e9d96259d",
+      "role": "base",
+      "sha256": "d9464453bcb28ef7d3b16b79cff3c4ad0e14f9cb90ef5557f0536e8f5e4d0b77"
+    },
+    {
+      "bytes": 7149,
+      "git_blob": "6848e3eb68e6a0b582b577f37ab204f747f9e60f",
+      "path": "pyproject.toml",
+      "repository": "Tatsh/vcrtool",
+      "revision": "2b6f313b427a224c7af089d741c65b6e9d96259d",
+      "role": "base",
+      "sha256": "5104e298709908fd487562610a587760986cced7330fdbccafcf563d3a81380c"
+    },
+    {
+      "bytes": 16282,
+      "git_blob": "772b2159ccd95d29d8d940fc818d3bb1d2610cbf",
+      "path": "src/click/testing.py",
+      "repository": "pallets/click",
+      "revision": "934813e4d421071a1b3db3973c02fe2721359a6e",
+      "role": "click-old",
+      "sha256": "dd103c6a709fed367cfb94401798add937be6965c100be552dab109cc882d994"
+    },
+    {
+      "bytes": 18487,
+      "git_blob": "d19c103a9e009ecb9e626198bbf7cf0ae1550eaa",
+      "path": "src/click/testing.py",
+      "repository": "pallets/click",
+      "revision": "219206a18666624072fdbb803901e5eb7ce575a1",
+      "role": "click-proposed",
+      "sha256": "76a0bb17f11827ecfce1b708545e4d4cde5f3f7740b85eddaba85869c7ba3dc4"
+    },
+    {
+      "bytes": 328,
+      "path": "scenario.py",
+      "repository": null,
+      "revision": null,
+      "role": "controls",
+      "sha256": "b5c22843c4a7b6e019f34ee92e89ea4b8be37120c3fa8648e952af04215b2983"
+    }
+  ],
+  "proof_class": "fixed-input retrospective transfer on a case fresh to UpgradePilot",
+  "target": {
+    "base_python_blobs_match": true,
+    "git_trees": {
+      "base": "2b6f313b427a224c7af089d741c65b6e9d96259d",
+      "head": "4193c3e9f8ec4d975f917b213fab3191c423e445"
+    },
+    "head_archive_sha256": "d936da82528ff3e17b7e1d309d3cf5e38067bd819027bf6022cbbe3821864d52",
+    "merged_at": "2025-05-12T17:17:47Z",
+    "pr_metadata_sha256": "e2d49ccd43d61be617ee0b68e1d1951855390821b01175bd1e9a1ba3996b7b17",
+    "pull_request": 61,
+    "python_inventory": [
+      "docs/conf.py",
+      "tests/conftest.py",
+      "tests/test_capture_stereo.py",
+      "tests/test_jlip.py",
+      "tests/test_main.py",
+      "tests/test_sircs.py",
+      "tests/test_utils.py",
+      "vcrtool/__init__.py",
+      "vcrtool/__main__.py",
+      "vcrtool/capture_stereo.py",
+      "vcrtool/jlip.py",
+      "vcrtool/main.py",
+      "vcrtool/sircs.py",
+      "vcrtool/utils.py"
+    ],
+    "repository": "Tatsh/vcrtool",
+    "revisions": {
+      "base": "2b6f313b427a224c7af089d741c65b6e9d96259d",
+      "head": "4193c3e9f8ec4d975f917b213fab3191c423e445"
+    }
+  }
+}

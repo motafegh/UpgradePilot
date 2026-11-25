@@ -1,0 +1,483 @@
+{
+  "absent_definition": {
+    "expression": "CliRunner",
+    "origin_limits": [
+      "delayed_global_read"
+    ],
+    "origin_state": "conditional",
+    "origins": [
+      "click.testing.CliRunner"
+    ],
+    "path": "tests/conftest.py",
+    "results": {
+      "click-old": {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 186,
+          "line": 179
+        },
+        "keywords": [],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "unresolved_checks": [],
+        "violations": []
+      },
+      "click-proposed": {
+        "outcome": "unresolved",
+        "reason": "missing_exact_definition"
+      }
+    },
+    "span": {
+      "column": 11,
+      "end_column": 22,
+      "end_line": 24,
+      "line": 24
+    },
+    "unbound_possible": false,
+    "unknown_possible": true
+  },
+  "experiment_runner_sha256": "40429eef6259023e97bec5d5625dffd5a89e59d0a446624d4d97fe9e1d0b6724",
+  "frozen_inputs_sha256": "3ed276f2cd6149ac7a0c8d886a001a3fd3826f9e88693ccad96f127a5a6437e5",
+  "griffe_defining_file": [
+    {
+      "kind": "Parameter was removed",
+      "line": 240,
+      "member": "click.testing.CliRunner.__init__",
+      "parameter": "mix_stderr"
+    }
+  ],
+  "griffe_seconds": 0.09412346700082708,
+  "native_baseline": {
+    "expression": "CliRunner",
+    "origin_limits": [
+      "delayed_global_read"
+    ],
+    "origin_state": "conditional",
+    "origins": [
+      "click.testing.CliRunner"
+    ],
+    "path": "tests/conftest.py",
+    "results": {
+      "click-old": {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 186,
+          "line": 179
+        },
+        "keywords": [],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "unresolved_checks": [],
+        "violations": []
+      },
+      "click-proposed": {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 247,
+          "line": 240
+        },
+        "keywords": [],
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ],
+        "unresolved_checks": [],
+        "violations": []
+      }
+    },
+    "span": {
+      "column": 11,
+      "end_column": 22,
+      "end_line": 24,
+      "line": 24
+    },
+    "unbound_possible": false,
+    "unknown_possible": true
+  },
+  "native_inventory_check": {
+    "calls_with_click_origin": [
+      {
+        "expression": "CliRunner",
+        "line": 24,
+        "path": "tests/conftest.py"
+      }
+    ],
+    "same_name_calls": [
+      {
+        "expression": "CliRunner",
+        "line": 24,
+        "path": "tests/conftest.py"
+      }
+    ]
+  },
+  "native_python": "3.12.3",
+  "native_seconds": 0.4119675269994332,
+  "offline": "unshare -Urn for coordinator and every subprocess",
+  "previous_incomplete_source_freeze_sha256": "aa09cea27f1992418dced8ec6072d18cc41f58b910d9582a4025adabf6b63b84",
+  "proof_class": "fixed-input retrospective transfer on a case fresh to UpgradePilot",
+  "raw_output_sha256": {
+    "controls-lexical.invocation.json": "13ff93c109fefa9a3d509bbed68d41738512ac548d6535a28b76048e61aff44c",
+    "controls-lexical.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "controls-lexical.stdout": "bc4954b2024deb654acbbb7bd0b08e6d61054cf145ee4ad0ce5b4482f937ad39",
+    "controls-semgrep.invocation.json": "245d01f3aebb398e6a04b0d0fd57ff54361da8b721700f6a07cd0a43e33f195f",
+    "controls-semgrep.stderr": "a4c8b15e9e44e6213f4d8a91484a0737c2ea2f4335f5db482e6916d915ea5787",
+    "controls-semgrep.stdout": "96cff7a2f32f4e9328c0a12112ffb6eaaf3dc5eb5dd51760303e4a21bc038a74",
+    "griffe.invocation.json": "4ead5568b171dc534e87bd59d949043ba04f36c2084cd640cf810c7d5b7fa87c",
+    "griffe.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "griffe.stdout": "1625f273fddf0644678cd308bf9d62b960732e7d153d5375872c2ab2ffecc51f",
+    "head-lexical.invocation.json": "3ea925dd9324e9745c2c9c32966a21cffe862553e91415d11c98e6e31a715353",
+    "head-lexical.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-lexical.stdout": "e080675f406b6381f06a5e55bb39dee20fe7d9bae409d6ee0d26829f52a14db6",
+    "head-semgrep.invocation.json": "56a93e70e04080c38430f05352fe251ec2d08027ce39bc81d6b63166990e3da6",
+    "head-semgrep.stderr": "486b8eb215971b99b8a60ccf21934a7fde93dc1a6db0837d0a7cc713296cca06",
+    "head-semgrep.stdout": "353847ed4d2caa2b654d5270121999f0fb80144a56439f50215a6016e117f2bb",
+    "rg-version.invocation.json": "b80c2f5d521a93abc717592a8d1cbbcd4e199afffe5f03ac542b3e9012564a59",
+    "rg-version.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rg-version.stdout": "100bf49b23f1041f11bb4543e25dbb4254c0e93a74ad80d8b6cc371d61a23ef3",
+    "structured.json": "6186ee3a78c58636da5bee18fdbb787d780e980cda3ff5df1eae1fadc9815986",
+    "tool-versions.invocation.json": "71d129d3d6e10b619e6ca590e7a852c21554a12c3b1d34ccc27ef9500846148f",
+    "tool-versions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tool-versions.stdout": "3c53a9b5c4439b66e068dcc9ad0dc1db8f5d6df16cc497b8ae61934095989d60"
+  },
+  "real": {
+    "both_searches_recovered_same_call_lines": true,
+    "lexical_rows": [
+      {
+        "line": 24,
+        "occurrences": 1,
+        "path": "tests/conftest.py"
+      }
+    ],
+    "lexical_seconds": 0.006038272998921457,
+    "scanned": [
+      "docs/conf.py",
+      "tests/conftest.py",
+      "tests/test_capture_stereo.py",
+      "tests/test_jlip.py",
+      "tests/test_main.py",
+      "tests/test_sircs.py",
+      "tests/test_utils.py",
+      "vcrtool/__init__.py",
+      "vcrtool/__main__.py",
+      "vcrtool/capture_stereo.py",
+      "vcrtool/jlip.py",
+      "vcrtool/main.py",
+      "vcrtool/sircs.py",
+      "vcrtool/utils.py"
+    ],
+    "semgrep_review": [
+      {
+        "expression": "CliRunner",
+        "origin_limits": [
+          "delayed_global_read"
+        ],
+        "origin_state": "conditional",
+        "origins": [
+          "click.testing.CliRunner"
+        ],
+        "path": "tests/conftest.py",
+        "results": {
+          "click-old": {
+            "header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 186,
+              "line": 179
+            },
+            "keywords": [],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "unresolved_checks": [],
+            "violations": []
+          },
+          "click-proposed": {
+            "header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 247,
+              "line": 240
+            },
+            "keywords": [],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "unresolved_checks": [],
+            "violations": []
+          }
+        },
+        "span": {
+          "column": 11,
+          "end_column": 22,
+          "end_line": 24,
+          "line": 24
+        },
+        "unbound_possible": false,
+        "unknown_possible": true
+      }
+    ],
+    "semgrep_seconds": 1.4603675560010743,
+    "semgrep_warnings": []
+  },
+  "screening": {
+    "other_direct_call_leads": [
+      "Vandebron/gh-mpyl#290",
+      "mbovo/pdh#264",
+      "sqlfluff/sqlfluff#6706",
+      "fastapi/typer#1222"
+    ],
+    "picked_before_tool_outputs": "Tatsh/vcrtool#61",
+    "pull_requests_considered": 22,
+    "readable_source_archives": 17,
+    "transport_or_archive_limit": 5
+  },
+  "synthetic": {
+    "both_searches_recovered_same_call_lines": false,
+    "lexical_rows": [
+      {
+        "line": 5,
+        "occurrences": 1,
+        "path": "scenario.py"
+      },
+      {
+        "line": 9,
+        "occurrences": 1,
+        "path": "scenario.py"
+      },
+      {
+        "line": 12,
+        "occurrences": 1,
+        "path": "scenario.py"
+      },
+      {
+        "line": 19,
+        "occurrences": 1,
+        "path": "scenario.py"
+      }
+    ],
+    "lexical_seconds": 0.0023383790012303507,
+    "scanned": [
+      "scenario.py"
+    ],
+    "semgrep_review": [
+      {
+        "expression": "CliRunner",
+        "origin_limits": [
+          "delayed_global_read"
+        ],
+        "origin_state": "conditional",
+        "origins": [
+          "click.testing.CliRunner"
+        ],
+        "path": "scenario.py",
+        "results": {
+          "click-old": {
+            "header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 186,
+              "line": 179
+            },
+            "keywords": [
+              {
+                "name": "mix_stderr",
+                "outcome": "named_parameter"
+              }
+            ],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "unresolved_checks": [],
+            "violations": []
+          },
+          "click-proposed": {
+            "header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 247,
+              "line": 240
+            },
+            "keywords": [
+              {
+                "name": "mix_stderr",
+                "outcome": "not_received"
+              }
+            ],
+            "outcome": "rejected",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "unresolved_checks": [],
+            "violations": [
+              {
+                "parameter": "mix_stderr",
+                "reason": "unexpected_keyword"
+              }
+            ]
+          }
+        },
+        "span": {
+          "column": 11,
+          "end_column": 38,
+          "end_line": 5,
+          "line": 5
+        },
+        "unbound_possible": false,
+        "unknown_possible": true
+      },
+      {
+        "expression": "CliRunner",
+        "origin_limits": [
+          "function_value_not_propagated"
+        ],
+        "origin_state": "unknown",
+        "origins": [],
+        "path": "scenario.py",
+        "results": {
+          "click-old": {
+            "outcome": "unresolved",
+            "reason": "call_origin_unresolved"
+          },
+          "click-proposed": {
+            "outcome": "unresolved",
+            "reason": "call_origin_unresolved"
+          }
+        },
+        "span": {
+          "column": 11,
+          "end_column": 38,
+          "end_line": 12,
+          "line": 12
+        },
+        "unbound_possible": false,
+        "unknown_possible": true
+      },
+      {
+        "expression": "CliRunner",
+        "origin_limits": [
+          "unbound_local_name",
+          "branch_alternatives"
+        ],
+        "origin_state": "conditional",
+        "origins": [
+          "click.testing.CliRunner"
+        ],
+        "path": "scenario.py",
+        "results": {
+          "click-old": {
+            "outcome": "unresolved",
+            "reason": "call_origin_unresolved"
+          },
+          "click-proposed": {
+            "outcome": "unresolved",
+            "reason": "call_origin_unresolved"
+          }
+        },
+        "span": {
+          "column": 11,
+          "end_column": 38,
+          "end_line": 19,
+          "line": 19
+        },
+        "unbound_possible": true,
+        "unknown_possible": false
+      }
+    ],
+    "semgrep_seconds": 1.0681032879983832,
+    "semgrep_warnings": []
+  },
+  "unresolved_receiver": {
+    "expression": "CliRunner",
+    "origin_limits": [
+      "delayed_global_read"
+    ],
+    "origin_state": "conditional",
+    "origins": [
+      "click.testing.CliRunner"
+    ],
+    "path": "tests/conftest.py",
+    "results": {
+      "click-old": {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 186,
+          "line": 179
+        },
+        "keywords": [],
+        "outcome": "undetermined",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "unresolved_checks": [
+          "receiver_binding_unresolved",
+          "full_argument_binding_not_checked"
+        ],
+        "violations": []
+      },
+      "click-proposed": {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 247,
+          "line": 240
+        },
+        "keywords": [],
+        "outcome": "undetermined",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "unresolved_checks": [
+          "receiver_binding_unresolved",
+          "full_argument_binding_not_checked"
+        ],
+        "violations": []
+      }
+    },
+    "span": {
+      "column": 11,
+      "end_column": 22,
+      "end_line": 24,
+      "line": 24
+    },
+    "unbound_possible": false,
+    "unknown_possible": true
+  },
+  "verification": {
+    "exact_source_paths_equal": true,
+    "no_network_metrics_or_registry": true,
+    "parser_coverage": "all 14 target Python files",
+    "same_structured_replay_except_timing": true
+  },
+  "versions": {
+    "griffe": "2.4.1",
+    "rg": "ripgrep 14.1.0",
+    "semgrep": "1.186.0"
+  }
+}

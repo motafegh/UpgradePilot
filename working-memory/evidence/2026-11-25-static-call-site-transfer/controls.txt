@@ -1,0 +1,19 @@
+from click.testing import CliRunner
+
+
+def removed_keyword():
+    return CliRunner(mix_stderr=False)
+
+
+def unrelated():
+    def CliRunner(**kwargs):
+        return kwargs
+
+    return CliRunner(mix_stderr=False)
+
+
+def unbound(flag):
+    if flag:
+        from click.testing import CliRunner
+
+    return CliRunner(mix_stderr=False)

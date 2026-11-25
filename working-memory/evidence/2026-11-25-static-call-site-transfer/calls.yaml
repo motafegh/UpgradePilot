@@ -1,0 +1,12 @@
+rules:
+  - id: click-runner-candidate
+    languages: [python]
+    message: Candidate CliRunner constructor call
+    severity: INFO
+    patterns:
+      - pattern-either:
+          - pattern: $NAME(...)
+          - pattern: $RECEIVER.$NAME(...)
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: '^CliRunner$'
