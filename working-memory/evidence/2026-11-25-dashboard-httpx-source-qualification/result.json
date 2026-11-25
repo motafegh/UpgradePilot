@@ -1,0 +1,506 @@
+{
+  "anonymous_lower_cap": {
+    "acquisition_seconds": 27.65103023700067,
+    "action": "abstain",
+    "auth": "anonymous",
+    "decoded_bytes": 3095080,
+    "github_limit": 40,
+    "github_requests": 40,
+    "material_omissions": 56,
+    "profile": "caller-signature",
+    "provider_requests": 55,
+    "report_id": "548e458a-a5a3-4330-9bdf-d8758760910c",
+    "report_sha256": "406c4713eb16bf52b4f28fced7ca1b65f66121ce58d4e95909c9dbdf62173c97",
+    "source_request_reserve": 24,
+    "state": "partial",
+    "target_files": 11,
+    "target_gaps": [
+      {
+        "detail": "Source acquisition stopped: acquisition_stage_request_limit",
+        "path": "tests/test_routes.py",
+        "reason": "acquisition_stage_request_limit"
+      }
+    ],
+    "transport_stops": [
+      {
+        "reason": "acquisition_stage_request_limit",
+        "stage": "target_context"
+      }
+    ],
+    "workspace_revision": "01bb074b08914984806fcb3f83f1547f"
+  },
+  "default_budget": {
+    "acquisition_seconds": 43.72548305000055,
+    "action": "abstain",
+    "auth": "token-env",
+    "decoded_bytes": 2384961,
+    "github_limit": 50,
+    "github_requests": 45,
+    "material_omissions": 36,
+    "profile": "caller-signature",
+    "provider_requests": 63,
+    "report_id": "dca5ec12-084d-47ce-baf7-617eb77c1706",
+    "report_sha256": "cdce1ddfdbd36bfdccd2380058227d371f3be8c17add72c44f4c4fb60577fea4",
+    "source_request_reserve": 24,
+    "state": "partial",
+    "target_files": 12,
+    "target_gaps": [],
+    "transport_stops": [],
+    "workspace_revision": "07b9d18997704bf0873428556529ede9"
+  },
+  "historical_source_contrasts": {
+    "adapter_call": {
+      "binding_state": "established",
+      "expression": "TestClient",
+      "file": "tests/test_routes.py",
+      "limitations": [],
+      "possible_origins": [
+        "fastapi.testclient.TestClient"
+      ],
+      "span": {
+        "column": 13,
+        "end_column": 28,
+        "end_line": 7,
+        "line": 7
+      }
+    },
+    "calls_with_possible_direct_httpx_origin": [],
+    "conditional_adapter_samples": [
+      {
+        "actual_forwarded_keywords": [
+          "app",
+          "base_url",
+          "headers",
+          "transport",
+          "follow_redirects",
+          "cookies"
+        ],
+        "fastapi": "0.110.0",
+        "fastapi_standard_extra_defined": false,
+        "forwarded_call_comparisons": {
+          "0.27.2": {
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "violations": []
+          },
+          "0.28.1": {
+            "outcome": "rejected",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "violations": [
+              {
+                "parameter": "app",
+                "reason": "unexpected_keyword"
+              }
+            ]
+          }
+        },
+        "forwarding_span": {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 436,
+          "line": 429
+        },
+        "local_fixture_entry": {
+          "outcome": "bound",
+          "premises": [
+            "call_reaches_selected_declared_signature",
+            "target_installed_versions_and_runtime_not_established",
+            "one_bound_positional_receiver_assumed"
+          ],
+          "violations": []
+        },
+        "starlette": "0.36.3",
+        "starlette_constructor": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 409,
+          "line": 397
+        },
+        "starlette_requirement": "starlette<0.37.0,>=0.36.3"
+      },
+      {
+        "actual_forwarded_keywords": [
+          "base_url",
+          "headers",
+          "transport",
+          "follow_redirects",
+          "cookies"
+        ],
+        "fastapi": "0.110.1",
+        "fastapi_standard_extra_defined": false,
+        "forwarded_call_comparisons": {
+          "0.27.2": {
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "violations": []
+          },
+          "0.28.1": {
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "violations": []
+          }
+        },
+        "forwarding_span": {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 461,
+          "line": 455
+        },
+        "local_fixture_entry": {
+          "outcome": "bound",
+          "premises": [
+            "call_reaches_selected_declared_signature",
+            "target_installed_versions_and_runtime_not_established",
+            "one_bound_positional_receiver_assumed"
+          ],
+          "violations": []
+        },
+        "starlette": "0.37.2",
+        "starlette_constructor": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 435,
+          "line": 423
+        },
+        "starlette_requirement": "starlette<0.38.0,>=0.37.2"
+      }
+    ],
+    "direct_httpx_imports": [],
+    "httpx_definitions": [
+      {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 1400,
+          "line": 1375
+        },
+        "member": "AsyncClient.__init__",
+        "parameters": [
+          "app",
+          "proxies"
+        ],
+        "version": "0.27.2"
+      },
+      {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 653,
+          "line": 628
+        },
+        "member": "Client.__init__",
+        "parameters": [
+          "app",
+          "proxies"
+        ],
+        "version": "0.27.2"
+      },
+      {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 1376,
+          "line": 1353
+        },
+        "member": "AsyncClient.__init__",
+        "parameters": [],
+        "version": "0.28.1"
+      },
+      {
+        "header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 662,
+          "line": 639
+        },
+        "member": "Client.__init__",
+        "parameters": [],
+        "version": "0.28.1"
+      }
+    ],
+    "python_files": [
+      "app/__init__.py",
+      "app/config.py",
+      "app/main.py",
+      "app/models/__init__.py",
+      "app/models/health.py",
+      "app/models/token.py",
+      "app/router/__init__.py",
+      "app/router/routes.py",
+      "app/utils.py",
+      "tests/__init__.py",
+      "tests/test_routes.py"
+    ],
+    "requirements": {
+      "base": {
+        "fastapi": "",
+        "httpx": "==0.27.2",
+        "pytest": "==8.3.3",
+        "pytest-asyncio": "==0.25.3",
+        "pytest-cov": "==6.0.0",
+        "python-dotenv": "",
+        "ruff": "==0.9.6"
+      },
+      "target": {
+        "fastapi": "",
+        "httpx": "==0.28.1",
+        "pytest": "==8.3.3",
+        "pytest-asyncio": "==0.25.3",
+        "pytest-cov": "==6.0.0",
+        "python-dotenv": "",
+        "ruff": "==0.9.6"
+      }
+    },
+    "sample_limit": "These historical source contrast samples have compatible FastAPI-to-Starlette constraints. Neither sampled FastAPI release declares the target standard extra. They do not reconstruct an environment."
+  },
+  "limits": [
+    "No historical environment observed",
+    "Source argument fit does not prove execution or behavior",
+    "No target code run",
+    "No independent maintainer usefulness observation"
+  ],
+  "proof_class": "real public source-only qualification and controlled version contrasts",
+  "python_3_10_eligible_historical_example": {
+    "declared_python_tested": "3.10",
+    "entry_binding": "bound",
+    "forwarded_keywords": [
+      "base_url",
+      "headers",
+      "transport",
+      "follow_redirects",
+      "cookies"
+    ],
+    "forwarding_call": {
+      "column": 8,
+      "end_column": 9,
+      "end_line": 403,
+      "line": 397
+    },
+    "httpx_comparisons": {
+      "0.27.2": {
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ]
+      },
+      "0.28.1": {
+        "outcome": "bound",
+        "premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established",
+          "one_bound_positional_receiver_assumed"
+        ]
+      }
+    },
+    "limits": "A bounded fixed sample. Does not resolve the environment, prove all requirements, or observe installation or test execution.",
+    "purpose": "One historical source sample eligible for the declared Python version and selected dependency constraints",
+    "release_metadata": {
+      "fastapi-0.115.13": {
+        "httpx_standard_constraint": "httpx>=0.23.0; extra == \"standard\"",
+        "published_first_file": "2025-06-17T11:49:44.106266Z",
+        "requires_python": ">=3.8",
+        "sha256": "77e3142661e7201db19592ce6ecf46cb787941cfdce7330ff0e954f2dd5d90cb",
+        "starlette_constraint": "starlette<0.47.0,>=0.40.0"
+      },
+      "starlette-0.46.2": {
+        "published_first_file": "2025-04-13T13:56:16.210607Z",
+        "requires_python": ">=3.9",
+        "sha256": "8e01a220d0d95a3e5e6b5f4750b591cf900c3e0e8f868c83a48c23a2d906cbaa"
+      }
+    },
+    "sources": [
+      {
+        "bytes": 66,
+        "git_blob": "4012406aa76f743c5c5d1ab8ff56d6d67cfb6653",
+        "path": "fastapi/testclient.py",
+        "repository": "fastapi/fastapi",
+        "revision": "4734df1db89607c9579d2bb9795b02214e1e1d47",
+        "role": "fastapi-0.115.13",
+        "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+        "version": "0.115.13"
+      },
+      {
+        "bytes": 27987,
+        "git_blob": "d54025e52d7ec2996d3a6fbdea9c390291067063",
+        "path": "starlette/testclient.py",
+        "repository": "Kludex/starlette",
+        "revision": "4a811767bcba6e933bf7a8b48edef5993ce8948e",
+        "role": "starlette-0.46.2",
+        "sha256": "1b40dbeed84411a13aba702b8f7e03fea1b7353fce23fd48a3edcfe33fe9b053",
+        "version": "0.46.2"
+      }
+    ]
+  },
+  "sampled_report_forwarding": {
+    "keyword_names": [
+      "base_url",
+      "headers",
+      "transport",
+      "follow_redirects",
+      "cookies"
+    ],
+    "span": {
+      "column": 8,
+      "end_column": 9,
+      "end_line": 483,
+      "line": 477
+    },
+    "witnesses": [
+      {
+        "callee": "source-33 L639 Client.__init__",
+        "id": "caller-signature-comparison-7b021f5e28f48f41770f38f9fe9861aa6082af1117652ed77b4aa786291c84bc",
+        "receiver": "one_receiver_assumed",
+        "role": "proposed_dependency",
+        "state": "bound",
+        "version": "0.28.1"
+      },
+      {
+        "callee": "source-33 L639 Client.__init__",
+        "id": "caller-signature-comparison-be208b7388a95ed6673852ff917f0672f9ab3c1c049947bc89e5064ef18f9d99",
+        "receiver": "one_receiver_assumed",
+        "role": "proposed_dependency",
+        "state": "bound",
+        "version": "0.28.1"
+      },
+      {
+        "callee": "source-37 L628 Client.__init__",
+        "id": "caller-signature-comparison-14abc8ac0800176f54c8c61a8ae7a439c77419ee685b1cdff09e6cb689635aa4",
+        "receiver": "one_receiver_assumed",
+        "role": "old_dependency",
+        "state": "bound",
+        "version": "0.27.2"
+      },
+      {
+        "callee": "source-37 L628 Client.__init__",
+        "id": "caller-signature-comparison-dfc48f99e096dfb476a7ee0ba71fce4291f4fe593daad63eda9aeaf97c53906a",
+        "receiver": "one_receiver_assumed",
+        "role": "old_dependency",
+        "state": "bound",
+        "version": "0.27.2"
+      }
+    ]
+  },
+  "sampled_report_sources": [
+    {
+      "acquisition_snapshot_at": "2026-11-25T15:01:33.776417+00:00",
+      "coverage": "Complete admitted files within bounded source selection",
+      "file_id": "f3c6909bd019ad334c2ceecb93605affcee9492f98ab440b17d3c021d6c48f46",
+      "package": "",
+      "path": "tests/test_routes.py",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "role": "target_repository",
+      "sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+      "source_id": "source-27",
+      "version": ""
+    },
+    {
+      "acquisition_snapshot_at": "2026-11-25T15:01:33.776417+00:00",
+      "coverage": "Complete admitted files within bounded source selection",
+      "file_id": "0a6cc22e59faf8fa9150c76fea26e2cfbfeaac97d69cc3ecd20102aef2e5bf58",
+      "package": "fastapi",
+      "path": "fastapi/testclient.py",
+      "repository": "fastapi/fastapi",
+      "revision": "05e6df7e906c3decba377c37548019973f40bf15",
+      "role": "constraint_sample",
+      "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+      "source_id": "source-29",
+      "version": "0.165.0"
+    },
+    {
+      "acquisition_snapshot_at": "2026-11-25T15:01:33.776417+00:00",
+      "coverage": "Complete admitted files within bounded source selection",
+      "file_id": "a14f1ecfd04db8be9865be7c8bba2344786c5b77333595fd79f4c7694c1d973e",
+      "package": "httpx",
+      "path": "httpx/_client.py",
+      "repository": "encode/httpx",
+      "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+      "role": "proposed_dependency",
+      "sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+      "source_id": "source-33",
+      "version": "0.28.1"
+    },
+    {
+      "acquisition_snapshot_at": "2026-11-25T15:01:33.776417+00:00",
+      "coverage": "Complete admitted files within bounded source selection",
+      "file_id": "bb608a41e87242488c32277ce1e35755c9fe247c533eabd7666768204660f65c",
+      "package": "httpx",
+      "path": "httpx/_client.py",
+      "repository": "encode/httpx",
+      "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+      "role": "old_dependency",
+      "sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c",
+      "source_id": "source-37",
+      "version": "0.27.2"
+    },
+    {
+      "acquisition_snapshot_at": "2026-11-25T15:01:33.776417+00:00",
+      "coverage": "Complete admitted files within bounded source selection",
+      "file_id": "f696629c063efc2245c1e7b1c9d5bc2b4e082258039efa4cb6a74f3a844d2a90",
+      "package": "starlette",
+      "path": "starlette/testclient.py",
+      "repository": "Kludex/starlette",
+      "revision": "8aa828ceaff764a2e57932fb42fdf105a47c4c83",
+      "role": "constraint_sample",
+      "sha256": "869a53e6511c25707432d7c91ca8cc22ea32775ac20c0fc8959ac609ad8a4d56",
+      "source_id": "source-39",
+      "version": "1.10.0"
+    }
+  ],
+  "scope_sha256": "1745b228fc720dbab401e6d4ac520e2c726b56b5e728f3cca70803d7cb427f34",
+  "verification": {
+    "cold_source_opens": [
+      "source-27",
+      "source-29",
+      "source-33",
+      "source-37",
+      "source-39"
+    ],
+    "conditional_contrasts_repeat_byte_for_byte": true,
+    "exact_target_manifest_matches": true,
+    "experiment_boundaries_ok": true,
+    "focused_tests_passed": 40,
+    "workspace_report_equals_saved_report": true
+  },
+  "workflow_declared_environment": {
+    "current_sample_metadata": {
+      "fastapi": {
+        "eligible_for_declared_python_3_10": false,
+        "first_upload": "2026-11-18T19:15:35.345110Z",
+        "release_response_sha256": "1336456eef8c941b21cc0f994df1f7e0a82aa37cb42d6159d6e44a0de4eb4f88",
+        "requires_python": ">=3.11",
+        "version": "0.165.0"
+      },
+      "starlette": {
+        "eligible_for_declared_python_3_10": false,
+        "first_upload": "2026-10-24T15:04:10.371825Z",
+        "release_response_sha256": "97b97206e2e6e29b5283cd401a9c8d0a75738705f3fbc7f5db1fc487dfafdc9a",
+        "requires_python": ">=3.11",
+        "version": "1.10.0"
+      }
+    },
+    "declared_python": "3.10",
+    "historical_environment_observed": false,
+    "path": ".github/workflows/python.yml",
+    "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131"
+  }
+}

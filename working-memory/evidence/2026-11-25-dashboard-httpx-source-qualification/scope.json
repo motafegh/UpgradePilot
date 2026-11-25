@@ -1,0 +1,15 @@
+{
+  "product_revision": "ea68e1a04a108505efbcbaa815facca8d230bec1",
+  "target": "Aidan-Wallace/kubernetes-dashboard-token-api",
+  "pull": 20,
+  "base": "b065646e4b7b894964567950f9ad770b02c136c2",
+  "head": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+  "dependency": "httpx",
+  "old": "0.27.2",
+  "proposed": "0.28.1",
+  "question": "Does the exact PR head expose a direct constructor or test adapter path that passes either removed HTTPX keyword, and can the existing source-only profile deliver enough evidence to answer?",
+  "profiles": ["caller-signature"],
+  "github_request_limit": 40,
+  "comparators": ["independent exact-tree Python inventory and native source binding", "exact old and new HTTPX signatures", "actual declared adapter bounds or selected exact version display"],
+  "nonclaims": ["actual installed versions", "test or deployment execution", "project-wide compatibility or merge readiness", "independent maintainer usefulness"]
+}

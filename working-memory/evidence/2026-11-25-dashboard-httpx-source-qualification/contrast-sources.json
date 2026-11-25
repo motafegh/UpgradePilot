@@ -1,0 +1,92 @@
+[
+  {
+    "bytes": 66,
+    "git_blob": "4012406aa76f743c5c5d1ab8ff56d6d67cfb6653",
+    "path": "fastapi/testclient.py",
+    "repository": "fastapi/fastapi",
+    "revision": "e40747f10ae911910e9cb9a9684576f3b21304c9",
+    "role": "fastapi-0.110.0",
+    "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+    "version": "0.110.0"
+  },
+  {
+    "bytes": 7409,
+    "git_blob": "c23e82ef4709f0800529f176fa1b82567eada1ad",
+    "path": "pyproject.toml",
+    "repository": "fastapi/fastapi",
+    "revision": "e40747f10ae911910e9cb9a9684576f3b21304c9",
+    "role": "fastapi-0.110.0",
+    "sha256": "634949e263e434c87478535ebaf653a4f2b4c3dc58033bd27ca526793d5ada95",
+    "version": "0.110.0"
+  },
+  {
+    "bytes": 66,
+    "git_blob": "4012406aa76f743c5c5d1ab8ff56d6d67cfb6653",
+    "path": "fastapi/testclient.py",
+    "repository": "fastapi/fastapi",
+    "revision": "50a880b39f09217ccb9b4144f9f5c8439af54cfd",
+    "role": "fastapi-0.110.1",
+    "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+    "version": "0.110.1"
+  },
+  {
+    "bytes": 7206,
+    "git_blob": "6c3bebf2bc46a7e85982966be292b386d284bae6",
+    "path": "pyproject.toml",
+    "repository": "fastapi/fastapi",
+    "revision": "50a880b39f09217ccb9b4144f9f5c8439af54cfd",
+    "role": "fastapi-0.110.1",
+    "sha256": "a2e6f1c74cf6b42681020a8aa9316d7405227602e64a7c5a11139485201babe0",
+    "version": "0.110.1"
+  },
+  {
+    "bytes": 29345,
+    "git_blob": "9e3ece4d9dbe80b20812dfe9dcb6b9eaffa84801",
+    "path": "starlette/testclient.py",
+    "repository": "Kludex/starlette",
+    "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+    "role": "starlette-0.36.3",
+    "sha256": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8",
+    "version": "0.36.3"
+  },
+  {
+    "bytes": 30367,
+    "git_blob": "f17d4e8923658a00220044805f344fc8584d07e9",
+    "path": "starlette/testclient.py",
+    "repository": "Kludex/starlette",
+    "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+    "role": "starlette-0.37.2",
+    "sha256": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e",
+    "version": "0.37.2"
+  },
+  {
+    "bytes": 68032,
+    "git_blob": "26610f6e87cb8c9d052d1b10d066c4a1c9840bdb",
+    "path": "httpx/_client.py",
+    "repository": "encode/httpx",
+    "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+    "role": "httpx-0.27.2",
+    "sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c",
+    "version": "0.27.2"
+  },
+  {
+    "bytes": 65714,
+    "git_blob": "2249231f8c3b912c731ff160344d3672e2f11738",
+    "path": "httpx/_client.py",
+    "repository": "encode/httpx",
+    "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+    "role": "httpx-0.28.1",
+    "sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+    "version": "0.28.1"
+  },
+  {
+    "bytes": 112,
+    "git_blob": "c6b8673ad2e4c614141b7693162474579b146441",
+    "path": "requirements.txt",
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "revision": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "role": "base",
+    "sha256": "18cad80487f07e0de68b9b1576dac1d0564bc6e0bde802054c7d2f36a24fbace",
+    "version": null
+  }
+]
