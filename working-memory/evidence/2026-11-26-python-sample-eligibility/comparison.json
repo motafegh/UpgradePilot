@@ -1,0 +1,349 @@
+{
+  "controls": {
+    "constructed_observed_patch_excluded": {
+      "state": "excluded"
+    },
+    "malformed_requires_python": {
+      "state": "unknown"
+    },
+    "missing_cutoff_timestamp": {
+      "state": "unknown"
+    },
+    "missing_requires_python": {
+      "state": "unknown"
+    },
+    "no_admitted_files": {
+      "state": "unknown"
+    },
+    "other_job_line_overlaps": {
+      "file": "sample-1.0.tar.gz",
+      "requires_python": ">=3.11",
+      "sha256": null,
+      "stable_patch_witness": "3.11.0",
+      "state": "overlap",
+      "upload_time": "2025-01-01T00:00:00Z"
+    },
+    "patch_range_overlap": {
+      "file": "sample-1.0.tar.gz",
+      "requires_python": ">=3.10.8,<3.11",
+      "sha256": null,
+      "stable_patch_witness": "3.10.8",
+      "state": "overlap",
+      "upload_time": "2025-01-01T00:00:00Z"
+    },
+    "published_after_requested_cutoff": {
+      "file_states": [
+        "after_cutoff"
+      ],
+      "state": "unavailable_at_snapshot_and_cutoff"
+    },
+    "unknown_patch_or_interpreter": {
+      "state": "unknown"
+    },
+    "whole_line_excluded": {
+      "state": "excluded"
+    },
+    "yanked_now": {
+      "file_states": [
+        "yanked_now"
+      ],
+      "state": "unavailable_at_snapshot_and_cutoff"
+    },
+    "yanked_without_reason": {
+      "file_states": [
+        "yanked_now"
+      ],
+      "state": "unavailable_at_snapshot_and_cutoff"
+    }
+  },
+  "historical_cutoff": "2025-06-28T03:38:37Z",
+  "index_receipts": [
+    {
+      "bytes": 394619,
+      "captured_at": "2026-11-25T20:49:59.833047+00:00",
+      "name": "fastapi-simple",
+      "seconds": 1.708522,
+      "serial": "43847139",
+      "sha256": "1e11f955b3045c45b1c5861ba9bb1770d65932d904f84018c2f1e5f4a32878e8",
+      "url": "https://pypi.org/simple/fastapi/"
+    },
+    {
+      "bytes": 159143,
+      "captured_at": "2026-11-25T20:50:01.374227+00:00",
+      "name": "starlette-simple",
+      "seconds": 1.540877,
+      "serial": "42691247",
+      "sha256": "8af5b361e729d08b609b1dce9dfae0cffe4a95ca49e3679d2859fd276fda06e3",
+      "url": "https://pypi.org/simple/starlette/"
+    }
+  ],
+  "retained_release_comparison": [
+    {
+      "bytes": 29757,
+      "package": "fastapi",
+      "python_3_10": {
+        "state": "excluded"
+      },
+      "python_3_10_with_cutoff": {
+        "file_states": [
+          "after_cutoff"
+        ],
+        "state": "unavailable_at_snapshot_and_cutoff"
+      },
+      "release_json_sha256": "1336456eef8c941b21cc0f994df1f7e0a82aa37cb42d6159d6e44a0de4eb4f88",
+      "release_requires_python": ">=3.11",
+      "version": "0.165.0"
+    },
+    {
+      "bytes": 8655,
+      "package": "starlette",
+      "python_3_10": {
+        "state": "excluded"
+      },
+      "python_3_10_with_cutoff": {
+        "file_states": [
+          "after_cutoff"
+        ],
+        "state": "unavailable_at_snapshot_and_cutoff"
+      },
+      "release_json_sha256": "97b97206e2e6e29b5283cd401a9c8d0a75738705f3fbc7f5db1fc487dfafdc9a",
+      "release_requires_python": ">=3.11",
+      "version": "1.10.0"
+    },
+    {
+      "bytes": 29837,
+      "package": "fastapi",
+      "python_3_10": {
+        "file": "fastapi-0.115.13-py3-none-any.whl",
+        "requires_python": ">=3.8",
+        "sha256": "0a0cab59afa7bab22f5eb347f8c9864b681558c278395e94035a741fc10cd865",
+        "stable_patch_witness": "3.10.0",
+        "state": "overlap",
+        "upload_time": "2025-06-17T11:49:44.106266Z"
+      },
+      "python_3_10_with_cutoff": {
+        "file": "fastapi-0.115.13-py3-none-any.whl",
+        "requires_python": ">=3.8",
+        "sha256": "0a0cab59afa7bab22f5eb347f8c9864b681558c278395e94035a741fc10cd865",
+        "stable_patch_witness": "3.10.0",
+        "state": "overlap",
+        "upload_time": "2025-06-17T11:49:44.106266Z"
+      },
+      "release_json_sha256": "77e3142661e7201db19592ce6ecf46cb787941cfdce7330ff0e954f2dd5d90cb",
+      "release_requires_python": ">=3.8",
+      "version": "0.115.13"
+    },
+    {
+      "bytes": 38536,
+      "package": "starlette",
+      "python_3_10": {
+        "file": "starlette-0.46.2-py3-none-any.whl",
+        "requires_python": ">=3.9",
+        "sha256": "595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35",
+        "stable_patch_witness": "3.10.0",
+        "state": "overlap",
+        "upload_time": "2025-04-13T13:56:16.210607Z"
+      },
+      "python_3_10_with_cutoff": {
+        "file": "starlette-0.46.2-py3-none-any.whl",
+        "requires_python": ">=3.9",
+        "sha256": "595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35",
+        "stable_patch_witness": "3.10.0",
+        "state": "overlap",
+        "upload_time": "2025-04-13T13:56:16.210607Z"
+      },
+      "release_json_sha256": "8e01a220d0d95a3e5e6b5f4750b591cf900c3e0e8f868c83a48c23a2d906cbaa",
+      "release_requires_python": ">=3.9",
+      "version": "0.46.2"
+    }
+  ],
+  "scenarios": {
+    "current_snapshot_python_3_10": {
+      "fastapi": {
+        "constraint": "fastapi[standard]",
+        "counts": {
+          "excluded": 7,
+          "overlap": 358
+        },
+        "newer_unknown_candidates_in_checked_set": [],
+        "selected": {
+          "file": "fastapi-0.162.5-py3-none-any.whl",
+          "requires_python": ">=3.10",
+          "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+          "stable_patch_witness": "3.10.0",
+          "state": "overlap",
+          "upload_time": "2026-11-11T22:29:51.470014Z",
+          "version": "0.162.5"
+        },
+        "unassigned_files": 0
+      },
+      "fastapi_exact_metadata_sha256": "e816ce5c89d7c923175ff95cff85a2d892dee87218a7f1e4e34d7597b7444ab1",
+      "fastapi_httpx_standard_constraints": [
+        "httpx<1.0.0,>=0.23.0; extra == \"standard\""
+      ],
+      "fastapi_metadata_basis": "file_bound_core_metadata",
+      "legacy_starlette_under_selected_fastapi_constraint": "1.10.0",
+      "legacy_unscoped_fastapi": "0.165.0",
+      "starlette": {
+        "constraint": "starlette>=0.46.0",
+        "counts": {
+          "excluded": 3,
+          "overlap": 29
+        },
+        "newer_unknown_candidates_in_checked_set": [],
+        "selected": {
+          "file": "starlette-1.7.0-py3-none-any.whl",
+          "requires_python": ">=3.10",
+          "sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+          "stable_patch_witness": "3.10.0",
+          "state": "overlap",
+          "upload_time": "2026-09-23T07:30:24.567239Z",
+          "version": "1.7.0"
+        },
+        "unassigned_files": 0
+      }
+    },
+    "current_snapshot_python_3_11_control": {
+      "fastapi": {
+        "constraint": "fastapi[standard]",
+        "counts": {
+          "overlap": 365
+        },
+        "newer_unknown_candidates_in_checked_set": [],
+        "selected": {
+          "file": "fastapi-0.165.0-py3-none-any.whl",
+          "requires_python": ">=3.11",
+          "sha256": "896f48462042bb4f162147eb8fac7e858753dc1f486765709baf105d70e4fc5b",
+          "stable_patch_witness": "3.11.0",
+          "state": "overlap",
+          "upload_time": "2026-11-18T19:15:35.345110Z",
+          "version": "0.165.0"
+        },
+        "unassigned_files": 0
+      },
+      "fastapi_exact_metadata_sha256": "1336456eef8c941b21cc0f994df1f7e0a82aa37cb42d6159d6e44a0de4eb4f88",
+      "fastapi_httpx_standard_constraints": [
+        "httpx<1.0.0,>=0.23.0; extra == \"standard\""
+      ],
+      "fastapi_metadata_basis": "exact_release_json",
+      "legacy_starlette_under_selected_fastapi_constraint": "1.10.0",
+      "legacy_unscoped_fastapi": "0.165.0",
+      "starlette": {
+        "constraint": "starlette>=1.6.0",
+        "counts": {
+          "overlap": 5
+        },
+        "newer_unknown_candidates_in_checked_set": [],
+        "selected": {
+          "file": "starlette-1.10.0-py3-none-any.whl",
+          "requires_python": ">=3.11",
+          "sha256": "478c0ab3b4ced6e82719849c118fa406f0278a3499c1a898cd15cd31bdc38ce4",
+          "stable_patch_witness": "3.11.0",
+          "state": "overlap",
+          "upload_time": "2026-10-24T15:04:10.371825Z",
+          "version": "1.10.0"
+        },
+        "unassigned_files": 0
+      }
+    },
+    "pre_merge_cutoff_python_3_10": {
+      "fastapi": {
+        "constraint": "fastapi[standard]",
+        "counts": {
+          "overlap": 217,
+          "unavailable_at_snapshot_and_cutoff": 148
+        },
+        "newer_unknown_candidates_in_checked_set": [],
+        "selected": {
+          "file": "fastapi-0.115.14-py3-none-any.whl",
+          "requires_python": ">=3.8",
+          "sha256": "6c0c8bf9420bd58f565e585036d971872472b4f7d3f6c73b698e10cffdefb3ca",
+          "stable_patch_witness": "3.10.0",
+          "state": "overlap",
+          "upload_time": "2025-06-26T15:29:06.490780Z",
+          "version": "0.115.14"
+        },
+        "unassigned_files": 0
+      },
+      "fastapi_exact_metadata_sha256": "04a412e4bfe7bc21d825409842e8e38ccf1dc4ca090d5f38b619ac1d8c59888d",
+      "fastapi_httpx_standard_constraints": [
+        "httpx>=0.23.0; extra == \"standard\""
+      ],
+      "fastapi_metadata_basis": "file_bound_core_metadata",
+      "legacy_starlette_under_selected_fastapi_constraint": "0.46.2",
+      "legacy_unscoped_fastapi": "0.165.0",
+      "starlette": {
+        "constraint": "starlette<0.47.0,>=0.40.0",
+        "counts": {
+          "overlap": 14,
+          "unavailable_at_snapshot_and_cutoff": 1
+        },
+        "newer_unknown_candidates_in_checked_set": [],
+        "selected": {
+          "file": "starlette-0.46.2-py3-none-any.whl",
+          "requires_python": ">=3.9",
+          "sha256": "595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35",
+          "stable_patch_witness": "3.10.0",
+          "state": "overlap",
+          "upload_time": "2025-04-13T13:56:16.210607Z",
+          "version": "0.46.2"
+        },
+        "unassigned_files": 0
+      }
+    }
+  },
+  "scope_sha256": "13d9a3bfba9a30aa0e0f36aaa998095c8f0e17fa9f85a8ef9af339563aeb0417",
+  "selected_fastapi_core_metadata_receipts": [
+    {
+      "bytes": 27180,
+      "captured_at": "2026-11-25T20:53:20.308246+00:00",
+      "name": "fastapi-wheel-0.115.14",
+      "seconds": 1.038534,
+      "serial": null,
+      "sha256": "04a412e4bfe7bc21d825409842e8e38ccf1dc4ca090d5f38b619ac1d8c59888d",
+      "url": "https://files.pythonhosted.org/packages/53/50/b1222562c6d270fea83e9c9075b8e8600b8479150a18e4516a6138b980d1/fastapi-0.115.14-py3-none-any.whl.metadata"
+    },
+    {
+      "bytes": 27634,
+      "captured_at": "2026-11-25T20:53:21.431479+00:00",
+      "name": "fastapi-wheel-0.162.5",
+      "seconds": 1.123082,
+      "serial": null,
+      "sha256": "e816ce5c89d7c923175ff95cff85a2d892dee87218a7f1e4e34d7597b7444ab1",
+      "url": "https://files.pythonhosted.org/packages/10/19/5b9abfa67a29b862e509911eef40f4901f78aa48de32ad1f939b5c2b165e/fastapi-0.162.5-py3-none-any.whl.metadata"
+    }
+  ],
+  "selected_fastapi_release_attempts": [
+    {
+      "error": "JSONDecodeError",
+      "name": "fastapi-selected-0.162.5",
+      "reason": "Unterminated string starting at: line 1 column 28436 (char 28435)",
+      "url": "https://pypi.org/pypi/fastapi/0.162.5/json"
+    },
+    {
+      "error": "JSONDecodeError",
+      "name": "fastapi-selected-0.115.14",
+      "reason": "Unterminated string starting at: line 1 column 28658 (char 28657)",
+      "url": "https://pypi.org/pypi/fastapi/0.115.14/json"
+    }
+  ],
+  "workflow": {
+    "changed_files": [
+      "requirements.txt"
+    ],
+    "configured_pr_path_filters": [
+      "app/**",
+      "static/**",
+      "templates/**",
+      "tests/**"
+    ],
+    "declared_python": "3.10",
+    "declared_python_source": "setup-python python-version at line 23",
+    "install_declaration": "observed",
+    "job": "build",
+    "limitations": [],
+    "path": ".github/workflows/python.yml",
+    "retained_exact_head_runs": 0,
+    "source_sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131"
+  }
+}

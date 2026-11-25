@@ -1,0 +1,17 @@
+{
+  "base_commit": "2e2e7fce5d880c2a772b47f9490ba6f49019cb06",
+  "target": "Aidan-Wallace/kubernetes-dashboard-token-api",
+  "pull": 20,
+  "head": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+  "workflow": ".github/workflows/python.yml",
+  "job": "build",
+  "scenario": "explicitly selected declared Python 3.10 line",
+  "historical_cutoff": "2025-06-28T03:38:37Z",
+  "frozen_dashboard_exact_release_rows": ["fastapi==0.165.0", "starlette==1.10.0", "fastapi==0.115.13", "starlette==0.46.2"],
+  "optional_snapshot_budget": {"max_simple_pages": 2, "max_selected_fastapi_release_lookups": 2, "bytes_per_response": 8388608},
+  "policy_questions": [
+    "Does a selected sample overlap the declared stable interpreter line?",
+    "Can a bounded per-file index yield a better evidenced next sample without runtime inference?",
+    "What uncertainty remains for patch versions, skipped jobs, absent metadata, historical index state and runtime imports?"
+  ]
+}

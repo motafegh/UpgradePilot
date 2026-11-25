@@ -1,13 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-25
+**Last updated:** 2026-11-26
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
 
-**Sampled adapter versions delivered — November 25.** Renderer 9 names the exact shared adapter samples beside the caller/signature outcome. The [Build and verification](working-memory/2026-11-25_sampled-adapter-first-view-build.md) matched the four selected saved openings and three Workspace views, preserved the five source views and three ordinary report controls, and passed **1,199 installed product tests with zero skips**. **Next scoped design:** compare current sampling with Python-aware sample eligibility on the Dashboard API workflow's declared 3.10, keeping declared and observed environments distinct.
+**Python-aware sample design comparison complete — November 26.** The [Dashboard API comparison](working-memory/2026-11-26_python-sample-eligibility-design.md) used an explicitly selected workflow declaration and exact published file evidence. The current-snapshot Python 3.10 candidate is FastAPI 0.162.5 / Starlette 1.7.0. The same-snapshot Python 3.11 control recovers 0.165.0 / 1.10.0, and a separately scoped pre-merge cutoff for 3.10 selects 0.115.14 / 0.46.2. The metadata comparison and twelve controls reproduced offline. These are source-selection candidates, with historical installation and execution still unresolved. **Next scoped proof:** qualify both newly ranked Python 3.10 pairs through identity-bound source acquisition and native binding, then decide whether to admit an opt-in product scenario.
+
+**Sampled adapter versions delivered — November 25.** Renderer 9 names the exact shared adapter samples beside the caller/signature outcome. The [Build and verification](working-memory/2026-11-25_sampled-adapter-first-view-build.md) matched the four selected saved openings and three Workspace views, preserved the five source views and three ordinary report controls, and passed **1,199 installed product tests with zero skips**. The [Python-aware design comparison](working-memory/2026-11-26_python-sample-eligibility-design.md) is complete.
 
 **Sampled adapter first-view comparison complete — November 25.** The [saved-report comparison](working-memory/2026-11-25_sampled-adapter-first-view-comparison.md) adds a one-line sketch beside the paired outcome in Dashboard API and both AV-Tracer captures. The direct-call control and cases with incomplete or conflicting witness identities withheld the cue. Three Workspace openings matched their saved reports and five literal sources reopened offline. The [renderer Build](working-memory/2026-11-25_sampled-adapter-first-view-build.md) completed. Environment-aware sample selection remains separate.
 

@@ -1,0 +1,44 @@
+# Python-aware adapter sampling design comparison
+
+The Dashboard API report now shows the exact adapter versions behind its source comparison. The next maintainer question is whether those versions are relevant to a selected Python environment. This design comparison evaluates the existing selector, an eligibility annotation on the selected sample, and eligibility-first ranking. Ali requested the engineering explanation after the step. The current evidence and the runnable comparison support the design choice. [Renderer Build](2026-11-25_sampled-adapter-first-view-build.md) · [Caller/signature applicability checkpoint](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md#16-combined-evidence-and-runtime-applicability-design-checkpoint)
+
+- UP-SKILL:upgradepilot-planning-design
+- UP-SKILL:upgradepilot-working-memory
+
+## Scenario and authority
+
+The exact Dashboard API #20 head is 391508134b083b8f54461c0b576e8f7985c6ecb4. The existing target declaration interpreter read job build in the hash-verified Python workflow and recovered the literal Python 3.10 input at line 23. It also found the install declaration consuming requirements.txt. The dependency is httpx==0.28.1 and the direct adapter request is unpinned fastapi[standard]. [Frozen scope](evidence/2026-11-26-python-sample-eligibility/scope.json) · [Target workflow](https://github.com/Aidan-Wallace/kubernetes-dashboard-token-api/blob/391508134b083b8f54461c0b576e8f7985c6ecb4/.github/workflows/python.yml#L20-L28)
+
+The retained changed-file response contains only requirements.txt. That path falls outside this workflow's configured pull-request path list. The earlier exact-head pull-request run query returned zero. Use the job's Python declaration as an explicitly selected scenario. Treat workflow trigger matching, actual execution, and the installed interpreter and package versions as separate observations. The optional time cutoff is the PR merge timestamp, 2025-06-28T03:38:37Z, selected to test publication eligibility. A current index filtered by upload time cannot reconstruct the historical index, yanks, or an installation. [F4 packet receipt](evidence/2026-11-22-maintainer-usefulness-preparation/PACKET_RECEIPT.json) · [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md#92-declarationconfiguration-evidence-is-not-execution-evidence)
+
+## Compared approaches
+
+| Approach | What it does | Dashboard result and tradeoff |
+|---|---|---|
+| Current selector | Chooses the newest stable release whose version meets the visible version constraint. | Chooses FastAPI 0.165.0 and Starlette 1.10.0. Their retained published file metadata excludes the entire stable Python 3.10 line. They remain source examples. |
+| Annotate the existing sample | Assess the selected exact release's already fetched metadata against a separately admitted scenario. | Makes the exclusion visible. It can reuse already fetched release responses. It provides no alternate source sample and still needs an admitted interpreter declaration or observation. |
+| Rank within an explicit scenario | From bounded per-file metadata, keep versions with a known Python overlap, then rank them under visible package constraints. Apply an explicit cutoff only when requested. | Produces a different metadata-qualified candidate pair for Python 3.10. It needs a per-file metadata observation, a verified FastAPI-to-Starlette declaration, and a later exact source-path check. |
+
+The retained four-release comparison checked exact JSON file identities and agreement between release-level and file-level Requires-Python. The live sample pair excludes the 3.10 line. The previously selected 0.115.13 / 0.46.2 pair overlaps it and passes the separately retained source-level fit check. No candidate selection in this step borrows an installed version from another capture. [Prior source qualification](2026-11-25_dashboard-httpx-source-qualification.md) · [Existing sampler](../src/upgradepilot/caller_signature/source_acquisition.py#L347)
+
+## Same-snapshot ranking
+
+Captured just the public FastAPI and Starlette Simple Index JSON responses and matched file identities to the release version list. Reused the current selection function for the baseline version ranking and the existing Python-line specifier method for metadata overlap. The candidate ranking requires at least one identified, currently non-yanked file with known overlap, under the selected FastAPI artifact's declared Starlette constraint. FastAPI's standard extra on the checked artifacts admits HTTPX 0.28.1. This covers the shown declaration edge and Python predicate. Full environment resolution and execution need independent evidence. [PyPI Index API](https://docs.pypi.org/api/index-api/) · [File metadata semantics](https://packaging.python.org/en/latest/specifications/simple-repository-api/) · [Python-line evaluator](../src/upgradepilot/target/python_specifier.py)
+
+| Scenario | Candidate FastAPI / Starlette | Evidence boundary |
+|---|---|---|
+| Current snapshot, declared 3.10 | 0.162.5 / 1.7.0 | Both selected files declare Python >=3.10. |
+| Current snapshot, 3.11 control | 0.165.0 / 1.10.0 | Both selected files declare Python >=3.11. The control demonstrates the result depends on the selected line. |
+| Current snapshot with pre-merge publication cutoff, declared 3.10 | 0.115.14 / 0.46.2 | Both selected files predate the cutoff and their metadata overlaps the selected line. The older 0.115.13 source result concerns its separate sampled artifact. |
+
+The captured index bodies were 394,619 and 159,143 bytes. The direct transport attempt surfaced an unreachable network. The configured credential-free, process-local PyPI proxy delivered both index bodies. Two exact-release JSON responses for the newly selected FastAPI versions were incomplete. The probe recovered the same narrow requirement evidence through two advertised wheel metadata endpoints, totaling 54,814 additional bytes. Both metadata SHA-256 values matched the index records. The 608,576 successful response bytes characterize this probe. Product request and byte costs still need verification under shared acquisition limits. The release lookup failures and successful metadata receipts are preserved separately. [PyPI metadata fields](https://docs.pypi.org/api/json/) · [Comparison receipt](evidence/2026-11-26-python-sample-eligibility/comparison.json)
+
+Two network-isolated runs reproduced the recorded comparison byte for byte. Twelve constructed controls covered missing and invalid Requires-Python, an unknown interpreter, full-line exclusion, separate interpreter lines, a patch-limited range, a constructed exact interpreter, cutoff exclusion, unknown upload time, yanked files with and without a reason, and absent files. A constraint admitting 3.10.8 and later 3.10 patches overlaps the line while excluding the separate 3.10.6 observation control. The witness establishes that some stable patch satisfies the specifier. All 38 focused declaration and source-acquisition tests passed.
+
+## Decision and next qualification
+
+Keep explicit, scenario-scoped ranking as the candidate method. Annotation remains useful when we have only the already selected release, or when the checked candidate set cannot support ranking. The current exact HTTPX old and proposed definitions and the unscoped source-only route retain their distinct roles. Introduce no product acquisition or representation from this design comparison alone.
+
+The next proof should qualify the two newly ranked Python 3.10 pairs through exact tagged source acquisition and the existing binding checker. Compare each with the recorded source-only outcome, preserve the candidate provenance, and measure every lookup and acquisition stop. The purpose is to find out whether the metadata-qualified pair still reaches the relevant call and supports a useful result. A metadata ranking followed by an unavailable or different source path remains partial evidence. An interpreter- or release-metadata gap must stay visible. A higher unclassified candidate limits any claim about the newest eligible release in the checked set.
+
+Before product integration, compose one explicitly selected, exact-revision job or variant at the application boundary and reuse the workflow declaration and package-evidence owners. Keep observed patch versions bound to their actual process and job, scoped separately from a declared line. Keep required metadata bounded and identity-checked, and preserve partial coverage if a provider or budget refuses. A supported parser may reject unknown interpreter expressions. It must not substitute the audit host's interpreter or infer eligibility across multiple jobs. A product candidate later needs a typed retention and reopening decision with the existing Workspace/report owners.
