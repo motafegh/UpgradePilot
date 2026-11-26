@@ -160,6 +160,10 @@ The saved format remains schema1 with explicit new caller/signature assessment s
 
 For this profile, exit0 means requested delivery completed, including an honest partial or unsupported result. Exit9 rejects the selected Workspace revision. Exit10 reports hard analysis failure. Exit11 reports publication failure, conflict or acknowledgement uncertainty. Existing input/acquisition/response/report/source codes2–8 still apply. Publication takes precedence over producer, report and external-save errors. Inspect evidence coverage separately from command success.
 
+### Check sampled adapters against a declared Python version
+
+Add `--sample-python-workflow .github/workflows/python.yml --sample-python-job build` to a live caller/signature command to select one static job from the investigated PR head. UpgradePilot checks the published files for the exact adapter versions used by the report. The job must declare a literal Python major/minor line and show a direct installation from the changed dependency file. The report records metadata overlap, complete exclusion of the checked non-yanked files, or unresolved evidence. The workflow and published metadata leave the actual installed versions and runtime dispatch open.
+
 ### Add one selected historical CI job
 
 The explicit `caller-signature-ci` profile combines caller/signature analysis with a bounded log observation from one selected failed GitHub Actions job. It requires `--expected-base`, `--expected-head`, positive `--ci-run-id`, `--ci-run-attempt`, and `--ci-job-id`, and a private `--workspace-store`. Use the exact PR head and attempt when selecting the job. Access to the log depends on GitHub permissions, and a missing log remains an explicit evidence problem.

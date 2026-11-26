@@ -867,6 +867,14 @@ def reconstruct_caller_signature_projection(
         receipt = sources.acquisition.target
         if receipt is not None and (receipt.repository, receipt.revision) != (expected_target.repository, expected_target.head_sha):
             raise NativeReconstructionError("wrong_target", "Caller/signature acquisition differs from investigation target.")
+        scenario = sources.sample_python
+        if scenario is not None:
+            if (scenario.repository, scenario.revision) != (expected_target.repository, expected_target.head_sha):
+                raise NativeReconstructionError("wrong_target", "Python scenario differs from investigation target.")
+            if scenario.dependency_path is not None and scenario.dependency_path not in {
+                item.path for item in inputs.dependency_result.source_evidence
+            }:
+                raise _invalid("Python scenario dependency path differs from investigation inputs.")
     run = cast(SourceAnalysisRun | None, _decode(records, "caller_signature_comparison", sources=sources))
     return CallerSignatureNativeProjection(inputs, sources, run)
 

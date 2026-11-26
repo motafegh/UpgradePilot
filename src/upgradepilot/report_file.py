@@ -659,6 +659,7 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         "changelog-path": set(get_args(ChangelogPathDiscoveryProblemState.__value__)),
         "caller-signature-coverage": {"complete", "partial", "failed"},
         "caller-signature-analysis": {"completed", "failed", "timed_out", "interrupted"},
+        "caller-signature-sample-python": {"declared", "unresolved"},
         "ci-job-log": {
             "observed_keyword_error", "unclassified_log", "unavailable",
         },
@@ -671,6 +672,11 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         if not re.fullmatch(r"[0-9a-f]{64}", suffix):
             raise ReportValidationError("Invalid caller/signature comparison identity.")
         allowed = {"bound", "rejected", "undetermined"}
+    elif assessment_id.startswith("caller-signature-sample-python-"):
+        suffix = assessment_id.removeprefix("caller-signature-sample-python-")
+        if not re.fullmatch(r"[0-9a-f]{64}", suffix):
+            raise ReportValidationError("Invalid sampled Python comparison identity.")
+        allowed = {"overlaps", "excludes", "unknown"}
     elif assessment_id.startswith("ci-workflow-"):
         allowed = vocabularies["ci"]
     elif assessment_id.startswith("ci-job-instance-"):

@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 from .caller_signature.acquisition import AcquisitionSession
+from .caller_signature.sample_python import SelectedSamplePythonJob
 from .ci.job_log_diagnostic import SelectedCIJob
 from .github.actions import GitHubActionsClient
 from .github.api import GitHubAcquisitionError, GitHubResponseError
@@ -104,6 +105,7 @@ def investigate_and_deliver_caller_signature(
     expected_base: str | None = None, expected_head: str | None = None,
     selected_ci_job: SelectedCIJob | None = None,
     ci_actions_client: GitHubActionsClient | None = None,
+    selected_sample_python_job: SelectedSamplePythonJob | None = None,
 ) -> CallerSignatureDelivery:
     """Run each producer once, publish the exact report, then return earned handoff.
 
@@ -117,6 +119,7 @@ def investigate_and_deliver_caller_signature(
             repository, pull_number, session=session, workspace_host=host,
             expected_base=expected_base, expected_head=expected_head,
             selected_ci_job=selected_ci_job, ci_actions_client=ci_actions_client,
+            selected_sample_python_job=selected_sample_python_job,
         )
     except Exception as error:
         if host.publication_blocked:

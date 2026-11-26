@@ -3,12 +3,14 @@ from __future__ import annotations
 
 from collections import deque
 from collections.abc import Callable
+from dataclasses import replace
 from datetime import datetime, timezone
 from hashlib import sha256
 
 from ..dependency.change import DependencyVersionChange
 from ..github.api import GitHubAcquisitionError, GitHubResponseError
 from ..investigation_inputs import AcquiredDependencyInputs
+from ..pypi.release import PyPIReleaseClient
 from ..target.source_context import TargetSourceAcquirer, source_id
 from ..workspace.native_boundary import exact_investigation_target
 from ..workspace.source_access import RetainedSourceCatalog, RetainedSourceFile, RetainedSourceScope
@@ -16,6 +18,7 @@ from .acquisition import AcquisitionSession
 from .bindings import ImportFact
 from .correspondence import PythonSourceModule, absolute_import, module_name
 from .evidence import AnalysisLimits
+from .sample_python import SamplePythonScenario, SelectedSamplePythonJob, collect_sample_python_scenario
 from .source_acquisition import AdapterSourceExplorer, ExaminedPythonModule, PythonModuleSourceRequest
 from .source_evidence import (
     AcquisitionProblem, CallerSignatureSources, SourceAcquisitionReceipt, SourceFileReceipt,
@@ -122,13 +125,25 @@ def collect_source_progress(
     inputs: AcquiredDependencyInputs,
     session: AcquisitionSession,
     publish: Callable[[CallerSignatureSources], None],
+    *,
+    selected_sample_python_job: SelectedSamplePythonJob | None = None,
 ) -> CallerSignatureSources:
     """Acquire bounded source questions and publish returned material between stages."""
     dependency = inputs.dependency
     if not isinstance(dependency, DependencyVersionChange):
         raise ValueError("Source acquisition requires an established dependency transition.")
     target = exact_investigation_target(inputs.identity, dependency)
-    explorer = AdapterSourceExplorer(session=session)
+    sample_python = None
+    release_client = None
+    file_python = {}
+    if selected_sample_python_job is not None:
+        sample_python = SamplePythonScenario(selected_sample_python_job, target.repository, target.head_sha)
+
+        def remember_file_python(release, files):
+            file_python[release.normalized_package, release.published_version] = files
+
+        release_client = PyPIReleaseClient(session=session, observe_file_python=remember_file_python)
+    explorer = AdapterSourceExplorer(session=session, releases=release_client)
     run = explorer.source_run()
     limits = AnalysisLimits()
     context = target_receipt = exploration = None
@@ -157,7 +172,7 @@ def collect_source_progress(
             adapter_limitations=exploration.limitations if exploration else (),
             source_work=run.work, transport=transport, method_files=(), retention_gaps=gaps,
         )
-        sources = CallerSignatureSources(catalog, modules, limits, acquisition)
+        sources = CallerSignatureSources(catalog, modules, limits, acquisition, sample_python)
         publish(sources)
         return sources
 
@@ -198,6 +213,8 @@ def collect_source_progress(
             acquired = AcquisitionProblem("target_context", "malformed_response", str(exc))
     if isinstance(acquired, AcquisitionProblem):
         problems.append(SourceProblem(acquired.stage, acquired.reason, acquired.detail))
+        if sample_python is not None:
+            sample_python = replace(sample_python, reason="source_context_unavailable")
         return snapshot("failed")
     context = acquired
     target_receipt = _target_receipt(context)
@@ -249,6 +266,20 @@ def collect_source_progress(
         except (GitHubAcquisitionError, GitHubResponseError) as exc:
             problems.append(SourceProblem("source_closure", getattr(exc, "reason", "malformed_response"), str(exc)))
             return snapshot("failed")
+    if sample_python is not None:
+        with session.stage("sample_python_workflow"):
+            _, modules, _ = _source_material(target, context, libraries, limits)
+            sample_releases = {(module.package, module.version) for module in modules if module.role == "constraint_sample"}
+            try:
+                declared = collect_sample_python_scenario(
+                    sample_python, inputs.identity, {evidence.path for evidence in dependency.source_evidence},
+                    sample_releases, file_python, session,
+                )
+                session.finish_acquisition()
+            except GitHubAcquisitionError as exc:
+                sample_python = replace(sample_python, reason=exc.reason)
+            else:
+                sample_python = declared
     return snapshot("complete")
 
 

@@ -27,7 +27,15 @@ from ..github.api import GITHUB_API_ROOT
 from ..github.tag import (GitHubTagCommitEvidence, GitHubTagRepositoryRedirect,
                           repository_move_redirect, tag_reference_path)
 from ..pypi.provenance import FileProvenanceEvidence, FileProvenanceProblem, PublisherIdentity
-from ..pypi.release import DistributionFile, PackageReleaseEvidence, ProjectUrlCandidate
+from ..pypi.release import (
+    DistributionFile, MAX_FILE_PYTHON_DECLARATIONS, MAX_REQUIRES_PYTHON_TEXT,
+    PackageReleaseEvidence, ProjectUrlCandidate, PublishedFileRequiresPython,
+)
+from ..repository_path import repository_relative_parts
+from .sample_python import (
+    PYTHON_LINE, WORKFLOW_TEXT_LIMIT, SampleFilePythonAssessment, SamplePythonScenario,
+    SampleReleasePythonAssessment, SelectedSamplePythonJob,
+)
 from ..workspace.native_boundary import ExactInvestigationTarget
 from ..workspace.native_representation import (
     Either, LiteralValues, NativeValueCodec, RecordLayout, RecordRef, SequenceOf,
@@ -37,6 +45,8 @@ from ..workspace.source_access import encode_source_catalog, read_source_catalog
 
 FORMAT = "caller-signature-sources/1"
 MOVE_FORMAT = "caller-signature-sources/2"
+SAMPLE_PYTHON_FORMAT = "caller-signature-sources/3"
+_SOURCE_FORMATS = {1: FORMAT, 2: MOVE_FORMAT, 3: SAMPLE_PYTHON_FORMAT}
 
 
 def _optional(shape):
@@ -457,6 +467,28 @@ _MOVE_VALUES = NativeValueCodec(tuple(
 ))
 _RECEIPT = RecordRef("source_acquisition_receipt")
 
+_PYTHON_SCENARIO_VALUES = NativeValueCodec((
+    RecordLayout("sample_python_job", SelectedSamplePythonJob, (("workflow_path", str), ("job", str))),
+    RecordLayout("file_requires_python", PublishedFileRequiresPython, (
+        ("filename", str), ("sha256", str), ("requires_python", _optional(str)), ("yanked", _optional(bool)),
+    )),
+    RecordLayout("sample_file_python", SampleFilePythonAssessment, (
+        ("file", RecordRef("file_requires_python")),
+        ("state", LiteralValues(("overlaps", "excludes", "unknown", "yanked"))),
+        ("witness_patch", _optional(str)),
+    )),
+    RecordLayout("sample_release_python", SampleReleasePythonAssessment, (
+        ("package", str), ("version", str), ("files", _seq("sample_file_python")),
+    )),
+    RecordLayout("sample_python_scenario", SamplePythonScenario, (
+        ("selection", RecordRef("sample_python_job")), ("repository", str), ("revision", str),
+        ("dependency_path", _optional(str)), ("workflow_text", _optional(str)),
+        ("python_line", _optional(str)), ("python_location", _optional(str)), ("reason", str),
+        ("releases", _seq("sample_release_python")),
+    )),
+))
+_PYTHON_SCENARIO = RecordRef("sample_python_scenario")
+
 
 def _digest(value):
     if type(value) is not str or re.fullmatch(r"[0-9a-f]{64}", value) is None:
@@ -744,7 +776,63 @@ def _validate_catalog_joins(value):
                 raise ValueError("Target module/declaration membership mismatch.")
 
 
+def _validate_sample_python(value):
+    scenario = value.sample_python
+    if scenario is None:
+        return
+    validate_repository(scenario.repository)
+    if validate_commit_sha(scenario.revision) != scenario.revision:
+        raise ValueError("Noncanonical Python scenario revision.")
+    if (value.catalog is not None
+            and (scenario.repository, scenario.revision) != (value.catalog.target.repository, value.catalog.target.head_sha)):
+        raise ValueError("Python scenario belongs to another source target.")
+    if scenario.dependency_path is not None and repository_relative_parts(scenario.dependency_path) is None:
+        raise ValueError("Invalid selected Python scenario dependency path.")
+    if scenario.workflow_text is not None and len(scenario.workflow_text.encode()) > WORKFLOW_TEXT_LIMIT:
+        raise ValueError("Python scenario workflow exceeded its retention limit.")
+    if not scenario.reason or len(scenario.reason) > 128:
+        raise ValueError("Incomplete Python scenario reason.")
+    if scenario.reason != "declared_python_line":
+        if scenario.python_line is not None or scenario.python_location is not None or scenario.releases:
+            raise ValueError("Unresolved Python scenario carries a release verdict.")
+        return
+    if (not scenario.workflow_text or not scenario.python_location or not scenario.dependency_path
+            or not PYTHON_LINE.fullmatch(scenario.python_line or "")):
+        raise ValueError("Declared Python scenario lacks its workflow or declaration.")
+    expected = {(m.package, m.version) for m in value.modules if m.role == "constraint_sample"}
+    identities = [(release.package, release.version) for release in scenario.releases]
+    if len(identities) > 4 or len(identities) != len(expected) or set(identities) != expected:
+        raise ValueError("Python scenario release identities differ from the retained samples.")
+    associations = {(r.request.package, r.request.version): r.association.release
+                    for r in value.acquisition.module_requests
+                    if r.request.version_basis == "constraint_sample" and r.association is not None}
+    for release in scenario.releases:
+        if not release.files:
+            continue
+        observed = associations.get((release.package, release.version))
+        file_ids = [(row.file.filename, row.file.sha256) for row in release.files]
+        if (len(file_ids) > MAX_FILE_PYTHON_DECLARATIONS or observed is None
+                or len(file_ids) != len(observed.distribution_files)
+                or set(file_ids) != {(f.filename, f.sha256) for f in observed.distribution_files}):
+            raise ValueError("Python scenario file identities differ from the exact published release.")
+        for row in release.files:
+            if row.file.requires_python is not None and not 0 < len(row.file.requires_python) <= MAX_REQUIRES_PYTHON_TEXT:
+                raise ValueError("Invalid bounded Requires-Python declaration.")
+            if (row.state == "yanked") != (row.file.yanked is True):
+                raise ValueError("Python scenario yank state differs from the recorded file.")
+            if (row.state in {"overlaps", "excludes"}
+                    and (row.file.yanked is not False or not row.file.requires_python)):
+                raise ValueError("Conclusive Python scenario file state lacks a declaration.")
+            if (row.state == "overlaps") != (row.witness_patch is not None) or (
+                row.witness_patch is not None and re.fullmatch(
+                    re.escape(scenario.python_line) + r"\.(?:0|[1-9][0-9]*)", row.witness_patch) is None
+            ):
+                raise ValueError("Invalid stable Python patch witness.")
+
+
 def source_codec_version(value: se.CallerSignatureSources) -> int:
+    if value.sample_python is not None:
+        return 3
     return 2 if any(module.repository_move is not None for module in value.acquisition.module_requests) else 1
 
 
@@ -753,13 +841,16 @@ def encode_sources(value: se.CallerSignatureSources | None, *, version: int = 1)
         return json_bytes(None)
     if version != source_codec_version(value):
         raise ValueError("Caller/signature source representation does not match its observations.")
-    layout = _MOVE_VALUES if version == 2 else _VALUES
-    payload = json_bytes(dict(format=MOVE_FORMAT if version == 2 else FORMAT,
+    layout = _VALUES if version == 1 else _MOVE_VALUES
+    row = dict(format=_SOURCE_FORMATS[version],
         catalog=parse_json(encode_source_catalog(value.catalog)) if value.catalog else None,
         modules=[module_fields(m) for m in value.modules], limits=encode_analysis_limits(value.analysis_limits),
-        acquisition=parse_json(layout.encode(value.acquisition, _RECEIPT))))
+        acquisition=parse_json(layout.encode(value.acquisition, _RECEIPT)))
+    if version == 3:
+        row["sample_python"] = parse_json(_PYTHON_SCENARIO_VALUES.encode(value.sample_python, _PYTHON_SCENARIO))
+    payload = json_bytes(row)
     decoded = decode_sources(payload, version=version)
-    if (decoded.catalog.identity if decoded.catalog else None) != (value.catalog.identity if value.catalog else None) or decoded.modules != value.modules or decoded.acquisition != value.acquisition or decoded.analysis_limits != value.analysis_limits:
+    if (decoded.catalog.identity if decoded.catalog else None) != (value.catalog.identity if value.catalog else None) or decoded.modules != value.modules or decoded.acquisition != value.acquisition or decoded.analysis_limits != value.analysis_limits or decoded.sample_python != value.sample_python:
         raise ValueError("Source family encoding changed retained meaning.")
     return payload
 
@@ -768,8 +859,9 @@ def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSou
     parsed = parse_json(payload)
     if parsed is None:
         return None
-    row = object_fields(parsed, ("format", "catalog", "modules", "limits", "acquisition"))
-    if version not in {1, 2} or row["format"] != (MOVE_FORMAT if version == 2 else FORMAT):
+    fields = ("format", "catalog", "modules", "limits", "acquisition")
+    row = object_fields(parsed, (*fields, "sample_python") if version == 3 else fields)
+    if version not in _SOURCE_FORMATS or row["format"] != _SOURCE_FORMATS[version]:
         raise ValueError("Unsupported caller/signature source representation.")
     limits = decode_analysis_limits(row["limits"])
     catalog, modules = None, ()
@@ -788,11 +880,14 @@ def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSou
                 raise ValueError("Unclassified retained Python text.")
     elif row["modules"] != []:
         raise ValueError("Source roles without retained text.")
-    layout = _MOVE_VALUES if version == 2 else _VALUES
+    layout = _VALUES if version == 1 else _MOVE_VALUES
     receipt = layout.decode(json_bytes(row["acquisition"]), _RECEIPT)
     _validate_receipt(receipt)
-    result = se.CallerSignatureSources(catalog, modules, limits, receipt)
+    scenario = (_PYTHON_SCENARIO_VALUES.decode(json_bytes(row["sample_python"]), _PYTHON_SCENARIO)
+                if version == 3 else None)
+    result = se.CallerSignatureSources(catalog, modules, limits, receipt, scenario)
     if version != source_codec_version(result):
         raise ValueError("Caller/signature source representation does not match its observations.")
     _validate_catalog_joins(result)
+    _validate_sample_python(result)
     return result

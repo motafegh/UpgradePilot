@@ -12,6 +12,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 
 from .caller_signature.acquisition import AcquisitionSession
+from .caller_signature.sample_python import SelectedSamplePythonJob
 from .caller_signature.source_evidence import CallerSignatureSources
 from .caller_signature.source_progress import collect_source_progress
 from .caller_signature.worker import run_source_analysis
@@ -728,6 +729,7 @@ def investigate_caller_signature_progress(
     expected_head: str | None = None,
     selected_ci_job: SelectedCIJob | None = None,
     ci_actions_client: GitHubActionsClient | None = None,
+    selected_sample_python_job: SelectedSamplePythonJob | None = None,
 ) -> CheckpointRevision:
     """Run the source profile, optionally acquiring *one* exact CI job observation."""
     with session.stage("native_inputs"):
@@ -747,7 +749,8 @@ def investigate_caller_signature_progress(
         workspace_host.publish_native_progress(capture.partial_snapshot())
 
     def acquire(_request):
-        sources = collect_source_progress(inputs, session, publish_sources)
+        sources = collect_source_progress(inputs, session, publish_sources,
+                                          selected_sample_python_job=selected_sample_python_job)
         return CapabilityResult(
             "problem" if sources.acquisition.state == "failed" else "observed",
             "Source acquisition disposition: " + sources.acquisition.state, sources,

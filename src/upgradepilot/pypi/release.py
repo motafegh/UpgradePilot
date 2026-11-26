@@ -69,6 +69,20 @@ class DistributionFile:
     package_type: str
 
 
+@dataclass(frozen=True, slots=True)
+class PublishedFileRequiresPython:
+    """Selected requirements and yank status for one exact published file."""
+
+    filename: str
+    sha256: str
+    requires_python: str | None
+    yanked: bool | None
+
+
+MAX_FILE_PYTHON_DECLARATIONS = 128
+MAX_REQUIRES_PYTHON_TEXT = 256
+
+
 type ReleaseAdvisoryState = Literal["reported", "withdrawn"]
 
 
@@ -216,6 +230,9 @@ class PyPIReleaseClient(PyPIJsonApiClient):
         max_response_bytes: int = DEFAULT_MAX_RESPONSE_BYTES,
         now: Callable[[], datetime] | None = None,
         retain_advisories: bool = False,
+        observe_file_python: Callable[
+            [PackageReleaseEvidence, tuple[PublishedFileRequiresPython, ...]], None
+        ] | None = None,
     ) -> None:
         super().__init__(
             session=session,
@@ -225,6 +242,7 @@ class PyPIReleaseClient(PyPIJsonApiClient):
         )
         self._now = now or (lambda: datetime.now(timezone.utc))
         self._retain_advisories = retain_advisories
+        self._observe_file_python = observe_file_python
 
     def get_release(self, package: str, version: str) -> PackageReleaseResult:
         package = _valid_package(package)
@@ -307,7 +325,8 @@ class PyPIReleaseClient(PyPIJsonApiClient):
             published_name = _required_string(info, "name")
             published_version = _required_string(info, "version")
             last_serial = _required_nonnegative_int(data, "last_serial")
-            files = _distribution_files(_required_list(data, "urls"))
+            raw_files = _required_list(data, "urls")
+            files = _distribution_files(raw_files)
             project_urls = _project_urls(info)
         except _MalformedResponse as exc:
             return self._problem(request, "malformed_response", str(exc), 200)
@@ -340,10 +359,14 @@ class PyPIReleaseClient(PyPIJsonApiClient):
             project_urls=project_urls,
         )
         if self._retain_advisories:
-            return PackageReleaseEvidenceWithAdvisories(
+            release = PackageReleaseEvidenceWithAdvisories(
                 **release_fields, advisories=_release_advisories(data),
             )
-        return PackageReleaseEvidence(**release_fields)
+        else:
+            release = PackageReleaseEvidence(**release_fields)
+        if self._observe_file_python is not None:
+            self._observe_file_python(release, _file_python_declarations(raw_files, files))
+        return release
 
     def _get(
         self,
@@ -577,6 +600,24 @@ def _distribution_files(raw_files: list[Any]) -> tuple[DistributionFile, ...]:
             )
         )
     return tuple(sorted(files, key=lambda item: item.filename))
+
+
+def _file_python_declarations(raw_files, files) -> tuple[PublishedFileRequiresPython, ...]:
+    # The release parser already admitted unique filenames and content identities.
+    # A refused or empty set supplies no whole-set exclusion claim.
+    if len(files) > MAX_FILE_PYTHON_DECLARATIONS:
+        return ()
+    by_name = {item["filename"]: item for item in raw_files}
+    rows = []
+    for file in files:
+        raw = by_name[file.filename]
+        specifier, yanked = raw.get("requires_python"), raw.get("yanked")
+        rows.append(PublishedFileRequiresPython(
+            file.filename, file.sha256,
+            specifier if type(specifier) is str and 0 < len(specifier) <= MAX_REQUIRES_PYTHON_TEXT else None,
+            yanked if type(yanked) is bool else None,
+        ))
+    return tuple(rows)
 
 
 def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:

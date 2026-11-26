@@ -633,7 +633,7 @@ class NativeSourceClientCompositionTests(TestCase):
             self.assertEqual(sum('/pypi/vendor/2.0/' in r.url for r in requests), 2)
 
     def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40,
-                             repository_move=False):
+                             repository_move=False, sample_adapter=False, sample_requires_python=">=3.11"):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
@@ -644,7 +644,8 @@ class NativeSourceClientCompositionTests(TestCase):
 
         head, base = 'a' * target_object_id_length, 'b' * target_object_id_length
         identity = _identity(repository='owner/target', changed_files=1, head_sha=head, base_sha=base)
-        trees = {head: 'e' * target_object_id_length, 'c' * 40: 'f' * 40, 'd' * 40: '1' * 40}
+        trees = {head: 'e' * target_object_id_length, 'c' * 40: 'f' * 40, 'd' * 40: '1' * 40,
+                 '2' * 40: '3' * 40}
         dispatched = []
 
         class Transport(BaseAdapter):
@@ -653,6 +654,7 @@ class NativeSourceClientCompositionTests(TestCase):
                 parsed = urlsplit(request.url)
                 path = parsed.path
                 location = None
+                status = 200
                 if path == '/repos/owner/target/pulls/1145':
                     payload = {**_pull_request_payload(identity), 'body': 'Controlled demo update'}
                 elif path == '/repos/owner/target/pulls/1145/files':
@@ -662,6 +664,17 @@ class NativeSourceClientCompositionTests(TestCase):
                     version = path.split('/')[-2]
                     payload = dict(info=dict(name='demo', version=version, requires_dist=[],
                         project_urls={'Source': 'https://github.com/owner/demo'}), urls=[], last_serial=1)
+                elif sample_adapter and path in {'/pypi/relay/json', '/pypi/relay/1.0/json'}:
+                    wheel = dict(filename='relay-1.0-py3-none-any.whl', packagetype='bdist_wheel',
+                                 url='https://files.pythonhosted.org/packages/relay-1.0-py3-none-any.whl',
+                                 digests={'sha256': '4' * 64}, yanked=False)
+                    if sample_requires_python is not None:
+                        wheel['requires_python'] = sample_requires_python
+                    payload = dict(info=dict(name='relay', version='1.0', requires_dist=['demo>=1'],
+                        project_urls={'Source': 'https://github.com/owner/relay'}), urls=[wheel],
+                        last_serial=1, releases={'1.0': [wheel]})
+                elif sample_adapter and path.startswith('/integrity/relay/'):
+                    status, payload = 404, {}
                 elif repository_move and path.startswith('/repos/owner/demo/git/ref/tags/'):
                     tag = path.rsplit('/', 1)[-1]
                     location = 'https://api.github.com/repositories/123/git/ref/tags/' + tag
@@ -670,7 +683,7 @@ class NativeSourceClientCompositionTests(TestCase):
                     payload = dict(id=123, full_name='moved/demo', private=False, visibility='public')
                 elif '/git/ref/tags/' in path:
                     tag = path.rsplit('/', 1)[-1]
-                    revision = ('c' if tag.lstrip('v') == '1.0' else 'd') * 40
+                    revision = ('2' if '/relay/' in path else 'c' if tag.lstrip('v') == '1.0' else 'd') * 40
                     payload = dict(ref='refs/tags/' + tag, object=dict(type='commit', sha=revision))
                 elif '/git/commits/' in path:
                     revision = path.rsplit('/', 1)[-1]
@@ -678,6 +691,8 @@ class NativeSourceClientCompositionTests(TestCase):
                 elif '/git/trees/' in path:
                     tree = path.rsplit('/', 1)[-1]
                     paths = ('app.py', 'requirements.txt') if tree == trees[head] else ('demo/api.py',)
+                    if sample_adapter and tree == trees['2' * 40]:
+                        paths = ('relay.py',)
                     if forwarded and tree != trees[head]:
                         paths += ('demo/_core.py',)
                     payload = dict(sha=tree, truncated=False,
@@ -686,11 +701,20 @@ class NativeSourceClientCompositionTests(TestCase):
                     file_path = path.split('/contents/', 1)[1]
                     revision = parse_qs(parsed.query)['ref'][0]
                     if file_path == 'requirements.txt':
-                        content = 'demo==2.0\n'
+                        content = 'demo==2.0\nrelay\n' if sample_adapter else 'demo==2.0\n'
                         assert revision == head
                     elif file_path == 'app.py':
-                        content = 'from demo.api import send\nsend(option=1)\n'
+                        content = ('from relay import send\n' if sample_adapter else 'from demo.api import send\n') + 'send(option=1)\n'
                         assert revision == head
+                    elif sample_adapter and file_path == 'relay.py':
+                        assert revision == '2' * 40
+                        content = 'from demo.api import send\n'
+                    elif sample_adapter and file_path == '.github/workflows/python.yml':
+                        assert revision == head
+                        content = ('on: [pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n'
+                                   '    steps:\n      - uses: actions/setup-python@v5\n'
+                                   '        with:\n          python-version: "3.10"\n'
+                                   '      - run: pip install -r requirements.txt\n')
                     elif forwarded and file_path == 'demo/_core.py':
                         assert revision in {'c' * 40, 'd' * 40}
                         keyword = 'option' if revision == 'c' * 40 else 'replacement'
@@ -708,7 +732,7 @@ class NativeSourceClientCompositionTests(TestCase):
                 response.status_code = 404 if (
                     proposed_missing and '/contents/demo/api.py' in path
                     and parse_qs(parsed.query).get('ref') == ['d' * 40]
-                ) else 200
+                ) else status
                 response.raw = BytesIO(json.dumps(payload).encode())
                 if location is not None:
                     response.status_code = 301

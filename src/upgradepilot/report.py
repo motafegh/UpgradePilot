@@ -123,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 10",
+            f"Recorded generator version: {report.generator_version}; renderer version: 11",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -442,6 +442,7 @@ def _signature_overview(
     if import_fallback:
         selected, preferred, exception, source_id = import_fallback
         lines.append(f"Comparison covers the {selected} fallback if importing {preferred} raises {exception} ({source_id}).")
+    lines.extend(_sample_python_lines(report, paired_witnesses, sampled_adapters))
     lines.append("Applies under the recorded source and dispatch assumptions. See witness conditions below.")
     open_questions = [unknown for unknown in report.unknowns
                       if unknown.assessment_id == "caller-signature-analysis"]
@@ -450,6 +451,63 @@ def _signature_overview(
         if item.assessment_id in {"ci", "runtime"} and item.status == "not_evaluated":
             lines.append(f"{item.topic}: {item.state}")
     lines.append(_evidence_refs(*paired_witnesses, *open_questions))
+    return lines
+
+
+def _sample_python_lines(
+    report: InvestigationReport, witnesses: tuple[ReportAssessment, ...],
+    samples: tuple[tuple[str, str], ...],
+) -> list[str]:
+    scenario = next((item for item in report.assessments
+                     if item.assessment_id == "caller-signature-sample-python"
+                     and item.owner == "caller_signature.sample_python"), None)
+    if scenario is None:
+        return []
+    declaration = {fact.name: fact.value for fact in scenario.facts}
+    if scenario.state == "unresolved" and scenario.status == "problem":
+        return [f"Selected workflow Python declaration unresolved ({scenario.reason})."]
+    line = declaration.get("python_line", "")
+    workflow_ref = declaration.get("workflow_source", "")
+    source_by_id = {source.source_id: source for source in report.sources}
+    workflow = source_by_id.get(workflow_ref)
+    if (scenario.state != "declared" or scenario.status != "available"
+            or len(declaration) != len(scenario.facts) or not re.fullmatch(r"[0-9]+\.[0-9]+", line)
+            or workflow_ref not in scenario.source_ids or workflow is None or workflow.kind != "target_source"
+            or workflow.retention != "retained_text" or not declaration.get("job")):
+        return []
+    lines = [f"Workflow job {declaration['job']} declares Python {line} ({workflow_ref})."]
+    statements = {
+        "excludes": f"checked non-yanked files exclude Python {line}",
+        "overlaps": f"a checked non-yanked file allows a stable Python {line} patch",
+        "unknown": f"published file evidence for Python {line} is unresolved",
+    }
+    for package, version in samples:
+        matching = []
+        for item in report.assessments:
+            if (item.owner != scenario.owner or not item.assessment_id.startswith(scenario.assessment_id + "-")
+                    or item.status != "available" or item.state not in statements):
+                continue
+            facts = {fact.name: fact.value for fact in item.facts}
+            metadata = source_by_id.get(facts.get("metadata_source", ""))
+            if (len(facts) != len(item.facts) or (facts.get("package"), facts.get("version")) != (package, version)
+                    or facts.get("python_line") != line or workflow_ref not in item.source_ids
+                    or metadata is None or metadata.kind != "package_metadata" or metadata.source_id not in item.source_ids):
+                continue
+            file_refs = set()
+            for source_id in item.source_ids:
+                source = source_by_id.get(source_id)
+                if source is not None and source.kind == "dependency_source" and source.retention == "retained_text":
+                    identity = {fact.name: fact.value for fact in source.identity}
+                    if (identity.get("role"), identity.get("package"), identity.get("version")) == (
+                        "constraint_sample", package, version
+                    ):
+                        file_refs.add(source_id)
+            if all(file_refs.intersection(witness.source_ids) for witness in witnesses):
+                matching.append((item.state, metadata.source_id))
+        if len(matching) == 1:
+            state, metadata = matching[0]
+            lines.append(f"{package} {version}: {statements[state]} ({metadata}).")
+    lines.append("Published Requires-Python metadata and the workflow declaration do not establish installed state.")
     return lines
 
 

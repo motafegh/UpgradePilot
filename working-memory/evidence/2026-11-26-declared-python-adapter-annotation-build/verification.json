@@ -1,0 +1,128 @@
+{
+  "base_commit": "09439298",
+  "editable_replay_matches_installed_outcomes_and_costs": true,
+  "experiment_boundary_check": "passed",
+  "full_suite": {
+    "environment": "Wheel installed offline in clean venv, loopback-only network, unprivileged user.",
+    "log_sha256": "f38dac0c018380e7b3f0ee77701b07ff48c3f43328744ab90f3a168fa4df7d55",
+    "seconds": 243.474,
+    "skipped": 0,
+    "tests_passed": 1202
+  },
+  "installed_dashboard_replay": {
+    "external_requests": 0,
+    "legacy_workspace_and_report_reopened": true,
+    "opt_in_request_prefix_matches_unscoped": true,
+    "proof_class": "controlled provider replay; original workflow, sampled source and PyPI release bytes verified; reconstructed envelopes for other responses",
+    "runs": {
+      "declared-3-10": {
+        "action": "abstain",
+        "github_requests": 46,
+        "provider_requests": 64,
+        "releases": {
+          "fastapi 0.165.0": "excludes",
+          "starlette 1.10.0": "excludes"
+        },
+        "replay_body_bytes": 435494,
+        "report_sha256": "c4a015bab8417a702fab234a1bb3e4167e7e36692e8be5ac7d951ea689644ac7",
+        "scenario_reason": "declared_python_line",
+        "workflow_dispatches": 1,
+        "workspace_revision": "d4049c7f457a436ca86ee8dc95a9ce38"
+      },
+      "unscoped": {
+        "action": "abstain",
+        "github_requests": 45,
+        "provider_requests": 63,
+        "releases": {},
+        "replay_body_bytes": 434521,
+        "report_sha256": "bff6d29d2dccb5a9608d764fc41a90486fd712b578a17a6e171d21223d3dd97d",
+        "scenario_reason": null,
+        "workflow_dispatches": 0,
+        "workspace_revision": "d8dbfa56da2f439187af1bb1d5b6fb56"
+      },
+      "workflow-budget-exhausted": {
+        "action": "abstain",
+        "github_requests": 45,
+        "provider_requests": 63,
+        "releases": {},
+        "replay_body_bytes": 434521,
+        "report_sha256": "6d626acf5da6e4bea5d1024cf2e847379f240896ee812dc8000a0a2848223b6c",
+        "scenario_reason": "acquisition_request_limit",
+        "workflow_dispatches": 0,
+        "workspace_revision": "8a991f6744b641beac7ae8a9da5f9bff"
+      }
+    },
+    "target_execution": false,
+    "wrong_head_provider_requests": 1
+  },
+  "installed_offline_cli": {
+    "exact_file_facts_reopen": true,
+    "legacy_report_and_workspace_body_parity": true,
+    "saved_and_workspace_body_parity": true,
+    "selected_annotation_facts": {
+      "caller-signature-sample-python": {
+        "facts": {
+          "dependency_file": "requirements.txt",
+          "job": "build",
+          "python_line": "3.10",
+          "python_location": "setup-python python-version at line 23",
+          "workflow": ".github/workflows/python.yml",
+          "workflow_source": "source-54"
+        },
+        "sources": [
+          "source-55",
+          "source-54",
+          "source-14",
+          "source-15"
+        ],
+        "state": "declared"
+      },
+      "caller-signature-sample-python-a2da1788762db519866962d9d4524636e801bbe544eccef305ccb5c063185933": {
+        "facts": {
+          "metadata_source": "source-58",
+          "package": "starlette",
+          "python_line": "3.10",
+          "version": "1.10.0"
+        },
+        "sources": [
+          "source-59",
+          "source-54",
+          "source-58",
+          "source-38",
+          "source-39",
+          "source-14",
+          "source-15"
+        ],
+        "state": "excludes"
+      },
+      "caller-signature-sample-python-f708236ccf115f301ddd7b74d7652592c54c398a4fd9d5643285c64aa14d0a77": {
+        "facts": {
+          "metadata_source": "source-56",
+          "package": "fastapi",
+          "python_line": "3.10",
+          "version": "0.165.0"
+        },
+        "sources": [
+          "source-57",
+          "source-54",
+          "source-56",
+          "source-28",
+          "source-29",
+          "source-14",
+          "source-15"
+        ],
+        "state": "excludes"
+      }
+    },
+    "workflow_bytes_match_frozen_source": true
+  },
+  "new_sample_python_module_sha256": "0ef0688d7d568ab515eda4f2ac4670c5fa7ea792abb258a6717f750fe9d5623b",
+  "renderer_version": 11,
+  "source_family_representation": 3,
+  "tracked_candidate_patch_sha256": "ab2d22afb1feaeed5ae307eb3a8e8647a12c103e1d10a6dcedf77406b1607837",
+  "wheel": {
+    "installed_product_modules_matching_source": 121,
+    "pip_check": "passed",
+    "sha256": "d6e73d83665d433c73affabf9c3ace3584603e90c44241fea510f26919744ea0"
+  }
+}

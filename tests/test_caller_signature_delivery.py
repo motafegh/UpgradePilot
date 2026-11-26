@@ -84,10 +84,12 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         return code, output.getvalue()
 
     def live(self, *, proposed_missing=False, save=True, durable=True, forwarded=True,
-             guard_arguments=(), target_object_id_length=40, repository_move=False):
+             guard_arguments=(), target_object_id_length=40, repository_move=False,
+             sample_adapter=False, sample_requires_python=">=3.11"):
         identity, session, requests = acquisition_controls.NativeSourceClientCompositionTests().controlled_transport(
             proposed_missing=proposed_missing, forwarded=forwarded,
             target_object_id_length=target_object_id_length, repository_move=repository_move,
+            sample_adapter=sample_adapter, sample_requires_python=sample_requires_python,
         )
         arguments = [identity.repository, str(identity.number), "--evidence-profile", "caller-signature", *guard_arguments]
         if durable:
@@ -169,6 +171,44 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         revision = self.revision_id(output)
         self.assertIn(report.report_id, self.cold(revision))
         self.assertIn(canonical.content, self.cold(revision, "--show-source", canonical.source_id))
+
+    def test_selected_job_annotates_the_exact_adapter_sample_in_both_readers(self):
+        from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
+
+        selection = ("--sample-python-workflow", ".github/workflows/python.yml", "--sample-python-job")
+        for label, specifier, job, expected in (
+            ("excludes", ">=3.11", "build", "checked non-yanked files exclude Python 3.10"),
+            ("overlaps", ">=3.10.8", "build", "a checked non-yanked file allows a stable Python 3.10 patch"),
+            ("missing", None, "build", "published file evidence for Python 3.10 is unresolved"),
+            ("wrong-job", ">=3.11", "other", "selected_target_job_not_found"),
+        ):
+            with self.subTest(label=label):
+                self.store_path = self.root / (label + "-store")
+                self.report_path = self.root / (label + ".json")
+                code, output, requests = self.live(sample_adapter=True, sample_requires_python=specifier,
+                                                    forwarded=False, guard_arguments=(*selection, job))
+                self.assertEqual(code, 0, output)
+                first_view = output.split("\nDetailed evidence and action status", 1)[0]
+                self.assertIn(expected, first_view)
+                self.assertIn("Sampled adapter versions: relay 1.0.", first_view)
+                self.assertEqual(1, sum("/contents/.github/workflows/python.yml?" in r.url for r in requests))
+                self.assertEqual(2, sum(r.url.endswith("/pypi/relay/1.0/json") for r in requests))
+                revision = self.revision_id(output)
+                opened = open_caller_signature_checkpoint(CheckpointStore.open(self.store_path, read_only=True), revision)
+                scenario = opened.native.sources.sample_python
+                self.assertEqual((scenario.selection.job, scenario.revision, scenario.dependency_path),
+                                 (job, "a" * 40, "requirements.txt"))
+                self.assertEqual(opened.report, read_report(self.report_path))
+                self.assertIn("Maintainer action: abstain", output)
+                self.assertIn(expected, self.cold(revision).split("\nDetailed evidence and action status", 1)[0])
+                if label == "excludes":
+                    from upgradepilot.caller_signature.source_codec import encode_sources
+                    release, = scenario.releases
+                    row, = release.files
+                    foreign = replace(row, file=replace(row.file, sha256="f" * 64))
+                    changed = replace(scenario, releases=(replace(release, files=(foreign,)),))
+                    with self.assertRaisesRegex(ValueError, "exact published release"):
+                        encode_sources(replace(opened.native.sources, sample_python=changed), version=3)
 
     def test_live_cli_records_explicit_github_request_allowance(self):
         from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint

@@ -14,6 +14,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
+from .caller_signature.sample_python import SelectedSamplePythonJob
 from .ci.job_log_diagnostic import SelectedCIJob
 from .github.actions import GitHubActionsClient
 from .caller_signature_delivery import (
@@ -97,6 +98,10 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Require this immutable PR head (live caller-signature profile only).")
     parser.add_argument("--source-github-requests", type=int, metavar="COUNT",
                         help="Set the bounded GitHub request allowance for a live caller-signature run.")
+    parser.add_argument("--sample-python-workflow", metavar="PATH",
+                        help="Check adapter samples against one explicitly selected workflow at the PR head.")
+    parser.add_argument("--sample-python-job", metavar="JOB_ID",
+                        help="Select the static job ID in --sample-python-workflow.")
     parser.add_argument("--workspace-store", metavar="PATH",
                         help="Explicit private store outside Git checkouts for caller/signature progress.")
     parser.add_argument("--open-workspace", metavar="PATH",
@@ -109,6 +114,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     combined = args.evidence_profile == "caller-signature-ci"
+    python_job = None
+    python_selection = (args.sample_python_workflow, args.sample_python_job)
+    if any(value is not None for value in python_selection):
+        if (not all(python_selection) or args.evidence_profile not in {"caller-signature", "caller-signature-ci"}
+                or args.open_report is not None or args.open_workspace is not None):
+            parser.error("--sample-python-workflow and --sample-python-job require a live caller-signature profile.")
+        try:
+            python_job = SelectedSamplePythonJob(*python_selection)
+        except ValueError as error:
+            parser.error(str(error))
     ci_coordinates = (args.ci_run_id, args.ci_run_attempt, args.ci_job_id)
     if combined:
         if (
@@ -190,7 +205,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             return 2
     if args.evidence_profile in {"caller-signature", "caller-signature-ci"}:
-        return _run_caller_signature(args, token)
+        return _run_caller_signature(args, token, python_job)
     try:
         investigation = investigate_public_pull_request(
             args.repository,
@@ -257,7 +272,9 @@ def _print_workspace_handoff(
         _safe_print(f"Open confirmed revision: {command}")
 
 
-def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
+def _run_caller_signature(
+    args: argparse.Namespace, token: str | None, python_job: SelectedSamplePythonJob | None = None,
+) -> int:
     try:
         policy = (AcquisitionPolicy() if args.source_github_requests is None
                   else AcquisitionPolicy(github_requests=args.source_github_requests))
@@ -285,6 +302,7 @@ def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
         outcome = investigate_and_deliver_caller_signature(
             args.repository, args.pull_number, session=session, host=host,
             expected_base=args.expected_base, expected_head=args.expected_head,
+            selected_sample_python_job=python_job,
             **ci_args,
         )
     codes = {"input": 2, "acquisition": 3, "response": 4, "analysis": 10, "report": 8, "publication": 11}

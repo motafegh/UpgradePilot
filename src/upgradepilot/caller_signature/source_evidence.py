@@ -16,6 +16,7 @@ from typing import Literal
 from .bindings import ImportFact, ReferenceFact
 from .correspondence import PythonSourceModule
 from .evidence import AnalysisLimits, MeasuredDuration, SourceAnalysisInput
+from .sample_python import SamplePythonScenario
 from ..github.tag import GitHubTagCommitEvidence, GitHubTagRepositoryRedirect
 from ..pypi.provenance import FileProvenanceEvidence, FileProvenanceProblem
 from ..pypi.release import PackageReleaseEvidence, ProjectUrlCandidate
@@ -289,6 +290,7 @@ class CallerSignatureSources:
     modules: tuple[PythonSourceModule, ...]
     analysis_limits: AnalysisLimits
     acquisition: SourceAcquisitionReceipt
+    sample_python: SamplePythonScenario | None = None
 
     def analysis_input(self) -> SourceAnalysisInput | None:
         """No analysis is ready before any classified Python text is retained."""

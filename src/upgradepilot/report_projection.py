@@ -1960,6 +1960,8 @@ def project_caller_signature_report(
     refs = producer_sources or (pr_source,)
     _project_caller_signature_coverage(p, native.sources, refs, file_sources)
     _project_caller_signature_analysis(p, native.comparison, refs, file_sources)
+    if native.sources is not None and native.sources.sample_python is not None:
+        _project_caller_signature_sample_python(p, native.sources, refs, file_sources)
     if ci_log is not None:
         _project_selected_ci_log(p, ci_log)
     synthesis = synthesize_maintainer_action(native)
@@ -1975,6 +1977,8 @@ def project_caller_signature_report(
          "Full CI dependency coverage/runtime-state, loaded-module identity and "
          "upgrade-counterfactual causality were not evaluated by this invocation."
          if ci_log is not None else
+         "CI/runtime-state, semantic interpretation and runtime applicability were not evaluated by this invocation."
+         if native.sources is not None and native.sources.sample_python is not None else
          "CI/runtime-state, semantic interpretation and applicability were not evaluated by this invocation."),
         _pull_request_identity(inputs.pull_request), tuple(p.assessments), tuple(p.findings), tuple(p.unknowns),
         ReportAction(synthesis.action, synthesis.decisive_reasons, synthesis.residual_uncertainty,
@@ -1983,6 +1987,79 @@ def project_caller_signature_report(
          "The native producer sources preserve full receipts, costs, paths, traces, gaps and admission limits.",
          "Report delivery and original source text do not establish installed behavior or authorize a maintainer action."),
     )
+
+
+def _project_caller_signature_sample_python(p, sources, refs, file_sources):
+    scenario = sources.sample_python
+    workflow_ref = p.source(
+        "target_source",
+        locator=_repository_file_locator(scenario.repository, scenario.revision, scenario.selection.workflow_path),
+        method="Explicit workflow selection at the exact PR head",
+        content=scenario.workflow_text,
+        identity=(_fact("repository", "Repository", scenario.repository),
+                  _fact("revision", "Revision", scenario.revision),
+                  _fact("path", "Workflow", scenario.selection.workflow_path)),
+        limitation="A selected static workflow job does not establish execution or installed state.",
+    )
+    ready = scenario.python_line is not None
+    p.assess(
+        "caller-signature-sample-python", "Declared Python for adapter samples", "caller_signature.sample_python",
+        "declared" if ready else "unresolved",
+        f"Selected workflow job declares Python {scenario.python_line}."
+        if ready else "The selected job did not establish a supported Python declaration for the dependency.",
+        reason=scenario.reason, status="available" if ready else "problem",
+        strength="grounded_interpretation" if ready else "unresolved",
+        proposition="One selected workflow declaration scopes the adapter metadata comparison.",
+        source_ids=(workflow_ref, *refs),
+        facts=(_fact("job", "Selected workflow job", scenario.selection.job),
+               _fact("workflow", "Workflow file", scenario.selection.workflow_path),
+               _fact("workflow_source", "Workflow source", workflow_ref),
+               _fact("dependency_file", "Dependency file", scenario.dependency_path),
+               _fact("python_line", "Declared Python line", scenario.python_line),
+               _fact("python_location", "Declaration location", scenario.python_location)),
+    )
+    if not scenario.releases:
+        return
+    observed = {(row.request.package, row.request.version): row.association.release
+                for row in sources.acquisition.module_requests if row.association is not None}
+    for release in scenario.releases:
+        key = release.package, release.version
+        snapshot = observed.get(key)
+        metadata = p.source(
+            "package_metadata", locator=snapshot.source_url if snapshot else None,
+            method="Exact published file declarations from the source release observation",
+            identity=(_fact("package", "Package", release.package), _fact("version", "Release", release.version),
+                      _fact("python_line", "Selected Python line", scenario.python_line), *(
+                          _fact(f"file_{i}", item.file.filename,
+                                f"SHA-256 {item.file.sha256}, Requires-Python {item.file.requires_python!r}, "
+                                f"yanked {item.file.yanked}, {item.state}"
+                                + (f", stable patch {item.witness_patch}" if item.witness_patch else ""))
+                          for i, item in enumerate(release.files)
+                      )),
+            retrieved_at=snapshot.retrieved_at.isoformat() if snapshot else None,
+            limitation="Selected metadata fields only. Platform, resolver choice and installation are unobserved.",
+        )
+        sample_refs = tuple(file_sources[sources.catalog.descriptor(file)["file_id"]]
+                            for file in sources.catalog.files for module in sources.modules
+                            if (file.source_id, file.path) == (module.source_id, module.path)
+                            and (module.package, module.version) == key and module.role == "constraint_sample")
+        statements = {
+            "overlaps": "A published non-yanked file declares an overlap with the selected Python line.",
+            "excludes": "All checked non-yanked files exclude the selected Python line.",
+            "unknown": "Published file declarations did not establish overlap or complete exclusion.",
+        }
+        p.assess(
+            "caller-signature-sample-python-" + sha256(("\0".join(key)).encode()).hexdigest(),
+            "Published Python requirements for sampled adapter", "caller_signature.sample_python", release.state,
+            statements[release.state],
+            strength="grounded_interpretation" if release.state != "unknown" else "recorded_fact",
+            proposition="Published Requires-Python comparison for the selected workflow declaration.",
+            facts=(_fact("package", "Sampled package", release.package),
+                   _fact("version", "Sampled release", release.version),
+                   _fact("python_line", "Selected Python line", scenario.python_line),
+                   _fact("metadata_source", "Published file metadata source", metadata)),
+            source_ids=(workflow_ref, metadata, *sample_refs, *refs),
+        )
 
 
 def _project_selected_ci_log(p: _ReportEvidence, observation: CIJobLogDiagnostic) -> None:
