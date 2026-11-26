@@ -1,0 +1,175 @@
+{
+  "base_commit": "53ae70df",
+  "candidate_patch_sha256": "f31c9a7db0809a07f09929875aba15d7ee9b7b0844a7cd47c5496d9ba8ca12fd",
+  "experiment_boundary_check": "passed",
+  "focused_tests_passed": 3,
+  "full_suite": {
+    "environment": "Wheel installed offline in clean venv, loopback-only network, unprivileged user.",
+    "log_sha256": "53989c908d1ca6f2c59aa20e350b3ebda658d5166952a78ea2e6e601d2b96640",
+    "seconds": 264.758,
+    "skipped": 0,
+    "tests_passed": 1201
+  },
+  "renderer_comparison": {
+    "av-combined": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "e307eb2843cd4b5a63319b869f06907e8f4d8da867511554994e436acb4f8850",
+      "workspace_revision": "b2a491b4b7864342b920fe51a0694f4c"
+    },
+    "av-source": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "85fd07790ebb0e44eecda9b1f6688251e1d0dec7dc2d340dc66beb9105d69bd3",
+      "workspace_revision": "80a58d494a8c46009aab8dc72b94b447"
+    },
+    "current_snapshot_python_3_10": {
+      "cue": "Comparison covers the httpx fallback if importing httpx2 raises ModuleNotFoundError (source-70).",
+      "cue_line": 27,
+      "other_rendered_content_matches_renderer_9": true,
+      "proof_class": "prepared_exact_source_worker_and_witness_projection",
+      "saved_report_sha256": "8e17803b5b0c8ebc12885ba3c12153cfd6e5a3be479c583fca9fd25f9cba8dfe"
+    },
+    "dashboard_legacy_saved": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "cdce1ddfdbd36bfdccd2380058227d371f3be8c17add72c44f4c4fb60577fea4",
+      "workspace_revision": "07b9d18997704bf0873428556529ede9"
+    },
+    "dashboard_replayed_fallback": {
+      "cue": "Comparison covers the httpx fallback if importing httpx2 raises ModuleNotFoundError (source-39).",
+      "cue_line": 27,
+      "literal_source_39_matches_renderer_9": true,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "c9f6d11ec6f52752012cdf1e58758ba2407fd5bc3c8a8c8714b2104bb0a00aec",
+      "workspace_revision": "b650f2b66c864922b39226c4aee0bbe7"
+    },
+    "direct_call": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "fddc2224a5543ac762728bb4083bab4479d82693c983122d08c53d1acfe66418"
+    },
+    "ordinary_httpx": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "c89c5e530150fe6f7acb965a80f42ad4f06bb4d113dcc113fa74515de26911c3"
+    },
+    "ordinary_mapproxy": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "f4298018bcfffcbc858ec00dad72ec7f203ba07097d6b49518384c71424aefc6"
+    },
+    "ordinary_opencv": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "saved_report_sha256": "6e26cc6e1af1ecd3f926662680f2aba14ba1011496353ed10d109413150d5cdc"
+    },
+    "pre_merge_cutoff_python_3_10": {
+      "cue": null,
+      "cue_line": null,
+      "other_rendered_content_matches_renderer_9": true,
+      "proof_class": "prepared_exact_source_worker_and_witness_projection",
+      "saved_report_sha256": "521850cb928cef0e14570e83cc7ede0cc77776a3b5158803987a45db9688bbf8"
+    }
+  },
+  "renderer_version": 10,
+  "sampler_admission": {
+    "allocation": {
+      "aggregate_limit": 33554432,
+      "baseline_decoded_bytes": 2384961,
+      "baseline_github_requests": 45,
+      "baseline_plus_simple_only_decoded_bytes": 2938723,
+      "baseline_plus_simple_only_provider_requests": 65,
+      "baseline_provider_requests": 63,
+      "github_limit": 50,
+      "provider_limit": 100,
+      "separate_source_qualification_github_requests_for_two_scenarios": 8
+    },
+    "default_sample_annotation": {
+      "fastapi": {
+        "per_file_requires_python": [
+          ">=3.11"
+        ],
+        "retained_distribution_fields": [
+          "filename",
+          "url",
+          "sha256",
+          "package_type"
+        ],
+        "version": "0.165.0"
+      },
+      "starlette": {
+        "per_file_requires_python": [
+          ">=3.11"
+        ],
+        "retained_distribution_fields": [
+          "filename",
+          "url",
+          "sha256",
+          "package_type"
+        ],
+        "version": "1.10.0"
+      }
+    },
+    "historical_selected_release_attempt_states": [
+      {
+        "error": "JSONDecodeError",
+        "url": "https://pypi.org/pypi/fastapi/0.162.5/json"
+      },
+      {
+        "error": "JSONDecodeError",
+        "url": "https://pypi.org/pypi/fastapi/0.115.14/json"
+      }
+    ],
+    "provider_probe": {
+      "core_metadata_hosts_refused_before_dispatch": 2,
+      "limits": {
+        "aggregate": {
+          "charged_decoded_bytes": 525691,
+          "charged_requests": 2,
+          "reason": "acquisition_aggregate_body_limit"
+        },
+        "per_response": {
+          "charged_decoded_bytes": 73728,
+          "charged_requests": 1,
+          "reason": "acquisition_response_body_limit"
+        },
+        "request_count": {
+          "charged_decoded_bytes": 553762,
+          "charged_requests": 2,
+          "reason": "acquisition_provider_request_limit"
+        }
+      },
+      "simple_index_charged_requests": 2,
+      "simple_index_decoded_bytes": 553762
+    },
+    "scope": {
+      "fresh_provider_requests": 0,
+      "target_execution": false
+    },
+    "workflow": {
+      "controlled_exact_head_file_requests": 1,
+      "controlled_workflow_response_bytes": 973,
+      "declared_python": "3.10",
+      "execution_observed": false,
+      "job": "build",
+      "selector_control_state": "selected_target_job_not_found",
+      "workflow_retained_in_default_source_catalog": false,
+      "workflow_sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131"
+    }
+  },
+  "sampler_admission_replay_sha256": "855f5f65adc3bc282f7cb64c4d0e73257293da7fd7708d1936ac448824549338",
+  "sampler_disposition": "qualify_declared_scenario_annotation_before_ranked_opt_in",
+  "wheel": {
+    "installed_product_modules_matching_source": 120,
+    "pip_check": "passed",
+    "sha256": "5ee63fdfb09f1c4ba2268f6e9b3f36fcdd96989b6a90f9df61249fe6fb29ddb9"
+  }
+}

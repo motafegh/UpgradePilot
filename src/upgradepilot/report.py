@@ -123,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 9",
+            f"Recorded generator version: {report.generator_version}; renderer version: 10",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -437,6 +437,11 @@ def _signature_overview(
     if sampled_adapters:
         versions = ", ".join(f"{package} {version}" for package, version in sampled_adapters)
         lines.append(f"Sampled adapter versions: {versions}.")
+    package = transition.get("normalized_package") or transition["package"].lower()
+    import_fallback = _shared_import_fallback(paired_witnesses, report.sources, package.replace("-", "_"))
+    if import_fallback:
+        selected, preferred, exception, source_id = import_fallback
+        lines.append(f"Comparison covers the {selected} fallback if importing {preferred} raises {exception} ({source_id}).")
     lines.append("Applies under the recorded source and dispatch assumptions. See witness conditions below.")
     open_questions = [unknown for unknown in report.unknowns
                       if unknown.assessment_id == "caller-signature-analysis"]
@@ -446,6 +451,34 @@ def _signature_overview(
             lines.append(f"{item.topic}: {item.state}")
     lines.append(_evidence_refs(*paired_witnesses, *open_questions))
     return lines
+
+
+def _shared_import_fallback(
+    witnesses: tuple[ReportAssessment, ...], sources: tuple[ReportSource, ...], compared_module: str,
+) -> tuple[str, str, str, str] | None:
+    """Render a recorded condition only if every displayed witness uses the same branch."""
+    names = ("source", "selected", "preferred", "exception", "binding",
+             "selected_span", "preferred_span", "exception_span")
+    records = set()
+    for witness in witnesses:
+        facts = {fact.name: fact.value for fact in witness.facts}
+        record = tuple(facts.get(f"import_fallback_{name}", "") for name in names)
+        if record[0] not in witness.source_ids:
+            return None
+        records.add(record)
+    if len(records) != 1:
+        return None
+    source_id, selected, preferred, exception, binding, *spans = records.pop()
+    if (selected != compared_module or preferred == selected
+            or exception != "ModuleNotFoundError"
+            or not all(value.isidentifier() for value in (selected, preferred, binding))
+            or not all(re.fullmatch(r"L[1-9][0-9]*:[0-9]+-L[1-9][0-9]*:[0-9]+", span) for span in spans)):
+        return None
+    source = next((source for source in sources if source.source_id == source_id), None)
+    if (source is None or source.kind not in {"target_source", "dependency_source"}
+            or source.retention != "retained_text" or not source.content):
+        return None
+    return selected, preferred, exception, source_id
 
 
 def _shared_sampled_adapter_versions(

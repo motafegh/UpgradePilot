@@ -233,7 +233,8 @@ class CallerSignatureWorkspaceTests(TestCase):
 
     def test_selected_import_fallback_survives_native_and_report_reopen(self):
         from upgradepilot.caller_signature_delivery import REPORT_METHOD, REPORT_REPRESENTATION, open_caller_signature_checkpoint
-        from upgradepilot.report_file import encode_report, read_report
+        from upgradepilot.report import render_investigation_report
+        from upgradepilot.report_file import decode_report, encode_report, read_report
         from upgradepilot.report_projection import project_caller_signature_report
         from upgradepilot.workspace.lifecycle_records import InvestigationNeed
 
@@ -298,16 +299,45 @@ class CallerSignatureWorkspaceTests(TestCase):
                 opened = open_caller_signature_checkpoint(CheckpointStore.open(store.directory, read_only=True),
                                                           host.current.revision_id)
                 restored = read_report(path)
+                workspace_view = render_investigation_report(opened.report, saved=True)
+                saved_view = render_investigation_report(restored, saved=True)
+            self.assertEqual(saved_view, workspace_view)
             self.assertEqual(opened.native.comparison.result, run.result)
             self.assertEqual(opened.report, restored)
             self.assertEqual(opened.report.action.state, "abstain")
             witnessed = [a for a in restored.assessments if any(f.name == "import_fallback_source" for f in a.facts)]
             self.assertEqual({a.state for a in witnessed}, {"bound", "rejected"})
+            source_id = next(f.value for f in witnessed[0].facts if f.name == "import_fallback_source")
+            first_view = saved_view.split("\nDetailed evidence and action status", 1)[0]
+            cue = f"Comparison covers the vendor fallback if importing alternate raises ModuleNotFoundError ({source_id})."
+            self.assertEqual(first_view.count(cue), 1)
+            self.assertIn("Proposed 2.0: arguments rejected", first_view)
             for assessment in witnessed:
                 facts = {f.name: f.value for f in assessment.facts}
                 self.assertIn(facts["import_fallback_source"], assessment.source_ids)
                 self.assertEqual((facts["import_fallback_preferred"], facts["import_fallback_exception"],
                                   facts["import_fallback_selected"]), ("alternate", "ModuleNotFoundError", "vendor"))
+
+            def edit_fact(assessment, name, value):
+                facts = tuple(replace(f, value=value) if f.name == name else f for f in assessment.facts
+                              if f.name != name or value is not None)
+                return replace(assessment, facts=facts)
+
+            for label, rows in (
+                ("incomplete", [edit_fact(witnessed[0], "import_fallback_binding", None), witnessed[1]]),
+                ("conflicting spans", [edit_fact(witnessed[0], "import_fallback_selected_span", "L6:1-L6:20"), witnessed[1]]),
+                ("other compared module", [edit_fact(a, "import_fallback_selected", "wrong") for a in witnessed]),
+                ("unlinked source", [edit_fact(a, "import_fallback_source", "source-999") for a in witnessed]),
+            ):
+                with self.subTest(label=label):
+                    by_id = {a.assessment_id: a for a in rows}
+                    changed = replace(restored, assessments=tuple(by_id.get(a.assessment_id, a)
+                                                                  for a in restored.assessments))
+                    rendered = render_investigation_report(decode_report(encode_report(changed)), saved=True)
+                    opening = rendered.split("\nDetailed evidence and action status", 1)[0]
+                    self.assertNotIn("Comparison covers", opening)
+                    self.assertIn("Proposed 2.0: arguments rejected", opening)
+                    self.assertIn("Maintainer action: abstain", rendered)
 
     def test_guarded_imports_outside_the_selected_fallback_keep_their_comparisons(self):
         cases = {
