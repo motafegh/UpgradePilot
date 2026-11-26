@@ -1,0 +1,15 @@
+{
+  "product_revision": "48f2670ed8cc68598fd6cbd480b484bcba1f7a9b",
+  "target": "Aidan-Wallace/kubernetes-dashboard-token-api",
+  "pr": 20,
+  "head": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+  "declared_python_scenario": "3.10",
+  "design_receipt_sha256": "b28d60d226cc00715bd4c395dda1493f9e60590ecaf49a67b525909010f0b01a",
+  "scenarios": {
+    "current_snapshot_python_3_10": ["fastapi==0.162.5", "starlette==1.7.0"],
+    "pre_merge_cutoff_python_3_10": ["fastapi==0.115.14", "starlette==0.46.2"]
+  },
+  "method": "Read exact tagged definitions; compare selected published wheel source bytes when available; reuse exact target and HTTPX definitions; run native static argument checks.",
+  "budget": {"logical_tag_refs": 4, "peel_one_annotated_tag_per_ref": true, "logical_source_files": 4, "logical_wheels": 4, "github_body_bytes": 262144, "wheel_body_bytes": 2097152, "one_process_local_transport_retry_on_failure": true},
+  "nonclaims": ["observed Python patch", "installed versions", "executed code", "whole-upgrade or merge result", "ordinary product acquisition"]
+}

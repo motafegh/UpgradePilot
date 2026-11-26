@@ -1,0 +1,1528 @@
+{
+  "acquisition_cost": {
+    "github_requests": 8,
+    "physical_requests": 12,
+    "preflight_requests_separate": [
+      {
+        "host": "api.github.com",
+        "status": 200
+      },
+      {
+        "host": "files.pythonhosted.org",
+        "status": 404
+      }
+    ],
+    "total_response_bytes": 472229,
+    "wheel_bytes": 398313,
+    "wheel_requests": 4
+  },
+  "baseline_backend_branch": {
+    "fallback_exception": "ModuleNotFoundError",
+    "fallback_exception_line": 30,
+    "fallback_import_line": 32,
+    "preferred_import_line": 29
+  },
+  "baseline_saved_httpx_witnesses": [
+    {
+      "callee": "source-33 L639 Client.__init__",
+      "outcome": "bound",
+      "source_ids": [
+        "source-47",
+        "source-14",
+        "source-15",
+        "source-27",
+        "source-39",
+        "source-33",
+        "source-29",
+        "source-30",
+        "source-32"
+      ],
+      "version": "0.28.1"
+    },
+    {
+      "callee": "source-33 L639 Client.__init__",
+      "outcome": "bound",
+      "source_ids": [
+        "source-48",
+        "source-14",
+        "source-15",
+        "source-27",
+        "source-39",
+        "source-33",
+        "source-29",
+        "source-30"
+      ],
+      "version": "0.28.1"
+    },
+    {
+      "callee": "source-37 L628 Client.__init__",
+      "outcome": "bound",
+      "source_ids": [
+        "source-49",
+        "source-14",
+        "source-15",
+        "source-27",
+        "source-39",
+        "source-37",
+        "source-29",
+        "source-34",
+        "source-36"
+      ],
+      "version": "0.27.2"
+    },
+    {
+      "callee": "source-37 L628 Client.__init__",
+      "outcome": "bound",
+      "source_ids": [
+        "source-50",
+        "source-14",
+        "source-15",
+        "source-27",
+        "source-39",
+        "source-37",
+        "source-29",
+        "source-34"
+      ],
+      "version": "0.27.2"
+    }
+  ],
+  "missing_starlette_control": {
+    "catalog_id": "dc43eb5eba255c0501ebac1c644c311a826f932394e29c177e778e728eb618d3",
+    "gap_counts": {
+      "allocated_class_getter_unavailable": 2,
+      "callable_relationship_unresolved": 56,
+      "factory_attribute_chain_unsupported": 2,
+      "imported_source_module_unavailable_or_unsupported": 13,
+      "inherited_initializer_or_allocation_unsupported": 2,
+      "named_declaration_or_reexport_not_found": 1
+    },
+    "input_sha256": "20303764665af913a8ce450bdc5bb7eb2e2f6160fb3a44f36c926e6613c37c2b",
+    "root_witnesses": [],
+    "state": "completed",
+    "work": {
+      "ast_nodes": 16333,
+      "comparison_structure_cost": 543,
+      "fact_structure_cost": 95670,
+      "facts": 757,
+      "gaps_omitted": 0,
+      "scanned_ast_nodes": 16374,
+      "selected_pairs": 3,
+      "source_bytes": 144198,
+      "source_files": 17,
+      "states_examined": 30
+    }
+  },
+  "scenarios": {
+    "current_snapshot_python_3_10": {
+      "independent_source_comparison": {
+        "backend_context": "httpx2-first with HTTPX fallback",
+        "branch": {
+          "fallback_exception": "ModuleNotFoundError",
+          "fallback_exception_line": 37,
+          "fallback_import_line": 39,
+          "preferred_import_line": 36
+        },
+        "constructor_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 403,
+          "line": 390
+        },
+        "fastapi_reexport": "fastapi/testclient.py",
+        "fastapi_standard_requirements": [
+          "httpx<1.0.0,>=0.23.0; extra == \"standard\"",
+          "httpx2>=2.0.0; extra == \"standard\""
+        ],
+        "fixture_span": {
+          "column": 13,
+          "end_column": 28,
+          "end_line": 7,
+          "line": 7
+        },
+        "forwarding_span": {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 428,
+          "line": 422
+        },
+        "httpx_import_syntax": [
+          {
+            "alias": "httpx",
+            "import_name": "httpx2",
+            "line": 33
+          },
+          {
+            "alias": "httpx",
+            "import_name": "httpx2",
+            "line": 36
+          },
+          {
+            "alias": null,
+            "import_name": "httpx",
+            "line": 39
+          }
+        ],
+        "httpx_local_fit": {
+          "0.27.2": {
+            "callee_header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 653,
+              "line": 628
+            },
+            "keywords": [
+              {
+                "name": "base_url",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "headers",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "transport",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "follow_redirects",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "cookies",
+                "outcome": "named_parameter"
+              }
+            ],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ]
+          },
+          "0.28.1": {
+            "callee_header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 662,
+              "line": 639
+            },
+            "keywords": [
+              {
+                "name": "base_url",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "headers",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "transport",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "follow_redirects",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "cookies",
+                "outcome": "named_parameter"
+              }
+            ],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ]
+          }
+        },
+        "kwargs": [
+          "base_url",
+          "headers",
+          "transport",
+          "follow_redirects",
+          "cookies"
+        ],
+        "starlette_constraint": "starlette>=0.46.0",
+        "starlette_file": "starlette/testclient.py"
+      },
+      "native_worker": {
+        "catalog_id": "b9398fad2e281e16ab90d5692378f2af066ca87ab90165cd92b02bcc22cc006f",
+        "gap_counts": {
+          "allocated_class_getter_unavailable": 2,
+          "callable_relationship_unresolved": 83,
+          "factory_attribute_chain_unsupported": 2,
+          "imported_source_module_unavailable_or_unsupported": 57,
+          "inherited_initializer_or_allocation_unsupported": 3,
+          "named_declaration_or_reexport_not_found": 1
+        },
+        "input_sha256": "e2d145c41c0cbc996659d0f3b5f20aee78fd3bc277e771b6906bd11ff030833f",
+        "root_witnesses": [
+          {
+            "callee": "TestClient.__init__",
+            "caller_line": 7,
+            "compared_call": "TestClient",
+            "keywords": [],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                390,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "constraint_sample",
+            "version": "1.7.0"
+          },
+          {
+            "callee": "_is_asgi3",
+            "caller_line": 404,
+            "compared_call": "_is_asgi3",
+            "keywords": [],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                390,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                404,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                63,
+                "declaration"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "function_value_not_propagated",
+              "delayed_global_read",
+              "conditional_import_origin",
+              "effective_local_callable_binding_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established"
+            ],
+            "receiver": "as_written",
+            "role": "constraint_sample",
+            "version": "1.7.0"
+          },
+          {
+            "callee": "_WrapASGI2.__init__",
+            "caller_line": 408,
+            "compared_call": "_WrapASGI2",
+            "keywords": [],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                390,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                408,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                69,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                74,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "class_value_not_propagated",
+              "delayed_global_read",
+              "conditional_import_origin",
+              "effective_local_callable_binding_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "constraint_sample",
+            "version": "1.7.0"
+          },
+          {
+            "callee": "_TestClientTransport.__init__",
+            "caller_line": 411,
+            "compared_call": "_TestClientTransport",
+            "keywords": [
+              "portal_factory",
+              "raise_server_exceptions",
+              "root_path",
+              "app_state",
+              "client"
+            ],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                390,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                411,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                205,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                206,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "class_value_not_propagated",
+              "delayed_global_read",
+              "conditional_import_origin",
+              "effective_local_callable_binding_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "constraint_sample",
+            "version": "1.7.0"
+          },
+          {
+            "callee": "Client.__init__",
+            "caller_line": 422,
+            "compared_call": "super().__init__",
+            "keywords": [
+              "base_url",
+              "headers",
+              "transport",
+              "follow_redirects",
+              "cookies"
+            ],
+            "outcome": "bound",
+            "package": "httpx",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                390,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                422,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "declared_base"
+              ],
+              [
+                "starlette/testclient.py",
+                39,
+                "reexport"
+              ],
+              [
+                "httpx/__init__.py",
+                4,
+                "reexport"
+              ],
+              [
+                "httpx/_client.py",
+                594,
+                "class_declaration"
+              ],
+              [
+                "httpx/_client.py",
+                639,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "name_not_bound_in_examined_scope",
+              "unsupported_write_or_control_flow",
+              "branch_alternatives",
+              "builtin_super_and_effective_mro_assumed",
+              "unresolved_try_import_base_source_hypothesis",
+              "exception_matching_import_success_and_base_binding_not_established",
+              "star_export_membership_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "proposed_dependency",
+            "version": "0.28.1"
+          },
+          {
+            "callee": "Client.__init__",
+            "caller_line": 422,
+            "compared_call": "super().__init__",
+            "keywords": [
+              "base_url",
+              "headers",
+              "transport",
+              "follow_redirects",
+              "cookies"
+            ],
+            "outcome": "bound",
+            "package": "httpx",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                390,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                422,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                385,
+                "declared_base"
+              ],
+              [
+                "starlette/testclient.py",
+                39,
+                "reexport"
+              ],
+              [
+                "httpx/__init__.py",
+                4,
+                "reexport"
+              ],
+              [
+                "httpx/_client.py",
+                574,
+                "class_declaration"
+              ],
+              [
+                "httpx/_client.py",
+                628,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "name_not_bound_in_examined_scope",
+              "unsupported_write_or_control_flow",
+              "branch_alternatives",
+              "builtin_super_and_effective_mro_assumed",
+              "unresolved_try_import_base_source_hypothesis",
+              "exception_matching_import_success_and_base_binding_not_established",
+              "star_export_membership_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "old_dependency",
+            "version": "0.27.2"
+          }
+        ],
+        "state": "completed",
+        "work": {
+          "ast_nodes": 19687,
+          "comparison_structure_cost": 2362,
+          "fact_structure_cost": 117891,
+          "facts": 945,
+          "gaps_omitted": 0,
+          "scanned_ast_nodes": 19728,
+          "selected_pairs": 9,
+          "source_bytes": 165795,
+          "source_files": 18,
+          "states_examined": 62
+        }
+      }
+    },
+    "pre_merge_cutoff_python_3_10": {
+      "independent_source_comparison": {
+        "backend_context": "direct HTTPX import in the sampled TestClient module",
+        "branch": null,
+        "constructor_header": {
+          "column": 4,
+          "end_column": 8,
+          "end_line": 378,
+          "line": 365
+        },
+        "fastapi_reexport": "fastapi/testclient.py",
+        "fastapi_standard_requirements": [
+          "httpx>=0.23.0; extra == \"standard\""
+        ],
+        "fixture_span": {
+          "column": 13,
+          "end_column": 28,
+          "end_line": 7,
+          "line": 7
+        },
+        "forwarding_span": {
+          "column": 8,
+          "end_column": 9,
+          "end_line": 403,
+          "line": 397
+        },
+        "httpx_import_syntax": [
+          {
+            "alias": null,
+            "import_name": "httpx",
+            "line": 30
+          }
+        ],
+        "httpx_local_fit": {
+          "0.27.2": {
+            "callee_header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 653,
+              "line": 628
+            },
+            "keywords": [
+              {
+                "name": "base_url",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "headers",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "transport",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "follow_redirects",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "cookies",
+                "outcome": "named_parameter"
+              }
+            ],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ]
+          },
+          "0.28.1": {
+            "callee_header": {
+              "column": 4,
+              "end_column": 8,
+              "end_line": 662,
+              "line": 639
+            },
+            "keywords": [
+              {
+                "name": "base_url",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "headers",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "transport",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "follow_redirects",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "cookies",
+                "outcome": "named_parameter"
+              }
+            ],
+            "outcome": "bound",
+            "premises": [
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ]
+          }
+        },
+        "kwargs": [
+          "base_url",
+          "headers",
+          "transport",
+          "follow_redirects",
+          "cookies"
+        ],
+        "starlette_constraint": "starlette<0.47.0,>=0.40.0",
+        "starlette_file": "starlette/testclient.py"
+      },
+      "native_worker": {
+        "catalog_id": "19034c7018866db82a58f7be0f72ed286258079a27e984c29e36ba34e57b9b74",
+        "gap_counts": {
+          "allocated_class_getter_unavailable": 2,
+          "callable_relationship_unresolved": 83,
+          "factory_attribute_chain_unsupported": 2,
+          "imported_source_module_unavailable_or_unsupported": 56,
+          "inherited_initializer_or_allocation_unsupported": 3,
+          "named_declaration_or_reexport_not_found": 1
+        },
+        "input_sha256": "9c72f51f19bead25ab753ddf8a4fd50c13050ba6e9d54a47f9c9d5b6d3700631",
+        "root_witnesses": [
+          {
+            "callee": "TestClient.__init__",
+            "caller_line": 7,
+            "compared_call": "TestClient",
+            "keywords": [],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                365,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "constraint_sample",
+            "version": "0.46.2"
+          },
+          {
+            "callee": "_is_asgi3",
+            "caller_line": 379,
+            "compared_call": "_is_asgi3",
+            "keywords": [],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                365,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                379,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                47,
+                "declaration"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "function_value_not_propagated",
+              "delayed_global_read",
+              "conditional_import_origin",
+              "effective_local_callable_binding_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established"
+            ],
+            "receiver": "as_written",
+            "role": "constraint_sample",
+            "version": "0.46.2"
+          },
+          {
+            "callee": "_WrapASGI2.__init__",
+            "caller_line": 383,
+            "compared_call": "_WrapASGI2",
+            "keywords": [],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                365,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                383,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                53,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                58,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "class_value_not_propagated",
+              "delayed_global_read",
+              "conditional_import_origin",
+              "effective_local_callable_binding_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "constraint_sample",
+            "version": "0.46.2"
+          },
+          {
+            "callee": "_TestClientTransport.__init__",
+            "caller_line": 386,
+            "compared_call": "_TestClientTransport",
+            "keywords": [
+              "portal_factory",
+              "raise_server_exceptions",
+              "root_path",
+              "app_state",
+              "client"
+            ],
+            "outcome": "bound",
+            "package": "starlette",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                365,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                386,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                191,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                192,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "class_value_not_propagated",
+              "delayed_global_read",
+              "conditional_import_origin",
+              "effective_local_callable_binding_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "constraint_sample",
+            "version": "0.46.2"
+          },
+          {
+            "callee": "Client.__init__",
+            "caller_line": 397,
+            "compared_call": "super().__init__",
+            "keywords": [
+              "base_url",
+              "headers",
+              "transport",
+              "follow_redirects",
+              "cookies"
+            ],
+            "outcome": "bound",
+            "package": "httpx",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                365,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                397,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "declared_base"
+              ],
+              [
+                "starlette/testclient.py",
+                30,
+                "reexport"
+              ],
+              [
+                "httpx/__init__.py",
+                4,
+                "reexport"
+              ],
+              [
+                "httpx/_client.py",
+                594,
+                "class_declaration"
+              ],
+              [
+                "httpx/_client.py",
+                639,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "name_not_bound_in_examined_scope",
+              "unsupported_write_or_control_flow",
+              "builtin_super_and_effective_mro_assumed",
+              "unresolved_try_import_base_source_hypothesis",
+              "exception_matching_import_success_and_base_binding_not_established",
+              "star_export_membership_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "proposed_dependency",
+            "version": "0.28.1"
+          },
+          {
+            "callee": "Client.__init__",
+            "caller_line": 397,
+            "compared_call": "super().__init__",
+            "keywords": [
+              "base_url",
+              "headers",
+              "transport",
+              "follow_redirects",
+              "cookies"
+            ],
+            "outcome": "bound",
+            "package": "httpx",
+            "path": [
+              [
+                "tests/test_routes.py",
+                7,
+                "call"
+              ],
+              [
+                "tests/test_routes.py",
+                2,
+                "import_origin"
+              ],
+              [
+                "fastapi/testclient.py",
+                1,
+                "reexport"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "class_declaration"
+              ],
+              [
+                "starlette/testclient.py",
+                365,
+                "initializer"
+              ],
+              [
+                "starlette/testclient.py",
+                397,
+                "call"
+              ],
+              [
+                "starlette/testclient.py",
+                360,
+                "declared_base"
+              ],
+              [
+                "starlette/testclient.py",
+                30,
+                "reexport"
+              ],
+              [
+                "httpx/__init__.py",
+                4,
+                "reexport"
+              ],
+              [
+                "httpx/_client.py",
+                574,
+                "class_declaration"
+              ],
+              [
+                "httpx/_client.py",
+                628,
+                "initializer"
+              ]
+            ],
+            "premises": [
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "class_allocation_metaclass_and_mro_not_established",
+              "execution_reaches_selected_body_and_branch",
+              "name_not_bound_in_examined_scope",
+              "unsupported_write_or_control_flow",
+              "builtin_super_and_effective_mro_assumed",
+              "unresolved_try_import_base_source_hypothesis",
+              "exception_matching_import_success_and_base_binding_not_established",
+              "star_export_membership_not_established",
+              "call_reaches_selected_declared_signature",
+              "target_installed_versions_and_runtime_not_established",
+              "one_bound_positional_receiver_assumed"
+            ],
+            "receiver": "one_receiver_assumed",
+            "role": "old_dependency",
+            "version": "0.27.2"
+          }
+        ],
+        "state": "completed",
+        "work": {
+          "ast_nodes": 20877,
+          "comparison_structure_cost": 2352,
+          "fact_structure_cost": 120306,
+          "facts": 963,
+          "gaps_omitted": 0,
+          "scanned_ast_nodes": 20918,
+          "selected_pairs": 9,
+          "source_bytes": 172185,
+          "source_files": 18,
+          "states_examined": 59
+        }
+      }
+    }
+  },
+  "scope_sha256": "13e289b47d0324d124147ad1f7886aba38c4faaa7db0d47864c46b05129d52f4",
+  "source_acquisition": [
+    {
+      "package": "fastapi",
+      "requests": [
+        {
+          "body_sha256": "7ee156e46364dd26354dc07cd3aff2cc759f76700906e1669d5c8c69b8785bd2",
+          "bytes": 341,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.561996,
+          "state": "body_read",
+          "step": "tag_ref",
+          "url": "https://api.github.com/repos/fastapi/fastapi/git/ref/tags/0.162.5"
+        },
+        {
+          "body_sha256": "70688cc148e3224253dc3b4eea2bb915f06218947a3f6c2c24ee7da1a2705e64",
+          "bytes": 1093,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.654483,
+          "state": "body_read",
+          "step": "tagged_source",
+          "url": "https://api.github.com/repos/fastapi/fastapi/contents/fastapi/testclient.py?ref=5add7a458d629b07311d48261f696b5ac2bb9a5f"
+        },
+        {
+          "body_sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+          "bytes": 151782,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.491799,
+          "state": "body_read",
+          "step": "selected_wheel",
+          "url": "https://files.pythonhosted.org/packages/10/19/5b9abfa67a29b862e509911eef40f4901f78aa48de32ad1f939b5c2b165e/fastapi-0.162.5-py3-none-any.whl"
+        }
+      ],
+      "scenario": "current_snapshot_python_3_10",
+      "tag_equals_wheel_source": true,
+      "tagged_source": {
+        "bytes": 66,
+        "git_blob": "4012406aa76f743c5c5d1ab8ff56d6d67cfb6653",
+        "path": "fastapi/testclient.py",
+        "repository": "fastapi/fastapi",
+        "revision": "5add7a458d629b07311d48261f696b5ac2bb9a5f",
+        "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4"
+      },
+      "version": "0.162.5",
+      "wheel_source": {
+        "artifact_bytes": 151782,
+        "artifact_sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+        "file": "fastapi-0.162.5-py3-none-any.whl",
+        "metadata_sha256": "e816ce5c89d7c923175ff95cff85a2d892dee87218a7f1e4e34d7597b7444ab1",
+        "requires_python": ">=3.10",
+        "source_bytes": 66,
+        "source_sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4"
+      }
+    },
+    {
+      "package": "starlette",
+      "requests": [
+        {
+          "body_sha256": "d424c4591ef5dcf86327c0cddf6e9cf71a39bfafd908654f3a3723751cfad2a5",
+          "bytes": 339,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.532957,
+          "state": "body_read",
+          "step": "tag_ref",
+          "url": "https://api.github.com/repos/Kludex/starlette/git/ref/tags/1.7.0"
+        },
+        {
+          "body_sha256": "840292c32b661a1fe3088e4422d7df73fa58cd985a640dadf0cc6bfc548a0453",
+          "bytes": 30779,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.748974,
+          "state": "body_read",
+          "step": "tagged_source",
+          "url": "https://api.github.com/repos/Kludex/starlette/contents/starlette/testclient.py?ref=2269e9a08c1edd3dfdea865710f40f84c857b623"
+        },
+        {
+          "body_sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+          "bytes": 78980,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.425306,
+          "state": "body_read",
+          "step": "selected_wheel",
+          "url": "https://files.pythonhosted.org/packages/4e/d6/1ec1b290f9e0fb067899b61e1d37a30c923068bad260b216dbe37a7d2967/starlette-1.7.0-py3-none-any.whl"
+        }
+      ],
+      "scenario": "current_snapshot_python_3_10",
+      "tag_equals_wheel_source": true,
+      "tagged_source": {
+        "bytes": 21597,
+        "git_blob": "2f3f468c779947ac88f9f8e165ffcb07b33dd23e",
+        "path": "starlette/testclient.py",
+        "repository": "Kludex/starlette",
+        "revision": "2269e9a08c1edd3dfdea865710f40f84c857b623",
+        "sha256": "9e85a77aeb913c0913b2a9de977ae617554ecd08a645ec89bca2e0809fff761b"
+      },
+      "version": "1.7.0",
+      "wheel_source": {
+        "artifact_bytes": 78980,
+        "artifact_sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+        "file": "starlette-1.7.0-py3-none-any.whl",
+        "metadata_sha256": "f7870fc19ab7c2e364887057340b9fb47e9bda74d24b06c58ca399494abfe019",
+        "requires_python": ">=3.10",
+        "source_bytes": 21597,
+        "source_sha256": "9e85a77aeb913c0913b2a9de977ae617554ecd08a645ec89bca2e0809fff761b"
+      }
+    },
+    {
+      "package": "fastapi",
+      "requests": [
+        {
+          "body_sha256": "08d42b27e0994d219ecb99493c82a78c14e10f45203c64c51df5516776b8627b",
+          "bytes": 347,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.527234,
+          "state": "body_read",
+          "step": "tag_ref",
+          "url": "https://api.github.com/repos/fastapi/fastapi/git/ref/tags/0.115.14"
+        },
+        {
+          "body_sha256": "d3a7ac5114803425099165a2ed221d9137423490d1b47a02b5346cc9433f1a6e",
+          "bytes": 1093,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.631521,
+          "state": "body_read",
+          "step": "tagged_source",
+          "url": "https://api.github.com/repos/fastapi/fastapi/contents/fastapi/testclient.py?ref=ebdeda2de6e17036e3048940b7a9e725ef6a95b7"
+        },
+        {
+          "body_sha256": "6c0c8bf9420bd58f565e585036d971872472b4f7d3f6c73b698e10cffdefb3ca",
+          "bytes": 95514,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.430907,
+          "state": "body_read",
+          "step": "selected_wheel",
+          "url": "https://files.pythonhosted.org/packages/53/50/b1222562c6d270fea83e9c9075b8e8600b8479150a18e4516a6138b980d1/fastapi-0.115.14-py3-none-any.whl"
+        }
+      ],
+      "scenario": "pre_merge_cutoff_python_3_10",
+      "tag_equals_wheel_source": true,
+      "tagged_source": {
+        "bytes": 66,
+        "git_blob": "4012406aa76f743c5c5d1ab8ff56d6d67cfb6653",
+        "path": "fastapi/testclient.py",
+        "repository": "fastapi/fastapi",
+        "revision": "ebdeda2de6e17036e3048940b7a9e725ef6a95b7",
+        "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4"
+      },
+      "version": "0.115.14",
+      "wheel_source": {
+        "artifact_bytes": 95514,
+        "artifact_sha256": "6c0c8bf9420bd58f565e585036d971872472b4f7d3f6c73b698e10cffdefb3ca",
+        "file": "fastapi-0.115.14-py3-none-any.whl",
+        "metadata_sha256": "04a412e4bfe7bc21d825409842e8e38ccf1dc4ca090d5f38b619ac1d8c59888d",
+        "requires_python": ">=3.8",
+        "source_bytes": 66,
+        "source_sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4"
+      }
+    },
+    {
+      "package": "starlette",
+      "requests": [
+        {
+          "body_sha256": "87650e2ebec1649223ccd0bcd710fb15a405f0ab6b0784c0ebc2452591d5f39c",
+          "bytes": 341,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.507483,
+          "state": "body_read",
+          "step": "tag_ref",
+          "url": "https://api.github.com/repos/Kludex/starlette/git/ref/tags/0.46.2"
+        },
+        {
+          "body_sha256": "021b7d9781c534add3cb5dafa5cb60362f09991e568711d59b11129acc51bb55",
+          "bytes": 39583,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.775285,
+          "state": "body_read",
+          "step": "tagged_source",
+          "url": "https://api.github.com/repos/Kludex/starlette/contents/starlette/testclient.py?ref=4a811767bcba6e933bf7a8b48edef5993ce8948e"
+        },
+        {
+          "body_sha256": "595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35",
+          "bytes": 72037,
+          "http_status": 200,
+          "method": "GET",
+          "route": "direct",
+          "seconds": 0.613551,
+          "state": "body_read",
+          "step": "selected_wheel",
+          "url": "https://files.pythonhosted.org/packages/8b/0c/9d30a4ebeb6db2b25a841afbb80f6ef9a854fc3b41be131d249a977b4959/starlette-0.46.2-py3-none-any.whl"
+        }
+      ],
+      "scenario": "pre_merge_cutoff_python_3_10",
+      "tag_equals_wheel_source": true,
+      "tagged_source": {
+        "bytes": 27987,
+        "git_blob": "d54025e52d7ec2996d3a6fbdea9c390291067063",
+        "path": "starlette/testclient.py",
+        "repository": "Kludex/starlette",
+        "revision": "4a811767bcba6e933bf7a8b48edef5993ce8948e",
+        "sha256": "1b40dbeed84411a13aba702b8f7e03fea1b7353fce23fd48a3edcfe33fe9b053"
+      },
+      "version": "0.46.2",
+      "wheel_source": {
+        "artifact_bytes": 72037,
+        "artifact_sha256": "595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35",
+        "file": "starlette-0.46.2-py3-none-any.whl",
+        "metadata_sha256": "650eb9b307065ae5b5f8bd14ac32a8d92685f7426ec75f172bd3a66419ad1328",
+        "requires_python": ">=3.9",
+        "source_bytes": 27987,
+        "source_sha256": "1b40dbeed84411a13aba702b8f7e03fea1b7353fce23fd48a3edcfe33fe9b053"
+      }
+    }
+  ]
+}
