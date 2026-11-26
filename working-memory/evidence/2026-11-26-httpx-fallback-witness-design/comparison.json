@@ -1,0 +1,156 @@
+{
+  "cases": [
+    {
+      "edge_from_independent_source_parse": {
+        "binding": "httpx",
+        "fallback": {
+          "line": 32,
+          "module": "httpx"
+        },
+        "handler": {
+          "exception": "ModuleNotFoundError",
+          "line": 30
+        },
+        "preferred": {
+          "line": 29,
+          "module": "httpx2"
+        }
+      },
+      "forwarding_call_line": 477,
+      "guard_codes_on_every_witness": [
+        "exception_matching_import_success_and_base_binding_not_established",
+        "unresolved_try_import_base_source_hypothesis"
+      ],
+      "httpx_witnesses": [
+        {
+          "assessment_id": "caller-signature-comparison-7b021f5e28f48f41770f38f9fe9861aa6082af1117652ed77b4aa786291c84bc",
+          "outcome": "bound",
+          "role": "proposed_dependency",
+          "version": "0.28.1"
+        },
+        {
+          "assessment_id": "caller-signature-comparison-be208b7388a95ed6673852ff917f0672f9ab3c1c049947bc89e5064ef18f9d99",
+          "outcome": "bound",
+          "role": "proposed_dependency",
+          "version": "0.28.1"
+        },
+        {
+          "assessment_id": "caller-signature-comparison-14abc8ac0800176f54c8c61a8ae7a439c77419ee685b1cdff09e6cb689635aa4",
+          "outcome": "bound",
+          "role": "old_dependency",
+          "version": "0.27.2"
+        },
+        {
+          "assessment_id": "caller-signature-comparison-dfc48f99e096dfb476a7ee0ba71fce4291f4fe593daad63eda9aeaf97c53906a",
+          "outcome": "bound",
+          "role": "old_dependency",
+          "version": "0.27.2"
+        }
+      ],
+      "preferred_or_handler_locations_in_saved_witness_steps": false,
+      "root_call_id": "b4a7022d75599f001ba703db8d1717f2738e19a70677bc05d354055e694b69f9",
+      "scenario": "default_saved_report",
+      "selected_httpx_import_line": 32,
+      "source_ref": "source-39",
+      "source_revision": "8aa828ceaff764a2e57932fb42fdf105a47c4c83",
+      "source_sha256": "869a53e6511c25707432d7c91ca8cc22ea32775ac20c0fc8959ac609ad8a4d56",
+      "starlette": "1.10.0"
+    },
+    {
+      "edge_from_independent_source_parse": {
+        "binding": "httpx",
+        "fallback": {
+          "line": 39,
+          "module": "httpx"
+        },
+        "handler": {
+          "exception": "ModuleNotFoundError",
+          "line": 37
+        },
+        "preferred": {
+          "line": 36,
+          "module": "httpx2"
+        }
+      },
+      "forwarding_call_line": 422,
+      "guard_codes_on_every_witness": [
+        "exception_matching_import_success_and_base_binding_not_established",
+        "unresolved_try_import_base_source_hypothesis"
+      ],
+      "httpx_witnesses": [
+        {
+          "outcome": "bound",
+          "role": "proposed_dependency",
+          "version": "0.28.1"
+        },
+        {
+          "outcome": "bound",
+          "role": "old_dependency",
+          "version": "0.27.2"
+        }
+      ],
+      "scenario": "current_snapshot_python_3_10",
+      "selected_httpx_import_line": 39,
+      "source_revision": "2269e9a08c1edd3dfdea865710f40f84c857b623",
+      "source_sha256": "9e85a77aeb913c0913b2a9de977ae617554ecd08a645ec89bca2e0809fff761b",
+      "starlette": "1.7.0"
+    },
+    {
+      "edge_from_independent_source_parse": null,
+      "forwarding_call_line": 397,
+      "guard_codes_on_every_witness": [
+        "exception_matching_import_success_and_base_binding_not_established",
+        "unresolved_try_import_base_source_hypothesis"
+      ],
+      "httpx_witnesses": [
+        {
+          "outcome": "bound",
+          "role": "proposed_dependency",
+          "version": "0.28.1"
+        },
+        {
+          "outcome": "bound",
+          "role": "old_dependency",
+          "version": "0.27.2"
+        }
+      ],
+      "scenario": "pre_merge_cutoff_python_3_10",
+      "selected_httpx_import_line": 30,
+      "source_revision": "4a811767bcba6e933bf7a8b48edef5993ce8948e",
+      "source_sha256": "1b40dbeed84411a13aba702b8f7e03fea1b7353fce23fd48a3edcfe33fe9b053",
+      "starlette": "0.46.2"
+    }
+  ],
+  "generic_guard_code_rule_false_positives": [
+    "pre_merge_cutoff_python_3_10"
+  ],
+  "inputs": {
+    "qualification_sha256": "433b09503d291ad7d1b93bca841c53514001714f989788c51b2687197324a612",
+    "saved_report_sha256": "cdce1ddfdbd36bfdccd2380058227d371f3be8c17add72c44f4c4fb60577fea4"
+  },
+  "saved_report_action": "abstain",
+  "syntax_probe_cases": {
+    "different_compared_package": false,
+    "different_fallback_binding": false,
+    "different_handler_type": false,
+    "no_join_to_selected_location": false,
+    "only_guarded_direct_import": false,
+    "same_binding_under_matching_handler": true,
+    "witness_selects_preferred_import": false
+  },
+  "verification": {
+    "caller_signature_first_view_sha256": "02531f075f35b3b90c4d81a1138b8ae79a6e3fcf10e4405f9f9fc47c9b4994a0",
+    "exact_workspace_revision": "07b9d18997704bf0873428556529ede9",
+    "focused_tests_passed": {
+      "delivery": 2,
+      "worker": 11
+    },
+    "fresh_provider_requests": 0,
+    "network_namespace_isolated": true,
+    "saved_and_workspace_report_body_match": true,
+    "saved_and_workspace_show_literal_source_exactly": true,
+    "source_probe_repeat_count": 2,
+    "source_probe_replay_sha256": "d164cb92ea81151167cbfc3bc83d7165a921556bd4ee2f3a67790d202d0928f2",
+    "target_code_executed": false
+  }
+}
