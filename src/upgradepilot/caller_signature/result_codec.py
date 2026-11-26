@@ -13,6 +13,7 @@ a separate integration boundary.
 """
 from __future__ import annotations
 
+from dataclasses import asdict
 from hashlib import sha256
 
 from .analysis import METHOD_VERSION
@@ -20,8 +21,8 @@ from .bindings import BINDING_ANALYSIS_VERSION
 from .correspondence import (
     ANALYSIS_PROFILE, ANALYSIS_OMISSION_REASONS, COMPARISON_STRUCTURE_BUDGET,
     CORRESPONDENCE_VERSION, FACT_STRUCTURE_BUDGET, MAX_DISCOVERY_DEPTH,
-    MAX_DISCOVERY_GAPS, MAX_PATH_STEPS, PythonSourceModule,
-    SourceRelationshipStep, analysis_group_key, module_name,
+    MAX_DISCOVERY_GAPS, MAX_PATH_STEPS, GuardedImportFallback, PythonSourceModule,
+    SourceRelationshipStep, analysis_group_key, matches_simple_import, module_name,
 )
 from .evidence import (
     AnalysisLimits, AnalyzedSourceUnit, MeasuredDuration, SourceAnalysisAdmission,
@@ -48,6 +49,10 @@ _WORK_FIELDS = ("source_files", "source_bytes", "ast_nodes", "facts", "selected_
 _PROTOCOL_OPERATIONS = ("allocation", "attribute_getter", "factory_return", "call_protocol")
 _STEP_OPERATIONS = {"call", "import_origin", "reexport", "declaration", "class_declaration", "initializer", "declared_base", *_PROTOCOL_OPERATIONS}
 _RECEIVER_MODES = {"as_written", "one_receiver_assumed", "unresolved"}
+_CORRESPONDENCE_WITHOUT_IMPORT_FALLBACK = 2
+_CANDIDATE_FIELDS = ("candidate_id", "root_call_id", "comparison", "steps", "premises", "callee_role")
+_IMPORT_FALLBACK_FIELDS = ("unit_id", "preferred_module", "preferred_span", "exception_name",
+                           "exception_span", "fallback_module", "fallback_span", "binding")
 
 
 def _sequence(raw, maximum):
@@ -175,6 +180,8 @@ def candidate_records(candidate, calls, signatures, files):
         receiver_mode=comparison.receiver_mode,
         steps=[dict(unit_id=s.unit_id, span=span_fields(s.span), operation=s.operation, expression=s.expression) for s in candidate.steps],
         premises=list(candidate.premises), callee_role=module_fields(candidate.callee_role))
+    if candidate.import_fallback is not None:
+        record["import_fallback"] = asdict(candidate.import_fallback)
     pair = dict(selection=dict(id=candidate.candidate_id, caller=location(call), callee=location(signature),
                               receiver_mode=comparison.receiver_mode),
                 comparison=pack_argument_comparison(comparison), problem=None)
@@ -185,20 +192,32 @@ def _work_fields(work):
     return {name: getattr(work, name) for name in _WORK_FIELDS}
 
 
+def _candidate_fields(candidate):
+    row = dict(candidate_id=candidate.candidate_id, root_call_id=candidate.root_call_id,
+        comparison=pack_argument_comparison(candidate.comparison),
+        steps=[dict(unit_id=s.unit_id, span=span_fields(s.span), operation=s.operation, expression=s.expression)
+               for s in candidate.steps],
+        premises=list(candidate.premises), callee_role=module_fields(candidate.callee_role))
+    if candidate.import_fallback is not None:
+        row["import_fallback"] = asdict(candidate.import_fallback)
+    return row
+
+
 def _result_fields(result, source_input):
     files = {source_input.catalog.descriptor(f)["file_id"]: f for f in source_input.catalog.files}
+    candidates = [_candidate_fields(c) for c in result.candidates]
+    # Keep historical results (and their material digests) canonical on reopen.
+    version = (CORRESPONDENCE_VERSION if any("import_fallback" in row for row in candidates)
+               else _CORRESPONDENCE_WITHOUT_IMPORT_FALLBACK)
     return dict(format=RESULT_FORMAT, producer_method=PRODUCER_METHOD, producer_version=PRODUCER_VERSION,
         binding_version=BINDING_ANALYSIS_VERSION, checker_version=METHOD_VERSION,
-        correspondence_version=CORRESPONDENCE_VERSION, analysis_profile=ANALYSIS_PROFILE,
+        correspondence_version=version, analysis_profile=ANALYSIS_PROFILE,
         input_sha256=result.input_sha256, catalog_id=result.catalog_id,
         units=[dict(unit_id=u.unit_id, coverage=u.coverage,
                     facts=parse_json(encode_source_facts(u.facts, text=files[u.unit_id].content,
                         coverage=u.coverage, limits=source_input.limits))["facts"] if u.facts is not None else None)
                for u in result.units],
-        candidates=[dict(candidate_id=c.candidate_id, root_call_id=c.root_call_id,
-            comparison=pack_argument_comparison(c.comparison),
-            steps=[dict(unit_id=s.unit_id, span=span_fields(s.span), operation=s.operation, expression=s.expression) for s in c.steps],
-            premises=list(c.premises), callee_role=module_fields(c.callee_role)) for c in result.candidates],
+        candidates=candidates,
         gaps=[dict(reason=g.reason, unit_id=g.unit_id, span=span_fields(g.span) if g.span else None, detail=g.detail) for g in result.gaps],
         admission=[dict(unit_id=a.unit_id, state=a.state, reason=a.reason, scan_nodes=a.scan_nodes) for a in result.admission],
         work=_work_fields(result.work))
@@ -303,14 +322,56 @@ def _read_steps(raw, root, call, signature, files, units):
     return tuple(steps)
 
 
-def _read_candidates(raw, units, files, source_input):
+def read_import_fallback(raw, steps, files, callee_role, premises):
+    """Validate a producer-recorded path join against saved source bytes without parsing."""
+    row = object_fields(raw, _IMPORT_FALLBACK_FIELDS)
+    uid = read_bounded_text(row["unit_id"], maximum=80)
+    preferred = read_bounded_text(row["preferred_module"])
+    fallback = read_bounded_text(row["fallback_module"])
+    binding = read_bounded_text(row["binding"])
+    exception = row["exception_name"]
+    if (uid not in files or preferred == fallback or not preferred.isidentifier()
+            or not binding.isidentifier() or fallback != callee_role.package.replace("-", "_")
+            or exception != "ModuleNotFoundError"
+            or "unresolved_try_import_base_source_hypothesis" not in premises
+            or "exception_matching_import_success_and_base_binding_not_established" not in premises):
+        raise ValueError("Invalid guarded import fallback identity.")
+    lines = [line.encode() for line in files[uid].content.split("\n")]
+    preferred_span = read_source_span(row["preferred_span"], lines)
+    exception_span = read_source_span(row["exception_span"], lines)
+    fallback_span = read_source_span(row["fallback_span"], lines)
+    if not (preferred_span.line < exception_span.line <= fallback_span.line):
+        raise ValueError("Unordered guarded import fallback locations.")
+    for span in (preferred_span, exception_span, fallback_span):
+        if span.line != span.end_line:
+            raise ValueError("Unsupported multiline guarded import fallback spelling.")
+    preferred_text = lines[preferred_span.line - 1][preferred_span.column:preferred_span.end_column].decode()
+    handler = lines[exception_span.line - 1]
+    if (not matches_simple_import(preferred_text, preferred, binding)
+            or handler[exception_span.column:exception_span.end_column] != exception.encode()
+            or handler[:exception_span.column].strip() != b"except"):
+        raise ValueError("Guarded import fallback source spelling mismatch.")
+    if not any(
+        base.operation == "declared_base" and base.unit_id == selected.unit_id == uid
+        and base.expression.split(".", 1)[0].strip() == binding
+        and selected.operation == "reexport" and selected.span == fallback_span
+        and matches_simple_import(selected.expression, fallback, binding)
+        for base, selected in zip(steps, steps[1:])
+    ):
+        raise ValueError("Guarded import fallback does not join the selected comparison path.")
+    return GuardedImportFallback(uid, preferred, preferred_span, exception, exception_span,
+                                 fallback, fallback_span, binding)
+
+
+def _read_candidates(raw, units, files, source_input, *, allows_import_fallback):
     calls = {f.fact_id: f for u in units if u.facts for f in u.facts.calls}
     signatures = {f.fact_id: f for u in units if u.facts for f in u.facts.signatures}
     by_uid = {u.unit_id: u for u in units}
     modules = {(m.source_id, m.path): m for m in source_input.modules}
     candidates, seen = [], set()
     for item in _sequence(raw, source_input.limits.max_pairs):
-        row = object_fields(item, ("candidate_id", "root_call_id", "comparison", "steps", "premises", "callee_role"))
+        with_fallback = allows_import_fallback and type(item) is dict and "import_fallback" in item
+        row = object_fields(item, (*_CANDIDATE_FIELDS, "import_fallback") if with_fallback else _CANDIDATE_FIELDS)
         cid = read_bounded_text(row["candidate_id"], maximum=80)
         root_id = read_bounded_text(row["root_call_id"], maximum=80)
         if not cid or cid in seen or root_id not in calls:
@@ -347,7 +408,9 @@ def _read_candidates(raw, units, files, source_input):
                     "attribute_lookup_and_getattr_activation_not_established",
                     "factory_returns_selected_declared_class_instance"}.issubset(premises):
                 raise ValueError("Missing factory source premises.")
-        candidates.append(SourceComparisonCandidate(cid, root_id, checked, steps, premises, callee_role))
+        fallback = (read_import_fallback(row["import_fallback"], steps, files, callee_role, premises)
+                    if with_fallback else None)
+        candidates.append(SourceComparisonCandidate(cid, root_id, checked, steps, premises, callee_role, fallback))
     return tuple(candidates), calls, signatures
 
 
@@ -367,15 +430,20 @@ def decode_analysis_result(payload: bytes, source_input: SourceAnalysisInput) ->
     """Read fixed saved evidence at its exact prepared input; never reevaluate it."""
     row = object_fields(parse_json(payload), ("format", "producer_method", "producer_version", "binding_version", "checker_version", "correspondence_version", "analysis_profile", "input_sha256", "catalog_id", "units", "candidates", "gaps", "admission", "work"))
     support = dict(format=RESULT_FORMAT, producer_method=PRODUCER_METHOD, producer_version=PRODUCER_VERSION,
-        binding_version=BINDING_ANALYSIS_VERSION, checker_version=METHOD_VERSION,
-        correspondence_version=CORRESPONDENCE_VERSION, analysis_profile=ANALYSIS_PROFILE)
-    if any(type(row[k]) is not type(v) or row[k] != v for k, v in support.items()):
+        binding_version=BINDING_ANALYSIS_VERSION, checker_version=METHOD_VERSION, analysis_profile=ANALYSIS_PROFILE)
+    version = row["correspondence_version"]
+    if (type(version) is not int or version not in {_CORRESPONDENCE_WITHOUT_IMPORT_FALLBACK, CORRESPONDENCE_VERSION}
+            or any(type(row[k]) is not type(v) or row[k] != v for k, v in support.items())):
         raise ValueError("Unsupported analysis result method/version/profile.")
     if row["input_sha256"] != sha256(encode_analysis_input(source_input)).hexdigest() or row["catalog_id"] != source_input.catalog.identity:
         raise ValueError("Analysis result has another input/catalog.")
     units, files = _read_units(row["units"], source_input)
     admission = _read_admission(row["admission"], units, files, source_input)
-    candidates, calls, signatures = _read_candidates(row["candidates"], units, files, source_input)
+    with_fallback = version == CORRESPONDENCE_VERSION
+    candidates, calls, signatures = _read_candidates(row["candidates"], units, files, source_input,
+                                                    allows_import_fallback=with_fallback)
+    if with_fallback and not any(c.import_fallback is not None for c in candidates):
+        raise ValueError("Guarded import fallback result version requires a recorded relationship.")
     gaps = _read_gaps(row["gaps"], units, files)
     work = SourceAnalysisWork(**{k: _nonnegative(v) for k, v in object_fields(row["work"], _WORK_FIELDS).items()})
     source_bytes = sum(len(f.content.encode()) for f in files.values())

@@ -1,0 +1,326 @@
+{
+  "base_commit": "9b01c5cd",
+  "candidate_patch_sha256": "bbdc31476d8d57eee00412cd00278c6de6cb0aea5b7340f7faf7469eae65c91c",
+  "default_replay_additional_comparison_structure_tokens": 184,
+  "default_replay_existing_candidates_equal": 12,
+  "exact_source_verification": {
+    "exact_source_replays": {
+      "current_snapshot_python_3_10": {
+        "comparison_work": {
+          "ast_nodes": 19687,
+          "comparison_structure_cost": 2454,
+          "fact_structure_cost": 117891,
+          "facts": 945,
+          "gaps_omitted": 0,
+          "scanned_ast_nodes": 19728,
+          "selected_pairs": 9,
+          "source_bytes": 165795,
+          "source_files": 18,
+          "states_examined": 62
+        },
+        "correspondence_version": 3,
+        "encoded_result_sha256": "240e291d076e236b66cfbc3093587de05e1169c14edb38e9db96b742414ac973",
+        "input_sha256": "e2d145c41c0cbc996659d0f3b5f20aee78fd3bc277e771b6906bd11ff030833f",
+        "projected_fallback_count": 2,
+        "witnesses": [
+          {
+            "import_fallback": {
+              "binding": "httpx",
+              "exception_name": "ModuleNotFoundError",
+              "exception_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 37,
+                "line": 37
+              },
+              "fallback_module": "httpx",
+              "fallback_span": {
+                "column": 12,
+                "end_column": 24,
+                "end_line": 39,
+                "line": 39
+              },
+              "preferred_module": "httpx2",
+              "preferred_span": {
+                "column": 8,
+                "end_column": 30,
+                "end_line": 36,
+                "line": 36
+              },
+              "unit_id": "f12a52977f5086d662e3701dc47e7f07d1f6c83ea4a59e848dd05d72c60e5fd9"
+            },
+            "outcome": "bound",
+            "role": "proposed_dependency",
+            "version": "0.28.1"
+          },
+          {
+            "import_fallback": {
+              "binding": "httpx",
+              "exception_name": "ModuleNotFoundError",
+              "exception_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 37,
+                "line": 37
+              },
+              "fallback_module": "httpx",
+              "fallback_span": {
+                "column": 12,
+                "end_column": 24,
+                "end_line": 39,
+                "line": 39
+              },
+              "preferred_module": "httpx2",
+              "preferred_span": {
+                "column": 8,
+                "end_column": 30,
+                "end_line": 36,
+                "line": 36
+              },
+              "unit_id": "f12a52977f5086d662e3701dc47e7f07d1f6c83ea4a59e848dd05d72c60e5fd9"
+            },
+            "outcome": "bound",
+            "role": "old_dependency",
+            "version": "0.27.2"
+          }
+        ]
+      },
+      "default_saved_source_replay": {
+        "comparison_work": {
+          "ast_nodes": 24112,
+          "comparison_structure_cost": 3590,
+          "fact_structure_cost": 140416,
+          "facts": 1107,
+          "gaps_omitted": 0,
+          "scanned_ast_nodes": 24153,
+          "selected_pairs": 12,
+          "source_bytes": 202442,
+          "source_files": 24,
+          "states_examined": 68
+        },
+        "correspondence_version": 3,
+        "encoded_result_sha256": "74d24796194f1315df7b74cb3945ca473b3c600a31e7872f77bfa7cda3b64a6e",
+        "input_sha256": "ec10bc40225564d01bb0da4f7bdc25e3b9c83d639842b0b29549e4d5196b3274",
+        "projected_fallback_count": 4,
+        "witnesses": [
+          {
+            "import_fallback": {
+              "binding": "httpx",
+              "exception_name": "ModuleNotFoundError",
+              "exception_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 30,
+                "line": 30
+              },
+              "fallback_module": "httpx",
+              "fallback_span": {
+                "column": 12,
+                "end_column": 24,
+                "end_line": 32,
+                "line": 32
+              },
+              "preferred_module": "httpx2",
+              "preferred_span": {
+                "column": 8,
+                "end_column": 30,
+                "end_line": 29,
+                "line": 29
+              },
+              "unit_id": "f696629c063efc2245c1e7b1c9d5bc2b4e082258039efa4cb6a74f3a844d2a90"
+            },
+            "outcome": "bound",
+            "role": "proposed_dependency",
+            "version": "0.28.1"
+          },
+          {
+            "import_fallback": {
+              "binding": "httpx",
+              "exception_name": "ModuleNotFoundError",
+              "exception_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 30,
+                "line": 30
+              },
+              "fallback_module": "httpx",
+              "fallback_span": {
+                "column": 12,
+                "end_column": 24,
+                "end_line": 32,
+                "line": 32
+              },
+              "preferred_module": "httpx2",
+              "preferred_span": {
+                "column": 8,
+                "end_column": 30,
+                "end_line": 29,
+                "line": 29
+              },
+              "unit_id": "f696629c063efc2245c1e7b1c9d5bc2b4e082258039efa4cb6a74f3a844d2a90"
+            },
+            "outcome": "bound",
+            "role": "proposed_dependency",
+            "version": "0.28.1"
+          },
+          {
+            "import_fallback": {
+              "binding": "httpx",
+              "exception_name": "ModuleNotFoundError",
+              "exception_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 30,
+                "line": 30
+              },
+              "fallback_module": "httpx",
+              "fallback_span": {
+                "column": 12,
+                "end_column": 24,
+                "end_line": 32,
+                "line": 32
+              },
+              "preferred_module": "httpx2",
+              "preferred_span": {
+                "column": 8,
+                "end_column": 30,
+                "end_line": 29,
+                "line": 29
+              },
+              "unit_id": "f696629c063efc2245c1e7b1c9d5bc2b4e082258039efa4cb6a74f3a844d2a90"
+            },
+            "outcome": "bound",
+            "role": "old_dependency",
+            "version": "0.27.2"
+          },
+          {
+            "import_fallback": {
+              "binding": "httpx",
+              "exception_name": "ModuleNotFoundError",
+              "exception_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 30,
+                "line": 30
+              },
+              "fallback_module": "httpx",
+              "fallback_span": {
+                "column": 12,
+                "end_column": 24,
+                "end_line": 32,
+                "line": 32
+              },
+              "preferred_module": "httpx2",
+              "preferred_span": {
+                "column": 8,
+                "end_column": 30,
+                "end_line": 29,
+                "line": 29
+              },
+              "unit_id": "f696629c063efc2245c1e7b1c9d5bc2b4e082258039efa4cb6a74f3a844d2a90"
+            },
+            "outcome": "bound",
+            "role": "old_dependency",
+            "version": "0.27.2"
+          }
+        ]
+      },
+      "pre_merge_cutoff_python_3_10": {
+        "comparison_work": {
+          "ast_nodes": 20877,
+          "comparison_structure_cost": 2352,
+          "fact_structure_cost": 120306,
+          "facts": 963,
+          "gaps_omitted": 0,
+          "scanned_ast_nodes": 20918,
+          "selected_pairs": 9,
+          "source_bytes": 172185,
+          "source_files": 18,
+          "states_examined": 59
+        },
+        "correspondence_version": 2,
+        "encoded_result_sha256": "7c1d3736ba59a11098ca7e33718510bca49c3e595ec736cd0d19ff2a51ea4ed6",
+        "input_sha256": "9c72f51f19bead25ab753ddf8a4fd50c13050ba6e9d54a47f9c9d5b6d3700631",
+        "projected_fallback_count": 0,
+        "witnesses": [
+          {
+            "import_fallback": null,
+            "outcome": "bound",
+            "role": "proposed_dependency",
+            "version": "0.28.1"
+          },
+          {
+            "import_fallback": null,
+            "outcome": "bound",
+            "role": "old_dependency",
+            "version": "0.27.2"
+          }
+        ]
+      }
+    },
+    "legacy_correspondence_version": 2,
+    "legacy_saved_report_sha256": "cdce1ddfdbd36bfdccd2380058227d371f3be8c17add72c44f4c4fb60577fea4",
+    "legacy_workspace_revision": "07b9d18997704bf0873428556529ede9"
+  },
+  "experiment_boundary_check": "passed",
+  "fresh_provider_requests": 0,
+  "full_suite": {
+    "environment": "Wheel installed offline in clean venv, loopback-only network, unprivileged user.",
+    "log_sha256": "389a14ff986bbaec8c0b0dc63033bc5ac96d74de534339b0e9324f5511e945c4",
+    "seconds": 236.875,
+    "skipped": 0,
+    "tests_passed": 1201
+  },
+  "installed_cli_saved_and_workspace_report_bodies_match_for_legacy_and_replay": true,
+  "installed_delivery": {
+    "action": "abstain",
+    "new_report_and_workspace_reopen_match": true,
+    "replayed_report_rows": [
+      {
+        "native_evidence_source_ref": "source-39",
+        "replayed_report_assessment_id": "caller-signature-comparison-7b021f5e28f48f41770f38f9fe9861aa6082af1117652ed77b4aa786291c84bc",
+        "role": "proposed_dependency",
+        "state": "bound",
+        "version": "0.28.1"
+      },
+      {
+        "native_evidence_source_ref": "source-39",
+        "replayed_report_assessment_id": "caller-signature-comparison-be208b7388a95ed6673852ff917f0672f9ab3c1c049947bc89e5064ef18f9d99",
+        "role": "proposed_dependency",
+        "state": "bound",
+        "version": "0.28.1"
+      },
+      {
+        "native_evidence_source_ref": "source-39",
+        "replayed_report_assessment_id": "caller-signature-comparison-14abc8ac0800176f54c8c61a8ae7a439c77419ee685b1cdff09e6cb689635aa4",
+        "role": "old_dependency",
+        "state": "bound",
+        "version": "0.27.2"
+      },
+      {
+        "native_evidence_source_ref": "source-39",
+        "replayed_report_assessment_id": "caller-signature-comparison-dfc48f99e096dfb476a7ee0ba71fce4291f4fe593daad63eda9aeaf97c53906a",
+        "role": "old_dependency",
+        "state": "bound",
+        "version": "0.27.2"
+      }
+    ],
+    "replayed_report_sha256": "c9f6d11ec6f52752012cdf1e58758ba2407fd5bc3c8a8c8714b2104bb0a00aec",
+    "replayed_workspace_revision": "b650f2b66c864922b39226c4aee0bbe7"
+  },
+  "legacy_comparison_family_reencoded_to_same_bytes": true,
+  "native_replay_receipt_sha256": "b6b23ba2c5c25278a28354d7962ad88aa6f5a59f452797b1dcd8c102b1cb947c",
+  "target_code_executed": false,
+  "used_frozen_source_and_workspaces": true,
+  "verification_setup_correction": {
+    "first_suite_log_sha256": "95bdbe95c453d2e0470ee576e0bab39f5fd82db78ffa39bfa6e2f573f863ef59",
+    "private_checkout_git_marker_restored": true,
+    "second_suite_log_sha256": "1a2bd178acd07bc9c370ab4473074d0e0a3a5d17f46c5718d7fd2f1084d972a9",
+    "unprivileged_filesystem_check_retest": "passed"
+  },
+  "wheel": {
+    "installed_product_modules_matching_source": 120,
+    "pip_check": "passed",
+    "sha256": "4b1eea3565879a5fa3ea97f96d7585da83e0a91eb245148f36a7bc760f0b51e7"
+  }
+}

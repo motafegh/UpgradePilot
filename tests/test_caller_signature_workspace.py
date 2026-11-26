@@ -15,6 +15,7 @@ from unittest.mock import patch
 from test_source_correspondence import material
 from upgradepilot.caller_signature import source_evidence as se
 from upgradepilot.caller_signature.evidence import AnalysisLimits, MeasuredDuration
+from upgradepilot.caller_signature.result_codec import decode_analysis_result, encode_analysis_result
 from upgradepilot.caller_signature.source_codec import decode_sources, encode_sources
 from upgradepilot.caller_signature.worker import run_source_analysis
 from upgradepilot.dependency.change import DependencyChangeSourceEvidence, DependencyVersionChange
@@ -229,6 +230,104 @@ class CallerSignatureWorkspaceTests(TestCase):
             elif record.outcome == "recorded":
                 self.assertIsNone(record.producer_version)
                 self.assertIn("producer_version_unavailable", record.retention_gaps)
+
+    def test_selected_import_fallback_survives_native_and_report_reopen(self):
+        from upgradepilot.caller_signature_delivery import REPORT_METHOD, REPORT_REPRESENTATION, open_caller_signature_checkpoint
+        from upgradepilot.report_file import encode_report, read_report
+        from upgradepilot.report_projection import project_caller_signature_report
+        from upgradepilot.workspace.lifecycle_records import InvestigationNeed
+
+        source = controlled_sources(source_texts=(
+            "try:\n import alternate as driver\nexcept ModuleNotFoundError:\n import vendor as driver\n"
+            "class Client(driver.Client):\n def __init__(self):\n  super().__init__(option=1)\nClient()\n",
+            "class Client:\n def __init__(self, *, option=None):\n  pass\n",
+            "class Client:\n def __init__(self):\n  pass\n",
+        ))
+        capture = started_capture(source)
+        prepared = source.analysis_input()
+        run = run_source_analysis(prepared)
+        self.assertEqual(run.state, "completed", run.problem_detail)
+        compared = {c.callee_role.role: c for c in run.result.candidates if c.import_fallback}
+        self.assertEqual({role: c.comparison.outcome for role, c in compared.items()},
+                         {"old_dependency": "bound", "proposed_dependency": "rejected"})
+        condition = compared["old_dependency"].import_fallback
+        self.assertEqual(condition, compared["proposed_dependency"].import_fallback)
+        self.assertEqual((condition.preferred_module, condition.exception_name, condition.fallback_module,
+                          condition.binding), ("alternate", "ModuleNotFoundError", "vendor", "driver"))
+        self.assertEqual((condition.preferred_span.line, condition.exception_span.line, condition.fallback_span.line),
+                         (2, 3, 4))
+
+        payload = encode_analysis_result(run.result, prepared)
+        for field, value, message in (
+            ("unit_id", "foreign", "identity"),
+            ("fallback_module", "alternate", "identity"),
+            ("preferred_module", "another", "spelling"),
+            ("fallback_span", {"line": 4, "column": 1, "end_line": 4, "end_column": 14}, "selected comparison path"),
+        ):
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
+                row = parse_json(payload)
+                candidate = next(c for c in row["candidates"] if "import_fallback" in c)
+                candidate["import_fallback"][field] = value
+                decode_analysis_result(json_bytes(row), prepared)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = CheckpointStore.create(Path(tmp) / "store", schema_version=2)
+            host = InvestigationWorkspaceHost(store=store, lineage_id="control")
+            host.initialize(capture.partial_snapshot())
+            capture.capture_caller_signature_sources(source)
+            host.publish_native_progress(capture.partial_snapshot())
+            capture.capture_caller_signature_comparison(run)
+            capture.complete()
+            boundary = capture.snapshot()
+            host.publish_native_progress(boundary)
+            report = project_caller_signature_report(boundary)
+            encoded = encode_report(report)
+            path = Path(tmp) / "report.json"
+            path.write_bytes(encoded)
+            host.configure(authority=None, capabilities=(), methods=(REPORT_METHOD,))
+            ids = tuple(record.record_id for record in boundary.records)
+            purpose = host.add_purpose(InvestigationNeed("report_delivery", "Deliver source report.",
+                                                        host.current.revision_id), native_record_ids=ids)
+            view = host.prepare_view("caller-signature-report", ids, selection_limit="Complete retained basis.")
+            host.deliver_view(purpose, view.view_id, representation=REPORT_REPRESENTATION,
+                              content=encoded.decode(), method=REPORT_METHOD)
+            with ExitStack() as stack:
+                for hook in ("ast.parse", "socket.socket.connect", "upgradepilot.caller_signature.worker.run_source_analysis",
+                             "upgradepilot.report_projection.project_caller_signature_report"):
+                    stack.enter_context(patch(hook, side_effect=AssertionError("Cold read invoked a producer")))
+                opened = open_caller_signature_checkpoint(CheckpointStore.open(store.directory, read_only=True),
+                                                          host.current.revision_id)
+                restored = read_report(path)
+            self.assertEqual(opened.native.comparison.result, run.result)
+            self.assertEqual(opened.report, restored)
+            self.assertEqual(opened.report.action.state, "abstain")
+            witnessed = [a for a in restored.assessments if any(f.name == "import_fallback_source" for f in a.facts)]
+            self.assertEqual({a.state for a in witnessed}, {"bound", "rejected"})
+            for assessment in witnessed:
+                facts = {f.name: f.value for f in assessment.facts}
+                self.assertIn(facts["import_fallback_source"], assessment.source_ids)
+                self.assertEqual((facts["import_fallback_preferred"], facts["import_fallback_exception"],
+                                  facts["import_fallback_selected"]), ("alternate", "ModuleNotFoundError", "vendor"))
+
+    def test_guarded_imports_outside_the_selected_fallback_keep_their_comparisons(self):
+        cases = {
+            "direct": "try:\n import vendor as driver\nexcept ModuleNotFoundError:\n raise\n",
+            "preferred": "try:\n import vendor as driver\nexcept ModuleNotFoundError:\n import alternate as driver\n",
+            "different binding": "try:\n import alternate as other\nexcept ModuleNotFoundError:\n import vendor as driver\n",
+            "different exception": "try:\n import alternate as driver\nexcept ImportError:\n import vendor as driver\n",
+        }
+        for label, imports in cases.items():
+            with self.subTest(label=label):
+                prepared = controlled_sources(source_texts=(
+                    imports + "class Client(driver.Client):\n def __init__(self):\n  super().__init__()\nClient()\n",
+                    "class Client:\n def __init__(self):\n  pass\n",
+                    "class Client:\n def __init__(self):\n  pass\n",
+                )).analysis_input()
+                run = run_source_analysis(prepared)
+                self.assertEqual(run.state, "completed", run.problem_detail)
+                compared = [c for c in run.result.candidates if c.callee_role.package == "vendor"]
+                self.assertEqual({c.callee_role.role for c in compared}, {"old_dependency", "proposed_dependency"})
+                self.assertTrue(all(c.import_fallback is None and c.comparison.outcome == "bound" for c in compared))
 
     def test_failed_analysis_is_recorded_with_retained_sources(self):
         source = controlled_sources(limits=AnalysisLimits(max_nodes=1))

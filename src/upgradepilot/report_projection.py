@@ -2197,6 +2197,23 @@ def _project_caller_signature_witnesses(p: _ReportEvidence, result: SourceAnalys
                 _fact("root_unknown", "Unknown binding possible", binding.unknown_possible),
                 _fact("root_unbound", "Unbound possible", binding.unbound_possible),
             ))
+        fallback = candidate.import_fallback
+        if fallback is not None:
+            source_id = file_sources[fallback.unit_id]
+            candidate_facts.extend((
+                _fact("import_fallback_source", "Fallback import source", source_id),
+                _fact("import_fallback_binding", "Shared import binding", fallback.binding),
+            ))
+            for name, label, value, span in (
+                ("preferred", "Preferred module", fallback.preferred_module, fallback.preferred_span),
+                ("exception", "Fallback condition", fallback.exception_name, fallback.exception_span),
+                ("selected", "Fallback module", fallback.fallback_module, fallback.fallback_span),
+            ):
+                candidate_facts.extend((
+                    _fact(f"import_fallback_{name}", label, value),
+                    _fact(f"import_fallback_{name}_span", f"{label} span",
+                          f"L{span.line}:{span.column}-L{span.end_line}:{span.end_column}"),
+                ))
         candidate_facts.extend(_fact(f"path_{i}", "Path step",
             f"{file_sources[step.unit_id]} L{step.span.line}:{step.span.column} "
             f"{step.operation} {step.expression}") for i, step in enumerate(candidate.steps))

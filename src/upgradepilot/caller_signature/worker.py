@@ -31,7 +31,7 @@ from .evidence import (
 from .native_codec import decode_source_facts, read_argument_comparison, read_source_span
 from .result_codec import (
     decode_analysis_input, decode_analysis_result, encode_analysis_input,
-    encode_analysis_result,
+    encode_analysis_result, read_import_fallback,
 )
 from ..workspace.native_representation import (
     MAX_NATIVE_JSON_BYTES, json_bytes, object_fields, parse_json,
@@ -66,9 +66,14 @@ def produce_source_analysis(source_input: SourceAnalysisInput) -> SourceAnalysis
         comparison = read_argument_comparison(parse_json(json_bytes(pair["comparison"])), calls[candidate["call_id"]],
             signatures[candidate["signature_id"]], candidate["receiver_mode"])
         role = candidate["callee_role"]
+        module = module_map[role["source_id"], role["path"]]
+        steps = tuple(SourceRelationshipStep(s["unit_id"], read_source_span(s["span"]), s["operation"], s["expression"])
+                      for s in candidate["steps"])
+        premises = tuple(candidate["premises"])
+        fallback = (read_import_fallback(candidate["import_fallback"], steps, files, module, premises)
+                    if "import_fallback" in candidate else None)
         candidates.append(SourceComparisonCandidate(candidate["id"], candidate["root_call_id"], comparison,
-            tuple(SourceRelationshipStep(s["unit_id"], read_source_span(s["span"]), s["operation"], s["expression"]) for s in candidate["steps"]),
-            tuple(candidate["premises"]), module_map[role["source_id"], role["path"]]))
+            steps, premises, module, fallback))
     work = SourceAnalysisWork(len(catalog.files), sum(len(f.content.encode()) for f in catalog.files),
         sum(u.facts.ast_nodes for u in units if u.facts), len(calls) + len(signatures), len(candidates),
         allocation["scanned_ast_nodes"], allocation["fact_structure_cost"], allocation["comparison_structure_cost"],

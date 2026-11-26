@@ -35,7 +35,7 @@ from .analysis import (
 from .evidence import encode_fact_binding_traces, json_structure_cost
 from upgradepilot.workspace.native_representation import MAX_NATIVE_JSON_STRUCTURAL_TOKENS
 
-CORRESPONDENCE_VERSION = 2
+CORRESPONDENCE_VERSION = 3
 MAX_PATH_STEPS = 32
 MAX_DISCOVERY_DEPTH = 8
 MAX_DISCOVERY_GAPS = 256
@@ -67,6 +67,65 @@ class SourceRelationshipStep:
     span: SourceSpan
     operation: str
     expression: str
+
+
+@dataclass(frozen=True)
+class GuardedImportFallback:
+    """Source syntax for the selected import under a preceding import's handler."""
+
+    unit_id: str
+    preferred_module: str
+    preferred_span: SourceSpan
+    exception_name: str
+    exception_span: SourceSpan
+    fallback_module: str
+    fallback_span: SourceSpan
+    binding: str
+
+
+def matches_simple_import(text: str, module: str, binding: str) -> bool:
+    words = text.split()
+    return words == ["import", module, "as", binding] or (
+        binding == module and words == ["import", module]
+    )
+
+
+def _guarded_import_fallback(node, unit_id, text, binding):
+    """Recognize one alternate import for the same local name, including a nested guard."""
+    if len(node.body) != 1 or len(node.handlers) != 1 or node.orelse or node.finalbody:
+        return None
+    preferred, handler = node.body[0], node.handlers[0]
+    if (not isinstance(handler.type, ast.Name) or handler.type.id != "ModuleNotFoundError"
+            or handler.name is not None or len(handler.body) != 1):
+        return None
+    fallback = handler.body[0]
+    if isinstance(fallback, ast.Try):
+        # A success-only else (a deprecation warning in Starlette) is after the import.
+        if (len(fallback.body) != 1 or len(fallback.handlers) != 1 or fallback.finalbody
+                or not isinstance(fallback.handlers[0].type, ast.Name)
+                or fallback.handlers[0].type.id != "ModuleNotFoundError"
+                or fallback.handlers[0].name is not None
+                or len(fallback.handlers[0].body) != 1
+                or not isinstance(fallback.handlers[0].body[0], ast.Raise)):
+            return None
+        fallback = fallback.body[0]
+    modules = []
+    for imported in (preferred, fallback):
+        if not isinstance(imported, ast.Import) or len(imported.names) != 1:
+            return None
+        module = imported.names[0].name
+        if (not module.isidentifier()
+                or not matches_simple_import(ast.get_source_segment(text, imported) or "", module, binding)):
+            return None
+        modules.append(module)
+    preferred_module, fallback_module = modules
+    if (preferred_module == fallback_module
+            or handler.lineno != handler.type.lineno
+            or ast.get_source_segment(text, handler.type) != handler.type.id
+            or text.split("\n")[handler.lineno - 1].encode()[:handler.type.col_offset].strip() != b"except"):
+        return None
+    return GuardedImportFallback(unit_id, preferred_module, SourceSpan.of(preferred),
+        handler.type.id, SourceSpan.of(handler.type), fallback_module, SourceSpan.of(fallback), binding)
 
 
 def module_name(path: str) -> str | None:
@@ -532,11 +591,11 @@ class _SourceCandidates:
             self.gap("returned_value_or_callable_attribute_unsupported", unit, SourceSpan.of(node))
 
     def try_import_base_hypothesis(self, unit, base, reference, owner_class):
-        """Admit a syntax hypothesis, never repair the binder's unknown Try state.
+        """Return fallback syntax for an admitted hypothesis, or None to decline.
 
         The existing member resolver can retain conditional import alternatives.
-        Use it only for the narrowly identified unsupported import control; known
-        root writes/deletion/dynamic uncertainty must not resurrect stale imports.
+        A guarded direct import can qualify with no fallback relationship. Known
+        root writes/deletion/dynamic uncertainty block the hypothesis entirely.
         """
         spelling = _class_spelling(base)
         binding = reference.binding
@@ -544,31 +603,35 @@ class _SourceCandidates:
         if (not spelling or not binding.unknown_possible
             or "unsupported_write_or_control_flow" not in binding.reasons
             or not set(binding.reasons) <= allowed):
-            return False
+            return None
         root = spelling.split(".")[0]
         unsupported_lines = {step.line for step in binding.trace if step.operation == "unsupported_write_or_control_flow"}
         found = False
+        fallbacks = {}
         for node in _declarations(unit["tree"].body):
             if node.lineno >= owner_class.lineno:
                 continue
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and node.name == root:
-                return False
+                return None
             for child in ast.walk(node):
                 if isinstance(child, ast.Name) and child.id == root and isinstance(child.ctx, (ast.Store, ast.Del)):
-                    return False
+                    return None
                 if isinstance(child, ast.ExceptHandler) and child.name == root:
-                    return False
+                    return None
                 if isinstance(child, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.Delete)):
                     targets = getattr(child, "targets", [getattr(child, "target", None)])
                     if any(isinstance(n, ast.Name) and n.id == root for target in targets if target is not None for n in ast.walk(target)):
-                        return False
+                        return None
             if isinstance(node, ast.Try) and node.lineno in unsupported_lines:
                 for child in ast.walk(node):
                     if isinstance(child, (ast.Import, ast.ImportFrom)):
                         if any((alias.asname or (alias.name.split(".")[0] if isinstance(child, ast.Import) else alias.name)) == root
                                for alias in child.names):
                             found = True
-        return found
+                condition = _guarded_import_fallback(node, self.unit_ids[id(unit)], unit["file"].content, root)
+                if condition is not None:
+                    fallbacks[condition.fallback_span] = condition
+        return fallbacks if found else None
 
     def follow(self, unit, call, root_id, path=(), premises=(), ancestry=(), owner_class=None):
         if len(ancestry) >= self.max_depth:
@@ -602,6 +665,7 @@ class _SourceCandidates:
                             candidates.extend(self.declaration(unit, node, [], path,
                                 (*residual, "effective_local_callable_binding_not_established"), ()))
         func = call_node.func
+        fallback_by_path = {}
         if (owner_class is not None and isinstance(func, ast.Attribute) and func.attr == "__init__"
             and isinstance(func.value, ast.Call) and isinstance(func.value.func, ast.Name)
             and func.value.func.id == "super" and not func.value.args and not func.value.keywords):
@@ -621,14 +685,23 @@ class _SourceCandidates:
                                 (*path, self.step(unit, base, "declared_base")),
                                 (*premises, *ref.binding.reasons, "builtin_super_and_effective_mro_assumed")):
                                 candidates.append((*resolved[:-1], "one_receiver_assumed"))
-                        if self.try_import_base_hypothesis(unit, base, ref, owner_class):
+                        fallbacks = self.try_import_base_hypothesis(unit, base, ref, owner_class)
+                        if fallbacks is not None:
                             conditions = (*premises, *ref.binding.reasons,
                                 "builtin_super_and_effective_mro_assumed",
                                 "unresolved_try_import_base_source_hypothesis",
                                 "exception_matching_import_success_and_base_binding_not_established")
-                            for resolved in self.class_protocol(unit, base, "__init__",
-                                (*path, self.step(unit, base, "declared_base")), conditions, ()):
+                            base_step = self.step(unit, base, "declared_base")
+                            for resolved in self.class_protocol(unit, base, "__init__", (*path, base_step), conditions, ()):
                                 candidates.append((*resolved[:-1], "one_receiver_assumed"))
+                                destination, _, _, steps, _, _ = resolved
+                                selected = steps[len(path) + 1]
+                                fallback = fallbacks.get(selected.span)
+                                if (fallback is not None and selected.unit_id == fallback.unit_id
+                                        and selected.operation == "reexport"
+                                        and base_step.expression.split(".", 1)[0].strip() == fallback.binding
+                                        and destination["module"].package.replace("-", "_") == fallback.fallback_module):
+                                    fallback_by_path[steps] = fallback
         if not candidates:
             self.gap("callable_relationship_unresolved", unit, call.span, call.expression)
         for destination, definition, class_node, steps, conditions, receiver in candidates:
@@ -650,6 +723,8 @@ class _SourceCandidates:
                 signature_id=signature.fact_id, receiver_mode=receiver,
                 steps=[asdict(s) for s in steps], premises=list(dict.fromkeys(conditions)),
                 callee_role=asdict(destination["module"]))
+            if steps in fallback_by_path:
+                candidate["import_fallback"] = asdict(fallback_by_path[steps])
             def selector(fact):
                 source = self.units[fact.unit_id]["file"]
                 return dict(source_id=source.source_id, path=source.path, span=asdict(fact.span))

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Literal
 from .analysis import ArgumentComparison, SourceFacts, SourceSpan
 
 if TYPE_CHECKING:
-    from .correspondence import PythonSourceModule, SourceRelationshipStep
+    from .correspondence import GuardedImportFallback, PythonSourceModule, SourceRelationshipStep
     from ..workspace.source_access import RetainedSourceCatalog
 
 
@@ -132,6 +132,7 @@ class SourceComparisonCandidate:
     steps: tuple[SourceRelationshipStep, ...]
     premises: tuple[str, ...]
     callee_role: PythonSourceModule
+    import_fallback: GuardedImportFallback | None = None
 
 
 @dataclass(frozen=True)
