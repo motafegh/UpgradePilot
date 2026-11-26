@@ -1,0 +1,306 @@
+{
+  "annotation": {
+    "line": "3.10",
+    "states": {
+      "fastapi 0.162.5": "overlaps",
+      "starlette 1.7.0": "overlaps"
+    }
+  },
+  "combined_qualification_budget": {
+    "decoded_body_bytes": 1952650,
+    "elapsed_seconds": 17.268967102001625,
+    "github_requests": 46,
+    "limits": {
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180.0,
+      "github": 50,
+      "per_response_bytes": 8388608,
+      "providers": 100
+    },
+    "per_stage": {
+      "library_sources": 40,
+      "native_inputs": 3,
+      "sample_python_workflow": 1,
+      "source_closure": 6,
+      "target_context": 14
+    },
+    "provider_requests": 64,
+    "stops": []
+  },
+  "composed_prior_and_current_body_bytes": 2080492,
+  "exact_release_index_joins": {
+    "fastapi": {
+      "exact_response_sha256": "76a4b1394ea0d6494c8a59a24043fec0dcbc23cf35b19b24b7b5be3f927f0b1e",
+      "file": {
+        "filename": "fastapi-0.162.5-py3-none-any.whl",
+        "requires_python": ">=3.10",
+        "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+        "yanked": false
+      },
+      "source_url": "https://pypi.org/pypi/fastapi/0.162.5/json",
+      "version": "0.162.5"
+    },
+    "starlette": {
+      "exact_response_sha256": "bb99192bfa57ca9de6fbe4260f1a6e2a7c60c8cba54217413c049e402b06d2bb",
+      "file": {
+        "filename": "starlette-1.7.0-py3-none-any.whl",
+        "requires_python": ">=3.10",
+        "sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+        "yanked": false
+      },
+      "source_url": "https://pypi.org/pypi/starlette/1.7.0/json",
+      "version": "1.7.0"
+    }
+  },
+  "experiment_boundary_check": "passed",
+  "fallback_cue": [
+    "Comparison covers the httpx fallback if importing httpx2 raises ModuleNotFoundError (source-37)."
+  ],
+  "first_capture_query_body_recording_corrected": true,
+  "first_combined_capture_candidate_requests": 20,
+  "focused_tests_passed": {
+    "caller_signature_source_acquisition": 25,
+    "pypi": 24,
+    "selected_job_delivery": 1,
+    "worker": 11
+  },
+  "fresh_provider_attempts_across_probe_and_two_captures": 29,
+  "installed_cli_exact_starlette_literal_source": true,
+  "installed_cli_report_and_workspace_parity": true,
+  "largest_composed_body_bytes": 906573,
+  "live_candidate_and_workflow_responses": [
+    {
+      "bytes": 29799,
+      "sha256": "76a4b1394ea0d6494c8a59a24043fec0dcbc23cf35b19b24b7b5be3f927f0b1e",
+      "status": 200,
+      "url": "https://pypi.org/pypi/fastapi/0.162.5/json"
+    },
+    {
+      "bytes": 74,
+      "sha256": "1284874476055d984f7e79506c62d7a6b0d039920e9d5634925903c8e8d5473d",
+      "status": 404,
+      "url": "https://pypi.org/integrity/fastapi/0.162.5/fastapi-0.162.5-py3-none-any.whl/provenance"
+    },
+    {
+      "bytes": 64,
+      "sha256": "167e8ccbe7e514db86af12bf087fcd3b7b0f9e50689257ea770c8c89318a6011",
+      "status": 404,
+      "url": "https://pypi.org/integrity/fastapi/0.162.5/fastapi-0.162.5.tar.gz/provenance"
+    },
+    {
+      "bytes": 29799,
+      "sha256": "76a4b1394ea0d6494c8a59a24043fec0dcbc23cf35b19b24b7b5be3f927f0b1e",
+      "status": 200,
+      "url": "https://pypi.org/pypi/fastapi/0.162.5/json"
+    },
+    {
+      "bytes": 341,
+      "sha256": "7ee156e46364dd26354dc07cd3aff2cc759f76700906e1669d5c8c69b8785bd2",
+      "status": 200,
+      "url": "https://api.github.com/repos/fastapi/fastapi/git/ref/tags/0.162.5"
+    },
+    {
+      "bytes": 114,
+      "sha256": "e2e3c64edab172132f77ce89a0e8c190db1cd30936a096344f45893bd5b75f8a",
+      "status": 404,
+      "url": "https://api.github.com/repos/fastapi/fastapi/git/ref/tags/v0.162.5"
+    },
+    {
+      "bytes": 2392,
+      "sha256": "6b9011f9e400be31841fe57135463aab9cbd1354d64099baff769d89863876fd",
+      "status": 200,
+      "url": "https://api.github.com/repos/fastapi/fastapi/git/commits/5add7a458d629b07311d48261f696b5ac2bb9a5f"
+    },
+    {
+      "bytes": 906573,
+      "sha256": "d0e7214cad7de0765a8aca0f849eca442a12876390761f2f527f8e3335de298e",
+      "status": 200,
+      "url": "https://api.github.com/repos/fastapi/fastapi/git/trees/aace7afdb19f38dd9ef5d735f66d52f197318654?recursive=1"
+    },
+    {
+      "bytes": 1104,
+      "sha256": "2348c3706bede05059138c040b98c99b899199ba1ce49d859a14d5b1486bc670",
+      "status": 200,
+      "url": "https://api.github.com/repos/fastapi/fastapi/contents/fastapi/staticfiles.py?ref=5add7a458d629b07311d48261f696b5ac2bb9a5f"
+    },
+    {
+      "bytes": 8690,
+      "sha256": "bb99192bfa57ca9de6fbe4260f1a6e2a7c60c8cba54217413c049e402b06d2bb",
+      "status": 200,
+      "url": "https://pypi.org/pypi/starlette/1.7.0/json"
+    },
+    {
+      "bytes": 9754,
+      "sha256": "82b261fa6d8ed5f3b134e35c60599aa290d4c2af3b0fd59c6d829f30ca2ea312",
+      "status": 200,
+      "url": "https://pypi.org/integrity/starlette/1.7.0/starlette-1.7.0-py3-none-any.whl/provenance"
+    },
+    {
+      "bytes": 9597,
+      "sha256": "fcef2accabe2f765d429e1f4723767ec5ffbd1b66711db08a8a8754c401214a5",
+      "status": 200,
+      "url": "https://pypi.org/integrity/starlette/1.7.0/starlette-1.7.0.tar.gz/provenance"
+    },
+    {
+      "bytes": 8690,
+      "sha256": "bb99192bfa57ca9de6fbe4260f1a6e2a7c60c8cba54217413c049e402b06d2bb",
+      "status": 200,
+      "url": "https://pypi.org/pypi/starlette/1.7.0/json"
+    },
+    {
+      "bytes": 339,
+      "sha256": "d424c4591ef5dcf86327c0cddf6e9cf71a39bfafd908654f3a3723751cfad2a5",
+      "status": 200,
+      "url": "https://api.github.com/repos/Kludex/starlette/git/ref/tags/1.7.0"
+    },
+    {
+      "bytes": 114,
+      "sha256": "e2e3c64edab172132f77ce89a0e8c190db1cd30936a096344f45893bd5b75f8a",
+      "status": 404,
+      "url": "https://api.github.com/repos/Kludex/starlette/git/ref/tags/v1.7.0"
+    },
+    {
+      "bytes": 2169,
+      "sha256": "f22e5541e1ab88e6f923230cbc58390ee562d71fc9b37c4679d380efd42d19fd",
+      "status": 200,
+      "url": "https://api.github.com/repos/Kludex/starlette/git/commits/2269e9a08c1edd3dfdea865710f40f84c857b623"
+    },
+    {
+      "bytes": 38011,
+      "sha256": "ef9054f524fd0d2edfa3752d0e73dcc624fa69538706ee1ccc60abc5391daf4a",
+      "status": 200,
+      "url": "https://api.github.com/repos/Kludex/starlette/git/trees/1dd48d8932057f8403765b35e55486679bb39026?recursive=1"
+    },
+    {
+      "bytes": 13529,
+      "sha256": "a3aa395a0c6dbae954a3f63c4c0cab4a8fe3471f96ade5cb4c69e5686376f8dc",
+      "status": 200,
+      "url": "https://api.github.com/repos/Kludex/starlette/contents/starlette/staticfiles.py?ref=2269e9a08c1edd3dfdea865710f40f84c857b623"
+    },
+    {
+      "bytes": 1093,
+      "sha256": "70688cc148e3224253dc3b4eea2bb915f06218947a3f6c2c24ee7da1a2705e64",
+      "status": 200,
+      "url": "https://api.github.com/repos/fastapi/fastapi/contents/fastapi/testclient.py?ref=5add7a458d629b07311d48261f696b5ac2bb9a5f"
+    },
+    {
+      "bytes": 30779,
+      "sha256": "840292c32b661a1fe3088e4422d7df73fa58cd985a640dadf0cc6bfc548a0453",
+      "status": 200,
+      "url": "https://api.github.com/repos/Kludex/starlette/contents/starlette/testclient.py?ref=2269e9a08c1edd3dfdea865710f40f84c857b623"
+    },
+    {
+      "bytes": 2154,
+      "sha256": "9d808ba6c71c5e079793bf38c97616169691aab11adf87a7a879b93bbfdaeb2a",
+      "status": 200,
+      "url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/.github/workflows/python.yml?ref=391508134b083b8f54461c0b576e8f7985c6ecb4"
+    }
+  ],
+  "maintainer_action": "abstain",
+  "offline_replay_report_sha256": "ccada51c2a076a91ea1787cc2b10f32573b977a42bde0ac974acc024690a8e10",
+  "offline_replay_same_semantic_results_and_physical_costs": true,
+  "offline_replay_workspace_revision": "a70c463207a8461eaddfc83b6a9a6575",
+  "prior_capture_rows_used_in_byte_composition": 41,
+  "probe": {
+    "decoded_bytes": 38489,
+    "github_requests": 0,
+    "observations": {
+      "https://pypi.org/pypi/fastapi/0.162.5/json": {
+        "content_encoding": "gzip",
+        "content_length": "9585",
+        "decoded_bytes": 29799,
+        "response_sha256": "76a4b1394ea0d6494c8a59a24043fec0dcbc23cf35b19b24b7b5be3f927f0b1e"
+      },
+      "https://pypi.org/pypi/starlette/1.7.0/json": {
+        "content_encoding": "gzip",
+        "content_length": "3507",
+        "decoded_bytes": 8690,
+        "response_sha256": "bb99192bfa57ca9de6fbe4260f1a6e2a7c60c8cba54217413c049e402b06d2bb"
+      }
+    },
+    "provider_requests": 2,
+    "requests": [
+      {
+        "decoded_body_bytes": 29799,
+        "github_requests": 0,
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/0.162.5/json",
+        "provider_requests": 1,
+        "reason": null,
+        "stage": "exact_release_route_probe",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 8690,
+        "github_requests": 0,
+        "host": "pypi.org",
+        "path": "/pypi/starlette/1.7.0/json",
+        "provider_requests": 2,
+        "reason": null,
+        "stage": "exact_release_route_probe",
+        "state": "received",
+        "status": 200
+      }
+    ],
+    "results": {
+      "fastapi": {
+        "files": 2,
+        "source_url": "https://pypi.org/pypi/fastapi/0.162.5/json",
+        "state": "available",
+        "version": "0.162.5"
+      },
+      "starlette": {
+        "files": 2,
+        "source_url": "https://pypi.org/pypi/starlette/1.7.0/json",
+        "state": "available",
+        "version": "1.7.0"
+      }
+    }
+  },
+  "qualification_class": "normal CLI with diagnostic Simple Index filter; candidate and workflow bodies measured live, ordinary target and HTTPX responses on frozen capture controls",
+  "qualified_report_sha256": "1602d7c00b02d2d2b5ea785a214fe3a40aae0063a018ad4cc166c4e3c791ff41",
+  "qualified_workspace_revision": "9cbcc6107f6b44908a4f09eea34e9e57",
+  "recorder_successor_fresh_requests": 7,
+  "recorder_successor_reused_requests": 14,
+  "source_commit": "fdaee187",
+  "standard_httpx2_requirements": [
+    "httpx2>=2.0.0; extra == \"standard\""
+  ],
+  "standard_httpx_requirements": [
+    "httpx<1.0.0,>=0.23.0; extra == \"standard\""
+  ],
+  "starlette_requirement": "starlette>=0.46.0",
+  "target_execution": false,
+  "target_fixture_witnesses": [
+    {
+      "forwarding_line": 422,
+      "role": "proposed_dependency",
+      "selected_fallback_line": 39,
+      "state": "bound",
+      "version": "0.28.1"
+    },
+    {
+      "forwarding_line": 422,
+      "role": "proposed_dependency",
+      "selected_fallback_line": 39,
+      "state": "bound",
+      "version": "0.28.1"
+    },
+    {
+      "forwarding_line": 422,
+      "role": "old_dependency",
+      "selected_fallback_line": 39,
+      "state": "bound",
+      "version": "0.27.2"
+    },
+    {
+      "forwarding_line": 422,
+      "role": "old_dependency",
+      "selected_fallback_line": 39,
+      "state": "bound",
+      "version": "0.27.2"
+    }
+  ],
+  "workflow_sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131"
+}
