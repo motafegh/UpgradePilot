@@ -1,0 +1,958 @@
+{
+  "disposition": "Independent opt-in selected the relevant module and preserved a one-sided comparison at the native request limit; no complete product pair qualified.",
+  "frozen_case_and_policy": {
+    "product_revision": "09dbac6f",
+    "wheel_sha256": "c0d4402f7e2c9a75c4875e1f669d5a30f15d8fa69b137c44d56f7543db924e6e",
+    "candidate_order": [
+      {
+        "repo": "SuryaXanden/Automated-Socialmedia-Posting",
+        "pr": 8,
+        "adapter": "flask"
+      },
+      {
+        "repo": "neondatabase/examples",
+        "pr": 208,
+        "adapter": "flask"
+      },
+      {
+        "repo": "Azure-Samples/azure-search-openai-demo",
+        "pr": 2976,
+        "adapter": "quart"
+      },
+      {
+        "repo": "amundsen-io/amundsen",
+        "pr": 2334,
+        "adapter": "flask"
+      },
+      {
+        "repo": "awslabs/harmonix",
+        "pr": 53,
+        "adapter": "flask"
+      },
+      {
+        "repo": "soxoj/maigret",
+        "pr": 2288,
+        "adapter": "flask"
+      },
+      {
+        "repo": "soxoj/maigret",
+        "pr": 1846,
+        "adapter": "flask"
+      }
+    ],
+    "eligibility": [
+      "First eligible candidate in order. Exact supported Werkzeug version change and one visible Flask or Quart adapter declaration within the normal 16 target-source file attempts.",
+      "Exact-head observable call through the adapter to a plausible changed-dependency call in a relative helper. Independently show the helper's lexical import and call, without running any caller/signature comparison or consulting old/proposed API outcomes before freeze.",
+      "Prefer standalone source follow-through against the ordinary caller-signature baseline. A workflow or Python-ranked choice is unnecessary for this responsibility."
+    ],
+    "screening": {
+      "max_rest_and_raw_reads": 60,
+      "max_public_diff_reads": 7,
+      "max_decoded_file_bytes": 1048576
+    },
+    "policy": {
+      "github_requests": 50,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180,
+      "source_request_reserve": 24,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 4
+    },
+    "comparison": [
+      "Freeze checkout, wheel, exact PR transition, eligible source locators, policy, paired evidence criteria and transcript handling before either normal CLI invocation.",
+      "Use one first-use response ledger across two modes with no selector/worker injection. Each invocation gets its own original product budget and charges its own responses.",
+      "Success requires a report with a newly supported old/proposed comparison for the same real target call, same adapter call and callable, retained original source and premises, and successful offline recovery. Compare displaced coverage and exact provider cost. Preserve unresolved, inconclusive or unchanged outcomes."
+    ],
+    "case": {
+      "repo": "kittinan/spotify-github-profile",
+      "pr": 140,
+      "adapter": "flask",
+      "base": "c82570c499c94609c0dfe7802154be674d38b32a",
+      "head": "3780b32fabc0aa4d8ee50a50092db8043143f280",
+      "pr_observation_sha256": "436c9894d8d3ee61153dbebeb4c124c16c53487a96eb459fe780ecda691003bf",
+      "dependency_path": "api/requirements.txt",
+      "dependency_paths": [
+        "api/requirements.txt"
+      ],
+      "old": "3.1.5",
+      "proposed": "3.1.6",
+      "changed_source_sha256": "ce4d73cbd2779f2fb77364767cd9d163bda90e1feb3f4842702042c72c664835",
+      "adapter_declarations": [
+        {
+          "path": "api/requirements.txt",
+          "sha256": "c35c6dc3cff7cb0bd4075153fccb492c3daf625ad8605e4d70f4ea3fbf8765e1"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "66ab746d718a218c7c35b9cdad875510ad2fe9aeedc8084ac01adcb3dfd853e2"
+        }
+      ],
+      "result": "eligible",
+      "adapter_manifest": "api/requirements.txt",
+      "adapter_constraint": "==3.1.3",
+      "adapter_manifest_sha256": "c35c6dc3cff7cb0bd4075153fccb492c3daf625ad8605e4d70f4ea3fbf8765e1",
+      "orientation": {
+        "adapter_repository": "pallets/flask",
+        "adapter_tag": "3.1.3",
+        "adapter_revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+        "adapter_tag_is_pinned": true,
+        "adapter_entry": "src/flask/__init__.py",
+        "adapter_entry_sha256": "987bc937d4b0b65d510ed8c2a82218c889e22bf499fe5fe1a94ca73b382927da",
+        "reexport_line": 22,
+        "adapter_helper": "src/flask/helpers.py",
+        "adapter_helper_sha256": "ac96607bbfc9dbcf09d5442fe7e90d7f8a046b0df7d8f3fc3535b44112016d71",
+        "target_path": "api/app.py",
+        "target_line": 26,
+        "adapter_symbol": "redirect",
+        "adapter_body_call_lines": [
+          270
+        ],
+        "changed_origins": [
+          "werkzeug.utils.redirect"
+        ]
+      }
+    },
+    "mode_order": [
+      "baseline",
+      "follow"
+    ],
+    "capture": {
+      "target_pr": "Same-turn REST screening responses for the exact prepared URLs.",
+      "target_head_text": "For known contents requests at the selected head, wrap complete exact GitHub raw text only after matching the inspected head tree Git blob hash and regular file mode. Preserve the generated envelope and response origin separately from live REST.",
+      "prior_library": "The preserved public Werkzeug provider transcript may supply the exact shared version inputs by complete prepared response identity. Preserve its origin.",
+      "missing_frames": "Fetch admitted exact target and Flask/Werkzeug provider responses anonymously at first use. Freeze each response for the sibling mode and offline replay.",
+      "shared_new_wire_limit": {
+        "github": 27,
+        "total": 45
+      }
+    }
+  },
+  "supplement_scope": {
+    "reason": "The original short list did not admit a source path. Add a bounded list of Flask web applications with plausible redirect and authentication routes identified in their public repository records.",
+    "candidate_order": [
+      {
+        "repo": "kittinan/spotify-github-profile",
+        "pr": 140,
+        "adapter": "flask"
+      },
+      {
+        "repo": "dribdat/dribdat",
+        "pr": 535,
+        "adapter": "flask"
+      },
+      {
+        "repo": "LoginRadius/engineering-blog-samples",
+        "pr": 287,
+        "adapter": "flask"
+      },
+      {
+        "repo": "soranoo/TradingView-Free-Webhook-Alerts",
+        "pr": 117,
+        "adapter": "flask"
+      },
+      {
+        "repo": "aws/aws-lambda-web-adapter",
+        "pr": 457,
+        "adapter": "flask"
+      }
+    ],
+    "max_additional_rest_and_raw_reads": 28,
+    "admission": "Same eligibility, isolated from old/proposed results. Reserve fresh GitHub allowance for the real comparison."
+  },
+  "agreement_scope": {
+    "reason": "The original PR prefilter rejected two-file PRs before checking agreement. The shipped exact requirement comparator accepts a single identical transition across several admitted requirements sources. Align the screen with that product contract before any comparison.",
+    "candidate_order": [
+      {
+        "repo": "kittinan/spotify-github-profile",
+        "pr": 140,
+        "adapter": "flask"
+      },
+      {
+        "repo": "soranoo/TradingView-Free-Webhook-Alerts",
+        "pr": 117,
+        "adapter": "flask"
+      }
+    ],
+    "max_additional_rest_and_raw_reads": 24,
+    "admission": "Use the installed exact requirement extractor for each declared source and the product's PR-wide agreement check. The visible adapter declarations must agree in constraint, marker, and extras; preserve each declaration identity. The exact-head call and relative body criteria remain unchanged."
+  },
+  "native_screen_scope": {
+    "reason": "The two agreement candidates include a structured dependency source. Use the same installed PR-wide dependency analysis as the real CLI and read exact base/head text for that source. This removes a screen-only refusal while preserving the original call-path requirements.",
+    "extra_rest_and_raw_reads": 24,
+    "candidate_order_unchanged": true,
+    "library_replay": "For a selected case, previously preserved same-version public library responses may be shared across both modes by exact method, URL, query and Accept. The fresh target has no prior product comparison. Record the count and origin of every reused response and keep a single ordinary charged ledger per mode."
+  },
+  "screening_dispositions": {
+    "initial-results": [
+      {
+        "repo": "SuryaXanden/Automated-Socialmedia-Posting",
+        "pr": 8,
+        "adapter": "flask",
+        "base": "7faa93895a0f33b80850072abfb985fa3bcbbb56",
+        "head": "f9eb250f08ab91375dafc003ee2d48fb42c1eda3",
+        "pr_observation_sha256": "3cc42f12ab911e68cff4eb1ffdd7a3f9f72fa3af7dac8e3427131fc05a47e0de",
+        "dependency_path": "requirements.txt",
+        "old": "2.2.3",
+        "proposed": "3.0.1",
+        "changed_source_sha256": "13154b81c756e2e9f2349d675246b5784249ec7ce5b0cc2544134f70ee1535de",
+        "result": "no target-reached adapter helper with a changed-package import and call",
+        "adapter_manifest": "requirements.txt",
+        "adapter_constraint": "==2.3.2",
+        "admitted_source_anchors": 2
+      },
+      {
+        "repo": "neondatabase/examples",
+        "pr": 208,
+        "adapter": "flask",
+        "base": "28779955768ecd60301916a62065aee1c3528f48",
+        "head": "a7e89a8346481a6cdf56c74d490ea6d1ee486734",
+        "pr_observation_sha256": "688a1fe282b2acb4790c0f8440f78b0797f23d2fd7b262c2ba640fb968f2a446",
+        "dependency_path": "with-flask/requirements.txt",
+        "old": "3.0.6",
+        "proposed": "3.1.6",
+        "changed_source_sha256": "4b6f12ec1fa98cce6dace8acbf1a62d59e9ea4484d37d071f43dbe0a3474803e",
+        "result": "target call through adapter entry not observed"
+      },
+      {
+        "repo": "Azure-Samples/azure-search-openai-demo",
+        "pr": 2976,
+        "adapter": "quart",
+        "base": "81963466c953671181deaad11e5179a24430569f",
+        "head": "54918764f15a8006cafbdd571473f1603a43d31a",
+        "pr_observation_sha256": "311fad1dc1dd24c4ae39e0fb6400d3706a24aa2c59decc58bb7e8f61b417a6cf",
+        "dependency_path": "app/backend/requirements.txt",
+        "old": "3.1.5",
+        "proposed": "3.1.6",
+        "changed_source_sha256": "89946796c270d5b93c8acde80ec0ed020237ddb699a3ce0eb1911f2d3b5269ab",
+        "result": "one admitted adapter declaration not established",
+        "declarations": 2
+      },
+      {
+        "repo": "amundsen-io/amundsen",
+        "pr": 2334,
+        "adapter": "flask",
+        "base": "2a6ba5803e4849e570bf8106b45495cb02c28483",
+        "head": "fc9806e47a55b76b16c61799771a28fe6e105e70",
+        "pr_observation_sha256": "861713fe0fe5b5325a5dc5586d8676466084ac704f7be56e8cac5ed7541bed14",
+        "dependency_path": "requirements-common.txt",
+        "old": "3.0.3",
+        "proposed": "3.1.6",
+        "changed_source_sha256": "f49a79e9e265da2aa418f84fd021bf55b9fe3061283d795c412f724d6e3e90ba",
+        "result": "target call through adapter entry not observed"
+      },
+      {
+        "repo": "awslabs/harmonix",
+        "pr": 53,
+        "adapter": "flask",
+        "base": "14e5ae74a703892b0a842d897928e2704f9af026",
+        "head": "8db21701d98bfe5341085624809c8c9f81123d8b",
+        "pr_observation_sha256": "133b5247b2e0b5283698cca47eb241b555c3cac671412e308bd5c743457f0f75",
+        "dependency_path": "backstage-reference/templates/example-python-flask/content/requirements.txt",
+        "old": "2.3.7",
+        "proposed": "3.0.1",
+        "changed_source_sha256": "3f30390088de10e2ddd5cdf79654b4d4f1536140f2405b178a51460cdf548f26",
+        "result": "no target-reached adapter helper with a changed-package import and call",
+        "adapter_manifest": "backstage-reference/templates/example-python-flask/content/requirements.txt",
+        "adapter_constraint": "==2.3.3",
+        "admitted_source_anchors": 2
+      },
+      {
+        "repo": "soxoj/maigret",
+        "pr": 2288,
+        "adapter": "flask",
+        "result": "static eligibility request limit"
+      },
+      {
+        "repo": "soxoj/maigret",
+        "pr": 1846,
+        "adapter": "flask",
+        "result": "static eligibility request limit"
+      }
+    ],
+    "supplement-results": [
+      {
+        "repo": "kittinan/spotify-github-profile",
+        "pr": 140,
+        "adapter": "flask",
+        "result": "outside single changed file screening",
+        "count": 2
+      },
+      {
+        "repo": "dribdat/dribdat",
+        "pr": 535,
+        "adapter": "flask",
+        "base": "0c0a07cdfb245eb07f1ad83f521d87d8acf24ca5",
+        "head": "41a400ab9182ad8a90c83c8f5d7486e11171e92b",
+        "pr_observation_sha256": "1ce725b122bb2bd266e3031917d2ab0043eab99272836c7d87f8dd66cd101324",
+        "result": "unsupported exact Werkzeug version change",
+        "path": "requirements/prod.txt"
+      },
+      {
+        "repo": "LoginRadius/engineering-blog-samples",
+        "pr": 287,
+        "adapter": "flask",
+        "base": "3f8747c12706eebec6fd68ab25a1f5d3edc7c772",
+        "head": "ca4405293dafe39253326723a1ed08886a7a0d1c",
+        "pr_observation_sha256": "b6b799be111efebf49a3a7bd63afd7ce981575b95fc3e5fb779360230ed51412",
+        "dependency_path": "Flask/loginRadius-flask-auth/requirements.txt",
+        "old": "2.0.1",
+        "proposed": "2.2.3",
+        "changed_source_sha256": "7fd88063698839b9e0e6b59e3973512a761dad110988bc07a3defbbfe3b2e495",
+        "result": "no target-reached adapter helper with a changed-package import and call",
+        "adapter_manifest": "Flask/loginRadius-flask-auth/requirements.txt",
+        "adapter_constraint": "==2.0.1",
+        "admitted_source_anchors": 18
+      },
+      {
+        "repo": "soranoo/TradingView-Free-Webhook-Alerts",
+        "pr": 117,
+        "adapter": "flask",
+        "result": "outside single changed file screening",
+        "count": 2
+      },
+      {
+        "repo": "aws/aws-lambda-web-adapter",
+        "pr": 457,
+        "adapter": "flask",
+        "result": "static eligibility request limit"
+      }
+    ],
+    "agreement-results": [
+      {
+        "repo": "kittinan/spotify-github-profile",
+        "pr": 140,
+        "adapter": "flask",
+        "base": "c82570c499c94609c0dfe7802154be674d38b32a",
+        "head": "3780b32fabc0aa4d8ee50a50092db8043143f280",
+        "pr_observation_sha256": "436c9894d8d3ee61153dbebeb4c124c16c53487a96eb459fe780ecda691003bf",
+        "result": "structured transition outside exact requirements screening",
+        "paths": [
+          "api/requirements.txt",
+          "pyproject.toml"
+        ]
+      },
+      {
+        "repo": "soranoo/TradingView-Free-Webhook-Alerts",
+        "pr": 117,
+        "adapter": "flask",
+        "base": "33be07f014ed5c34f17e8f94069048ab1ae33b88",
+        "head": "758effc652840df406dcf96e21b86837972d57a8",
+        "pr_observation_sha256": "80bc5e89be4e3cac8f6d96d18dcc3cf48583faa9efb554ef60bae82067f2869c",
+        "result": "structured transition outside exact requirements screening",
+        "paths": [
+          "pyproject.toml",
+          "requirements.txt"
+        ]
+      }
+    ],
+    "screen-results": [
+      {
+        "repo": "kittinan/spotify-github-profile",
+        "pr": 140,
+        "adapter": "flask",
+        "base": "c82570c499c94609c0dfe7802154be674d38b32a",
+        "head": "3780b32fabc0aa4d8ee50a50092db8043143f280",
+        "pr_observation_sha256": "436c9894d8d3ee61153dbebeb4c124c16c53487a96eb459fe780ecda691003bf",
+        "dependency_path": "api/requirements.txt",
+        "dependency_paths": [
+          "api/requirements.txt"
+        ],
+        "old": "3.1.5",
+        "proposed": "3.1.6",
+        "changed_source_sha256": "ce4d73cbd2779f2fb77364767cd9d163bda90e1feb3f4842702042c72c664835",
+        "adapter_declarations": [
+          {
+            "path": "api/requirements.txt",
+            "sha256": "c35c6dc3cff7cb0bd4075153fccb492c3daf625ad8605e4d70f4ea3fbf8765e1"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "66ab746d718a218c7c35b9cdad875510ad2fe9aeedc8084ac01adcb3dfd853e2"
+          }
+        ],
+        "result": "eligible",
+        "adapter_manifest": "api/requirements.txt",
+        "adapter_constraint": "==3.1.3",
+        "adapter_manifest_sha256": "c35c6dc3cff7cb0bd4075153fccb492c3daf625ad8605e4d70f4ea3fbf8765e1",
+        "orientation": {
+          "adapter_repository": "pallets/flask",
+          "adapter_tag": "3.1.3",
+          "adapter_revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+          "adapter_tag_is_pinned": true,
+          "adapter_entry": "src/flask/__init__.py",
+          "adapter_entry_sha256": "987bc937d4b0b65d510ed8c2a82218c889e22bf499fe5fe1a94ca73b382927da",
+          "reexport_line": 22,
+          "adapter_helper": "src/flask/helpers.py",
+          "adapter_helper_sha256": "ac96607bbfc9dbcf09d5442fe7e90d7f8a046b0df7d8f3fc3535b44112016d71",
+          "target_path": "api/app.py",
+          "target_line": 26,
+          "adapter_symbol": "redirect",
+          "adapter_body_call_lines": [
+            270
+          ],
+          "changed_origins": [
+            "werkzeug.utils.redirect"
+          ]
+        }
+      }
+    ]
+  },
+  "screening_read_count": 112,
+  "screening_reads_by_host": {
+    "raw.githubusercontent.com": 79,
+    "api.github.com": 33
+  },
+  "transport_prefilter_correction": {
+    "cause": "The private transport scope assumed Flask and Werkzeug were the only public packages queried. The ordinary explorer also queried the public firebase-admin index, before producing a comparison.",
+    "resolution": "Keep HTTPS and anonymous GitHub/PyPI host boundaries and the original wire limits. Allow ordinary product-client source and package lookups under its normal candidate, association, and shared acquisition policy. Reuse the three completed fresh target frames. The case and admission criteria were frozen before any comparison output."
+  },
+  "wire_allowance_adjustment": {
+    "reason": "The private cross-run wire cap assumed the current public rate-limit reading should be shared with prior screening. The follow mode has unobserved exact-release requests and must be allowed to meet the unchanged native 50-GitHub-request policy.",
+    "shared_new_wire_limit": {
+      "github": 33,
+      "total": 45
+    },
+    "scope": "Allow six more direct public GET dispatches in the private capture layer. Preserve the case, per-mode product policy, frozen baseline responses, provenance, same anonymous direct route, and criteria. No follow-mode output was examined before this adjustment. Any actual provider refusal remains in the acquisition ledger."
+  },
+  "distinct_fresh_response_counts": {
+    "api.github.com": 30,
+    "pypi.org": 11
+  },
+  "first_use_frame_index_sha256": "0fd15372fa4da4ba5e825165afcfcd20466455f80776afefa92ec9e857f9b723",
+  "exact_head_text_envelope_receipts": {
+    "pyproject.toml": {
+      "raw_sha256": "66ab746d718a218c7c35b9cdad875510ad2fe9aeedc8084ac01adcb3dfd853e2",
+      "git_blob_sha1": "fe0fdba55bd582989695f98da0911b6f1fde33a2",
+      "envelope_sha256": "ae34d5b8f843bb76e2f8bbbac2a7490cac8501226c076c5107dbf1a2c81c87b0",
+      "raw_bytes": 1283,
+      "envelope_bytes": 1784
+    },
+    "api/requirements.txt": {
+      "raw_sha256": "c35c6dc3cff7cb0bd4075153fccb492c3daf625ad8605e4d70f4ea3fbf8765e1",
+      "git_blob_sha1": "4afddf301752ab2032e7bdda3b4e1ccbae976331",
+      "envelope_sha256": "95c84c0a2ff8ab0e9a7dbfe20bca004191c195fc351bb02049a1e1d3a1f60ab4",
+      "raw_bytes": 283,
+      "envelope_bytes": 458
+    },
+    "api/app.py": {
+      "raw_sha256": "4e2b1e0f40d72d23949d9d6013e18e2d0476b063277c68303fc2f826c9d61658",
+      "git_blob_sha1": "7b248ad9d92d6e4239458d563bce049e542d3395",
+      "envelope_sha256": "66f217fd22b54b2309123efd08bb65b477a0f583bfe629fdf540268fa9e07d6c",
+      "raw_bytes": 1378,
+      "envelope_bytes": 1908
+    },
+    "api/callback.py": {
+      "raw_sha256": "60961a35968d56b826fb13ea0c01d1a6f6ac5aab42986b0595309f3be09df03f",
+      "git_blob_sha1": "dbffc5408f75d4093ecaa5bb588365d47bdae529",
+      "envelope_sha256": "5f674b794903563bfa60aa7c9b525479412e601ac977c7c8b39d7669537c9cbe",
+      "raw_bytes": 1783,
+      "envelope_bytes": 2453
+    },
+    "api/login.py": {
+      "raw_sha256": "7176f2cd706971ebaf9e326700377bdcbd0076ad8737045cd1cdef3105627b4d",
+      "git_blob_sha1": "f99bc23a7e8bea426e7228c1cf6941ce4c561c58",
+      "envelope_sha256": "3284881856c4bcf6004b06ee09159714e697a54ffc6af19dc3a4cec14c775408",
+      "raw_bytes": 516,
+      "envelope_bytes": 758
+    },
+    "api/theme_dev.py": {
+      "raw_sha256": "12019471d00775fd2b0a5c7c41860bbd38237e2aa62e077f7fcc3e4a11c19c92",
+      "git_blob_sha1": "6291f3e39a03ac4279d2d4bee59b6cea60d483b9",
+      "envelope_sha256": "3f0198614f7861ab3df0c9e659249970993cedfc4d3aa9c8519e99daa19c9867",
+      "raw_bytes": 892,
+      "envelope_bytes": 1266
+    },
+    "api/view.py": {
+      "raw_sha256": "24a9fc8c20ca253adea32e7cc5062a10686c725fc536ad888abccf3bd2c061a2",
+      "git_blob_sha1": "37bfd980af2e6b43b9ecbaae759a377945fd06c1",
+      "envelope_sha256": "8f36a90498db0af01649560e81596b1ae484552401e97ccb862d9a11d75f6fbd",
+      "raw_bytes": 14028,
+      "envelope_bytes": 18773
+    },
+    "tests/__init__.py": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "envelope_sha256": "f8beaa4966fbd5502137718b845f3a937a7f603a4648489d1829b569c6f9e4ce",
+      "raw_bytes": 0,
+      "envelope_bytes": 75
+    },
+    "tests/test_api_callback.py": {
+      "raw_sha256": "dc21f476209f9f86d16bb43bc7e7a8114a3a772ee2044186defddeb6f1ec6088",
+      "git_blob_sha1": "b30d8da151636d2925d80c8d38519b50e32f5b6b",
+      "envelope_sha256": "c2793eb3fef9e236aaf4124de50f5b6167cce36dd1070262f2374233cdbc9ab1",
+      "raw_bytes": 8439,
+      "envelope_bytes": 11336
+    },
+    "tests/test_api_login.py": {
+      "raw_sha256": "c2fad005a1a04e3d4281ee8d26443003d0e1ead1770e12912a6b758dcb5e609b",
+      "git_blob_sha1": "8316a9d0db7119559765e0fc5dbd383d954271ed",
+      "envelope_sha256": "e613a2db7b8609c10da94c7708b9fed010e63858cd1e20721591a3048eb63525",
+      "raw_bytes": 8015,
+      "envelope_bytes": 10769
+    },
+    "tests/test_api_view.py": {
+      "raw_sha256": "968c099abd28ecbf2950f56be28f33cbbada6466317b85401e2c216eaf66c74f",
+      "git_blob_sha1": "77f4be026b228668863d76f02c57308ebd24835c",
+      "envelope_sha256": "efbbf0d9790cc9b5b1b966d1e09daf3acba1f42e0a2cdb5cae69bd4acaa9c913",
+      "raw_bytes": 14711,
+      "envelope_bytes": 19696
+    },
+    "tests/test_api_view_sg.py": {
+      "raw_sha256": "e81f97749a2ece0be437fa09d5b1bc2a3928f8a6bb8350d72c46bbab781a8326",
+      "git_blob_sha1": "22354f9b5421ce36dd91c17480c79fef29218c9b",
+      "envelope_sha256": "7eb395e69f781925ad068132b8e5f6ea83b19be33a8f9639ab623dbeb419174f",
+      "raw_bytes": 19467,
+      "envelope_bytes": 26039
+    },
+    "tests/test_util_profanity.py": {
+      "raw_sha256": "020de9fd61fbcdb761a7fcf4d7062731d8c2103350c8c1d7f420e239d2db801f",
+      "git_blob_sha1": "12fa14dadd4a3b5d6cbce060c2454c1806f772bd",
+      "envelope_sha256": "0e9bc038d44c8321f4255b3e2c650a73727a2ba513bc98e624aa56af5191c0fb",
+      "raw_bytes": 717,
+      "envelope_bytes": 1042
+    },
+    "tests/test_util_remaster.py": {
+      "raw_sha256": "efb720a4fe040cbe4aa8ed3699849602d98a7e6e7d37ca5115716d2a4a744c2d",
+      "git_blob_sha1": "f8c507221c857d6b3203eeba781201478b4f5655",
+      "envelope_sha256": "ec8544e433754e3c987c8c3f2a25f51f209ac65ffcace7a71cfb5a04edaddc5e",
+      "raw_bytes": 1213,
+      "envelope_bytes": 1705
+    },
+    "util/__init__.py": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "envelope_sha256": "755bc5e518ad718f366e72f00893011f4fb2b894fdc52ef0e7daa62992af41fd",
+      "raw_bytes": 0,
+      "envelope_bytes": 74
+    },
+    "util/firestore.py": {
+      "raw_sha256": "a371ace94695b4d2a27ab41d7bddfb798730b8ef0c87822eb62e8c2faddf6df4",
+      "git_blob_sha1": "34b36516a515b045d335340201570f35ae3de44e",
+      "envelope_sha256": "2b435dab539411afb83990758e8b58be1e9a4fb2e66df1e5569c79299db114e4",
+      "raw_bytes": 765,
+      "envelope_bytes": 1095
+    }
+  },
+  "outputs": {
+    "baseline": {
+      "report_id": "72fc4927-0dfe-4344-b81c-ea3a580964f6",
+      "report_sha256": "bcec9f114678bd19411beb7d24333d980c84aae054863a7cd4c19c0b4aa3cf93",
+      "workspace_revision": "2f6e1a789304496991b97e1b67f6f507",
+      "case_versions": [
+        "3.1.5",
+        "3.1.6"
+      ],
+      "source_format": 1,
+      "module_attempts": 12,
+      "material_omissions": 10,
+      "additional_omitted_paths": [],
+      "retained_files": 28,
+      "github_charges": 44,
+      "provider_charges": 54,
+      "decoded_body_bytes": 808458,
+      "charges_by_stage": {
+        "native_inputs": {
+          "api.github.com": 5
+        },
+        "target_context": {
+          "api.github.com": 18
+        },
+        "library_sources": {
+          "pypi.org": 10,
+          "api.github.com": 11
+        },
+        "source_closure": {
+          "api.github.com": 10
+        }
+      },
+      "origins": {
+        "same_turn_pr_prefetch": 3,
+        "first_use_rest_replay": 5,
+        "exact_head_text_envelope": 17,
+        "fresh_rest_or_registry_wire": 29
+      },
+      "network_dispatches": {
+        "pypi.org": 8,
+        "api.github.com": 21
+      },
+      "acquisition_stops": [],
+      "source_coverage": "partial",
+      "action": "abstain",
+      "analysis_sha256": "7e893aa62d1d073367cdd412800ce25235ca47d4ee6dc31eca9a69708f1aba82",
+      "final_worker_seconds": 2.760442515998875,
+      "witnesses": 120,
+      "baseline_witnesses_preserved": 120,
+      "new_witnesses": 0,
+      "paired_witnesses_admitted": 0,
+      "old_and_proposed_modules": [],
+      "selection": null,
+      "offline_replay_results_and_request_order_match": true,
+      "offline_report_and_workspace_reopen": true
+    },
+    "follow": {
+      "report_id": "ad8b8c33-2d9b-4ad4-88c5-d0479f1f2f54",
+      "report_sha256": "06b84bb9a636636159c4d3a8384e950aa88f94e34f80cf76b249cd17fe8c9062",
+      "workspace_revision": "ef743f84b665460fafec97b86d2c6c4e",
+      "case_versions": [
+        "3.1.5",
+        "3.1.6"
+      ],
+      "source_format": 5,
+      "module_attempts": 12,
+      "material_omissions": 12,
+      "additional_omitted_paths": [
+        "src/flask/cli.py",
+        "src/flask/signals.py"
+      ],
+      "retained_files": 27,
+      "github_charges": 50,
+      "provider_charges": 68,
+      "decoded_body_bytes": 950090,
+      "charges_by_stage": {
+        "native_inputs": {
+          "api.github.com": 5
+        },
+        "target_context": {
+          "api.github.com": 18
+        },
+        "library_sources": {
+          "pypi.org": 10,
+          "api.github.com": 11
+        },
+        "source_closure": {
+          "api.github.com": 8
+        },
+        "adapter_call_pair": {
+          "pypi.org": 8,
+          "api.github.com": 8
+        }
+      },
+      "origins": {
+        "same_turn_pr_prefetch": 3,
+        "first_use_rest_replay": 33,
+        "exact_head_text_envelope": 17,
+        "fresh_rest_or_registry_wire": 9,
+        "retained_werkzeug_provider": 6
+      },
+      "network_dispatches": {
+        "pypi.org": 3,
+        "api.github.com": 6
+      },
+      "acquisition_stops": [
+        {
+          "stage": "adapter_call_pair",
+          "reason": "acquisition_request_limit"
+        }
+      ],
+      "source_coverage": "partial",
+      "action": "abstain",
+      "analysis_sha256": "07dedc4249d93292dec2e7f3ced26308459fe19a89d2dc4a67abbd66605430b1",
+      "final_worker_seconds": 2.626835770002799,
+      "witnesses": 123,
+      "baseline_witnesses_preserved": 120,
+      "new_witnesses": 3,
+      "paired_witnesses_admitted": 0,
+      "old_and_proposed_modules": [
+        {
+          "version": "3.1.5",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "revision": "e3d06f4b1f7ff40a63eba78f81d9cda18f805d6d",
+          "repository": "pallets/werkzeug",
+          "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+          "problem": null
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "refused",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "repository": "pallets/werkzeug",
+          "source_sha256": null,
+          "problem": "acquisition_request_limit"
+        }
+      ],
+      "selection": {
+        "state": "partial",
+        "reason": "incomplete_exact_pair",
+        "preliminary_input_sha256": "3ad147ff37abbd40e18a3e9345c574c32ee5bfbf91b3800993eaa59a4af2a660",
+        "preliminary_elapsed": {
+          "seconds_hex": "0x1.407dab1bce000p+1",
+          "scope": "adapter_call_preparation"
+        },
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "module": "werkzeug.utils",
+            "target_file": "41f5c00690365ba019dcf8c5b0870db85e519369d2d0eda46c4f2fddef03fa3c",
+            "target_span": {
+              "line": 26,
+              "column": 11,
+              "end_line": 26,
+              "end_column": 33
+            },
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "line": 270,
+              "column": 11,
+              "end_line": 270,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "a9214787f6f4743f7ec2fe43e08a43d90f94a79e0ddf72a11d7874f031e549d0",
+            "target_span": {
+              "line": 14,
+              "column": 11,
+              "end_line": 14,
+              "end_column": 30
+            },
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "line": 270,
+              "column": 11,
+              "end_line": 270,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "0b2babb962e7e9da1671214cbd00aee2558720d8d4daa24b4abfd77eec9e93c5",
+            "target_span": {
+              "line": 411,
+              "column": 15,
+              "end_line": 411,
+              "end_column": 46
+            },
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "line": 270,
+              "column": 11,
+              "end_line": 270,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "offline_replay_results_and_request_order_match": true,
+      "offline_report_and_workspace_reopen": true
+    }
+  },
+  "old_source_reopened": true,
+  "normal_proposed_route_unreached_based_on_lafs_same_version": [
+    "/repos/pallets/werkzeug/git/ref/tags/v3.1.6",
+    "/repos/pallets/werkzeug/git/commits/04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+    "/repos/pallets/werkzeug/git/trees/544bfbde8c2c8291bd240ec32ebcf78a1f22987d",
+    "/repos/pallets/werkzeug/contents/src/werkzeug/utils.py"
+  ],
+  "separate_offline_worker_control": {
+    "scope": {
+      "purpose": "After observing the shipped 50-request stop, isolate whether the missing proposed file can account for the zero complete pairs. This supplemental worker control does not modify or rerun the product acquisition.",
+      "inputs": "The original follow report's source family, plus the independently retained exact Werkzeug 3.1.6 utils.py from LAFS. The proposed file must match the Spotify module receipt's known repository and revision. Preserve normal analysis limits.",
+      "proof_boundary": "Only conditional caller/signature correspondence once exact material is available. Preserve the original Spotify result, request cap and report identities."
+    },
+    "supplied_file": {
+      "repository": "pallets/werkzeug",
+      "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+      "version": "3.1.6",
+      "path": "src/werkzeug/utils.py",
+      "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e"
+    },
+    "files": 28,
+    "witnesses": 126,
+    "input_sha256": "31034e4167607ec32933ee89a328acf2ccf509554c20e65bb6f4ce84fc3c8b82",
+    "result_sha256": "ee1b9036f78b39b0191527e7777ee6993d7da96e38f71db9bcd929768d22208c",
+    "completed_pairs": [
+      {
+        "target_path": "api/app.py",
+        "target_line": 26,
+        "adapter_path": "src/flask/helpers.py",
+        "adapter_line": 270,
+        "module": "werkzeug.utils",
+        "callable": "redirect",
+        "sides": [
+          {
+            "role": "proposed_dependency",
+            "version": "3.1.6",
+            "outcome": "bound",
+            "signature_line": 235,
+            "keyword_reception": [
+              {
+                "name": "code",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "Response",
+                "outcome": "named_parameter"
+              }
+            ],
+            "premises": [
+              "delayed_global_read",
+              "conditional_import_origin",
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "execution_reaches_selected_body_and_branch"
+            ]
+          },
+          {
+            "role": "old_dependency",
+            "version": "3.1.5",
+            "outcome": "bound",
+            "signature_line": 235,
+            "keyword_reception": [
+              {
+                "name": "code",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "Response",
+                "outcome": "named_parameter"
+              }
+            ],
+            "premises": [
+              "delayed_global_read",
+              "conditional_import_origin",
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "execution_reaches_selected_body_and_branch"
+            ]
+          }
+        ]
+      },
+      {
+        "target_path": "api/login.py",
+        "target_line": 14,
+        "adapter_path": "src/flask/helpers.py",
+        "adapter_line": 270,
+        "module": "werkzeug.utils",
+        "callable": "redirect",
+        "sides": [
+          {
+            "role": "proposed_dependency",
+            "version": "3.1.6",
+            "outcome": "bound",
+            "signature_line": 235,
+            "keyword_reception": [
+              {
+                "name": "code",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "Response",
+                "outcome": "named_parameter"
+              }
+            ],
+            "premises": [
+              "delayed_global_read",
+              "conditional_import_origin",
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "execution_reaches_selected_body_and_branch"
+            ]
+          },
+          {
+            "role": "old_dependency",
+            "version": "3.1.5",
+            "outcome": "bound",
+            "signature_line": 235,
+            "keyword_reception": [
+              {
+                "name": "code",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "Response",
+                "outcome": "named_parameter"
+              }
+            ],
+            "premises": [
+              "delayed_global_read",
+              "conditional_import_origin",
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "execution_reaches_selected_body_and_branch"
+            ]
+          }
+        ]
+      },
+      {
+        "target_path": "api/view.py",
+        "target_line": 411,
+        "adapter_path": "src/flask/helpers.py",
+        "adapter_line": 270,
+        "module": "werkzeug.utils",
+        "callable": "redirect",
+        "sides": [
+          {
+            "role": "proposed_dependency",
+            "version": "3.1.6",
+            "outcome": "bound",
+            "signature_line": 235,
+            "keyword_reception": [
+              {
+                "name": "code",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "Response",
+                "outcome": "named_parameter"
+              }
+            ],
+            "premises": [
+              "delayed_global_read",
+              "conditional_import_origin",
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "execution_reaches_selected_body_and_branch"
+            ]
+          },
+          {
+            "role": "old_dependency",
+            "version": "3.1.5",
+            "outcome": "bound",
+            "signature_line": 235,
+            "keyword_reception": [
+              {
+                "name": "code",
+                "outcome": "named_parameter"
+              },
+              {
+                "name": "Response",
+                "outcome": "named_parameter"
+              }
+            ],
+            "premises": [
+              "delayed_global_read",
+              "conditional_import_origin",
+              "adapter_version_is_exploration_sample_not_target_resolution",
+              "effective_export_binding_not_established",
+              "installed_namespace_and_dispatch_not_established",
+              "reexport_binding_and_branch_activation_not_established",
+              "execution_reaches_selected_body_and_branch"
+            ]
+          }
+        ]
+      }
+    ],
+    "old_and_proposed_module_bytes_match": true
+  }
+}
