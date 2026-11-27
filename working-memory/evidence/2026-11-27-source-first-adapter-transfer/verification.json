@@ -1,0 +1,914 @@
+{
+  "scope": {
+    "method": "e87e8ac1 installed product wheel",
+    "wheel_sha256": "83e7dd8aca2204fb935f9019c3a3ae56bfc8aaf44fc929250216ffc9b822f2af",
+    "purpose": "Orient from an adapter module with a static import of the changed dependency and an analyzer-supported root. Select the first independent exact-head public PR meeting all static conditions. Evaluate only after freeze.",
+    "orientations": [
+      {
+        "adapter": "requests",
+        "repo": "psf/requests",
+        "tag": "v2.32.5",
+        "module": "requests.adapters",
+        "path": "src/requests/adapters.py",
+        "metadata": "setup.py",
+        "symbol": "HTTPAdapter",
+        "bump": "urllib3"
+      },
+      {
+        "adapter": "boto3",
+        "repo": "boto/boto3",
+        "tag": "1.35.0",
+        "module": "boto3.session",
+        "path": "boto3/session.py",
+        "metadata": "setup.py",
+        "symbol": "Session",
+        "bump": "botocore"
+      },
+      {
+        "adapter": "starlette",
+        "repo": "encode/starlette",
+        "tag": "0.41.3",
+        "module": "starlette.testclient",
+        "path": "starlette/testclient.py",
+        "metadata": "pyproject.toml",
+        "symbol": "TestClient",
+        "bump": "httpx"
+      },
+      {
+        "adapter": "requests",
+        "repo": "psf/requests",
+        "tag": "v2.32.5",
+        "module": "requests.certs",
+        "path": "src/requests/certs.py",
+        "metadata": "setup.py",
+        "symbol": "where",
+        "bump": "certifi"
+      }
+    ],
+    "discovery": [
+      "Use bounded search of public Python source using the supported module before PR discovery. Where source search is unavailable, join public code references and exact title-based discoveries, and inspect exact-head source eligibility before ranking.",
+      "Freeze candidate lists before per-case inspection. Exclude prior Dashboard API and LAFS proof targets. Deduplicate and retain skipped states."
+    ],
+    "acceptance": [
+      "An exact single dependency pin transition supported by the installed original extractor.",
+      "A positive non-exact adapter range tied to the exact-head source context from one unambiguous admitted declaration; sibling requirements and PEP 621 declarations allowed.",
+      "A statically supported target call into the oriented adapter module within the normal target file-attempt horizon.",
+      "One static workflow job with literal Python major.minor and a direct install of the changed dependency file.",
+      "Any examined direct target import of the changed dependency is marked and cannot qualify an adapter-mediated witness by itself."
+    ],
+    "budgets": {
+      "orientation_gets": 12,
+      "search_gets": 14,
+      "public_diffs": 18,
+      "static_head_gets": 55,
+      "product": {
+        "github": 50,
+        "providers": 100,
+        "per_response_bytes": 8388608,
+        "total_bytes": 33554432,
+        "seconds": 180
+      }
+    },
+    "comparison": [
+      "Use the installed CLI in three modes, common first-use provider response bytes and identical limits.",
+      "A positive transfer needs a scope-driven selection change and a retained conditional pair for the same target root and changed dependency. Preserve correct stops and unchanged choices. No target execution."
+    ]
+  },
+  "supplement_scope": {
+    "query": "is:pr is:open in:title \"bump httpx from\" \"0.28.1\" created:2024-12-01..2026-03-31",
+    "route": "starlette.testclient",
+    "maximum_additional_diffs": 3,
+    "criteria": "Same frozen eligibility and acceptance. Use remaining budget for the already oriented direct TestClient path and supported ordinary pin shape."
+  },
+  "requests": {
+    "orientation_gets": {
+      "total": 11,
+      "by_provider": {
+        "raw.githubusercontent.com": 7,
+        "api.github.com": 4
+      },
+      "http_statuses": {
+        "200": 10,
+        "301": 1
+      }
+    },
+    "search_gets": {
+      "total": 14,
+      "by_provider": {
+        "api.github.com": 9,
+        "sourcegraph.com": 5
+      },
+      "http_statuses": {
+        "200": 14
+      }
+    },
+    "public_diffs": {
+      "total": 18,
+      "by_provider": {
+        "patch-diff.githubusercontent.com": 18
+      },
+      "http_statuses": {
+        "200": 18
+      }
+    },
+    "static_head_gets": {
+      "total": 16,
+      "by_provider": {
+        "raw.githubusercontent.com": 6,
+        "api.github.com": 10
+      },
+      "http_statuses": {
+        "200": 16
+      }
+    }
+  },
+  "source_discovery": [
+    {
+      "module": "requests.adapters",
+      "status": 200,
+      "body_sha256": "443a50fdcb24b2dec1e2e672716f1efa11c8996a6ecc272aab1e0468af023e8a",
+      "matches": {}
+    },
+    {
+      "module": "boto3.session",
+      "status": 200,
+      "body_sha256": "de99fa41b5b9140ecb82417482bc3f37a34dd500d20ef761cd1e1dc63337b58a",
+      "matches": {}
+    },
+    {
+      "module": "starlette.testclient",
+      "status": 200,
+      "body_sha256": "0b3df7c5640732c872dcdc52415f6c367d945b2ee87b5e28091ebfc971a58fd4",
+      "matches": {}
+    },
+    {
+      "module": "requests.certs",
+      "status": 200,
+      "body_sha256": "d0ea2c98f93c9edc548ade3c1d965937fa660fe425892ec20ee622ce9468cacb",
+      "matches": {}
+    }
+  ],
+  "pr_discovery": [
+    {
+      "query": "context:global lang:python count:18 timeout:10s patterntype:regexp requests\\.adapters.*HTTPAdapter",
+      "status": 200,
+      "matched_repositories": [],
+      "sha256": "6ac0e6b14009f1399de9596d286bcef1b7b17bdacce26c165b2429028da8196c"
+    },
+    {
+      "query": "is:pr in:title \"bump urllib3 from\" repo:solarwinds/orionsdk-python repo:apache/texera repo:mganesh1610/Biodosimetry-GEO-Metadata-Pipeline",
+      "status": 200,
+      "total": 0,
+      "selected": 0,
+      "response_sha256": "c9938edecb99d754b2d039ac9eec320a94c769b6a6417921e2dcbef9e2fe01a0"
+    },
+    {
+      "query": "is:pr in:title \"bump botocore from\" repo:getmoto/moto repo:jschneier/django-storages repo:aws/aws-sam-cli",
+      "status": 200,
+      "total": 38,
+      "selected": 1,
+      "response_sha256": "e54e9f6e2cc774ba1ee52c7dcd88048793e7ab57402f282c9975181bc023eb84"
+    },
+    {
+      "query": "is:pr in:title \"bump httpx from\" repo:fastapi/full-stack-fastapi-template repo:chopratejas/headroom repo:mahmoud/awesome-python-applications",
+      "status": 200,
+      "total": 1,
+      "selected": 1,
+      "response_sha256": "d64fdff23d9e529038751e3bccddd9a70995f6e01956a2e96dc56bd33bab63b9"
+    },
+    {
+      "query": "is:pr in:title \"bump certifi from\" repo:solarwinds/orionsdk-python repo:apache/texera",
+      "status": 200,
+      "total": 0,
+      "selected": 0,
+      "response_sha256": "c9938edecb99d754b2d039ac9eec320a94c769b6a6417921e2dcbef9e2fe01a0"
+    },
+    {
+      "query": "is:pr in:title \"bump urllib3 from\" created:2024-01-01..2026-03-31",
+      "status": 200,
+      "total": 66196,
+      "selected": 4,
+      "response_sha256": "3880fd7e866af3a216f96e753b20a0711316920a42e4ec9fb1da3631c57567f6"
+    },
+    {
+      "query": "is:pr in:title \"bump httpx from\" created:2024-10-01..2025-12-31",
+      "status": 200,
+      "total": 1971,
+      "selected": 4,
+      "response_sha256": "2e6212eee6c5258833d4062161b35514aa755e63870a02b1892a3e315c37e218"
+    },
+    {
+      "query": "is:pr in:title \"bump botocore from\" created:2024-01-01..2025-12-31",
+      "status": 200,
+      "total": 13730,
+      "selected": 2,
+      "response_sha256": "611f3bd0d38afdffff6557adc9f02d109fbd9bac4f49775d2b457d9929c77f8d"
+    },
+    {
+      "query": "is:pr in:title \"bump certifi from\" created:2024-01-01..2025-12-31",
+      "status": 200,
+      "total": 25968,
+      "selected": 3,
+      "response_sha256": "53088e7ec0a17bb699dd3bbe30e3dd622284668f00a55b897cf4e2bcdb6b7f62"
+    }
+  ],
+  "supplement_discovery": {
+    "query": "is:pr is:open in:title \"bump httpx from\" \"0.28.1\" created:2024-12-01..2026-03-31",
+    "status": 200,
+    "output_sha256": "31c23a0255cc60415aae178dbdb617acb1d322c9a8d4e42daaa469cced49e2ea",
+    "total": 556,
+    "new_cases": [
+      {
+        "repo": "gaiin-platform/amplify-genai-backend",
+        "pr": 111,
+        "url": "https://github.com/gaiin-platform/amplify-genai-backend/pull/111",
+        "route": 2
+      },
+      {
+        "repo": "knoksen/knoksPix",
+        "pr": 17,
+        "url": "https://github.com/knoksen/knoksPix/pull/17",
+        "route": 2
+      },
+      {
+        "repo": "floxxih/ChainBridge",
+        "pr": 93,
+        "url": "https://github.com/floxxih/ChainBridge/pull/93",
+        "route": 2
+      }
+    ]
+  },
+  "upstream_orientations": [
+    {
+      "adapter": "requests",
+      "repo": "psf/requests",
+      "tag": "v2.32.5",
+      "module": "requests.adapters",
+      "path": "src/requests/adapters.py",
+      "metadata": "setup.py",
+      "symbol": "HTTPAdapter",
+      "bump": "urllib3",
+      "resolved_repository": "psf/requests",
+      "tag_status": 200,
+      "revision": "b25c87d7cb8d6a18a37fa12442b5f883f9e41741",
+      "source_status": 200,
+      "source_sha256": "f275f5d7781b6f5db7694b71d844e400dffa22c617f8cd9f4682c696e4c47119",
+      "metadata_status": 200,
+      "imports": [
+        {
+          "module": "urllib3.exceptions",
+          "line": 14,
+          "member": "ClosedPoolError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 14,
+          "member": "ConnectTimeoutError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 15,
+          "member": "HTTPError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 16,
+          "member": "InvalidHeader"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 17,
+          "member": "LocationValueError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 17,
+          "member": "MaxRetryError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 17,
+          "member": "NewConnectionError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 17,
+          "member": "ProtocolError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 23,
+          "member": "ProxyError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 24,
+          "member": "ReadTimeoutError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 24,
+          "member": "ResponseError"
+        },
+        {
+          "module": "urllib3.exceptions",
+          "line": 25,
+          "member": "SSLError"
+        },
+        {
+          "module": "urllib3.poolmanager",
+          "line": 26,
+          "member": "PoolManager"
+        },
+        {
+          "module": "urllib3.poolmanager",
+          "line": 26,
+          "member": "proxy_from_url"
+        },
+        {
+          "module": "urllib3.util",
+          "line": 27,
+          "member": "Timeout"
+        },
+        {
+          "module": "urllib3.util",
+          "line": 28,
+          "member": "parse_url"
+        },
+        {
+          "module": "urllib3.util.retry",
+          "line": 29,
+          "member": "Retry"
+        },
+        {
+          "module": "urllib3.contrib.socks",
+          "line": 59,
+          "member": "SOCKSProxyManager"
+        }
+      ],
+      "references": [],
+      "matching_metadata_lines": [
+        39
+      ],
+      "orientation_admitted": true
+    },
+    {
+      "adapter": "boto3",
+      "repo": "boto/boto3",
+      "tag": "1.35.0",
+      "module": "boto3.session",
+      "path": "boto3/session.py",
+      "metadata": "setup.py",
+      "symbol": "Session",
+      "bump": "botocore",
+      "resolved_repository": "boto/boto3",
+      "tag_status": 200,
+      "revision": "f38acbb1c1def4adc72b9b791c2ab5ee14825241",
+      "source_status": 200,
+      "source_sha256": "41c45a3d533051bf3f5ff1785c5e2bc45f304c73a03fa666148a8da97543f483",
+      "metadata_status": 200,
+      "imports": [
+        {
+          "module": "botocore.session",
+          "line": 17,
+          "member": null
+        },
+        {
+          "module": "botocore.client",
+          "line": 18,
+          "member": "Config"
+        },
+        {
+          "module": "botocore.exceptions",
+          "line": 19,
+          "member": "DataNotFoundError"
+        },
+        {
+          "module": "botocore.exceptions",
+          "line": 19,
+          "member": "UnknownServiceError"
+        }
+      ],
+      "references": [],
+      "matching_metadata_lines": [
+        17
+      ],
+      "orientation_admitted": true
+    },
+    {
+      "adapter": "starlette",
+      "repo": "encode/starlette",
+      "tag": "0.41.3",
+      "module": "starlette.testclient",
+      "path": "starlette/testclient.py",
+      "metadata": "pyproject.toml",
+      "symbol": "TestClient",
+      "bump": "httpx",
+      "resolved_repository": "Kludex/starlette",
+      "tag_status": 200,
+      "revision": "1a8efba9c802c0631c827ce431af9b0546e34ccd",
+      "source_status": 200,
+      "source_sha256": "5f44ec9936aeea73e0733f925a13c059106bf0e520e6c9eb42c1b9ab30bfa6bd",
+      "metadata_status": 200,
+      "imports": [
+        {
+          "module": "httpx",
+          "line": 33,
+          "member": null
+        }
+      ],
+      "references": [],
+      "matching_metadata_lines": [
+        40
+      ],
+      "orientation_admitted": true
+    },
+    {
+      "adapter": "requests",
+      "repo": "psf/requests",
+      "tag": "v2.32.5",
+      "module": "requests.certs",
+      "path": "src/requests/certs.py",
+      "metadata": "setup.py",
+      "symbol": "where",
+      "bump": "certifi",
+      "resolved_repository": "psf/requests",
+      "tag_status": 200,
+      "revision": "b25c87d7cb8d6a18a37fa12442b5f883f9e41741",
+      "source_status": 200,
+      "source_sha256": "67d49be35d009efea35054f2b2cd23145854eb1b2df1cb442ea7f2f04bf6de0c",
+      "metadata_status": 200,
+      "imports": [
+        {
+          "module": "certifi",
+          "line": 14,
+          "member": "where"
+        }
+      ],
+      "references": [
+        {
+          "name": "certifi.where",
+          "line": 17
+        }
+      ],
+      "matching_metadata_lines": [
+        40
+      ],
+      "orientation_admitted": true
+    }
+  ],
+  "offline_route_control": {
+    "basis": "network-isolated explorer replay with real tagged source and dependency literals; synthetic target call and injected adapter sample; pair origin selection only",
+    "cases": [
+      {
+        "adapter_module": "requests.adapters",
+        "adapter_source_sha256": "f275f5d7781b6f5db7694b71d844e400dffa22c617f8cd9f4682c696e4c47119",
+        "changed_package": "urllib3",
+        "target_fixture_origin": "requests.adapters.HTTPAdapter",
+        "orientation_source": {
+          "repository": "psf/requests",
+          "revision": "b25c87d7cb8d6a18a37fa12442b5f883f9e41741",
+          "path": "src/requests/adapters.py"
+        },
+        "upstream_requirement_literal": "urllib3>=1.21.1,<3",
+        "deferred_modules": [
+          "urllib3.exceptions"
+        ],
+        "changed_pair_questions": [
+          {
+            "module": "urllib3.exceptions",
+            "origin_line": 14,
+            "origin_type": "ImportFact"
+          },
+          {
+            "module": "urllib3.exceptions",
+            "origin_line": 14,
+            "origin_type": "ImportFact"
+          }
+        ]
+      },
+      {
+        "adapter_module": "boto3.session",
+        "adapter_source_sha256": "41c45a3d533051bf3f5ff1785c5e2bc45f304c73a03fa666148a8da97543f483",
+        "changed_package": "botocore",
+        "target_fixture_origin": "boto3.session.Session",
+        "orientation_source": {
+          "repository": "boto/boto3",
+          "revision": "f38acbb1c1def4adc72b9b791c2ab5ee14825241",
+          "path": "boto3/session.py"
+        },
+        "upstream_requirement_literal": "botocore>=1.35.0,<1.36.0",
+        "deferred_modules": [
+          "botocore.session"
+        ],
+        "changed_pair_questions": [
+          {
+            "module": "botocore.session",
+            "origin_line": 62,
+            "origin_type": "ReferenceFact"
+          }
+        ]
+      },
+      {
+        "adapter_module": "starlette.testclient",
+        "adapter_source_sha256": "5f44ec9936aeea73e0733f925a13c059106bf0e520e6c9eb42c1b9ab30bfa6bd",
+        "changed_package": "httpx",
+        "target_fixture_origin": "starlette.testclient.TestClient",
+        "orientation_source": {
+          "repository": "kludex/starlette",
+          "revision": "1a8efba9c802c0631c827ce431af9b0546e34ccd",
+          "path": "starlette/testclient.py"
+        },
+        "upstream_requirement_literal": "httpx>=0.22.0",
+        "deferred_modules": [
+          "httpx"
+        ],
+        "changed_pair_questions": [
+          {
+            "module": "httpx",
+            "origin_line": 33,
+            "origin_type": "ImportFact"
+          }
+        ]
+      },
+      {
+        "adapter_module": "requests.certs",
+        "adapter_source_sha256": "67d49be35d009efea35054f2b2cd23145854eb1b2df1cb442ea7f2f04bf6de0c",
+        "changed_package": "certifi",
+        "target_fixture_origin": "requests.certs.where",
+        "orientation_source": {
+          "repository": "psf/requests",
+          "revision": "b25c87d7cb8d6a18a37fa12442b5f883f9e41741",
+          "path": "src/requests/certs.py"
+        },
+        "upstream_requirement_literal": "certifi>=2017.4.17",
+        "deferred_modules": [
+          "certifi"
+        ],
+        "changed_pair_questions": [
+          {
+            "module": "certifi",
+            "origin_line": 17,
+            "origin_type": "ReferenceFact"
+          }
+        ]
+      }
+    ]
+  },
+  "candidate_dispositions": [
+    {
+      "repo": "aws/aws-sam-cli",
+      "pr": 8882,
+      "url": "https://github.com/aws/aws-sam-cli/pull/8882",
+      "route": 1,
+      "public_diff_sha256": "1581c037b1563bbaa2959105909d1f2bd73cff91dd93af6bf350195ad2fbfb0f",
+      "public_diff_status": 200,
+      "changed_paths": 3,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "fastapi/full-stack-fastapi-template",
+      "pr": 1587,
+      "url": "https://github.com/fastapi/full-stack-fastapi-template/pull/1587",
+      "route": 2,
+      "public_diff_sha256": "0548d928cbca966d11d0264659d24156690f7a538308935f82f600c64d250395",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "EliasMez/snowflake-dbt-dataops-pipeline",
+      "pr": 130,
+      "url": "https://github.com/EliasMez/snowflake-dbt-dataops-pipeline/pull/130",
+      "route": 0,
+      "public_diff_sha256": "49146b8074f4b9db3a4b74e575aaa404fedc15ec47e7e6578269ad23f5221ebe",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "needs head eligibility",
+      "path": "requirements.txt",
+      "old": "2.6.0",
+      "proposed": "2.6.2"
+    },
+    {
+      "repo": "kpn/django-streams",
+      "pr": 53,
+      "url": "https://github.com/kpn/django-streams/pull/53",
+      "route": 0,
+      "public_diff_sha256": "818f899f77283181c57355a1ebb4a0bf1af707fc8bc4ac3b103fd8282f8a6e29",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "openECOE/openECOE-API",
+      "pr": 54,
+      "url": "https://github.com/openECOE/openECOE-API/pull/54",
+      "route": 0,
+      "public_diff_sha256": "412e4344b1412b3d0a89ce8de9a0b9e67b8a0c49a5b13a0a5c7829ac1a1a9591",
+      "public_diff_status": 200,
+      "changed_paths": 2,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "neurons-lab/bedrock-chat",
+      "pr": 13,
+      "url": "https://github.com/neurons-lab/bedrock-chat/pull/13",
+      "route": 0,
+      "public_diff_sha256": "9764409746a325a6228676d88809213a83b6d09bbc25289a50c71a76955257ec",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "gemechisdev/NinjaSecret",
+      "pr": 5,
+      "url": "https://github.com/gemechisdev/NinjaSecret/pull/5",
+      "route": 2,
+      "public_diff_sha256": "ce4dace7edd490f6c7702087e360b0638b73898f39412c0793e265b4c2272e90",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "needs head eligibility",
+      "path": "requirements.txt",
+      "old": "0.25.2",
+      "proposed": "0.28.1"
+    },
+    {
+      "repo": "worganisation/smart-mini-crt-interface",
+      "pr": 275,
+      "url": "https://github.com/worganisation/smart-mini-crt-interface/pull/275",
+      "route": 2,
+      "public_diff_sha256": "5ef6f2f02b87bc9b4e5ca447be9c0b44b463074307b04a1a293d8efe197005e9",
+      "public_diff_status": 200,
+      "changed_paths": 4,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "TeamProBots/Clonify",
+      "pr": 2,
+      "url": "https://github.com/TeamProBots/Clonify/pull/2",
+      "route": 2,
+      "public_diff_sha256": "896861c678fc1d996523db95bc33727a0b9c7036d2ba3b78b002131059605056",
+      "public_diff_status": 200,
+      "changed_paths": 6,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "KG-97/supptracker",
+      "pr": 81,
+      "url": "https://github.com/KG-97/supptracker/pull/81",
+      "route": 2,
+      "public_diff_sha256": "ed403db7d84bf76a8c04db800ec23b4b29402f9db1e4a433cd1c081314738806",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "needs head eligibility",
+      "path": "requirements.txt",
+      "old": "0.27.2",
+      "proposed": "0.28.1"
+    },
+    {
+      "repo": "saleor/saleor",
+      "pr": 18212,
+      "url": "https://github.com/saleor/saleor/pull/18212",
+      "route": 1,
+      "public_diff_sha256": "7d8d42b650b1b62f5ab04c5c30eba73f612548c2d3a33218982929a98a38e674",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "prowler-cloud/prowler",
+      "pr": 6775,
+      "url": "https://github.com/prowler-cloud/prowler/pull/6775",
+      "route": 1,
+      "public_diff_sha256": "2fd6dd94f0b3d0a795e7f3d6c3e34706533e82db7c86cb0ef71b8496c69ee335",
+      "public_diff_status": 200,
+      "changed_paths": 2,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "monora/offeneregister",
+      "pr": 8,
+      "url": "https://github.com/monora/offeneregister/pull/8",
+      "route": 3,
+      "public_diff_sha256": "4843bcdf39e2361a3ee1af5f64a4ca2ea57c37253c119cb890f14b8017b22cd0",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "exact single-pin transition not established",
+      "path": "requirements_dev.txt"
+    },
+    {
+      "repo": "Disfactory/Disfactory",
+      "pr": 651,
+      "url": "https://github.com/Disfactory/Disfactory/pull/651",
+      "route": 3,
+      "public_diff_sha256": "bd050ad5fbddafb016b223ccf3641f1d1136a7bdecee39d5378f1ce0de2bf194",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "openECOE/openECOE-API",
+      "pr": 60,
+      "url": "https://github.com/openECOE/openECOE-API/pull/60",
+      "route": 3,
+      "public_diff_sha256": "ca584b1462e28fb03b47b2bd1c39ec35927bff06436fa6c7a860473d48a4a443",
+      "public_diff_status": 200,
+      "changed_paths": 2,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "gaiin-platform/amplify-genai-backend",
+      "pr": 111,
+      "url": "https://github.com/gaiin-platform/amplify-genai-backend/pull/111",
+      "route": 2,
+      "public_diff_sha256": "daa768f596c5ba0f8e2f82c21f05dab880892e612a9761679a029de988fd7353",
+      "public_diff_status": 200,
+      "changed_paths": 2,
+      "disposition": "outside one workflow-consumable requirements bump"
+    },
+    {
+      "repo": "knoksen/knoksPix",
+      "pr": 17,
+      "url": "https://github.com/knoksen/knoksPix/pull/17",
+      "route": 2,
+      "public_diff_sha256": "be588a1f41ca4df02f9dcf8139bb50736e5dd04ea0f9ec79887d14f36c5e7340",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "needs head eligibility",
+      "path": "backend/requirements-dev.txt",
+      "old": "0.27.2",
+      "proposed": "0.28.1"
+    },
+    {
+      "repo": "floxxih/ChainBridge",
+      "pr": 93,
+      "url": "https://github.com/floxxih/ChainBridge/pull/93",
+      "route": 2,
+      "public_diff_sha256": "9d052095b2894947df2084f5454203410b794c7599e86640539b246ded271861",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "needs head eligibility",
+      "path": "backend/requirements.txt",
+      "old": "0.26.0",
+      "proposed": "0.28.1"
+    }
+  ],
+  "exact_head_results": [
+    {
+      "repo": "EliasMez/snowflake-dbt-dataops-pipeline",
+      "pr": 130,
+      "url": "https://github.com/EliasMez/snowflake-dbt-dataops-pipeline/pull/130",
+      "route": 0,
+      "public_diff_sha256": "49146b8074f4b9db3a4b74e575aaa404fedc15ec47e7e6578269ad23f5221ebe",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "adapter lacks an unambiguous positive range",
+      "path": "requirements.txt",
+      "old": "2.6.0",
+      "proposed": "2.6.2",
+      "head": "d60e7a0652982c7594ea9b202656f05fbba07e4d",
+      "base": "a0d42711c6c039d857c3f95c568d38c8d6b33127",
+      "tree_response_sha256": "8d32f8768c45f393284569ff1bfacd22cd1f2306ff789ebcb46ccbddd2dbed4d",
+      "target_file_attempt_limit": 16,
+      "manifests": [
+        {
+          "path": "requirements.txt",
+          "status": 200,
+          "body_sha256": "f0ec4dad8404a5bf4b4798c219c9fbeab12fb9a98e2a7f26a020514b55032050",
+          "adapter_declarations": [
+            {
+              "specifier": "==2.32.5",
+              "extras": [],
+              "marker": null,
+              "group": "requirements",
+              "location": "L100"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repo": "gemechisdev/NinjaSecret",
+      "pr": 5,
+      "url": "https://github.com/gemechisdev/NinjaSecret/pull/5",
+      "route": 2,
+      "public_diff_sha256": "ce4dace7edd490f6c7702087e360b0638b73898f39412c0793e265b4c2272e90",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "one adapter declaration in captured manifests not established",
+      "path": "requirements.txt",
+      "old": "0.25.2",
+      "proposed": "0.28.1",
+      "head": "d8bd758e1f42faf70435717ed7992c365c60e985",
+      "base": "a4df6f94587d95b52693304a5ad0eee6e6331b94",
+      "tree_response_sha256": "222a1ded3f6f5d4349bd059a2b0e81f485388f1478cc3bdbf957f07494a66412",
+      "target_file_attempt_limit": 16,
+      "manifests": [
+        {
+          "path": "requirements.txt",
+          "status": 200,
+          "body_sha256": "aca7f44b6fdd3e72342c26dbd23cab0d3a5b42d27290b6efe44a539939643024",
+          "adapter_declarations": []
+        }
+      ],
+      "found": 0
+    },
+    {
+      "repo": "KG-97/supptracker",
+      "pr": 81,
+      "url": "https://github.com/KG-97/supptracker/pull/81",
+      "route": 2,
+      "public_diff_sha256": "ed403db7d84bf76a8c04db800ec23b4b29402f9db1e4a433cd1c081314738806",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "one adapter declaration in captured manifests not established",
+      "path": "requirements.txt",
+      "old": "0.27.2",
+      "proposed": "0.28.1",
+      "head": "9f47e7cab4c2d738f8a5fdb582daa2f88eac98c1",
+      "base": "b550c2bf5f39374834e33d9166148c4425540f4b",
+      "tree_response_sha256": "d7d3030a7873994e7948f89a246614228e4f58394d013607dd49e0c5d3bfd49c",
+      "target_file_attempt_limit": 16,
+      "manifests": [
+        {
+          "path": "requirements.txt",
+          "status": 200,
+          "body_sha256": "8ccdb2534b9336f49a8194d92db1dd2af55f1902516c3b443dd04c32c88e0db4",
+          "adapter_declarations": []
+        }
+      ],
+      "found": 0
+    },
+    {
+      "repo": "knoksen/knoksPix",
+      "pr": 17,
+      "url": "https://github.com/knoksen/knoksPix/pull/17",
+      "route": 2,
+      "public_diff_sha256": "be588a1f41ca4df02f9dcf8139bb50736e5dd04ea0f9ec79887d14f36c5e7340",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "one adapter declaration in captured manifests not established",
+      "path": "backend/requirements-dev.txt",
+      "old": "0.27.2",
+      "proposed": "0.28.1",
+      "head": "53a6a905bb492df3f74481ecd9243db334b93e0a",
+      "base": "291dc49df19965ff5d2a32a3076194e2a775ae66",
+      "tree_response_sha256": "0e31aa9aa4a240452fdc86378cdd55816cc27acad31d20e787ff701e1a49204e",
+      "target_file_attempt_limit": 16,
+      "manifests": [
+        {
+          "path": "backend/requirements-dev.txt",
+          "status": 200,
+          "body_sha256": "db9761c26edae8478fcf12af82284b4c805c4a9322db34c7bbf7c1e74de51be2",
+          "adapter_declarations": []
+        },
+        {
+          "path": "backend/requirements.txt",
+          "status": 200,
+          "body_sha256": "69c4d8b4dbfdf3e08b5ead50326d745309f74ad044d211995495f1a7c4314fb4",
+          "adapter_declarations": []
+        }
+      ],
+      "found": 0
+    },
+    {
+      "repo": "floxxih/ChainBridge",
+      "pr": 93,
+      "url": "https://github.com/floxxih/ChainBridge/pull/93",
+      "route": 2,
+      "public_diff_sha256": "9d052095b2894947df2084f5454203410b794c7599e86640539b246ded271861",
+      "public_diff_status": 200,
+      "changed_paths": 1,
+      "disposition": "one adapter declaration in captured manifests not established",
+      "path": "backend/requirements.txt",
+      "old": "0.26.0",
+      "proposed": "0.28.1",
+      "head": "d3d87621a89b22ad421b3fd6e25e4592f63e7d52",
+      "base": "75183d0fecb712f8adcd71948233241a9c1acda5",
+      "tree_response_sha256": "1484ecf7d345a57185034fc0907123728c08f74ae74debad65f2b28957ff007b",
+      "target_file_attempt_limit": 16,
+      "manifests": [
+        {
+          "path": "backend/requirements.txt",
+          "status": 200,
+          "body_sha256": "b55e13f2fafe312b079bf74e64d0eef8c7cf31c1bf0df619dac9e00fca10d1c3",
+          "adapter_declarations": []
+        }
+      ],
+      "found": 0
+    }
+  ],
+  "selection": {
+    "qualified_public_case": null,
+    "ranked_index_reads": 0,
+    "public_comparison_runs": 0
+  },
+  "observed_selection_boundary": {
+    "module": "requests.adapters",
+    "first_changed_import": "urllib3.exceptions",
+    "later_changed_import_for_pool_management": "urllib3.poolmanager",
+    "later_import_line": 26,
+    "pool_manager_call_line": 235,
+    "scope": "plain adapter exploration defers the first changed-module question. The replay has no paired comparison or coverage claim."
+  }
+}
