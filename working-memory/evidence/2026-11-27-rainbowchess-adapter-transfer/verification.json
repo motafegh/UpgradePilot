@@ -1,0 +1,736 @@
+{
+  "case_freeze_sha256": "512788c243c3cc0761dec618c9fad86c955ba231f312e5d69ea3e39c994c2c83",
+  "date": "2026-11-27",
+  "developer_navigation_walkthrough": {
+    "finding": "First view gives pair count and acquired module but withholds the shared outcome, and links the target and adapter helper without listing the exact old and proposed signature source IDs.",
+    "first_view_references": [
+      "source-35",
+      "source-18",
+      "source-29",
+      "source-14",
+      "source-15"
+    ],
+    "method": "Exposed developer walkthrough of the same saved source set, no reviewer timings or independence claim.",
+    "offline_report_line_positions": {
+      "detailed_section_start": 29,
+      "first_old_signature": 3515,
+      "first_proposed_signature": 3611,
+      "first_view_start": 18,
+      "maintainer_action": 6844,
+      "paired_acquisition_summary": 26,
+      "remaining_applicability_question": 6839,
+      "rendered_lines_total": 7408
+    },
+    "outcomes": "All seven roots bind in both versions for the captured fallback.",
+    "recommended_disposition": "Compare a compact grouped summary with the same retained report. Group only witnesses sharing matched outcomes and premises. Preserve per-call evidence and separate differing outcomes.",
+    "runtime_premise": "The app-context branch calls current_app.redirect. A discriminating runtime observation would establish the installed versions and which branch handles a representative route.",
+    "shared_compared_call": {
+      "keywords": [
+        "code",
+        "Response"
+      ],
+      "line": 270,
+      "source_id": "source-29"
+    },
+    "source_views": {
+      "adapter_export": {
+        "linked_from_first_view": false,
+        "locator": "https://github.com/pallets/flask/blob/22d924701a6ae2e4cd01e9a15bbaf3946094af65/src/flask/__init__.py",
+        "offline_open_sha256": "b8ef38e7d35be8008e7da48c6058172025766248a06113043cd7bd8c0edc9168",
+        "source_id": "source-24",
+        "source_sha256": "987bc937d4b0b65d510ed8c2a82218c889e22bf499fe5fe1a94ca73b382927da"
+      },
+      "adapter_helper": {
+        "linked_from_first_view": true,
+        "locator": "https://github.com/pallets/flask/blob/22d924701a6ae2e4cd01e9a15bbaf3946094af65/src/flask/helpers.py",
+        "offline_open_sha256": "bb5b7ed7fe7740b4cd028a34202cf1a0622fd3d97d8d2d6527133b751db236ec",
+        "source_id": "source-29",
+        "source_sha256": "ac96607bbfc9dbcf09d5442fe7e90d7f8a046b0df7d8f3fc3535b44112016d71"
+      },
+      "old_werkzeug": {
+        "linked_from_first_view": false,
+        "locator": "https://github.com/pallets/werkzeug/blob/005d93bf3437226ab185d2edc6132918d3e45763/src/werkzeug/utils.py",
+        "offline_open_sha256": "260a6d9293e451b163d32671a11959254618a9e8a558f94a8c850eb6fbc3c4db",
+        "source_id": "source-22",
+        "source_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b"
+      },
+      "proposed_werkzeug": {
+        "linked_from_first_view": false,
+        "locator": "https://github.com/pallets/werkzeug/blob/c1a26b45fb06d5e086b4d6be820c3302f588d815/src/werkzeug/utils.py",
+        "offline_open_sha256": "03917f0d4842c575b87e7e4e03390bd56c78a78d8b99007814ea0e3c834c33e8",
+        "source_id": "source-23",
+        "source_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b"
+      },
+      "target": {
+        "linked_from_first_view": true,
+        "locator": "https://github.com/hongyime/rainbowchess/blob/68875f5b75082828447281d891107969ebcec0b1/main.py",
+        "offline_open_sha256": "2e8fa4e18b338ea728991407688b2314188e639e81594580f5b0a4f9bbe9d0ae",
+        "source_id": "source-18",
+        "source_sha256": "2fefcb8afad476c65385c015e7742dde084abc28b400920d3ca01ebaa50e43b2"
+      }
+    },
+    "target_calls": [
+      49,
+      73,
+      107,
+      116,
+      124,
+      132,
+      137
+    ]
+  },
+  "discovery": [
+    {
+      "query": "is:pr in:title \"bump werkzeug from\" created:2025-11-25..2026-03-20",
+      "returned": 30,
+      "sha256": "f7589ccc65a05fa8cf56a4ac9c15fb88742fc4eecd334703d8db2abbb59a7f18",
+      "total": 13086
+    },
+    {
+      "query": "is:pr in:title \"bump werkzeug from\" \"3.1.6\" created:2026-01-01..2026-04-01",
+      "returned": 30,
+      "sha256": "a7ae2703cc870c0428b2d1807f111bf9e8ff6bc86e13e234b2114b7f4d3aef53",
+      "total": 3438
+    },
+    {
+      "query": "is:pr in:title \"bump werkzeug from\" \"3.1.5\" created:2025-12-01..2026-03-20",
+      "returned": 30,
+      "sha256": "68fc9977cfc03acecb5e1e3970b86b67d81fa15e5367a7daa7ca754620eecf27",
+      "total": 6568
+    },
+    {
+      "query": "is:pr in:title \"bump werkzeug from\" \"3.1.8\" created:2026-02-01..2026-10-15",
+      "returned": 30,
+      "sha256": "4215a300933af566e2953a6b0709072ceda0f2b6797fd190a7c681494c466fa8",
+      "total": 2139
+    }
+  ],
+  "evidence_limits": [
+    "Static conditional results",
+    "One prospectively frozen case",
+    "Maintainer usefulness unmeasured"
+  ],
+  "frozen_case": {
+    "acceptance": "Completed source/profile delivery on unchanged default policy, at least one new complete exact-version call pair through the normal route, quantified baseline preservation and loss, offline report and exact Workspace reopen, and deterministic frozen replay of comparison and request order.",
+    "case": {
+      "adapter": "flask",
+      "adapter_constraint": "==3.1.3",
+      "adapter_declarations": [
+        {
+          "path": "requirements.txt",
+          "sha256": "d7d215fb7c2079dc4566cd1c121eb757da9291c0660cc75e70ea41990e9bed6c"
+        }
+      ],
+      "adapter_manifest": "requirements.txt",
+      "adapter_manifest_sha256": "d7d215fb7c2079dc4566cd1c121eb757da9291c0660cc75e70ea41990e9bed6c",
+      "base": "0a5c6143f0b1707504e34f13b51b8f60e093a4c7",
+      "changed_source_sha256": "23229e3bab7f798beafb15c50b51ff869982754233eeb417ed5f13bda1ad532e",
+      "dependency_path": "requirements.txt",
+      "dependency_paths": [
+        "requirements.txt"
+      ],
+      "head": "68875f5b75082828447281d891107969ebcec0b1",
+      "old": "3.1.7",
+      "orientation": {
+        "adapter_body_call_lines": [
+          270
+        ],
+        "adapter_entry": "src/flask/__init__.py",
+        "adapter_entry_sha256": "987bc937d4b0b65d510ed8c2a82218c889e22bf499fe5fe1a94ca73b382927da",
+        "adapter_helper": "src/flask/helpers.py",
+        "adapter_helper_sha256": "ac96607bbfc9dbcf09d5442fe7e90d7f8a046b0df7d8f3fc3535b44112016d71",
+        "adapter_repository": "pallets/flask",
+        "adapter_revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+        "adapter_symbol": "redirect",
+        "adapter_tag": "3.1.3",
+        "adapter_tag_is_pinned": true,
+        "changed_origins": [
+          "werkzeug.utils.redirect"
+        ],
+        "reexport_line": 22,
+        "target_line": 49,
+        "target_path": "main.py"
+      },
+      "pr": 58,
+      "pr_observation_sha256": "0f2e0c2359b184b0bc005b9a6a614a1ba08be01e5bb69a08db651fcf668dd8e5",
+      "proposed": "3.1.8",
+      "repo": "hongyime/rainbowchess",
+      "result": "eligible"
+    },
+    "comparison_modes": [
+      "baseline",
+      "follow"
+    ],
+    "installed_source_commit": "b590b1d51a19ad284ec064ec1f046232fb46001d",
+    "policy": {
+      "adapter_candidate_attempts": 4,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180.0,
+      "github_requests": 50,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "source_request_reserve": 24,
+      "target_file_attempts": 16
+    },
+    "screen_outcome_sha256": "5fdb58217a8827589510d3a09d5e457f213ddd3b34d5f64b0f278927c3641be7",
+    "screen_scope_sha256": "327926f15203082692c6e028d51ec811529dee5f6ddf8a9fc0b3923cfb0ac0f5",
+    "shared_new_wire_limit": {
+      "github": 38,
+      "total": 60
+    },
+    "stop": "Preserve results on the frozen case and unchanged product policy even if partial. No switching cases or tuning.",
+    "transport": "Anonymous GET only. Share exact screening REST/target envelopes and same-identity retained upstream frames, capture new HTTPS responses once, then cold-replay both arms with zero network. Normal product sessions count all responses.",
+    "verified_installed_modules": 123,
+    "wheel_sha256": "b29e7e1c89e18f267dcdfd97dc88ad5d2201f79174605e8466e85c69bcfbd2af"
+  },
+  "independence": "Frozen before profile outputs, used no tuning. New target and exact changed versions. Known Flask-to-Werkzeug mechanism.",
+  "new_frame_count_by_host": {
+    "api.github.com": 19,
+    "pypi.org": 6
+  },
+  "new_frame_index_sha256": "bb37ed25d8533aa3ea7d836c1f7d66d482026b908a403a5d01be49a62dee7501",
+  "runs": {
+    "baseline": {
+      "acquisition_stops": [],
+      "action": "abstain",
+      "adapter_call_acquisition": null,
+      "additional_omissions": [],
+      "baseline_witnesses_preserved": 36,
+      "comparison_input_sha256": "a7371968b2989d6c41bde3932c74cf7d5afc317cab57baa4709b3a2786548a89",
+      "decoded_provider_bytes": 661268,
+      "exact_modules": [],
+      "fresh_dispatches": {
+        "api.github.com": 7
+      },
+      "github_requests": 28,
+      "lost_witnesses_by_file": {},
+      "module_attempts": 12,
+      "new_witnesses_by_role": {},
+      "offline_comparison_and_ledger_match": true,
+      "offline_network_dispatches": 0,
+      "offline_opens": {
+        "report": "327177a4ffe10fd17cedc01e8839c3959e4f73b590d094af454f401b8ccc42b9",
+        "workspace": "08eb1cd9145bbf53ae62b4b1800b3280d3dc460526c321f71ac952f91d864b0f"
+      },
+      "paired_target_calls": 0,
+      "preparation_seconds": null,
+      "provider_requests": 33,
+      "report_id": "7b11ef1e-3606-4120-8b82-9cd716b0415c",
+      "report_sha256": "e142595d85211961eddee7c8d81c1662376aad887af6c3860aa0e513e1bf0247",
+      "response_frame_origins": {
+        "exact_head_text_envelope": 5,
+        "fresh_rest_or_registry_wire": 7,
+        "prior_exact_provider_frame": 18,
+        "same_turn_pr_prefetch": 3
+      },
+      "retained_files": 18,
+      "source_coverage": "partial",
+      "source_material_omissions": 10,
+      "source_schema": 1,
+      "stage_charges": {
+        "library_sources": {
+          "api.github.com": 6,
+          "pypi.org": 5
+        },
+        "native_inputs": {
+          "api.github.com": 3
+        },
+        "source_closure": {
+          "api.github.com": 11
+        },
+        "target_context": {
+          "api.github.com": 8
+        }
+      },
+      "target_envelopes": {
+        "MoveHistory.py": {
+          "envelope_bytes": 1084,
+          "envelope_sha256": "424707730373b5d5a5fe365464a64d87de8f672ba6b43b94618a1bbbfa3c7cb9",
+          "git_blob_sha1": "a36f58ccaa786aeca8a69f15d7450e01b9b1f517",
+          "raw_bytes": 757,
+          "raw_sha256": "ed7e2be9fd5830a85b847a9f32c7f043186a86e2abbc65f2be255cd13e566e46"
+        },
+        "chess.py": {
+          "envelope_bytes": 24650,
+          "envelope_sha256": "9904447abfcba686e880841976a10b6080c9d67a05334ea232d7e96f53b50509",
+          "git_blob_sha1": "08ea6f9ac0e0e6dadc7aaebd1701aff07d22be68",
+          "raw_bytes": 18437,
+          "raw_sha256": "ec9470db96133fea84b1599767dcceda4563a7e13e5b37f94e052ea1ff0cf6b7"
+        },
+        "main.py": {
+          "envelope_bytes": 6489,
+          "envelope_sha256": "482390d95e94c3cdfbce579a0ceb41bacc4f9f76c39efa22cd05dac18d333351",
+          "git_blob_sha1": "ea0d40dc11209f23ac5fa6664be58e8567236c4a",
+          "raw_bytes": 4818,
+          "raw_sha256": "2fefcb8afad476c65385c015e7742dde084abc28b400920d3ca01ebaa50e43b2"
+        },
+        "pyproject.toml": {
+          "envelope_bytes": 576,
+          "envelope_sha256": "5248bf83dab6b0154c8da6b55ffca78b6e99970e9470bf4713a0620a8f79006d",
+          "git_blob_sha1": "9fba75786919d865ec26f72788703c51e9d5dcb7",
+          "raw_bytes": 378,
+          "raw_sha256": "aac89a69883c269ceb6ed5fd0a0a1da731fc2f3a4d01d559bc7ec379f1dfd61c"
+        },
+        "requirements.txt": {
+          "envelope_bytes": 438,
+          "envelope_sha256": "04fdb49729518e768a411b15b04f82e4b7db553201fe9574c2ba429d13a96abd",
+          "git_blob_sha1": "ecce77b5ff739167f7f80d8233d1a60dd5322b0c",
+          "raw_bytes": 272,
+          "raw_sha256": "d7d215fb7c2079dc4566cd1c121eb757da9291c0660cc75e70ea41990e9bed6c"
+        }
+      },
+      "versioned_outcomes_by_root": {},
+      "witnesses": 36,
+      "worker_seconds": 2.7920292029994016,
+      "workspace_revision": "804512e4ac7c458f800b83b9f54d7c40"
+    },
+    "follow": {
+      "acquisition_stops": [],
+      "action": "abstain",
+      "adapter_call_acquisition": {
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 11,
+              "end_column": 28,
+              "end_line": 49,
+              "line": 49
+            }
+          },
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 11,
+              "end_column": 31,
+              "end_line": 73,
+              "line": 73
+            }
+          },
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 19,
+              "end_column": 39,
+              "end_line": 107,
+              "line": 107
+            }
+          },
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 19,
+              "end_column": 36,
+              "end_line": 116,
+              "line": 116
+            }
+          },
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 9,
+              "end_column": 26,
+              "end_line": 124,
+              "line": 124
+            }
+          },
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 9,
+              "end_column": 26,
+              "end_line": 132,
+              "line": 132
+            }
+          },
+          {
+            "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+            "adapter_span": {
+              "column": 11,
+              "end_column": 63,
+              "end_line": 270,
+              "line": 270
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "module": "werkzeug.utils",
+            "target_file": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+            "target_span": {
+              "column": 8,
+              "end_column": 25,
+              "end_line": 137,
+              "line": 137
+            }
+          }
+        ],
+        "preliminary_elapsed": {
+          "scope": "adapter_call_preparation",
+          "seconds_hex": "0x1.4929253070000p+1"
+        },
+        "preliminary_input_sha256": "ca179fc0d2e74c0e910deb5c5751928f4b0ab42cbb8288442ca8eeac0969ff7e",
+        "reason": "both_versions_examined",
+        "state": "examined"
+      },
+      "additional_omissions": [
+        [
+          "src/flask/sessions.py",
+          "constraint_sample",
+          "pallets/flask",
+          "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+        ],
+        [
+          "src/flask/testing.py",
+          "constraint_sample",
+          "pallets/flask",
+          "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+        ]
+      ],
+      "baseline_witnesses_preserved": 36,
+      "comparison_input_sha256": "b749589db562a6b35efc254b13eb208bca888b08edd53f47c26d2bc2442d6658",
+      "decoded_provider_bytes": 936456,
+      "exact_modules": [
+        {
+          "path": "src/werkzeug/utils.py",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "005d93bf3437226ab185d2edc6132918d3e45763",
+          "role": "old_dependency",
+          "source_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b",
+          "state": "module_examined",
+          "version": "3.1.7"
+        },
+        {
+          "path": "src/werkzeug/utils.py",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "c1a26b45fb06d5e086b4d6be820c3302f588d815",
+          "role": "proposed_dependency",
+          "source_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b",
+          "state": "module_examined",
+          "version": "3.1.8"
+        }
+      ],
+      "fresh_dispatches": {
+        "api.github.com": 12,
+        "pypi.org": 6
+      },
+      "github_requests": 38,
+      "lost_witnesses_by_file": {},
+      "module_attempts": 12,
+      "new_witnesses_by_role": {
+        "old_dependency": 7,
+        "proposed_dependency": 7
+      },
+      "offline_comparison_and_ledger_match": true,
+      "offline_network_dispatches": 0,
+      "offline_opens": {
+        "3.1.7": "a747cffe9cddc33307f772ef877fbdc2e3773b31e83a85faabe8cbc880a5484c",
+        "3.1.8": "de7e861e7ef0e296ac204b0ca31998b154ed85ef644e4e44b997a79736bd6a94",
+        "report": "cc3820082efdcec638224de1e0a1fb14761c87996722b8bcd287a928360efc48",
+        "workspace": "d74e81dc36b4a69e41fbbb167d41828a35d978f191424a41e844a70352e7959b"
+      },
+      "paired_target_calls": 7,
+      "preparation_seconds": 2.571568154002307,
+      "provider_requests": 51,
+      "report_id": "b9780f43-f7d6-45d7-9134-cc1c965ca1ab",
+      "report_sha256": "a9d50e5c0fdcf6866819af4fdaf018b29bc2c351a7d4b80fd156f5640e7763c7",
+      "response_frame_origins": {
+        "exact_head_text_envelope": 5,
+        "first_use_rest_replay": 7,
+        "fresh_rest_or_registry_wire": 18,
+        "prior_exact_provider_frame": 18,
+        "same_turn_pr_prefetch": 3
+      },
+      "retained_files": 18,
+      "source_coverage": "partial",
+      "source_material_omissions": 11,
+      "source_schema": 5,
+      "stage_charges": {
+        "adapter_call_pair": {
+          "api.github.com": 12,
+          "pypi.org": 8
+        },
+        "library_sources": {
+          "api.github.com": 6,
+          "pypi.org": 5
+        },
+        "native_inputs": {
+          "api.github.com": 3
+        },
+        "source_closure": {
+          "api.github.com": 9
+        },
+        "target_context": {
+          "api.github.com": 8
+        }
+      },
+      "target_envelopes": {
+        "MoveHistory.py": {
+          "envelope_bytes": 1084,
+          "envelope_sha256": "424707730373b5d5a5fe365464a64d87de8f672ba6b43b94618a1bbbfa3c7cb9",
+          "git_blob_sha1": "a36f58ccaa786aeca8a69f15d7450e01b9b1f517",
+          "raw_bytes": 757,
+          "raw_sha256": "ed7e2be9fd5830a85b847a9f32c7f043186a86e2abbc65f2be255cd13e566e46"
+        },
+        "chess.py": {
+          "envelope_bytes": 24650,
+          "envelope_sha256": "9904447abfcba686e880841976a10b6080c9d67a05334ea232d7e96f53b50509",
+          "git_blob_sha1": "08ea6f9ac0e0e6dadc7aaebd1701aff07d22be68",
+          "raw_bytes": 18437,
+          "raw_sha256": "ec9470db96133fea84b1599767dcceda4563a7e13e5b37f94e052ea1ff0cf6b7"
+        },
+        "main.py": {
+          "envelope_bytes": 6489,
+          "envelope_sha256": "482390d95e94c3cdfbce579a0ceb41bacc4f9f76c39efa22cd05dac18d333351",
+          "git_blob_sha1": "ea0d40dc11209f23ac5fa6664be58e8567236c4a",
+          "raw_bytes": 4818,
+          "raw_sha256": "2fefcb8afad476c65385c015e7742dde084abc28b400920d3ca01ebaa50e43b2"
+        },
+        "pyproject.toml": {
+          "envelope_bytes": 576,
+          "envelope_sha256": "5248bf83dab6b0154c8da6b55ffca78b6e99970e9470bf4713a0620a8f79006d",
+          "git_blob_sha1": "9fba75786919d865ec26f72788703c51e9d5dcb7",
+          "raw_bytes": 378,
+          "raw_sha256": "aac89a69883c269ceb6ed5fd0a0a1da731fc2f3a4d01d559bc7ec379f1dfd61c"
+        },
+        "requirements.txt": {
+          "envelope_bytes": 438,
+          "envelope_sha256": "04fdb49729518e768a411b15b04f82e4b7db553201fe9574c2ba429d13a96abd",
+          "git_blob_sha1": "ecce77b5ff739167f7f80d8233d1a60dd5322b0c",
+          "raw_bytes": 272,
+          "raw_sha256": "d7d215fb7c2079dc4566cd1c121eb757da9291c0660cc75e70ea41990e9bed6c"
+        }
+      },
+      "versioned_outcomes_by_root": {
+        "1a9751a43e2ce968cd57dfd8e201b9f76d6d7592218607290cfa10b95d8f4bc8": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ],
+        "8542e854075acd06089c44a99e01722d0719035ac244f105858e0f5852b4744f": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ],
+        "8a6bf775d163f699b9cd2b6e87dd414ddc408298c6c57f47c59fe46b914bea50": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ],
+        "d8f92fcea554effe796cafd9c188caca9ffda5547a2fbffffc2f699a016d53d4": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ],
+        "dd6012df37c235cddebc4446269f8efaa438a09d7347c4175935ca9974f9520a": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ],
+        "e8711c258cf5832820059abcc3f5cdfc31228f594377ace0d9b8c71545c09d51": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ],
+        "febd0ae08c1fc16446d0c9a1c6831d24ac35927c614c6d22c4baefcb36829102": [
+          [
+            "old_dependency",
+            "bound"
+          ],
+          [
+            "proposed_dependency",
+            "bound"
+          ]
+        ]
+      },
+      "witnesses": 50,
+      "worker_seconds": 3.1044342659988615,
+      "workspace_revision": "8d8bade8ac89476a98cb6867a48911d1"
+    }
+  },
+  "scope": {
+    "acceptance": "Completed source/profile delivery on unchanged default policy, at least one new complete exact-version call pair through the normal route, quantified baseline preservation and loss, offline report and exact Workspace reopen, and deterministic frozen replay of comparison and request order.",
+    "candidate_order": [
+      {
+        "adapter": "flask",
+        "pr": 58,
+        "repo": "hongyime/rainbowchess"
+      },
+      {
+        "adapter": "flask",
+        "pr": 54,
+        "repo": "einToast/MarioKart_Schedule"
+      },
+      {
+        "adapter": "flask",
+        "pr": 48,
+        "repo": "hongyime/sgCarParks2020"
+      },
+      {
+        "adapter": "flask",
+        "pr": 2,
+        "repo": "EchterAlsFake/eaf-dashboard"
+      },
+      {
+        "adapter": "flask",
+        "pr": 227,
+        "repo": "mkaraki/IllustStore"
+      },
+      {
+        "adapter": "flask",
+        "pr": 332,
+        "repo": "getsentry/reload"
+      },
+      {
+        "adapter": "flask",
+        "pr": 10,
+        "repo": "GlacierEQ/legal-ai-editor"
+      },
+      {
+        "adapter": "flask",
+        "pr": 1291,
+        "repo": "sentry-demos/empower"
+      },
+      {
+        "adapter": "flask",
+        "pr": 5,
+        "repo": "GlacierEQ/rogue"
+      },
+      {
+        "adapter": "flask",
+        "pr": 196,
+        "repo": "JVT038/MetaTube"
+      },
+      {
+        "adapter": "flask",
+        "pr": 638,
+        "repo": "ComputerScienceHouse/conditional"
+      },
+      {
+        "adapter": "flask",
+        "pr": 640,
+        "repo": "sanger/baracoda"
+      }
+    ],
+    "eligibility": "Previously unused target, exact supported old and proposed Werkzeug pins, one consistent visible Flask declaration, and a call through the admitted head file horizon into an adapter helper with a changed-package import. No product comparison prior to selection.",
+    "excluded_authority": "Installed-version selection, runtime behavior, CI outcome, maintainer usefulness and cross-adapter generality have separate evidence.",
+    "policy": {
+      "adapter_candidate_attempts": 4,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180.0,
+      "github_requests": 50,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "source_request_reserve": 24,
+      "target_file_attempts": 16
+    },
+    "screening": {
+      "max_decoded_file_bytes": 8388608,
+      "max_github_core_requests": 34,
+      "max_rest_and_raw_reads": 134
+    },
+    "selection": "First eligible distinct target in the frozen order. Start with applications and source paths likely to use Flask at the old/new pin. Eligibility is checked with exact input extraction and static AST source orientation only.",
+    "source_commit": "b590b1d51a19ad284ec064ec1f046232fb46001d"
+  },
+  "screen_read_count_by_host": {
+    "api.github.com": 4,
+    "raw.githubusercontent.com": 9
+  },
+  "validation_scripts_sha256": {
+    "compare.py": "211edb56284cff55ae6cd443f87ff51089790c2fee9eeab900e8164e93f87e11",
+    "review.py": "a7dbbbcfaf31be83c03cf2d53c7897bfda1bcc9d5bf57cded26d5b2f88ab76d9",
+    "screen.py": "ebd1e719590101bcdc3fac85ebf1e307bfcc76b134a4a7c3390c8a57dddeea51",
+    "verify.py": "95dcf08459165ff158c5f652a8c40efed10d2486df34f1840bcadcaaf92fd0fa"
+  }
+}
