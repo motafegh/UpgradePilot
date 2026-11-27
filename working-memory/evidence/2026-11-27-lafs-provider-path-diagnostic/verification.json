@@ -1,0 +1,907 @@
+{
+  "scope": {
+    "wheel_sha256": "83e7dd8aca2204fb935f9019c3a3ae56bfc8aaf44fc929250216ffc9b822f2af",
+    "case": {
+      "case": "ggeerraarrdd/lafs#29",
+      "result": "eligible",
+      "repo": "ggeerraarrdd/lafs",
+      "pr": "29",
+      "base": "00436347da8fdaaebe771273c2d3842fadfacda9",
+      "head": "78f6c1230c41659a9456a055465afb9ef65613e8",
+      "path": "requirements.txt",
+      "workflow": ".github/workflows/api.yml",
+      "job": "build",
+      "python": "3.13",
+      "adapter": "flask",
+      "package": "werkzeug",
+      "versions": {
+        "-": "3.1.3",
+        "+": "3.1.6"
+      },
+      "source_anchor": "app/app.py"
+    },
+    "limits": {
+      "github_requests": 50,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180,
+      "source_reserve": 24,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 4
+    },
+    "adapter_tail_reserve": 2,
+    "baseline": "Existing LAFS ranked CLI provider responses keyed by exact request URL, method and media type. Replayed responses charge the ordinary session.",
+    "additional_provider_scope": {
+      "package": "werkzeug",
+      "versions": [
+        "3.1.3",
+        "3.1.6"
+      ],
+      "source_repository": "pallets/werkzeug",
+      "hosts": [
+        "api.github.com",
+        "pypi.org"
+      ]
+    },
+    "method": "Private diagnostic around library closure. Reuse installed call/binding facts and ordinary exact-release, association, tag, repository and source provider methods in the same invocation.",
+    "selection": "Find currently unresolved lexical calls inside an adapter declaration reached by a supported target witness, with matching changed-package import trace. Use exactly one nominated module. Reserve two original module attempts and require both roles before classifying a pair.",
+    "controls": [
+      "frozen positive replay",
+      "old-only when proposed exact file is unavailable",
+      "proposed registry version mismatch",
+      "normal closure without a pair reserve",
+      "real Requests constructor source-supplied negative control for poolmanager"
+    ],
+    "proof": "Preserve original product limits. Validate paired roles, protected baseline witnesses, exact source and publication recovery. LAFS is development evidence, with prior outcome exposure."
+  },
+  "transport_control_scope": {
+    "basis": "additional offline boundary check after the positive run used 49 GitHub GETs",
+    "mutation": "Set only the product GitHub acquisition cap to 48 through its CLI. Keep 100 providers, byte, elapsed, target and module limits, unchanged pair selection, and the same frozen response bodies.",
+    "expected": "Normal charged acquisition stops before the last required GitHub response, no pair is admitted, and the admitted old side and explicit stop are retained."
+  },
+  "baseline": {
+    "report_id": "969f6224-8406-4bd5-ba69-9c428214b794",
+    "witnesses": 92,
+    "github_requests": 39,
+    "provider_requests": 44,
+    "library_module_attempts": 12,
+    "material_omissions": 9
+  },
+  "dispatches_by_host": {
+    "pypi.org": 6,
+    "api.github.com": 12
+  },
+  "supplemental_decoded_wire_bytes": 284859,
+  "supplemental_frame_index_sha256": "e82af20f90567ff560931a62a3a3683660c0ce8e750cd529e7493db6a6a4c17a",
+  "results": {
+    "live": {
+      "report_id": "456de61c-4a73-4afc-8811-a21e1fe6d6c1",
+      "report_sha256": "e1dc98cd927bb4b8bacf3ce59b232eb20b374f0f8c478e03514fa3fab97c2a7d",
+      "workspace_revision": "63013896783b4787ab235262c7238e42",
+      "source_coverage": "partial",
+      "source_files": 28,
+      "material_omissions": 11,
+      "library_module_attempts": 12,
+      "release_identities": [
+        [
+          "flask",
+          "3.1.1"
+        ],
+        [
+          "werkzeug",
+          "3.1.3"
+        ],
+        [
+          "werkzeug",
+          "3.1.6"
+        ]
+      ],
+      "new_omissions": [
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/blueprints.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        },
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/scaffold.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        }
+      ],
+      "acquisition": {
+        "github_requests": 49,
+        "provider_requests": 62,
+        "decoded_body_bytes": 872414,
+        "seconds_at_publication": 12.52900642699933,
+        "stops": [],
+        "frozen_baseline_reads": 42,
+        "supplemental_frozen_reads": 2,
+        "wire_dispatch": 18,
+        "controlled_replacements": 0
+      },
+      "analysis": {
+        "input_sha256": "071fc5d0f7f1ae9daa3d466e233b23bb5dc60a238d84308bf749e49c10084107",
+        "witnesses": 100,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_roots": 4,
+        "changed_role_witnesses": 8,
+        "initial_worker_seconds": 1.903532718999486,
+        "final_worker_seconds": 2.4416318660005345
+      },
+      "module_acquisition": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "source_unavailable"
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "available"
+        }
+      ],
+      "pair_disposition": "both_examined",
+      "paired_witnesses": [
+        {
+          "root_path": "app/blueprints/main/routes.py",
+          "root_line": 79,
+          "root_id": "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce",
+          "call_path": "src/flask/helpers.py",
+          "call_line": 263,
+          "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+          "module": "werkzeug.utils",
+          "qualified_name": "redirect",
+          "sides": [
+            {
+              "role": "old_dependency",
+              "version": "3.1.3",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 242,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            },
+            {
+              "role": "proposed_dependency",
+              "version": "3.1.6",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 235,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            }
+          ]
+        },
+        {
+          "root_path": "app/blueprints/main/routes.py",
+          "root_line": 128,
+          "root_id": "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd",
+          "call_path": "src/flask/helpers.py",
+          "call_line": 263,
+          "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+          "module": "werkzeug.utils",
+          "qualified_name": "redirect",
+          "sides": [
+            {
+              "role": "old_dependency",
+              "version": "3.1.3",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 242,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            },
+            {
+              "role": "proposed_dependency",
+              "version": "3.1.6",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 235,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            }
+          ]
+        },
+        {
+          "root_path": "app/blueprints/main/routes.py",
+          "root_line": 141,
+          "root_id": "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f",
+          "call_path": "src/flask/helpers.py",
+          "call_line": 263,
+          "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+          "module": "werkzeug.utils",
+          "qualified_name": "redirect",
+          "sides": [
+            {
+              "role": "old_dependency",
+              "version": "3.1.3",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 242,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            },
+            {
+              "role": "proposed_dependency",
+              "version": "3.1.6",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 235,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            }
+          ]
+        },
+        {
+          "root_path": "app/blueprints/main/routes.py",
+          "root_line": 182,
+          "root_id": "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c",
+          "call_path": "src/flask/helpers.py",
+          "call_line": 263,
+          "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+          "module": "werkzeug.utils",
+          "qualified_name": "redirect",
+          "sides": [
+            {
+              "role": "old_dependency",
+              "version": "3.1.3",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 242,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            },
+            {
+              "role": "proposed_dependency",
+              "version": "3.1.6",
+              "result": "bound",
+              "signature_path": "src/werkzeug/utils.py",
+              "signature_line": 235,
+              "premises": [
+                "delayed_global_read",
+                "conditional_import_origin",
+                "adapter_version_is_exploration_sample_not_target_resolution",
+                "effective_export_binding_not_established",
+                "installed_namespace_and_dispatch_not_established",
+                "reexport_binding_and_branch_activation_not_established",
+                "execution_reaches_selected_body_and_branch"
+              ],
+              "keyword_reception": [
+                {
+                  "name": "code",
+                  "outcome": "named_parameter"
+                },
+                {
+                  "name": "Response",
+                  "outcome": "named_parameter"
+                }
+              ],
+              "unresolved_checks": []
+            }
+          ]
+        }
+      ],
+      "module_selection": {
+        "werkzeug.utils": [
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 79,
+            "root_id": "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce",
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "candidate_binding_state": "conditional"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 128,
+            "root_id": "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd",
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "candidate_binding_state": "conditional"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 141,
+            "root_id": "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f",
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "candidate_binding_state": "conditional"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 182,
+            "root_id": "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c",
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect",
+            "candidate_binding_state": "conditional"
+          }
+        ]
+      }
+    },
+    "replay": {
+      "report_id": "ff38926a-778f-4c0a-931b-d76addf959c7",
+      "report_sha256": "4b7602063d1bc7855b6705cde4457729d3b307c6202f54c60d3393dd9c1548e5",
+      "workspace_revision": "80d40bf086d640a091e20568a72894a4",
+      "source_coverage": "partial",
+      "source_files": 28,
+      "material_omissions": 11,
+      "library_module_attempts": 12,
+      "release_identities": [
+        [
+          "flask",
+          "3.1.1"
+        ],
+        [
+          "werkzeug",
+          "3.1.3"
+        ],
+        [
+          "werkzeug",
+          "3.1.6"
+        ]
+      ],
+      "new_omissions": [
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/blueprints.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        },
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/scaffold.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        }
+      ],
+      "acquisition": {
+        "github_requests": 49,
+        "provider_requests": 62,
+        "decoded_body_bytes": 872414,
+        "seconds_at_publication": 6.718842192000011,
+        "stops": [],
+        "frozen_baseline_reads": 42,
+        "supplemental_frozen_reads": 20,
+        "wire_dispatch": 0,
+        "controlled_replacements": 0
+      },
+      "analysis": {
+        "input_sha256": "071fc5d0f7f1ae9daa3d466e233b23bb5dc60a238d84308bf749e49c10084107",
+        "witnesses": 100,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_roots": 4,
+        "changed_role_witnesses": 8,
+        "initial_worker_seconds": 2.252963417000501,
+        "final_worker_seconds": 2.5938115380013187
+      },
+      "module_acquisition": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "source_unavailable"
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "available"
+        }
+      ],
+      "pair_disposition": "both_examined"
+    },
+    "one-sided": {
+      "report_id": "0c008ee1-c731-4ae6-8909-c89aab0b57bd",
+      "report_sha256": "1aad1f6d51697f208a271d1e4689b87722350a114d34ef18d36fe6c913083f83",
+      "workspace_revision": "35d6517a8fde41e1853063a6a9935ebc",
+      "source_coverage": "partial",
+      "source_files": 27,
+      "material_omissions": 11,
+      "library_module_attempts": 12,
+      "release_identities": [
+        [
+          "flask",
+          "3.1.1"
+        ],
+        [
+          "werkzeug",
+          "3.1.3"
+        ],
+        [
+          "werkzeug",
+          "3.1.6"
+        ]
+      ],
+      "new_omissions": [
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/blueprints.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        },
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/scaffold.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        }
+      ],
+      "acquisition": {
+        "github_requests": 49,
+        "provider_requests": 62,
+        "decoded_body_bytes": 837503,
+        "seconds_at_publication": 6.690665081001498,
+        "stops": [],
+        "frozen_baseline_reads": 42,
+        "supplemental_frozen_reads": 20,
+        "wire_dispatch": 0,
+        "controlled_replacements": 1
+      },
+      "analysis": {
+        "input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "witnesses": 96,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_roots": 0,
+        "changed_role_witnesses": 4,
+        "initial_worker_seconds": 2.258165747000021,
+        "final_worker_seconds": 2.3564379939998616
+      },
+      "module_acquisition": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "source_unavailable"
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "unavailable",
+          "problem": "not_found_or_inaccessible",
+          "repository": "pallets/werkzeug",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": null,
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "available"
+        }
+      ],
+      "pair_disposition": "incomplete_pair"
+    },
+    "wrong-release": {
+      "report_id": "ac7f58ec-dd85-4591-a0ad-cc147e1fa0df",
+      "report_sha256": "81e6dab6fe9048c3f60baf88487068f05cb3afe076ebf4e894397b0db5f4e2f5",
+      "workspace_revision": "41eed583ab35412e95b476738fbca715",
+      "source_coverage": "partial",
+      "source_files": 27,
+      "material_omissions": 11,
+      "library_module_attempts": 12,
+      "release_identities": [
+        [
+          "flask",
+          "3.1.1"
+        ],
+        [
+          "werkzeug",
+          "3.1.3"
+        ],
+        [
+          "werkzeug",
+          "3.1.6"
+        ]
+      ],
+      "new_omissions": [
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/blueprints.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        },
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/scaffold.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        }
+      ],
+      "acquisition": {
+        "github_requests": 43,
+        "provider_requests": 53,
+        "decoded_body_bytes": 724825,
+        "seconds_at_publication": 6.679149944000528,
+        "stops": [],
+        "frozen_baseline_reads": 42,
+        "supplemental_frozen_reads": 11,
+        "wire_dispatch": 0,
+        "controlled_replacements": 1
+      },
+      "analysis": {
+        "input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "witnesses": 96,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_roots": 0,
+        "changed_role_witnesses": 4,
+        "initial_worker_seconds": 2.2049851580013637,
+        "final_worker_seconds": 2.396741750999354
+      },
+      "module_acquisition": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "source_unavailable"
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "unavailable",
+          "problem": "identity_mismatch",
+          "repository": null,
+          "revision": null,
+          "path": null,
+          "source_sha256": null,
+          "association_basis": null,
+          "provenance_state": null
+        }
+      ],
+      "pair_disposition": "incomplete_pair"
+    },
+    "no-reserve": {
+      "report_id": "538a513c-86d1-4c85-a175-ee6731d406ad",
+      "report_sha256": "d5f52c124d3e8d9877e7313ed97fe54440caf973b1f19916d3b5b4363624eb75",
+      "workspace_revision": "2600048f03d0494e8a6b915a4f2c7621",
+      "source_coverage": "partial",
+      "source_files": 28,
+      "material_omissions": 9,
+      "library_module_attempts": 12,
+      "release_identities": [
+        [
+          "flask",
+          "3.1.1"
+        ]
+      ],
+      "new_omissions": [],
+      "acquisition": {
+        "github_requests": 39,
+        "provider_requests": 44,
+        "decoded_body_bytes": 644791,
+        "seconds_at_publication": 7.223629776999587,
+        "stops": [],
+        "frozen_baseline_reads": 44,
+        "supplemental_frozen_reads": 0,
+        "wire_dispatch": 0,
+        "controlled_replacements": 0
+      },
+      "analysis": {
+        "input_sha256": "70ee7a84309e67ef51be981df2ac2a623299415fbf13d6e3d575c73feaa2ac22",
+        "witnesses": 92,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_roots": 0,
+        "changed_role_witnesses": 0,
+        "initial_worker_seconds": 2.587348987999576,
+        "final_worker_seconds": 2.517823849000706
+      },
+      "module_acquisition": [],
+      "pair_disposition": "insufficient_module_reserve"
+    },
+    "github-cap": {
+      "report_id": "4af062fe-704c-4e0e-8ef5-108feb29118c",
+      "report_sha256": "4a55977e15c33e14ef65e7d230b78db6b8d5261e6c090c49a79aa16b53fc4615",
+      "workspace_revision": "6457eada63e04253a997439053af514a",
+      "source_coverage": "partial",
+      "source_files": 27,
+      "material_omissions": 11,
+      "library_module_attempts": 12,
+      "release_identities": [
+        [
+          "flask",
+          "3.1.1"
+        ],
+        [
+          "werkzeug",
+          "3.1.3"
+        ],
+        [
+          "werkzeug",
+          "3.1.6"
+        ]
+      ],
+      "new_omissions": [
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/blueprints.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        },
+        {
+          "repository": "pallets/flask",
+          "revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1",
+          "path": "src/flask/sansio/scaffold.py",
+          "role": "constraint_sample",
+          "reason": "closure_read_budget"
+        }
+      ],
+      "acquisition": {
+        "github_requests": 48,
+        "provider_requests": 61,
+        "decoded_body_bytes": 837480,
+        "seconds_at_publication": 5.610186698000689,
+        "stops": [
+          {
+            "stage": "source_closure",
+            "reason": "acquisition_request_limit"
+          }
+        ],
+        "frozen_baseline_reads": 42,
+        "supplemental_frozen_reads": 19,
+        "wire_dispatch": 0,
+        "controlled_replacements": 0
+      },
+      "analysis": {
+        "input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "witnesses": 96,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_roots": 0,
+        "changed_role_witnesses": 4,
+        "initial_worker_seconds": 1.915820315000019,
+        "final_worker_seconds": 2.0968517099991004
+      },
+      "module_acquisition": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "problem": null,
+          "repository": "pallets/werkzeug",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "source_unavailable"
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "refused",
+          "problem": "acquisition_request_limit",
+          "repository": "pallets/werkzeug",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "path": "src/werkzeug/utils.py",
+          "source_sha256": null,
+          "association_basis": "exact_release_publisher_declared_repository",
+          "provenance_state": "available"
+        }
+      ],
+      "pair_disposition": "incomplete_pair"
+    }
+  },
+  "requests_negative_control": {
+    "control": "Real Requests 2.32.5 source and the exact urllib3 modules from the retained offline constructor replay; synthetic target call.",
+    "input_sha256": "7ead9da3149a4036ea84cf65d8d476659405d0ab3bc8d2f981228d7296215487",
+    "result_sha256": "e8108d8f4f73f3acc74359cca412bcde691d8f8f82ee6f653feadfe3093cbdfb",
+    "unresolved_method": "self.init_poolmanager",
+    "hints": {
+      "urllib3.util.retry": [
+        {
+          "root_path": "app.py",
+          "root_line": 2,
+          "root_id": "b3129e2c4a0cc24a002077d7566e3eaebe0bcbffd04a6c7ba101c792e519a2bb",
+          "call_path": "src/requests/adapters.py",
+          "call_line": 186,
+          "call_id": "26eee10847a2bd925521da25cadfa3f23184f84660b9dbb6129686123c2eb41b",
+          "import_line": 29,
+          "imported_binding": "urllib3.util.retry.Retry",
+          "candidate_binding_state": "conditional"
+        },
+        {
+          "root_path": "app.py",
+          "root_line": 2,
+          "root_id": "b3129e2c4a0cc24a002077d7566e3eaebe0bcbffd04a6c7ba101c792e519a2bb",
+          "call_path": "src/requests/adapters.py",
+          "call_line": 188,
+          "call_id": "b4d5befc840c081da129c8af834a663e9248cab0f2297f324e5dd50a745096f6",
+          "import_line": 29,
+          "imported_binding": "urllib3.util.retry.Retry.from_int",
+          "candidate_binding_state": "conditional"
+        }
+      ]
+    },
+    "poolmanager_nominated": false,
+    "paired_dependencies": 0
+  },
+  "offline_reopening": {
+    "saved_report": true,
+    "exact_workspace_revision": true,
+    "old_and_proposed_sources": true,
+    "frozen_cli_analysis_and_request_order_match": true
+  },
+  "disposition": "Known-case developer diagnostic succeeded under existing limits with partial coverage. Ordinary product behaviour, broader transfer and maintainer usefulness require separate proof."
+}
