@@ -1,0 +1,820 @@
+{
+  "diagnostic_scope": {
+    "method": "installed e87e8ac1 UpgradePilot worker and caller/signature input codec",
+    "wheel_sha256": "83e7dd8aca2204fb935f9019c3a3ae56bfc8aaf44fc929250216ffc9b822f2af",
+    "question": "Can the existing worker produce paired call-specific evidence if the exact relevant modules are available? This is a material-injection diagnostic, not an ordinary PR run or a changed acquisition method.",
+    "inputs": {
+      "lafs_report": "969f6224-8406-4bd5-ba69-9c428214b794",
+      "lafs_target": "ggeerraarrdd/lafs#29",
+      "requests_source": "psf/requests@b25c87d7cb8d6a18a37fa12442b5f883f9e41741:src/requests/adapters.py",
+      "urllib3_transition_basis": "prior screened pin change in EliasMez/snowflake-dbt-dataops-pipeline#130; used for source controls, not for a witness about that target",
+      "source_questions": [
+        {
+          "repo": "pallets/werkzeug",
+          "package": "werkzeug",
+          "old": "3.1.3",
+          "proposed": "3.1.6",
+          "modules": {
+            "werkzeug.utils": "src/werkzeug/utils.py"
+          }
+        },
+        {
+          "repo": "urllib3/urllib3",
+          "package": "urllib3",
+          "old": "2.6.0",
+          "proposed": "2.6.2",
+          "modules": {
+            "urllib3.exceptions": "src/urllib3/exceptions.py",
+            "urllib3.poolmanager": "src/urllib3/poolmanager.py"
+          }
+        }
+      ]
+    },
+    "fixed_cases": [
+      "LAFS: replay all 28 saved file bodies with original limits, then add only both tagged Werkzeug utils modules. Require unchanged target-root and adapter call identity at Flask helpers redirect, compared against both exact Werkzeug versions.",
+      "Requests: synthetically call HTTPAdapter constructor. Use real tagged Requests source and exact tagged urllib3 exceptions on both sides, then add both PoolManager modules. Record both useful and absent/wrong-path results.",
+      "Positive control: use the same supplied tagged Requests and urllib3 modules, with a synthetic call to the class method HTTPAdapter.init_poolmanager. This intentionally isolates whether the worker can examine the downstream call through a more explicit entry.",
+      "Downstream-source control: use the same tagged Requests and urllib3 bytes, with a synthetic call using the imported supplier exposed in requests.adapters (from requests.adapters import PoolManager). This isolates admission and the simpler re-export relationship."
+    ],
+    "limits": {
+      "tag_and_file_https_gets": 12,
+      "decoded_body_per_get": 1048576,
+      "decoded_body_total": 8388608,
+      "analysis": "installed ordinary profile and default limits including 32 files, 4 MiB, 60 seconds, 512 MiB"
+    },
+    "interpretation": [
+      "Pair requires the same target root and adapter call fact on both exact roles, with matching destination module and callable, retained source path and conditions.",
+      "Distinguish source inclusion from a usable root-linked witness, and from successful native acquisition or runtime dispatch. Keep omitted or unresolved paths visible.",
+      "Stop design before product mutation or any new ordinary transfer claim."
+    ]
+  },
+  "acquisition": {
+    "auth": "anonymous",
+    "https_gets": 10,
+    "decoded_bytes": 151128,
+    "source_bodies": [
+      {
+        "repository": "pallets/werkzeug",
+        "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+        "version": "3.1.3",
+        "package": "werkzeug",
+        "role": "old_dependency",
+        "module": "werkzeug.utils",
+        "path": "src/werkzeug/utils.py",
+        "body_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+        "bytes": 24725,
+        "source_url": "https://raw.githubusercontent.com/pallets/werkzeug/6389612fd1ee1bd93579eed5026e8fd471d04abd/src/werkzeug/utils.py",
+        "tag_lookup": "https://api.github.com/repos/pallets/werkzeug/commits/3.1.3"
+      },
+      {
+        "repository": "pallets/werkzeug",
+        "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+        "version": "3.1.6",
+        "package": "werkzeug",
+        "role": "proposed_dependency",
+        "module": "werkzeug.utils",
+        "path": "src/werkzeug/utils.py",
+        "body_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+        "bytes": 24623,
+        "source_url": "https://raw.githubusercontent.com/pallets/werkzeug/04da1b5221b7a7b57e82246e4b5741d37a6b2e56/src/werkzeug/utils.py",
+        "tag_lookup": "https://api.github.com/repos/pallets/werkzeug/commits/3.1.6"
+      },
+      {
+        "repository": "urllib3/urllib3",
+        "revision": "720f484b605f18887a48eef448d0084e2b76902d",
+        "version": "2.6.0",
+        "package": "urllib3",
+        "role": "old_dependency",
+        "module": "urllib3.exceptions",
+        "path": "src/urllib3/exceptions.py",
+        "body_sha256": "79e43bee726317dedb3fa4af08ae209b1e81a5064a53cca3bccf80203c19757f",
+        "bytes": 9952,
+        "source_url": "https://raw.githubusercontent.com/urllib3/urllib3/720f484b605f18887a48eef448d0084e2b76902d/src/urllib3/exceptions.py",
+        "tag_lookup": "https://api.github.com/repos/urllib3/urllib3/commits/2.6.0"
+      },
+      {
+        "repository": "urllib3/urllib3",
+        "revision": "720f484b605f18887a48eef448d0084e2b76902d",
+        "version": "2.6.0",
+        "package": "urllib3",
+        "role": "old_dependency",
+        "module": "urllib3.poolmanager",
+        "path": "src/urllib3/poolmanager.py",
+        "body_sha256": "3583f9be429f69d19d75a05a71493acfabbcad33fdc200851868d5b5fd6691c7",
+        "bytes": 23811,
+        "source_url": "https://raw.githubusercontent.com/urllib3/urllib3/720f484b605f18887a48eef448d0084e2b76902d/src/urllib3/poolmanager.py",
+        "tag_lookup": "https://api.github.com/repos/urllib3/urllib3/commits/2.6.0"
+      },
+      {
+        "repository": "urllib3/urllib3",
+        "revision": "83f8643ffb5b7f197457379148e2fa118ab0fcdc",
+        "version": "2.6.2",
+        "package": "urllib3",
+        "role": "proposed_dependency",
+        "module": "urllib3.exceptions",
+        "path": "src/urllib3/exceptions.py",
+        "body_sha256": "79e43bee726317dedb3fa4af08ae209b1e81a5064a53cca3bccf80203c19757f",
+        "bytes": 9952,
+        "source_url": "https://raw.githubusercontent.com/urllib3/urllib3/83f8643ffb5b7f197457379148e2fa118ab0fcdc/src/urllib3/exceptions.py",
+        "tag_lookup": "https://api.github.com/repos/urllib3/urllib3/commits/2.6.2"
+      },
+      {
+        "repository": "urllib3/urllib3",
+        "revision": "83f8643ffb5b7f197457379148e2fa118ab0fcdc",
+        "version": "2.6.2",
+        "package": "urllib3",
+        "role": "proposed_dependency",
+        "module": "urllib3.poolmanager",
+        "path": "src/urllib3/poolmanager.py",
+        "body_sha256": "3583f9be429f69d19d75a05a71493acfabbcad33fdc200851868d5b5fd6691c7",
+        "bytes": 23811,
+        "source_url": "https://raw.githubusercontent.com/urllib3/urllib3/83f8643ffb5b7f197457379148e2fa118ab0fcdc/src/urllib3/poolmanager.py",
+        "tag_lookup": "https://api.github.com/repos/urllib3/urllib3/commits/2.6.2"
+      }
+    ],
+    "scope": "Named tag lookup and exact-commit source text only"
+  },
+  "offline_worker_replay": {
+    "original_report_id": "969f6224-8406-4bd5-ba69-9c428214b794",
+    "original_report_sha256": "2bbd5e9dfdc66c6dbbce588a1fc1783d8cb95760259ab98440fdfb0fd06f532e",
+    "analysis_limits": {
+      "max_files": 32,
+      "max_source_bytes": 4194304,
+      "max_nodes_per_file": 100000,
+      "max_nodes": 250000,
+      "max_facts": 4096,
+      "max_pairs": 256,
+      "timeout_seconds": 60.0,
+      "memory_bytes": 536870912
+    },
+    "runs": {
+      "lafs_original": {
+        "input_sha256": "70ee7a84309e67ef51be981df2ac2a623299415fbf13d6e3d575c73feaa2ac22",
+        "result_sha256": "51cf0bc876a99193a12718e0d3a635dfa6a337918dee19d89c6fccaa82e63908",
+        "files": 28,
+        "source_bytes": 275478,
+        "worker_seconds": 2.2149,
+        "witnesses": 92,
+        "analyzed_files": 24,
+        "coverage_by_unit": {
+          "complete_file": 24,
+          "unexamined": 3,
+          "non_python": 1
+        },
+        "changed_role_witnesses": 0,
+        "paired": [],
+        "relevant_gaps": [
+          {
+            "path": "src/flask/helpers.py",
+            "reason": "callable_relationship_unresolved",
+            "line": 261,
+            "detail": "current_app.redirect"
+          },
+          {
+            "path": "src/flask/helpers.py",
+            "reason": "callable_relationship_unresolved",
+            "line": 263,
+            "detail": "_wz_redirect"
+          }
+        ]
+      },
+      "lafs_with_werkzeug_utils": {
+        "input_sha256": "467484a951fa69eed42f8aae644e24feaed74a97fa902b4b5acdd7e05c40283b",
+        "result_sha256": "a1f558c6e09d5e988324bdcd28fbd70f7ca1d4288ef18857ed646f53359455d5",
+        "files": 30,
+        "source_bytes": 324826,
+        "worker_seconds": 2.7132,
+        "witnesses": 100,
+        "analyzed_files": 26,
+        "coverage_by_unit": {
+          "complete_file": 26,
+          "unexamined": 3,
+          "non_python": 1
+        },
+        "changed_role_witnesses": 8,
+        "paired": [
+          {
+            "target_root": {
+              "path": "app/blueprints/main/routes.py",
+              "line": 79,
+              "expression": "redirect"
+            },
+            "target_root_id": "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce",
+            "compared_call": {
+              "path": "src/flask/helpers.py",
+              "line": 263,
+              "expression": "_wz_redirect"
+            },
+            "compared_call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "module": "werkzeug.utils",
+            "callable": "redirect",
+            "sides": [
+              {
+                "role": "old_dependency",
+                "version": "3.1.3",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 242,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              },
+              {
+                "role": "proposed_dependency",
+                "version": "3.1.6",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 235,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              }
+            ]
+          },
+          {
+            "target_root": {
+              "path": "app/blueprints/main/routes.py",
+              "line": 128,
+              "expression": "redirect"
+            },
+            "target_root_id": "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd",
+            "compared_call": {
+              "path": "src/flask/helpers.py",
+              "line": 263,
+              "expression": "_wz_redirect"
+            },
+            "compared_call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "module": "werkzeug.utils",
+            "callable": "redirect",
+            "sides": [
+              {
+                "role": "old_dependency",
+                "version": "3.1.3",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 242,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              },
+              {
+                "role": "proposed_dependency",
+                "version": "3.1.6",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 235,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              }
+            ]
+          },
+          {
+            "target_root": {
+              "path": "app/blueprints/main/routes.py",
+              "line": 141,
+              "expression": "redirect"
+            },
+            "target_root_id": "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f",
+            "compared_call": {
+              "path": "src/flask/helpers.py",
+              "line": 263,
+              "expression": "_wz_redirect"
+            },
+            "compared_call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "module": "werkzeug.utils",
+            "callable": "redirect",
+            "sides": [
+              {
+                "role": "old_dependency",
+                "version": "3.1.3",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 242,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              },
+              {
+                "role": "proposed_dependency",
+                "version": "3.1.6",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 235,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              }
+            ]
+          },
+          {
+            "target_root": {
+              "path": "app/blueprints/main/routes.py",
+              "line": 182,
+              "expression": "redirect"
+            },
+            "target_root_id": "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c",
+            "compared_call": {
+              "path": "src/flask/helpers.py",
+              "line": 263,
+              "expression": "_wz_redirect"
+            },
+            "compared_call_id": "9f1d443b667e191e4d63f5141c26fd1087ba3c9305760c75016358053010dd17",
+            "module": "werkzeug.utils",
+            "callable": "redirect",
+            "sides": [
+              {
+                "role": "old_dependency",
+                "version": "3.1.3",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 242,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              },
+              {
+                "role": "proposed_dependency",
+                "version": "3.1.6",
+                "result": "bound",
+                "signature": {
+                  "path": "src/werkzeug/utils.py",
+                  "line": 235,
+                  "expression": "redirect"
+                },
+                "premises": [
+                  "delayed_global_read",
+                  "conditional_import_origin",
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "execution_reaches_selected_body_and_branch"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "code",
+                    "outcome": "named_parameter"
+                  },
+                  {
+                    "name": "Response",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              }
+            ]
+          }
+        ],
+        "relevant_gaps": [
+          {
+            "path": "src/flask/helpers.py",
+            "reason": "callable_relationship_unresolved",
+            "line": 261,
+            "detail": "current_app.redirect"
+          }
+        ]
+      },
+      "requests_constructor_with_exceptions": {
+        "input_sha256": "c2bbcfbf02b95351488d8b2d213de2132a3755672bd1a0b6e9b4ebfc50d80dd6",
+        "result_sha256": "b46a644d87d72aa7ac27daae0b4a80c80ed1e41b3405f6ad9b3e0e15b73800a9",
+        "files": 4,
+        "source_bytes": 46245,
+        "worker_seconds": 0.472,
+        "witnesses": 1,
+        "analyzed_files": 4,
+        "coverage_by_unit": {
+          "complete_file": 4
+        },
+        "changed_role_witnesses": 0,
+        "paired": [],
+        "relevant_gaps": [
+          {
+            "path": "src/requests/adapters.py",
+            "reason": "callable_relationship_unresolved",
+            "line": 198,
+            "detail": "self.init_poolmanager"
+          }
+        ]
+      },
+      "requests_constructor_with_poolmanager": {
+        "input_sha256": "7ead9da3149a4036ea84cf65d8d476659405d0ab3bc8d2f981228d7296215487",
+        "result_sha256": "e8108d8f4f73f3acc74359cca412bcde691d8f8f82ee6f653feadfe3093cbdfb",
+        "files": 6,
+        "source_bytes": 93867,
+        "worker_seconds": 0.7903,
+        "witnesses": 1,
+        "analyzed_files": 6,
+        "coverage_by_unit": {
+          "complete_file": 6
+        },
+        "changed_role_witnesses": 0,
+        "paired": [],
+        "relevant_gaps": [
+          {
+            "path": "src/requests/adapters.py",
+            "reason": "callable_relationship_unresolved",
+            "line": 198,
+            "detail": "self.init_poolmanager"
+          }
+        ]
+      },
+      "requests_explicit_method": {
+        "input_sha256": "8f8026ee5c83a659ee3d48c137f11dc459d226ebeceac0d33147c8a6af324823",
+        "result_sha256": "b1643e70f7de6e5db85e9aefdc4c42d09d56281aeab54cbdcd9f28e1e0bd01db",
+        "files": 6,
+        "source_bytes": 93897,
+        "worker_seconds": 0.7427,
+        "witnesses": 0,
+        "analyzed_files": 6,
+        "coverage_by_unit": {
+          "complete_file": 6
+        },
+        "changed_role_witnesses": 0,
+        "paired": [],
+        "relevant_gaps": [
+          {
+            "path": "app.py",
+            "reason": "callable_relationship_unresolved",
+            "line": 2,
+            "detail": "HTTPAdapter.init_poolmanager"
+          }
+        ]
+      },
+      "requests_reexport_control": {
+        "input_sha256": "813f58e9ac4c3466c3da5f72b81568b9b77edc6fa7d76aae491b7e0a7da68c2c",
+        "result_sha256": "bfc80cba523248669ef17ff547df400e35c1d89a57241bef4c1327926823a66e",
+        "files": 6,
+        "source_bytes": 93878,
+        "worker_seconds": 0.7844,
+        "witnesses": 2,
+        "analyzed_files": 6,
+        "coverage_by_unit": {
+          "complete_file": 6
+        },
+        "changed_role_witnesses": 2,
+        "paired": [
+          {
+            "target_root": {
+              "path": "app.py",
+              "line": 2,
+              "expression": "PoolManager"
+            },
+            "target_root_id": "bace9f7d561f0c41c375fee0fe83b65fb0f009d2289c9b41a64b5f02092a7776",
+            "compared_call": {
+              "path": "app.py",
+              "line": 2,
+              "expression": "PoolManager"
+            },
+            "compared_call_id": "bace9f7d561f0c41c375fee0fe83b65fb0f009d2289c9b41a64b5f02092a7776",
+            "module": "urllib3.poolmanager",
+            "callable": "PoolManager.__init__",
+            "sides": [
+              {
+                "role": "old_dependency",
+                "version": "2.6.0",
+                "result": "bound",
+                "signature": {
+                  "path": "src/urllib3/poolmanager.py",
+                  "line": 199,
+                  "expression": "PoolManager.__init__"
+                },
+                "premises": [
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "class_allocation_metaclass_and_mro_not_established"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "num_pools",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              },
+              {
+                "role": "proposed_dependency",
+                "version": "2.6.2",
+                "result": "bound",
+                "signature": {
+                  "path": "src/urllib3/poolmanager.py",
+                  "line": 199,
+                  "expression": "PoolManager.__init__"
+                },
+                "premises": [
+                  "adapter_version_is_exploration_sample_not_target_resolution",
+                  "effective_export_binding_not_established",
+                  "installed_namespace_and_dispatch_not_established",
+                  "reexport_binding_and_branch_activation_not_established",
+                  "class_allocation_metaclass_and_mro_not_established"
+                ],
+                "keyword_reception": [
+                  {
+                    "name": "num_pools",
+                    "outcome": "named_parameter"
+                  }
+                ],
+                "unresolved_checks": []
+              }
+            ]
+          }
+        ],
+        "relevant_gaps": []
+      }
+    }
+  },
+  "offline_allocation_model": {
+    "scope": {
+      "purpose": "After paired Werkzeug witnesses were observed, measure one explicit allocation trade-off within the original 12 library module attempts.",
+      "policy": "Choose the last two distinct successfully examined Flask library modules in the retained native module receipt order, excluding cache duplicates. Remove exactly their complete file bodies and module descriptors and add the two frozen Werkzeug utils bodies. Reuse unchanged worker, baseline target files, role limits and input encoding. Private replay only.",
+      "proof": "Measure whether the four known paired roots survive, which baseline witnesses are lost, and whether baseline analysis caps were enlarged. This models source material under a fixed module allocation. Actual REST and PyPI costs and partial publication remain unestablished."
+    },
+    "input_sha256": "d2a7da4b451616a33a4f7e31956eff564c724b93144b4abbdb92982def528712",
+    "result_sha256": "56ef3ebc0689500a98cb05a71949b66ab50fa4f277ef67f72879b096ffc2af1b",
+    "original_library_module_attempts": 12,
+    "offline_library_files": 12,
+    "original_report_module_receipts": 13,
+    "baseline_public_acquisition": {
+      "github_requests": 39,
+      "provider_requests": 44,
+      "decoded_body_bytes": 644791
+    },
+    "previous_witness_count": 92,
+    "retained_previous_witnesses": 92,
+    "previous_witnesses_lost": 0,
+    "other_changed_or_new_existing_role_witnesses": 0,
+    "lost_destinations": {},
+    "old_and_proposed_witnesses": 8,
+    "paired_target_roots": 4,
+    "source_files": 28,
+    "source_bytes": 269802,
+    "final_witnesses": 100,
+    "omitted_for_capacity": [
+      {
+        "module": "flask.sansio.blueprints",
+        "path": "src/flask/sansio/blueprints.py"
+      },
+      {
+        "module": "flask.sansio.scaffold",
+        "path": "src/flask/sansio/scaffold.py"
+      }
+    ],
+    "coverage_by_unit": {
+      "complete_file": 24,
+      "unexamined": 3,
+      "non_python": 1
+    }
+  },
+  "before_pair": {
+    "input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+    "result_sha256": "08c5c3fd4eaac3a32a5608d8501acc9179535882db12c0dfa90ef54a071772d5",
+    "files": 26,
+    "witnesses": 92,
+    "worker_seconds": 1.9512
+  },
+  "read_only_selection_sketch": {
+    "lafs_original": {
+      "basis": "read-only local sketch over retained initial analysis and exact source; uses body spans and recorded possible imports, without new source requests",
+      "all_flask_import_count_by_changed_module": {
+        "werkzeug.datastructures": 2,
+        "werkzeug.exceptions": 10,
+        "werkzeug.routing": 8,
+        "werkzeug.serving": 3,
+        "werkzeug.wrappers": 3,
+        "werkzeug.wsgi": 1,
+        "werkzeug": 1,
+        "werkzeug.utils": 6,
+        "werkzeug.local": 1,
+        "werkzeug.sansio.response": 1
+      },
+      "unresolved_body_call_hints_by_module": {
+        "werkzeug.utils": [
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 79,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 128,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 141,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 182,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "proof_limit": "The existing gap list omits the root, so retained enclosing declarations constrain diagnostic hypotheses only. Final evidence still comes from a worker comparison of both roles."
+    },
+    "lafs_reserved_for_pair": {
+      "basis": "read-only local sketch over retained initial analysis and exact source; uses body spans and recorded possible imports, without new source requests",
+      "all_flask_import_count_by_changed_module": {
+        "werkzeug.datastructures": 2,
+        "werkzeug.exceptions": 8,
+        "werkzeug.routing": 8,
+        "werkzeug.serving": 3,
+        "werkzeug.wrappers": 3,
+        "werkzeug.wsgi": 1,
+        "werkzeug": 1,
+        "werkzeug.utils": 5,
+        "werkzeug.local": 1,
+        "werkzeug.sansio.response": 1
+      },
+      "unresolved_body_call_hints_by_module": {
+        "werkzeug.utils": [
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 79,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 128,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 141,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "root_path": "app/blueprints/main/routes.py",
+            "root_line": 182,
+            "call_path": "src/flask/helpers.py",
+            "call_line": 263,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "proof_limit": "The existing gap list omits the root, so retained enclosing declarations constrain diagnostic hypotheses only. Final evidence still comes from a worker comparison of both roles."
+    }
+  },
+  "decision": {
+    "lafs": "Proceed to a bounded acquisition diagnostic for already reachable call sites with source material missing.",
+    "requests": "Defer receiver-method correspondence. Additional module material alone did not establish the constructor path.",
+    "untouched_public_transfer": "remains_open"
+  }
+}
