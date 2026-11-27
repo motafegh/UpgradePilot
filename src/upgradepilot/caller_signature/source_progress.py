@@ -10,13 +10,16 @@ from time import monotonic
 
 from ..dependency.change import DependencyVersionChange
 from ..github.api import GitHubAcquisitionError, GitHubResponseError
+from ..github.repository import GitHubRepositoryClient
 from ..investigation_inputs import AcquiredDependencyInputs
 from ..pypi.release import PyPIReleaseClient
 from ..target.source_context import TargetSourceAcquirer, source_id
 from ..workspace.native_boundary import exact_investigation_target
 from ..workspace.source_access import RetainedSourceCatalog, RetainedSourceFile, RetainedSourceScope
 from .acquisition import AcquisitionSession
-from .adapter_calls import ADAPTER_CALL_ANALYSIS_SCOPE, PAIR_MODULE_ATTEMPTS, nominate_adapter_call_paths
+from .adapter_calls import (
+    ADAPTER_CALL_ANALYSIS_SCOPE, PAIR_GITHUB_REQUEST_HEADROOM, PAIR_MODULE_ATTEMPTS, nominate_adapter_call_paths,
+)
 from .bindings import ImportFact
 from .correspondence import PythonSourceModule, absolute_import, module_name
 from .evidence import AnalysisLimits, MeasuredDuration, SourceAnalysisInput
@@ -134,6 +137,7 @@ def collect_source_progress(
     *,
     selected_sample_python_job: SelectedSamplePythonJob | None = None,
     follow_adapter_calls: bool = False,
+    target_files: GitHubRepositoryClient | None = None,
 ) -> CallerSignatureSources:
     """Acquire bounded source questions and publish returned material between stages."""
     dependency = inputs.dependency
@@ -238,31 +242,36 @@ def collect_source_progress(
             )
         )
 
+    def github_requests_remaining():
+        return session.policy.github_requests - session.github_requests
+
     def available_reads():
         return min(
             run.max_module_files - run.module_attempts,
-            session.policy.github_requests - session.github_requests,
+            github_requests_remaining(),
             session.policy.provider_requests - session.provider_requests,
         )
 
-    def follow_reached_calls():
+    def follow_reached_calls() -> bool:
         nonlocal adapter_calls
         if available_reads() < PAIR_MODULE_ATTEMPTS:
-            adapter_calls = AdapterCallAcquisition("unresolved", "insufficient_pair_reserve")
-            return
+            adapter_calls = replace(adapter_calls, state="unresolved", reason="insufficient_pair_reserve")
+            return True
         catalog, modules, _ = _source_material(target, context, libraries, limits)
         if catalog is None or not any(module.role == "constraint_sample" for module in modules):
-            adapter_calls = AdapterCallAcquisition("unresolved", "adapter_source_unavailable")
-            return
+            adapter_calls = replace(adapter_calls, state="unresolved", reason="adapter_source_unavailable")
+            return True
         # Closure may resume when the nomination is absent or ambiguous.
         # Preserve room for its remaining reads as well as a possible pair.
         if len(catalog.files) + available_reads() > limits.max_files:
-            adapter_calls = AdapterCallAcquisition("unresolved", "insufficient_analysis_file_capacity")
-            return
+            adapter_calls = replace(adapter_calls, state="unresolved", reason="insufficient_analysis_file_capacity")
+            return True
 
+        previous = adapter_calls.preliminary_elapsed
+        previous_seconds = previous.seconds if previous is not None else 0.0
         started = monotonic()
         initial = SourceAnalysisInput(catalog, modules, limits)
-        observation = run_source_analysis(initial)
+        observation = run_source_analysis(initial, previous_seconds=previous_seconds)
         reason = "preliminary_analysis_unavailable"
         paths, origins = (), {}
         if observation.result is not None:
@@ -277,14 +286,19 @@ def collect_source_progress(
                 reason = "paired_acquisition_pending"
             else:
                 reason = "no_reached_changed_call"
-        elapsed = MeasuredDuration.from_seconds(monotonic() - started, ADAPTER_CALL_ANALYSIS_SCOPE)
+        elapsed = MeasuredDuration.from_seconds(
+            previous_seconds + (monotonic() - started), ADAPTER_CALL_ANALYSIS_SCOPE,
+        )
         if elapsed.seconds >= limits.timeout_seconds:
             reason = "analysis_time_exhausted"
         adapter_calls = AdapterCallAcquisition(
             "unresolved", reason, observation.input_sha256, elapsed, paths=paths,
         )
+        if reason == "no_reached_changed_call":
+            snapshot("partial")
+            return False
         if reason != "paired_acquisition_pending":
-            return
+            return True
         module, = origins
         adapter_calls = replace(adapter_calls, state="acquiring", module=module)
         snapshot("partial")
@@ -297,9 +311,10 @@ def collect_source_progress(
             adapter_calls, state="examined" if complete else "partial",
             reason="both_versions_examined" if complete else "incomplete_exact_pair",
         )
+        return True
     with session.stage("target_context", reserve_github=session.policy.source_request_reserve):
         try:
-            acquired = TargetSourceAcquirer(session=session).acquire(
+            acquired = TargetSourceAcquirer(session=session, files=target_files).acquire(
                 target.repository, target.head_sha,
                 changed_paths=tuple(file.filename for file in inputs.changed_files),
                 max_file_attempts=session.policy.target_file_attempts,
@@ -353,7 +368,8 @@ def collect_source_progress(
         _examine_internal_modules(context, libraries, examine, closure_omissions,
                                   indirect_members=_indirect_import_members(exploration) if exploration else (),
                                   available_reads=available_reads,
-                                  before_pair_reserve=reserve_callback)
+                                  before_pair_reserve=reserve_callback,
+                                  github_requests_remaining=github_requests_remaining)
         try:
             session.finish_acquisition()
         except (GitHubAcquisitionError, GitHubResponseError) as exc:
@@ -376,7 +392,8 @@ def collect_source_progress(
     return snapshot("complete")
 
 def _examine_internal_modules(
-    context, libraries, examine, omissions, *, indirect_members, available_reads, before_pair_reserve=None,
+    context, libraries, examine, omissions, *, indirect_members, available_reads,
+    before_pair_reserve=None, github_requests_remaining,
 ):
     """Apply the qualified import priority to questions inside observed inventories."""
     interest = set(indirect_members)
@@ -391,6 +408,7 @@ def _examine_internal_modules(
     seen = set()
     order = 0
     questions = 0
+    checked_headroom = False
     while queue or pending:
         while queue:
             parent = queue.popleft()
@@ -442,11 +460,17 @@ def _examine_internal_modules(
         priority = min(pending[key][1] for key in selected)
         # If there is no usable nomination, the same pending queue can use the
         # released allowance. A failed paired request still charges the session.
-        if (before_pair_reserve is not None and remaining < len(selected) + PAIR_MODULE_ATTEMPTS
-                and (not indirect_members or priority != 2)):
-            before_pair_reserve()
-            before_pair_reserve = None
-            remaining = available_reads()
+        if before_pair_reserve is not None and (not indirect_members or priority != 2):
+            github_remaining = github_requests_remaining()
+            at_headroom = (not checked_headroom
+                           and github_remaining - len(selected) < PAIR_GITHUB_REQUEST_HEADROOM <= github_remaining)
+            at_module_reserve = remaining < len(selected) + PAIR_MODULE_ATTEMPTS
+            if at_headroom or at_module_reserve:
+                checked_headroom = True
+                resolved = before_pair_reserve()
+                if resolved or at_module_reserve:
+                    before_pair_reserve = None
+                remaining = available_reads()
         for key in selected:
             _, _, _, parent, question = pending.pop(key)
             omission_reason = None

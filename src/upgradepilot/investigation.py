@@ -733,10 +733,11 @@ def investigate_caller_signature_progress(
     follow_adapter_calls: bool = False,
 ) -> CheckpointRevision:
     """Run the source profile, optionally acquiring *one* exact CI job observation."""
+    repository_client = GitHubRepositoryClient(session=session, reuse_exact_files=follow_adapter_calls)
     with session.stage("native_inputs"):
         inputs = acquire_dependency_inputs(
             repository, pull_number, GitHubPullRequestClient(session=session),
-            GitHubRepositoryClient(session=session),
+            repository_client,
             expected_base=expected_base, expected_head=expected_head,
         )
     capture = NativeInvestigationCapture()
@@ -752,7 +753,8 @@ def investigate_caller_signature_progress(
     def acquire(_request):
         sources = collect_source_progress(inputs, session, publish_sources,
                                           selected_sample_python_job=selected_sample_python_job,
-                                          follow_adapter_calls=follow_adapter_calls)
+                                          follow_adapter_calls=follow_adapter_calls,
+                                          target_files=repository_client if follow_adapter_calls else None)
         return CapabilityResult(
             "problem" if sources.acquisition.state == "failed" else "observed",
             "Source acquisition disposition: " + sources.acquisition.state, sources,

@@ -104,8 +104,12 @@ class GitHubRepositoryClient(GitHubApiClient):
         token: str | None = None,
         session: Session | None = None,
         timeout: tuple[float, float] = DEFAULT_TIMEOUT,
+        reuse_exact_files: bool = False,
     ) -> None:
         super().__init__(token=token, session=session, timeout=timeout)
+        self._exact_files: dict[tuple[str, str, str], RepositoryTextFile] | None = (
+            {} if reuse_exact_files else None
+        )
 
     def get_public_repository_name(self, repository_id: int, *, name: str | None = None) -> str:
         """Read the public repository's identity by ID or confirm it by name."""
@@ -265,6 +269,9 @@ class GitHubRepositoryClient(GitHubApiClient):
                 "Repository path must be a repository-relative POSIX file path."
             )
         normalized_path = "/".join(path_parts)
+        locator = repository, revision, normalized_path
+        if self._exact_files is not None and locator in self._exact_files:
+            return self._exact_files[locator]
 
         encoded_path = quote(normalized_path, safe="/")
         url = self.api_url(f"/repos/{repository}/contents/{encoded_path}")
@@ -321,12 +328,15 @@ class GitHubRepositoryClient(GitHubApiClient):
                 f"limit of {_MAX_TEXT_BYTES} bytes."
             )
 
-        return RepositoryTextFile(
+        file = RepositoryTextFile(
             repository=repository,
             path=normalized_path,
             revision=revision,
             content=_decode_utf8_repository_content(raw_content),
         )
+        if self._exact_files is not None:
+            self._exact_files[locator] = file
+        return file
 
 
 def _validate_exact_file_locator(repository: str, path: str, revision: str) -> None:

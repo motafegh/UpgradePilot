@@ -66,6 +66,33 @@ def _run_detail(*, run_id: int = 1001) -> dict[str, object]:
 
 
 class GitHubRepositoryClientTests(unittest.TestCase):
+    def test_exact_file_reuse_is_local_to_the_client_and_immutable_locator(self) -> None:
+        identity = _identity()
+        path = "pyproject.toml"
+        payload = {"type": "file", "path": path, "encoding": "base64", "content": "YQ=="}
+        session = Mock()
+        session.get.side_effect = [
+            _response({}, status=404),
+            _response(payload),
+            _response(payload),
+            _response(payload),
+            _response({**payload, "path": "setup.cfg"}),
+            _response(payload),
+        ]
+        client = GitHubRepositoryClient(session=session, reuse_exact_files=True)
+
+        self.assertIsInstance(client.get_pull_request_head_file(identity, path), UnavailableRepositoryFile)
+        head = client.get_pull_request_head_file(identity, path)
+        self.assertIsInstance(head, RepositoryTextFile)
+        self.assertIs(client.get_exact_commit_text_file(identity.repository, identity.head_sha, path), head)
+        self.assertEqual(session.get.call_count, 2)
+
+        client.get_pull_request_base_file(identity, path)
+        client.get_exact_commit_text_file("other/project", identity.head_sha, path)
+        client.get_exact_commit_text_file(identity.repository, identity.head_sha, "setup.cfg")
+        GitHubRepositoryClient(session=session, reuse_exact_files=True).get_pull_request_head_file(identity, path)
+        self.assertEqual(session.get.call_count, 6)
+
     def test_acquires_json_envelope_for_maximum_supported_repository_text(self) -> None:
         content = b"a" * 1_000_000
         path = "requirements.txt"

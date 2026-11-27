@@ -14,6 +14,9 @@ from .source_evidence import AdapterCallPath
 
 
 PAIR_MODULE_ATTEMPTS = 2
+# A tagged pair took six GitHub requests per version in the measured route.
+# This prompts an earlier analysis pass while closure can still afford that route.
+PAIR_GITHUB_REQUEST_HEADROOM = 12
 ADAPTER_CALL_ANALYSIS_SCOPE = "adapter_call_preparation"
 
 

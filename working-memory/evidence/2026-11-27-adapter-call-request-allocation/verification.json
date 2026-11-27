@@ -1,0 +1,1891 @@
+{
+  "baseline_regression": {
+    "lafs": "analysis and ordered request ledger match prior ranked baseline",
+    "spotify": "analysis and ordered request ledger match prior ordinary run"
+  },
+  "basis": {
+    "application": "Normal installed CLI, static worker, report writer and Workspace APIs.",
+    "transport": "Network-isolated replay with recorded REST and registry bodies and Git-blob-verified target text envelopes.",
+    "unresolved": [
+      "Complete transfer on a new held-out case",
+      "Independent maintainer usefulness"
+    ]
+  },
+  "controlled_before_implementation": {
+    "headroom_only": {
+      "previews": [
+        [
+          12,
+          "unresolved",
+          "no_reached_changed_call"
+        ],
+        [
+          8,
+          "partial",
+          "incomplete_exact_pair"
+        ]
+      ],
+      "reuses": []
+    },
+    "headroom_with_exact_file_reuse": {
+      "previews": [
+        [
+          12,
+          "examined",
+          "both_versions_examined"
+        ]
+      ],
+      "reuses": [
+        [
+          "kittinan/spotify-github-profile",
+          "3780b32fabc0aa4d8ee50a50092db8043143f280",
+          "pyproject.toml"
+        ]
+      ]
+    }
+  },
+  "date": "2026-11-27",
+  "disposition": "Known-case allocation repair verified in the installed product. Spotify informs this repair.",
+  "installed_suite": {
+    "focused_source_and_delivery_cases_passed": 75,
+    "isolated_elapsed_seconds": 270.284,
+    "isolated_log_sha256": "98e521dc879d1ac8bfece9320baa0fedadb77225a7f30d80e81a77811db95f33",
+    "isolated_passed": 1207,
+    "isolated_skipped": 1,
+    "nonroot_log_sha256": "7cac713202b8d84a435779130a4cc90d72c6d269edfe44ee6ada91c102414c94",
+    "separate_nonroot_filesystem_passed": 1,
+    "total_cases": 1208
+  },
+  "prior_spotify_follow": {
+    "acquisition_stops": [
+      {
+        "reason": "acquisition_request_limit",
+        "stage": "adapter_call_pair"
+      }
+    ],
+    "github_charges": 50,
+    "paired_witnesses_admitted": 0,
+    "provider_charges": 68,
+    "report_id": "ad8b8c33-2d9b-4ad4-88c5-d0479f1f2f54",
+    "report_sha256": "06b84bb9a636636159c4d3a8384e950aa88f94e34f80cf76b249cd17fe8c9062",
+    "witnesses": 123
+  },
+  "product_proof": {
+    "frozen_frame_indexes": {
+      "lafs_base": "819f34bd72cf15f5c9ab5f4f348f527353cdc99bb1ed5ae999702792ea9caa80",
+      "lafs_supplement": "e82af20f90567ff560931a62a3a3683660c0ce8e750cd529e7493db6a6a4c17a",
+      "spotify": "0fd15372fa4da4ba5e825165afcfcd20466455f80776afefa92ec9e857f9b723"
+    },
+    "installed_source_module_count": 123,
+    "lafs": {
+      "baseline": {
+        "action": "abstain",
+        "adapter_call_acquisition": null,
+        "analysis_input_sha256": "70ee7a84309e67ef51be981df2ac2a623299415fbf13d6e3d575c73feaa2ac22",
+        "baseline_preserved": null,
+        "case": {
+          "base_sha": "00436347da8fdaaebe771273c2d3842fadfacda9",
+          "head_sha": "78f6c1230c41659a9456a055465afb9ef65613e8",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.3",
+          "proposed_version": "3.1.6",
+          "pull_number": 29,
+          "repository": "ggeerraarrdd/lafs"
+        },
+        "closure_omissions": 9,
+        "counts_by_stage": {
+          "library_sources": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "native_inputs": {
+            "api.github.com": 3
+          },
+          "sample_python_workflow": {
+            "api.github.com": 1
+          },
+          "source_closure": {
+            "api.github.com": 11
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 644791,
+        "exact_module_receipts": [],
+        "final_worker_seconds": 2.4490132200007793,
+        "github_requests": 39,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [],
+        "new_witnesses_by_role": {},
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 0,
+        "provider_requests": 44,
+        "receipt_sha256": "4c649249bbe400d5953f48bb9a304b868f73573420c3e53ec5aedbc58c2eb04b",
+        "report_id": "79e49b82-fdf1-4ecc-990f-2d1d1a673af2",
+        "report_sha256": "bf1ae7845e8dfc3f55595c185216fefe8ee5c9540ec879d21fbefc05a3a2660e",
+        "retained_files": 28,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {},
+        "versioned_source_schema": 4,
+        "witnesses": 92,
+        "workspace_revision": "77f5414defe54ea9a0b14e9c1d3e6c0a"
+      },
+      "github-cap": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 15,
+                "end_column": 28,
+                "end_line": 79,
+                "line": 79
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 19,
+                "end_column": 32,
+                "end_line": 128,
+                "line": 128
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 141,
+                "line": 141
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 182,
+                "line": 182
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.cd02d05d04000p+0"
+          },
+          "preliminary_input_sha256": "5da28c6ccc6aa155dc90f059c5525fa51a4004ba9d7b5fa2516f508be1c01384",
+          "reason": "both_versions_examined",
+          "state": "examined"
+        },
+        "analysis_input_sha256": "613ea3d0213a065ed78b7b6db41ad553a3cf77698009b7469b2e02fce2633207",
+        "baseline_preserved": 92,
+        "case": {
+          "base_sha": "00436347da8fdaaebe771273c2d3842fadfacda9",
+          "head_sha": "78f6c1230c41659a9456a055465afb9ef65613e8",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.3",
+          "proposed_version": "3.1.6",
+          "pull_number": 29,
+          "repository": "ggeerraarrdd/lafs"
+        },
+        "closure_omissions": 10,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 12,
+            "pypi.org": 8
+          },
+          "library_sources": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "native_inputs": {
+            "api.github.com": 3
+          },
+          "sample_python_workflow": {
+            "api.github.com": 1
+          },
+          "source_closure": {
+            "api.github.com": 8
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 818899,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+            "role": "old_dependency",
+            "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+            "state": "module_examined",
+            "version": "3.1.3"
+          },
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+            "role": "proposed_dependency",
+            "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+            "state": "module_examined",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 2.2329587640015234,
+        "github_requests": 48,
+        "library_module_attempts": 11,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 48,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/sansio/app.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ],
+          [
+            "src/flask/sansio/blueprints.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ],
+          [
+            "src/flask/sansio/scaffold.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 4,
+          "proposed_dependency": 4
+        },
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 4,
+        "provider_requests": 61,
+        "receipt_sha256": "359b68a4a8df45a077da8fa6c654e13263422b55ab3d888468c476acac32498f",
+        "report_id": "2d349ff7-0fe3-4c63-8420-b3f00c7ae459",
+        "report_sha256": "5bce92f01374919ef0aa29ca1e682634d364988238094e10b9565a32d89b39fb",
+        "retained_files": 27,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {
+          "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 100,
+        "workspace_revision": "3dca7dac423449619f697454addddc68"
+      },
+      "one-sided": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 15,
+                "end_column": 28,
+                "end_line": 79,
+                "line": 79
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 19,
+                "end_column": 32,
+                "end_line": 128,
+                "line": 128
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 141,
+                "line": 141
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 182,
+                "line": 182
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.0dc4ff0d90000p+1"
+          },
+          "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+          "reason": "incomplete_exact_pair",
+          "state": "partial"
+        },
+        "analysis_input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "baseline_preserved": 92,
+        "case": {
+          "base_sha": "00436347da8fdaaebe771273c2d3842fadfacda9",
+          "head_sha": "78f6c1230c41659a9456a055465afb9ef65613e8",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.3",
+          "proposed_version": "3.1.6",
+          "pull_number": 29,
+          "repository": "ggeerraarrdd/lafs"
+        },
+        "closure_omissions": 11,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 12,
+            "pypi.org": 8
+          },
+          "library_sources": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "native_inputs": {
+            "api.github.com": 3
+          },
+          "sample_python_workflow": {
+            "api.github.com": 1
+          },
+          "source_closure": {
+            "api.github.com": 9
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 837503,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+            "role": "old_dependency",
+            "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+            "state": "module_examined",
+            "version": "3.1.3"
+          },
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": "not_found_or_inaccessible",
+            "repository": "pallets/werkzeug",
+            "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+            "role": "proposed_dependency",
+            "source_sha256": null,
+            "state": "unavailable",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 2.5869501390006917,
+        "github_requests": 49,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/sansio/blueprints.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ],
+          [
+            "src/flask/sansio/scaffold.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 4
+        },
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 0,
+        "provider_requests": 62,
+        "receipt_sha256": "30ed05eed6a6a317d9d2d99aed228f56d88899b2e8b327b1d8cc6494d5f958c0",
+        "report_id": "c6baab44-b3b1-4498-8977-135f10e57a5b",
+        "report_sha256": "3b30fbeacf89c2c2d851bf21dcaba4d3b1c0f22bd652a98f87de0bca5f21b077",
+        "retained_files": 27,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {
+          "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 96,
+        "workspace_revision": "4c47543a2e3d472d878dab40232b9d44"
+      },
+      "positive": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 15,
+                "end_column": 28,
+                "end_line": 79,
+                "line": 79
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 19,
+                "end_column": 32,
+                "end_line": 128,
+                "line": 128
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 141,
+                "line": 141
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 182,
+                "line": 182
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.0ae9120be0000p+1"
+          },
+          "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+          "reason": "both_versions_examined",
+          "state": "examined"
+        },
+        "analysis_input_sha256": "071fc5d0f7f1ae9daa3d466e233b23bb5dc60a238d84308bf749e49c10084107",
+        "baseline_preserved": 92,
+        "case": {
+          "base_sha": "00436347da8fdaaebe771273c2d3842fadfacda9",
+          "head_sha": "78f6c1230c41659a9456a055465afb9ef65613e8",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.3",
+          "proposed_version": "3.1.6",
+          "pull_number": 29,
+          "repository": "ggeerraarrdd/lafs"
+        },
+        "closure_omissions": 11,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 12,
+            "pypi.org": 8
+          },
+          "library_sources": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "native_inputs": {
+            "api.github.com": 3
+          },
+          "sample_python_workflow": {
+            "api.github.com": 1
+          },
+          "source_closure": {
+            "api.github.com": 9
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 872414,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+            "role": "old_dependency",
+            "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+            "state": "module_examined",
+            "version": "3.1.3"
+          },
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+            "role": "proposed_dependency",
+            "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+            "state": "module_examined",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 2.575199754002824,
+        "github_requests": 49,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/sansio/blueprints.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ],
+          [
+            "src/flask/sansio/scaffold.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 4,
+          "proposed_dependency": 4
+        },
+        "offline_open_output_sha256": {
+          "3.1.3": "7938e2ce34f9ff6a788366d848270406da39e745112ade8da6e8f265e48b4d2f",
+          "3.1.6": "c621b82bbab6bb213595004c6f931b4aed22b3d176441e25a96a83457e75fd48",
+          "report": "538b0d8e697d28aa16ca8c07b17e2f256d4d229c19b632f28ebb1b5bd6d7f5ff",
+          "workspace": "9966401ce060b8c4581c475b3ff5dd9d83ea617e9ccf4782726a5154f22061ef"
+        },
+        "paired_target_calls": 4,
+        "provider_requests": 62,
+        "receipt_sha256": "06e3f73c50480ebd4b859585bd4e29f6ac1ffe79b98824847bc679990d20bd76",
+        "report_id": "6437b708-7b15-4274-8214-44b234c1efa9",
+        "report_sha256": "5542af7a7d9e5dd89479d34b57c11682da5151d332f0eacc423213aec336d8b9",
+        "retained_files": 28,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {
+          "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 100,
+        "workspace_revision": "480a14f59601460eb628b2f9a27b4eb2"
+      },
+      "unscoped": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 15,
+                "end_column": 28,
+                "end_line": 79,
+                "line": 79
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 19,
+                "end_column": 32,
+                "end_line": 128,
+                "line": 128
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 141,
+                "line": 141
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 182,
+                "line": 182
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.ec7b30b410000p+0"
+          },
+          "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+          "reason": "both_versions_examined",
+          "state": "examined"
+        },
+        "analysis_input_sha256": "071fc5d0f7f1ae9daa3d466e233b23bb5dc60a238d84308bf749e49c10084107",
+        "baseline_preserved": 92,
+        "case": {
+          "base_sha": "00436347da8fdaaebe771273c2d3842fadfacda9",
+          "head_sha": "78f6c1230c41659a9456a055465afb9ef65613e8",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.3",
+          "proposed_version": "3.1.6",
+          "pull_number": 29,
+          "repository": "ggeerraarrdd/lafs"
+        },
+        "closure_omissions": 11,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 12,
+            "pypi.org": 8
+          },
+          "library_sources": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "native_inputs": {
+            "api.github.com": 3
+          },
+          "source_closure": {
+            "api.github.com": 9
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 903197,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+            "role": "old_dependency",
+            "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+            "state": "module_examined",
+            "version": "3.1.3"
+          },
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+            "role": "proposed_dependency",
+            "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+            "state": "module_examined",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 2.5308747429990035,
+        "github_requests": 48,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/sansio/blueprints.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ],
+          [
+            "src/flask/sansio/scaffold.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 4,
+          "proposed_dependency": 4
+        },
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 4,
+        "provider_requests": 61,
+        "receipt_sha256": "011d4facf934c68cc0465291883a59b71487375ad8de36997f4bca012ef5bc58",
+        "report_id": "3afa7347-c588-42d2-a459-0d45629bbe8f",
+        "report_sha256": "8461b0b0843bf046be43b9b595a091cf64768d80f8d54c8dab2f7ae5c42ddb10",
+        "retained_files": 28,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {
+          "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 100,
+        "workspace_revision": "98ddc90f91f142a49e81ad3efb5525bf"
+      },
+      "wrong-release": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 15,
+                "end_column": 28,
+                "end_line": 79,
+                "line": 79
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 19,
+                "end_column": 32,
+                "end_line": 128,
+                "line": 128
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 141,
+                "line": 141
+              }
+            },
+            {
+              "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 263,
+                "line": 263
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+              "target_span": {
+                "column": 11,
+                "end_column": 24,
+                "end_line": 182,
+                "line": 182
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.0e0d55dc88000p+1"
+          },
+          "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+          "reason": "incomplete_exact_pair",
+          "state": "partial"
+        },
+        "analysis_input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "baseline_preserved": 92,
+        "case": {
+          "base_sha": "00436347da8fdaaebe771273c2d3842fadfacda9",
+          "head_sha": "78f6c1230c41659a9456a055465afb9ef65613e8",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.3",
+          "proposed_version": "3.1.6",
+          "pull_number": 29,
+          "repository": "ggeerraarrdd/lafs"
+        },
+        "closure_omissions": 11,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "library_sources": {
+            "api.github.com": 6,
+            "pypi.org": 5
+          },
+          "native_inputs": {
+            "api.github.com": 3
+          },
+          "sample_python_workflow": {
+            "api.github.com": 1
+          },
+          "source_closure": {
+            "api.github.com": 9
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 724825,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+            "role": "old_dependency",
+            "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+            "state": "module_examined",
+            "version": "3.1.3"
+          },
+          {
+            "path": null,
+            "problem": "identity_mismatch",
+            "repository": null,
+            "revision": null,
+            "role": "proposed_dependency",
+            "source_sha256": null,
+            "state": "unavailable",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 2.1699103680002736,
+        "github_requests": 43,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/sansio/blueprints.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ],
+          [
+            "src/flask/sansio/scaffold.py",
+            "constraint_sample",
+            "pallets/flask",
+            "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 4
+        },
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 0,
+        "provider_requests": 53,
+        "receipt_sha256": "b8a0cb6b0d6d6cd2280007f622884ef243a9be30356f1d6f992837ff03a6452a",
+        "report_id": "01bdd89b-e242-4b68-b433-088783a2322d",
+        "report_sha256": "af1263db449428dcb4336bb90383b535c3932ee719790c9499e7f169a446e4f4",
+        "retained_files": 27,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {
+          "47b87046c1e3f5224da1f7098c615024ff8268ae667479c3ed998cedfdd272ce": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "5f4dd8f056e84e5773a25a600d2227efdf1c5df88c10ebd1479d87fbdde99dcd": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "ae17e0a86471d723ae281fdae97bb936d55b69851574e4d1f4ca05ef7e1f9d2f": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "bf306c3c71714dce97b90855fb34e69ed13e8311b50a91f07afefa16b182918c": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 96,
+        "workspace_revision": "925b48d33dd044a78ef223e6585da896"
+      }
+    },
+    "legacy_open_output_sha256": {
+      "lafs_schema_4_workspace": "61d605a849d823bab9d176ae3155a2713b34ff5ca2953f3600be3987a65886f7",
+      "spotify_initial_schema_5_report": "82dd5a9fc8889a52a18afc623aff05edd0ef86dc9cbf597b99e19c7d5535eb9d"
+    },
+    "spotify": {
+      "baseline": {
+        "action": "abstain",
+        "adapter_call_acquisition": null,
+        "analysis_input_sha256": "7e893aa62d1d073367cdd412800ce25235ca47d4ee6dc31eca9a69708f1aba82",
+        "baseline_preserved": null,
+        "case": {
+          "base_sha": "c82570c499c94609c0dfe7802154be674d38b32a",
+          "head_sha": "3780b32fabc0aa4d8ee50a50092db8043143f280",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.5",
+          "proposed_version": "3.1.6",
+          "pull_number": 140,
+          "repository": "kittinan/spotify-github-profile"
+        },
+        "closure_omissions": 10,
+        "counts_by_stage": {
+          "library_sources": {
+            "api.github.com": 11,
+            "pypi.org": 10
+          },
+          "native_inputs": {
+            "api.github.com": 5
+          },
+          "source_closure": {
+            "api.github.com": 10
+          },
+          "target_context": {
+            "api.github.com": 18
+          }
+        },
+        "decoded_body_bytes": 808458,
+        "exact_module_receipts": [],
+        "final_worker_seconds": 3.1073045500015724,
+        "github_requests": 44,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [],
+        "new_witnesses_by_role": {},
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 0,
+        "provider_requests": 54,
+        "receipt_sha256": "cd2ab4594021c01bd9e162067c367e3f289771dad94378fa4cd8b7df37875589",
+        "report_id": "878b0041-6b24-4544-a750-f7872a248e73",
+        "report_sha256": "e216e31c4eeee32b97db4a4cdb30f5733bd21c917af153fd70686556a7f723b7",
+        "retained_files": 28,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {},
+        "versioned_source_schema": 1,
+        "witnesses": 120,
+        "workspace_revision": "403de653ed8a4ad98fb6d715fccdb2aa"
+      },
+      "follow": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 270,
+                "line": 270
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "41f5c00690365ba019dcf8c5b0870db85e519369d2d0eda46c4f2fddef03fa3c",
+              "target_span": {
+                "column": 11,
+                "end_column": 33,
+                "end_line": 26,
+                "line": 26
+              }
+            },
+            {
+              "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 270,
+                "line": 270
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "a9214787f6f4743f7ec2fe43e08a43d90f94a79e0ddf72a11d7874f031e549d0",
+              "target_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 14,
+                "line": 14
+              }
+            },
+            {
+              "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 270,
+                "line": 270
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "0b2babb962e7e9da1671214cbd00aee2558720d8d4daa24b4abfd77eec9e93c5",
+              "target_span": {
+                "column": 15,
+                "end_column": 46,
+                "end_line": 411,
+                "line": 411
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.31bb859000000p+1"
+          },
+          "preliminary_input_sha256": "a6038dd03ee2af25b7048b516290b28b45f256a0c009a47afeeaab397d0102bb",
+          "reason": "both_versions_examined",
+          "state": "examined"
+        },
+        "analysis_input_sha256": "c24ca06c0ef6d5a88c5e916ba34a546348a3570b4517f9cd6bf3c73e2dd73e24",
+        "baseline_preserved": 112,
+        "case": {
+          "base_sha": "c82570c499c94609c0dfe7802154be674d38b32a",
+          "head_sha": "3780b32fabc0aa4d8ee50a50092db8043143f280",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.5",
+          "proposed_version": "3.1.6",
+          "pull_number": 140,
+          "repository": "kittinan/spotify-github-profile"
+        },
+        "closure_omissions": 15,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 12,
+            "pypi.org": 8
+          },
+          "library_sources": {
+            "api.github.com": 11,
+            "pypi.org": 10
+          },
+          "native_inputs": {
+            "api.github.com": 5
+          },
+          "source_closure": {
+            "api.github.com": 5
+          },
+          "target_context": {
+            "api.github.com": 17
+          }
+        },
+        "decoded_body_bytes": 1018787,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "e3d06f4b1f7ff40a63eba78f81d9cda18f805d6d",
+            "role": "old_dependency",
+            "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+            "state": "module_examined",
+            "version": "3.1.5"
+          },
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+            "role": "proposed_dependency",
+            "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+            "state": "module_examined",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 2.770332388001407,
+        "github_requests": 50,
+        "library_module_attempts": 9,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {
+          "src/flask/templating.py": 8
+        },
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/cli.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ],
+          [
+            "src/flask/ctx.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ],
+          [
+            "src/flask/signals.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ],
+          [
+            "src/flask/templating.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ],
+          [
+            "src/flask/wrappers.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 3,
+          "proposed_dependency": 3
+        },
+        "offline_open_output_sha256": {
+          "3.1.5": "fc0f500c6d1fa4ecac529c4c67830b787fb5b92a2cd9a51132cf1919d18a3918",
+          "3.1.6": "86c19bb81d3c65db3ce1f39e3a6b7ba51198572a94f37ceeec0e6136f5b35655",
+          "report": "07b9c622aae10a3f1f2b30bc6acae8b3514a0bef006936c5faa4d89a4b0b0c73",
+          "workspace": "0abc5a48d681b6e2a885c95ae8e126a2894a79ecf2f4631fbe8a4ce8aaa93440"
+        },
+        "paired_target_calls": 3,
+        "provider_requests": 68,
+        "receipt_sha256": "7d8a891c869282af832502936dab9366b7629535a1972738ee192ebf9265ba2d",
+        "report_id": "f2691fc1-2836-44e5-b841-8a2d0a3fa2f6",
+        "report_sha256": "0378f6bf686d63ab2af334b5ec9214a9fabea7e3780223872de6faca1a9f4808",
+        "retained_files": 25,
+        "source_coverage": "partial",
+        "stops": [],
+        "versioned_outcomes_by_root": {
+          "105806b8666f47dff6ae354628d5da868eed4b78d20795bb00621d0ee5338796": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "9ee68ab0d97e7cf2a779a1b351ae6c9fb142cce1d4d6ce4db73d153580a6b6f2": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ],
+          "d671d84ef71863474a79331be4f09e5d0483d023fa7c3c61f55caec32515db41": [
+            [
+              "old_dependency",
+              "bound"
+            ],
+            [
+              "proposed_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 118,
+        "workspace_revision": "6680fe5d0da0489d8d44aa5ef91edc40"
+      },
+      "github_cap_49": {
+        "action": "abstain",
+        "adapter_call_acquisition": {
+          "module": "werkzeug.utils",
+          "paths": [
+            {
+              "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 270,
+                "line": 270
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "41f5c00690365ba019dcf8c5b0870db85e519369d2d0eda46c4f2fddef03fa3c",
+              "target_span": {
+                "column": 11,
+                "end_column": 33,
+                "end_line": 26,
+                "line": 26
+              }
+            },
+            {
+              "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 270,
+                "line": 270
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "a9214787f6f4743f7ec2fe43e08a43d90f94a79e0ddf72a11d7874f031e549d0",
+              "target_span": {
+                "column": 11,
+                "end_column": 30,
+                "end_line": 14,
+                "line": 14
+              }
+            },
+            {
+              "adapter_file": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+              "adapter_span": {
+                "column": 11,
+                "end_column": 63,
+                "end_line": 270,
+                "line": 270
+              },
+              "import_line": 13,
+              "imported_binding": "werkzeug.utils.redirect",
+              "module": "werkzeug.utils",
+              "target_file": "0b2babb962e7e9da1671214cbd00aee2558720d8d4daa24b4abfd77eec9e93c5",
+              "target_span": {
+                "column": 15,
+                "end_column": 46,
+                "end_line": 411,
+                "line": 411
+              }
+            }
+          ],
+          "preliminary_elapsed": {
+            "scope": "adapter_call_preparation",
+            "seconds_hex": "0x1.397c99e668000p+2"
+          },
+          "preliminary_input_sha256": "3ad147ff37abbd40e18a3e9345c574c32ee5bfbf91b3800993eaa59a4af2a660",
+          "reason": "incomplete_exact_pair",
+          "state": "partial"
+        },
+        "analysis_input_sha256": "07dedc4249d93292dec2e7f3ced26308459fe19a89d2dc4a67abbd66605430b1",
+        "baseline_preserved": 120,
+        "case": {
+          "base_sha": "c82570c499c94609c0dfe7802154be674d38b32a",
+          "head_sha": "3780b32fabc0aa4d8ee50a50092db8043143f280",
+          "normalized_package": "werkzeug",
+          "old_version": "3.1.5",
+          "proposed_version": "3.1.6",
+          "pull_number": 140,
+          "repository": "kittinan/spotify-github-profile"
+        },
+        "closure_omissions": 12,
+        "counts_by_stage": {
+          "adapter_call_pair": {
+            "api.github.com": 8,
+            "pypi.org": 8
+          },
+          "library_sources": {
+            "api.github.com": 11,
+            "pypi.org": 10
+          },
+          "native_inputs": {
+            "api.github.com": 5
+          },
+          "source_closure": {
+            "api.github.com": 8
+          },
+          "target_context": {
+            "api.github.com": 17
+          }
+        },
+        "decoded_body_bytes": 948306,
+        "exact_module_receipts": [
+          {
+            "path": "src/werkzeug/utils.py",
+            "problem": null,
+            "repository": "pallets/werkzeug",
+            "revision": "e3d06f4b1f7ff40a63eba78f81d9cda18f805d6d",
+            "role": "old_dependency",
+            "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+            "state": "module_examined",
+            "version": "3.1.5"
+          },
+          {
+            "path": null,
+            "problem": "acquisition_request_limit",
+            "repository": "pallets/werkzeug",
+            "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+            "role": "proposed_dependency",
+            "source_sha256": null,
+            "state": "refused",
+            "version": "3.1.6"
+          }
+        ],
+        "final_worker_seconds": 3.1004242029994202,
+        "github_requests": 49,
+        "library_module_attempts": 12,
+        "limits": {
+          "adapter_candidate_attempts": 4,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "scope": "acquisition_policy_elapsed_limit",
+            "seconds_hex": "0x1.6800000000000p+7"
+          },
+          "github_requests": 49,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "source_request_reserve": 24,
+          "target_file_attempts": 16
+        },
+        "lost_witnesses_by_file": {},
+        "network_dispatches": 0,
+        "new_omissions": [
+          [
+            "src/flask/cli.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ],
+          [
+            "src/flask/signals.py",
+            "constraint_sample",
+            "pallets/flask",
+            "22d924701a6ae2e4cd01e9a15bbaf3946094af65"
+          ]
+        ],
+        "new_witnesses_by_role": {
+          "old_dependency": 3
+        },
+        "offline_open_output_sha256": {},
+        "paired_target_calls": 0,
+        "provider_requests": 67,
+        "receipt_sha256": "c633ac2169a8a8d771d0ddc07eba5affbc986f1c1c492bf08aa33c9246096685",
+        "report_id": "2b9d5297-f4e9-4a94-be1f-d1db15dee0ca",
+        "report_sha256": "3cb90a7884e1a4a432762e68afacf64175cc98679bce3a38d677fb8642220fb1",
+        "retained_files": 27,
+        "source_coverage": "partial",
+        "stops": [
+          {
+            "reason": "acquisition_request_limit",
+            "stage": "adapter_call_pair"
+          }
+        ],
+        "versioned_outcomes_by_root": {
+          "105806b8666f47dff6ae354628d5da868eed4b78d20795bb00621d0ee5338796": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "9ee68ab0d97e7cf2a779a1b351ae6c9fb142cce1d4d6ce4db73d153580a6b6f2": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ],
+          "d671d84ef71863474a79331be4f09e5d0483d023fa7c3c61f55caec32515db41": [
+            [
+              "old_dependency",
+              "bound"
+            ]
+          ]
+        },
+        "versioned_source_schema": 5,
+        "witnesses": 123,
+        "workspace_revision": "d76d93a4fc3e49d1ae0311bba2b646b8"
+      }
+    },
+    "spotify_pyproject_reads_by_stage": {
+      "baseline": [
+        "native_inputs",
+        "native_inputs",
+        "target_context"
+      ],
+      "follow": [
+        "native_inputs",
+        "native_inputs"
+      ]
+    },
+    "wheel_sha256": "b29e7e1c89e18f267dcdfd97dc88ad5d2201f79174605e8466e85c69bcfbd2af"
+  },
+  "workspace_acquisition_progress": {
+    "default": [
+      {
+        "github_charges": 22,
+        "input_sha256": null,
+        "reason": "source_preparation_pending",
+        "revision": "e3f6d6a40cf142ea830622fde589063d",
+        "state": "pending",
+        "total_preparation_seconds": null
+      },
+      {
+        "github_charges": 38,
+        "input_sha256": "a6038dd03ee2af25b7048b516290b28b45f256a0c009a47afeeaab397d0102bb",
+        "reason": "paired_acquisition_pending",
+        "revision": "cebdb6bfe5ab42a19193eb81b7f4c543",
+        "state": "acquiring",
+        "total_preparation_seconds": 2.3885352090001106
+      },
+      {
+        "github_charges": 50,
+        "input_sha256": "a6038dd03ee2af25b7048b516290b28b45f256a0c009a47afeeaab397d0102bb",
+        "reason": "both_versions_examined",
+        "revision": "140c81a709744940955e0c45f706de39",
+        "state": "examined",
+        "total_preparation_seconds": 2.3885352090001106
+      }
+    ],
+    "lower_cap": [
+      {
+        "github_charges": 22,
+        "input_sha256": null,
+        "reason": "source_preparation_pending",
+        "revision": "e2408fe5368a46ed82de348b39fe6cf2",
+        "state": "pending",
+        "total_preparation_seconds": null
+      },
+      {
+        "github_charges": 37,
+        "input_sha256": "13652717a61090ca915118497cb032098d31924e268448004ddc34942c813672",
+        "reason": "no_reached_changed_call",
+        "revision": "6ba382b589e042758ac35b6c4db7e52a",
+        "state": "unresolved",
+        "total_preparation_seconds": 2.3138097139999445
+      },
+      {
+        "github_charges": 41,
+        "input_sha256": "3ad147ff37abbd40e18a3e9345c574c32ee5bfbf91b3800993eaa59a4af2a660",
+        "reason": "paired_acquisition_pending",
+        "revision": "a6c136e757f04b8b871c1848a7c602fd",
+        "state": "acquiring",
+        "total_preparation_seconds": 4.8982300520001445
+      },
+      {
+        "github_charges": 49,
+        "input_sha256": "3ad147ff37abbd40e18a3e9345c574c32ee5bfbf91b3800993eaa59a4af2a660",
+        "reason": "incomplete_exact_pair",
+        "revision": "dfcefc1c13a346bbb41b3df253c0e0f9",
+        "state": "partial",
+        "total_preparation_seconds": 4.8982300520001445
+      }
+    ]
+  }
+}
