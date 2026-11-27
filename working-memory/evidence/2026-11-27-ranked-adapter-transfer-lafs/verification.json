@@ -1,0 +1,188 @@
+{
+  "scope": {
+    "case": {
+      "case": "ggeerraarrdd/lafs#29",
+      "result": "eligible",
+      "repo": "ggeerraarrdd/lafs",
+      "pr": "29",
+      "base": "00436347da8fdaaebe771273c2d3842fadfacda9",
+      "head": "78f6c1230c41659a9456a055465afb9ef65613e8",
+      "path": "requirements.txt",
+      "workflow": ".github/workflows/api.yml",
+      "job": "build",
+      "python": "3.13",
+      "adapter": "flask",
+      "package": "werkzeug",
+      "versions": {
+        "-": "3.1.3",
+        "+": "3.1.6"
+      },
+      "source_anchor": "app/app.py"
+    },
+    "wheel_sha256": "83e7dd8aca2204fb935f9019c3a3ae56bfc8aaf44fc929250216ffc9b822f2af",
+    "modes": [
+      "unscoped",
+      "annotation-only",
+      "ranked"
+    ],
+    "comparison_basis": "common provider responses frozen at first use across all modes, with no change to product policy",
+    "policy": {
+      "github_requests": 50,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180,
+      "source_reserve": 24,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 4
+    },
+    "wire_limits": {
+      "github_requests": 50,
+      "provider_requests": 100,
+      "aggregate_bytes": 33554432
+    },
+    "expectation": "Exact Flask pin does not permit selection of a different Flask version. Test source-path reach, scope/annotation admission, ranks for other visible constraints, and extra acquisition. Positive transfer requires a declaration-driven selection change and source witness. Preserve both headline and retained source-family distinctions.",
+    "screen": {
+      "method_commit": "e87e8ac1",
+      "order": [
+        "ggeerraarrdd/lafs#29",
+        "neondatabase/examples#208",
+        "salesforce/cloudsplaining#527",
+        "apache/skywalking-python#425",
+        "mozilla/PollBot#423",
+        "SuryaXanden/Automated-Socialmedia-Posting#8",
+        "microsoft/ograg2#26",
+        "Deep-MI/FastSurfer#710"
+      ],
+      "constraints": [
+        "Choose first eligible case in order without opening comparison output or looking up adapter release rankings.",
+        "Single exact bump in a requirements file. Read only immutable workflow/manifest/source eligibility inputs. A runnable matrix or unscoped Python declaration is insufficient; enforce the installed consumer parser.",
+        "Require one plausible Python source chain through a separate adapter named by the target, independent of the FastAPI/Starlette/HTTPX positive."
+      ],
+      "comparison": [
+        "Use installed e87e8ac1 wheel and identical source limits; compare sample selection, resolution, source path and uncertainties across unscoped, annotation-only and ranked.",
+        "Ranked improvement requires a declaration-driven material selection change with verifiable source witness. A correct refusal or unchanged selection is a boundary/result without positive transfer."
+      ],
+      "get_limit": 30
+    },
+    "eligibility_gets": 6
+  },
+  "comparison": {
+    "unscoped": {
+      "report_id": "61500663-3703-41cb-9468-bf19661557c7",
+      "report_sha256": "5cdec5bc1e72938fd2e90db168d036a88c708a1f4718c6d85d3ebcda3c2035b6",
+      "workspace_revision": "55e7f1f02df8446a97259af7ca766615",
+      "report_and_workspace_reopening": {
+        "report-open": "verified",
+        "workspace-open": "verified"
+      },
+      "source_family_format": "caller-signature-sources/1",
+      "source_coverage": "partial",
+      "flask_selection": "3.1.1",
+      "material_omissions": 9,
+      "source_module_receipts": 13,
+      "simple_index_requests": 0,
+      "github_requests": 38,
+      "provider_requests": 43,
+      "decoded_body_bytes": 675574,
+      "wire_dispatch": 41,
+      "cache_hits": 2,
+      "cli_exit": 0,
+      "stops": []
+    },
+    "annotation-only": {
+      "report_id": "3d106282-0b9e-4026-8cd5-bcaf9a982206",
+      "report_sha256": "21a2e1f652429818fc2226a3258d678c8bb8247d857940e7d03d5215ba2b245f",
+      "workspace_revision": "ae2006676a66460ea9a70f7f990a1a3d",
+      "report_and_workspace_reopening": {
+        "report-open": "verified",
+        "workspace-open": "verified"
+      },
+      "source_family_format": "caller-signature-sources/3",
+      "source_coverage": "partial",
+      "flask_selection": "3.1.1",
+      "material_omissions": 9,
+      "source_module_receipts": 13,
+      "simple_index_requests": 0,
+      "github_requests": 39,
+      "provider_requests": 44,
+      "decoded_body_bytes": 677452,
+      "wire_dispatch": 1,
+      "cache_hits": 43,
+      "cli_exit": 0,
+      "stops": []
+    },
+    "ranked": {
+      "report_id": "969f6224-8406-4bd5-ba69-9c428214b794",
+      "report_sha256": "2bbd5e9dfdc66c6dbbce588a1fc1783d8cb95760259ab98440fdfb0fd06f532e",
+      "workspace_revision": "b810c4677e9f4d82a10550f4a6f8a7e8",
+      "report_and_workspace_reopening": {
+        "report-open": "verified",
+        "workspace-open": "verified"
+      },
+      "source_family_format": "caller-signature-sources/4",
+      "source_coverage": "partial",
+      "flask_selection": "3.1.1",
+      "material_omissions": 9,
+      "source_module_receipts": 13,
+      "simple_index_requests": 1,
+      "github_requests": 39,
+      "provider_requests": 44,
+      "decoded_body_bytes": 644791,
+      "wire_dispatch": 1,
+      "cache_hits": 43,
+      "cli_exit": 0,
+      "stops": []
+    }
+  },
+  "wire": {
+    "independent_of_logical_charges": true,
+    "https_gets_by_host": {
+      "api.github.com": 38,
+      "pypi.org": 5
+    },
+    "decoded_bytes": 699695,
+    "unique_complete_response_bodies": 43,
+    "endpoint_keys": 43,
+    "private_frame_index_sha256": "819f34bd72cf15f5c9ab5f4f348f527353cdc99bb1ed5ae999702792ea9caa80",
+    "exclusions": [
+      "six eligibility reads",
+      "connectivity and quota controls"
+    ]
+  },
+  "shared_analysis": {
+    "input_sha256": "70ee7a84309e67ef51be981df2ac2a623299415fbf13d6e3d575c73feaa2ac22",
+    "witnesses": 92,
+    "witnesses_by_callee_role": {
+      "constraint_sample": 16,
+      "target_repository": 76
+    },
+    "paired_werkzeug_witnesses": 0,
+    "unexamined_retained_units": 3,
+    "action": "abstain"
+  },
+  "ranked_evidence": {
+    "package": "flask",
+    "constraint": "==3.1.1",
+    "version": "3.1.1",
+    "declared_python_line": "3.13",
+    "reason": "exact_release_file_matched",
+    "versions_checked": 1,
+    "index_serial": 34432672,
+    "index_sha256": "2826c73aad89fb2cc37eec4eaa4ac4673a7d1c4a0e66e2805408604c3cdd3e4d",
+    "published_filename": "flask-3.1.1-py3-none-any.whl",
+    "index_and_release_file_sha256": "07aae2bb5eaf77993ef57e357491839f5fd9f4dc281593a81a9e4d79a24f295c",
+    "requires_python": ">=3.9",
+    "witness_python_patch": "3.13.0",
+    "source_revision": "7fff56f5172c48b6f3aedf17ee14ef5c2533dfd1"
+  },
+  "offline_ranked_replay": {
+    "mode": "network namespace isolated",
+    "cli_exit": 0,
+    "provider_network_dispatches": 0,
+    "frozen_response_reads": 44,
+    "matching_request_sequence_and_costs": true,
+    "matching_analysis_and_rank_decision": true
+  },
+  "verdict": "fixed_adapter_source_and_ranked_file_join_confirmed; selection_change_and_changed_dependency_comparison_unestablished"
+}
