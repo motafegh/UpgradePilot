@@ -18,7 +18,10 @@ from .acquisition import AcquisitionSession
 from .bindings import ImportFact
 from .correspondence import PythonSourceModule, absolute_import, module_name
 from .evidence import AnalysisLimits
-from .sample_python import SamplePythonScenario, SelectedSamplePythonJob, collect_sample_python_scenario
+from .sample_python import (
+    RankedAdapterSampler, SamplePythonScenario, SelectedSamplePythonJob,
+    acquire_sample_python_declaration, annotate_sample_releases,
+)
 from .source_acquisition import AdapterSourceExplorer, ExaminedPythonModule, PythonModuleSourceRequest
 from .source_evidence import (
     AcquisitionProblem, CallerSignatureSources, SourceAcquisitionReceipt, SourceFileReceipt,
@@ -134,6 +137,7 @@ def collect_source_progress(
         raise ValueError("Source acquisition requires an established dependency transition.")
     target = exact_investigation_target(inputs.identity, dependency)
     sample_python = None
+    rank_adapters = selected_sample_python_job is not None and selected_sample_python_job.rank_adapters
     release_client = None
     file_python = {}
     if selected_sample_python_job is not None:
@@ -172,7 +176,12 @@ def collect_source_progress(
             adapter_limitations=exploration.limitations if exploration else (),
             source_work=run.work, transport=transport, method_files=(), retention_gaps=gaps,
         )
-        sources = CallerSignatureSources(catalog, modules, limits, acquisition, sample_python)
+        scenario = sample_python
+        if rank_adapters and explorer.ranked_sampler is not None:
+            sample_releases = {(module.package, module.version) for module in modules if module.role == "constraint_sample"}
+            scenario = annotate_sample_releases(scenario, sample_releases, file_python)
+            scenario = replace(scenario, rank_decisions=tuple(explorer.ranked_sampler.decisions.values()))
+        sources = CallerSignatureSources(catalog, modules, limits, acquisition, scenario)
         publish(sources)
         return sources
 
@@ -200,6 +209,29 @@ def collect_source_progress(
                                    (dependency.proposed_version, "native_proposed_version")):
                 examine(PythonModuleSourceRequest(dependency.normalized_package, version, module, basis, origin))
 
+    def record_exploration(exploration):
+        problems.extend(SourceProblem(p.stage, p.reason, p.detail) for p in exploration.problems)
+        receipts.extend(exploration.failed_move_receipts)
+        for sample in exploration.samples:
+            question = PythonModuleSourceRequest(
+                sample.metadata.package, sample.version, sample.candidate.imported_module, "constraint_sample",
+            )
+            # The explorer obtained this same question in the shared run.
+            outcome, receipt = run.examine_with_receipt(question)
+            receipts.append(receipt)
+            if isinstance(outcome, ExaminedPythonModule):
+                libraries.append((outcome, receipt))
+                samples.append(SourceSampleSelection(
+                    sample.candidate, sample.depth, sample.version, sample.selection,
+                    sample.file.repository, sample.file.revision, sample.file.path, receipt.sha256,
+                ))
+        snapshot("partial")
+        examine_pairs(
+            item for candidate in exploration.deferred_candidates for sample in exploration.samples
+            for item in _changed_module_origins(
+                (candidate,), sample.imports, sample.references, dependency.normalized_package,
+            )
+        )
     with session.stage("target_context", reserve_github=session.policy.source_request_reserve):
         try:
             acquired = TargetSourceAcquirer(session=session).acquire(
@@ -225,37 +257,28 @@ def collect_source_progress(
         examine_pairs(_changed_module_origins(
             context.candidates, context.imports, context.references, dependency.normalized_package,
         ))
-        exploration = explorer.explore(
-            context, source_run=run, stop_at_package=dependency.normalized_package,
-            max_candidate_attempts=session.policy.adapter_candidate_attempts,
-            prioritize_indirect_exact_pair=True,
-        )
-        problems.extend(SourceProblem(p.stage, p.reason, p.detail) for p in exploration.problems)
-        receipts.extend(exploration.failed_move_receipts)
-        for sample in exploration.samples:
-            question = PythonModuleSourceRequest(
-                sample.metadata.package, sample.version, sample.candidate.imported_module, "constraint_sample",
+        if rank_adapters:
+            with session.stage("sample_python_workflow"):
+                sample_python = acquire_sample_python_declaration(
+                    sample_python, inputs.identity, {evidence.path for evidence in dependency.source_evidence}, session,
+                )
+            if sample_python.python_line is not None:
+                explorer.ranked_sampler = RankedAdapterSampler(session, sample_python.python_line, file_python)
+        if rank_adapters and explorer.ranked_sampler is None:
+            problems.append(SourceProblem("adapter_ranking", sample_python.reason,
+                                          "Ranked sampling requires a declared Python line for the selected workflow job."))
+        else:
+            exploration = explorer.explore(
+                context, source_run=run, stop_at_package=dependency.normalized_package,
+                max_candidate_attempts=session.policy.adapter_candidate_attempts,
+                prioritize_indirect_exact_pair=True,
             )
-            # The explorer obtained this same question in the shared run.
-            outcome, receipt = run.examine_with_receipt(question)
-            receipts.append(receipt)
-            if isinstance(outcome, ExaminedPythonModule):
-                libraries.append((outcome, receipt))
-                samples.append(SourceSampleSelection(
-                    sample.candidate, sample.depth, sample.version, sample.selection,
-                    sample.file.repository, sample.file.revision, sample.file.path, receipt.sha256,
-                ))
-        snapshot("partial")
-        examine_pairs(
-            item for candidate in exploration.deferred_candidates for sample in exploration.samples
-            for item in _changed_module_origins(
-                (candidate,), sample.imports, sample.references, dependency.normalized_package,
-            )
-        )
+        if exploration is not None:
+            record_exploration(exploration)
 
     with session.stage("source_closure"):
         _examine_internal_modules(context, libraries, examine, closure_omissions,
-                                  indirect_members=_indirect_import_members(exploration),
+                                  indirect_members=_indirect_import_members(exploration) if exploration else (),
                                   available_reads=lambda: min(
                                       run.max_module_files - run.module_attempts,
                                       session.policy.github_requests - session.github_requests,
@@ -266,22 +289,21 @@ def collect_source_progress(
         except (GitHubAcquisitionError, GitHubResponseError) as exc:
             problems.append(SourceProblem("source_closure", getattr(exc, "reason", "malformed_response"), str(exc)))
             return snapshot("failed")
-    if sample_python is not None:
+    if sample_python is not None and not rank_adapters:
         with session.stage("sample_python_workflow"):
             _, modules, _ = _source_material(target, context, libraries, limits)
             sample_releases = {(module.package, module.version) for module in modules if module.role == "constraint_sample"}
             try:
-                declared = collect_sample_python_scenario(
-                    sample_python, inputs.identity, {evidence.path for evidence in dependency.source_evidence},
-                    sample_releases, file_python, session,
+                declared = acquire_sample_python_declaration(
+                    sample_python, inputs.identity, {evidence.path for evidence in dependency.source_evidence}, session,
                 )
+                declared = annotate_sample_releases(declared, sample_releases, file_python)
                 session.finish_acquisition()
             except GitHubAcquisitionError as exc:
                 sample_python = replace(sample_python, reason=exc.reason)
             else:
                 sample_python = declared
     return snapshot("complete")
-
 
 def _examine_internal_modules(context, libraries, examine, omissions, *, indirect_members, available_reads):
     """Apply the qualified import priority to questions inside observed inventories."""

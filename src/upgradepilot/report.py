@@ -123,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 11",
+            f"Recorded generator version: {report.generator_version}; renderer version: 12",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -181,6 +181,7 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
         return []
 
     sections = _signature_overview(report, transition)
+    sections.extend(_ranked_adapter_overview(report, assessments.get("caller-signature-sample-python")))
     sections.extend(_ci_log_overview(report))
     sections.extend(_ci_command_overview(report, assessments.get("ci")))
     artifact = assessments.get("artifact-candidate")
@@ -454,6 +455,31 @@ def _signature_overview(
     return lines
 
 
+def _ranked_adapter_overview(report: InvestigationReport, scenario: ReportAssessment | None) -> list[str]:
+    if (scenario is None or scenario.owner != "caller_signature.sample_python"
+            or [fact.value for fact in scenario.facts if fact.name == "sampling_mode"] != ["ranked"]):
+        return []
+    lines = ["", "Ranked adapter sampling"]
+    if scenario.status != "available" or scenario.state != "declared":
+        return [*lines, f"Selected workflow Python declaration unresolved ({scenario.reason})."]
+    for item in report.assessments:
+        if item.owner != scenario.owner or not item.assessment_id.startswith("caller-signature-adapter-rank-"):
+            continue
+        facts = {fact.name: fact.value for fact in item.facts}
+        package, version, ref = (facts.get(name, "") for name in ("package", "version", "index_source"))
+        if not package or len(facts) != len(item.facts):
+            continue
+        if item.state == "confirmed" and item.status == "available" and version and ref in item.source_ids:
+            availability = "Adapter source retained." if facts.get("source_retained") == "True" else "Adapter source unavailable."
+            lines.append(f"{package} {version}: published file matched the index ({ref}). {availability}")
+        elif item.state == "unresolved" and item.status == "problem":
+            blocked = (" at " + facts["blocked_version"]) if facts.get("blocked_version") not in (None, "not recorded") else ""
+            lines.append(f"{package}: ranked sample unresolved{blocked} ({item.reason}).")
+    if len(lines) == 2:
+        lines.append("No ranked adapter decisions were recorded.")
+    return lines
+
+
 def _sample_python_lines(
     report: InvestigationReport, witnesses: tuple[ReportAssessment, ...],
     samples: tuple[tuple[str, str], ...],
@@ -465,6 +491,8 @@ def _sample_python_lines(
         return []
     declaration = {fact.name: fact.value for fact in scenario.facts}
     if scenario.state == "unresolved" and scenario.status == "problem":
+        if declaration.get("sampling_mode") == "ranked":
+            return []
         return [f"Selected workflow Python declaration unresolved ({scenario.reason})."]
     line = declaration.get("python_line", "")
     workflow_ref = declaration.get("workflow_source", "")

@@ -633,7 +633,8 @@ class NativeSourceClientCompositionTests(TestCase):
             self.assertEqual(sum('/pypi/vendor/2.0/' in r.url for r in requests), 2)
 
     def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40,
-                             repository_move=False, sample_adapter=False, sample_requires_python=">=3.11"):
+                             repository_move=False, sample_adapter=False, sample_requires_python=">=3.11",
+                             higher_rank_requires_python=">=3.11", rank_file_sha="4" * 64):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
@@ -655,6 +656,7 @@ class NativeSourceClientCompositionTests(TestCase):
                 path = parsed.path
                 location = None
                 status = 200
+                headers = None
                 if path == '/repos/owner/target/pulls/1145':
                     payload = {**_pull_request_payload(identity), 'body': 'Controlled demo update'}
                 elif path == '/repos/owner/target/pulls/1145/files':
@@ -675,6 +677,19 @@ class NativeSourceClientCompositionTests(TestCase):
                         last_serial=1, releases={'1.0': [wheel]})
                 elif sample_adapter and path.startswith('/integrity/relay/'):
                     status, payload = 404, {}
+                elif sample_adapter and path == '/simple/relay/':
+                    assert request.headers["Accept"] == "application/vnd.pypi.simple.v1+json"
+                    headers = {"Content-Type": "application/vnd.pypi.simple.v1+json"}
+                    payload = {
+                        "name": "relay", "meta": {"api-version": "1.4", "_last-serial": 12},
+                        "versions": ["1.0", "1.1"],
+                        "files": [
+                            {"filename": f"relay-{version}-py3-none-any.whl", "hashes": {"sha256": sha},
+                             "requires-python": spec, "yanked": False}
+                            for version, sha, spec in (("1.0", rank_file_sha, sample_requires_python),
+                                                       ("1.1", "5" * 64, higher_rank_requires_python))
+                        ],
+                    }
                 elif repository_move and path.startswith('/repos/owner/demo/git/ref/tags/'):
                     tag = path.rsplit('/', 1)[-1]
                     location = 'https://api.github.com/repositories/123/git/ref/tags/' + tag
@@ -734,6 +749,8 @@ class NativeSourceClientCompositionTests(TestCase):
                     and parse_qs(parsed.query).get('ref') == ['d' * 40]
                 ) else status
                 response.raw = BytesIO(json.dumps(payload).encode())
+                if headers:
+                    response.headers.update(headers)
                 if location is not None:
                     response.status_code = 301
                     response.headers['Location'] = location

@@ -20,8 +20,6 @@ from functools import partial
 from typing import Literal
 from urllib.parse import quote, urlsplit
 from packaging.requirements import InvalidRequirement, Requirement
-from packaging.specifiers import SpecifierSet
-from packaging.version import InvalidVersion, Version
 
 from ..github.api import GitHubAcquisitionError, GitHubResponseError
 from ..github.identity import validate_repository
@@ -37,6 +35,7 @@ from ..upstream.repository import normalize_project_url_label
 from ..target.source_context import TargetSourceContext, extract_python_facts
 from .bindings import ImportFact, ReferenceFact
 from .acquisition import AcquisitionSession
+from .sample_python import RANKED_SAMPLE_BASIS, stable_sample_versions
 from .source_evidence import (
     AcquisitionProblem, SourceContextGap as ContextGap,
     SourceDependencyDeclaration as DependencyDeclaration,
@@ -348,18 +347,7 @@ def select_exploration_version(
     index: PackageReleaseIndexEvidence, declaration: DependencyDeclaration
 ) -> str | AcquisitionProblem:
     """Deterministic sampling choice, explicitly separate from resolver truth."""
-    candidates = []
-    for raw in index.release_versions:
-        try:
-            version = Version(raw)
-        except InvalidVersion:
-            continue
-        if (
-            not version.is_prerelease
-            and not version.is_devrelease
-            and SpecifierSet(declaration.specifier).contains(version)
-        ):
-            candidates.append((version, raw))
+    candidates = list(stable_sample_versions(index.release_versions, declaration.specifier))
     if not candidates:
         return AcquisitionProblem(
             "adapter_sample",
@@ -625,11 +613,19 @@ class PythonSourceAcquisitionRun:
         self._release_progress[key] = progress
         release = self._source_owner.releases.get_release(package, version)
         if not isinstance(release, PackageReleaseEvidence):
+            if self._source_owner.ranked_sampler is not None:
+                self._source_owner.ranked_sampler.record_exact_release(package, version, available=False)
             return AcquisitionProblem(
                 "adapter_release", release.state, release.detail, release
             )
         progress = replace(progress, release=release)
         self._release_progress[key] = progress
+        ranker = self._source_owner.ranked_sampler
+        if ranker is not None:
+            reason = ranker.record_exact_release(package, version, available=True)
+            if reason:
+                return AcquisitionProblem("adapter_ranking", reason,
+                                          "The selected index file was not established by the exact release response.")
         publisher = self._source_owner.provenance.resolve(release)
         progress = replace(progress, publisher=publisher)
         self._release_progress[key] = progress
@@ -719,6 +715,7 @@ class AdapterSourceExplorer:
         files=None,
     ):
         self.session = session
+        self.ranked_sampler = None
         self.index = index or PyPIReleaseIndexClient(session=self.session)
         self.releases = releases or PyPIReleaseClient(session=self.session)
         self.provenance = provenance or PublisherProvenanceInspector(
@@ -883,35 +880,45 @@ class AdapterSourceExplorer:
         failed_move_receipts: list[ModuleSourceReceipt],
     ) -> AdapterModuleSample | AcquisitionProblem:
         declaration = candidate.declaration
-        if declaration.package not in self._index_cache:
-            self._index_cache[declaration.package] = self.index.get_release_index(
-                declaration.package
-            )
-        index = self._index_cache[declaration.package]
-        if not isinstance(index, PackageReleaseIndexEvidence):
-            return AcquisitionProblem("adapter_index", index.state, index.detail, index)
-        if index.normalized_package != declaration.package:
-            return AcquisitionProblem(
-                "adapter_index",
-                "identity_mismatch",
-                "Sample index describes another package.",
-            )
-        version = select_exploration_version(index, declaration)
-        if isinstance(version, AcquisitionProblem):
-            return version
+        ranker = self.ranked_sampler
+        if ranker is not None:
+            decision = ranker.select(declaration.package, declaration.specifier)
+            if decision.state == "unresolved":
+                return AcquisitionProblem("adapter_ranking", decision.reason, "Ranked adapter selection remains unresolved.")
+            version = decision.version
+            selection = RANKED_SAMPLE_BASIS
+        else:
+            if declaration.package not in self._index_cache:
+                self._index_cache[declaration.package] = self.index.get_release_index(declaration.package)
+            index = self._index_cache[declaration.package]
+            if not isinstance(index, PackageReleaseIndexEvidence):
+                return AcquisitionProblem("adapter_index", index.state, index.detail, index)
+            if index.normalized_package != declaration.package:
+                return AcquisitionProblem("adapter_index", "identity_mismatch", "Sample index describes another package.")
+            version = select_exploration_version(index, declaration)
+            if isinstance(version, AcquisitionProblem):
+                return version
+            selection = "latest_stable_satisfying_visible_constraint_exploration_only"
         examined, receipt = self._source_run.examine_with_receipt(PythonModuleSourceRequest(
             declaration.package, version, candidate.imported_module, "constraint_sample",
         ))
         if isinstance(examined, AcquisitionProblem):
+            if ranker is not None:
+                ranker.finish_selection(declaration.package, declaration.specifier, examined.reason)
             if receipt.repository_move is not None:
                 failed_move_receipts.append(receipt)
             if examined.stage == "python_source_budget":
                 reasons = {"release_source_limit": "release_sample_limit", "source_text_limit": "adapter_text_limit"}
                 return replace(examined, stage="adapter_budget", reason=reasons.get(examined.reason, examined.reason))
             return examined
+        if ranker is not None:
+            reason = ranker.record_exact_release(declaration.package, version, available=True)
+            if reason:
+                return AcquisitionProblem("adapter_ranking", reason,
+                                          "The selected index file was not established by the retained release response.")
         return AdapterModuleSample(
             candidate, depth, version,
-            "latest_stable_satisfying_visible_constraint_exploration_only",
+            selection,
             examined.association, examined.metadata, examined.tags, examined.inventory,
             examined.file, examined.imports, examined.references, examined.gaps,
         )

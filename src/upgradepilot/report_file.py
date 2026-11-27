@@ -677,6 +677,11 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         if not re.fullmatch(r"[0-9a-f]{64}", suffix):
             raise ReportValidationError("Invalid sampled Python comparison identity.")
         allowed = {"overlaps", "excludes", "unknown"}
+    elif assessment_id.startswith("caller-signature-adapter-rank-"):
+        suffix = assessment_id.removeprefix("caller-signature-adapter-rank-")
+        if not re.fullmatch(r"[0-9a-f]{64}", suffix):
+            raise ReportValidationError("Invalid ranked adapter decision identity.")
+        allowed = {"confirmed", "unresolved"}
     elif assessment_id.startswith("ci-workflow-"):
         allowed = vocabularies["ci"]
     elif assessment_id.startswith("ci-job-instance-"):

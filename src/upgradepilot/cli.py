@@ -102,6 +102,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Check adapter samples against one explicitly selected workflow at the PR head.")
     parser.add_argument("--sample-python-job", metavar="JOB_ID",
                         help="Select the static job ID in --sample-python-workflow.")
+    parser.add_argument("--rank-adapter-samples", action="store_true",
+                        help="Select adapter samples using the declared Python line of the selected job.")
     parser.add_argument("--workspace-store", metavar="PATH",
                         help="Explicit private store outside Git checkouts for caller/signature progress.")
     parser.add_argument("--open-workspace", metavar="PATH",
@@ -121,9 +123,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 or args.open_report is not None or args.open_workspace is not None):
             parser.error("--sample-python-workflow and --sample-python-job require a live caller-signature profile.")
         try:
-            python_job = SelectedSamplePythonJob(*python_selection)
+            python_job = SelectedSamplePythonJob(*python_selection, rank_adapters=args.rank_adapter_samples)
         except ValueError as error:
             parser.error(str(error))
+    if args.rank_adapter_samples and python_job is None:
+        parser.error("--rank-adapter-samples requires --sample-python-workflow and --sample-python-job.")
     ci_coordinates = (args.ci_run_id, args.ci_run_attempt, args.ci_job_id)
     if combined:
         if (

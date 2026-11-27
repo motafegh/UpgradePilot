@@ -8,7 +8,7 @@ Endpoint-specific HTTP meaning remains with focused clients.
 from __future__ import annotations
 
 import json
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from typing import Any
 
 import requests
@@ -85,6 +85,7 @@ class PyPIJsonApiClient:
         response: Response,
         *,
         resource: str,
+        observe_body: Callable[[bytearray], None] | None = None,
     ) -> Mapping[str, Any]:
         try:
             declared = response.headers.get("Content-Length")
@@ -127,11 +128,14 @@ class PyPIJsonApiClient:
             ) from exc
 
         try:
-            return expect_mapping(decoded)
+            mapping = expect_mapping(decoded)
         except JsonContractViolation as exc:
             raise PyPIResponseError(
                 f"PyPI {resource} response JSON was not an object."
             ) from exc
+        if observe_body is not None:
+            observe_body(body)
+        return mapping
 
 
 __all__ = (

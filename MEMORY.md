@@ -1,13 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-26
+**Last updated:** 2026-11-27
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
 
-**Ranked adapter provider route qualified — November 26.** The [qualification](working-memory/2026-11-26_ranked-adapter-provider-qualification.md) connected the frozen Python 3.10 candidate ranking for Dashboard API to exact FastAPI 0.162.5 and Starlette 1.7.0 metadata, tagged source, and the normal conditional HTTPX report. The shared transcript charged 46 GitHub and 64 provider requests with zero stops. The installed offline replay matched and 61 focused tests passed. **Next:** build the explicit ranked opt-in using the qualified PyPI and GitHub provider scope, with production workflow selection, exact file joins and retained ranking decisions.
+**Python-ranked adapter sampling delivered — November 27.** The [Build and verification](working-memory/2026-11-27_ranked-python-adapter-sampling-build.md) replayed Dashboard API #20 through the normal `--rank-adapter-samples` CLI and confirmed FastAPI 0.162.5 / Starlette 1.7.0 for the declared Python 3.10 line. Exact-file conflicts, a higher unknown release, an invalid job and provider exhaustion preserved explicit partial outcomes. The positive run charged 46 GitHub and 64 provider requests. **1,203 installed product tests passed with zero skips.** **Next:** qualify one contrasting adapter chain with the frozen ranked method and compare the unscoped, annotation-only and ranked reports.
+
+**Ranked adapter provider route qualified — November 26.** The [qualification](working-memory/2026-11-26_ranked-adapter-provider-qualification.md) connected the frozen Python 3.10 candidate ranking for Dashboard API to exact FastAPI 0.162.5 and Starlette 1.7.0 metadata, tagged source, and the normal conditional HTTPX report. The shared transcript charged 46 GitHub and 64 provider requests with zero stops. The installed offline replay matched and 61 focused tests passed.
 
 **Declared Python adapter annotation delivered — November 26.** The [Build and verification](working-memory/2026-11-26_declared-python-adapter-annotation-build.md) replayed Dashboard API #20 through the normal opt-in CLI. The checked FastAPI 0.165.0 and Starlette 1.10.0 files exclude workflow job build's declared Python 3.10. The shared budget charged one additional GitHub request and no additional PyPI requests. Cap exhaustion preserved the source comparison and an unresolved workflow annotation. New and historical saved reports and Workspace revisions reopened offline. **1,202 installed product tests passed with zero skips.**
 

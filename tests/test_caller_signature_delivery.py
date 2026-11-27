@@ -85,11 +85,12 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
 
     def live(self, *, proposed_missing=False, save=True, durable=True, forwarded=True,
              guard_arguments=(), target_object_id_length=40, repository_move=False,
-             sample_adapter=False, sample_requires_python=">=3.11"):
+             sample_adapter=False, sample_requires_python=">=3.11", **sample_controls):
         identity, session, requests = acquisition_controls.NativeSourceClientCompositionTests().controlled_transport(
             proposed_missing=proposed_missing, forwarded=forwarded,
             target_object_id_length=target_object_id_length, repository_move=repository_move,
             sample_adapter=sample_adapter, sample_requires_python=sample_requires_python,
+            **sample_controls,
         )
         arguments = [identity.repository, str(identity.number), "--evidence-profile", "caller-signature", *guard_arguments]
         if durable:
@@ -209,6 +210,49 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
                     changed = replace(scenario, releases=(replace(release, files=(foreign,)),))
                     with self.assertRaisesRegex(ValueError, "exact published release"):
                         encode_sources(replace(opened.native.sources, sample_python=changed), version=3)
+
+    def test_ranked_adapter_selection_requires_early_workflow_and_exact_file_join(self):
+        from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
+        from upgradepilot.caller_signature.source_codec import encode_sources
+
+        flags = ("--rank-adapter-samples", "--sample-python-workflow", ".github/workflows/python.yml",
+                 "--sample-python-job", "build")
+        for label, kwargs, expected, state in (
+            ("joined", {}, "published file matched the index", "confirmed"),
+            ("foreign-file", {"rank_file_sha": "f" * 64}, "exact_release_file_mismatch", "unresolved"),
+            ("higher-unknown", {"higher_rank_requires_python": None}, "unclassified_candidate_version", "unresolved"),
+        ):
+            with self.subTest(label=label):
+                self.store_path = self.root / (label + "-store")
+                self.report_path = self.root / (label + ".json")
+                code, output, requests = self.live(sample_adapter=True, sample_requires_python=">=3.10.8",
+                                                    forwarded=False, guard_arguments=flags, **kwargs)
+                self.assertEqual(code, 0, output)
+                first_view = output.split("\nDetailed evidence and action status", 1)[0]
+                self.assertIn(expected, first_view)
+                paths = [r.url for r in requests]
+                locator = next(i for i, url in enumerate(paths) if "/contents/.github/workflows/python.yml?" in url)
+                index = paths.index("https://pypi.org/simple/relay/")
+                self.assertLess(locator, index)
+                self.assertNotIn("https://pypi.org/pypi/relay/json", paths)
+                revision = self.revision_id(output)
+                opened = open_caller_signature_checkpoint(CheckpointStore.open(self.store_path, read_only=True), revision)
+                ranked, = opened.native.sources.sample_python.rank_decisions
+                self.assertEqual(ranked.state, state)
+                self.assertEqual((ranked.index.serial, ranked.checked_versions), (12, 1 if label == "higher-unknown" else 2))
+                self.assertEqual(opened.report, read_report(self.report_path))
+                self.assertEqual(opened.report.action.state, "abstain")
+                if label == "joined":
+                    self.assertEqual((ranked.version, ranked.file.witness_patch), ("1.0", "3.10.8"))
+                    self.assertEqual(ranked.file.file, ranked.exact_file)
+                    self.assertIn(expected, self.cold(revision).split("\nDetailed evidence and action status", 1)[0])
+                    changed = replace(opened.native.sources.sample_python,
+                                      rank_decisions=(replace(ranked, exact_file=None),))
+                    with self.assertRaisesRegex(ValueError, "exact release file join"):
+                        encode_sources(replace(opened.native.sources, sample_python=changed), version=4)
+                else:
+                    self.assertNotIn("https://api.github.com/repos/owner/relay/git/ref/tags/1.0", paths)
+                    self.assertFalse(any(m.role == "constraint_sample" for m in opened.native.sources.modules))
 
     def test_live_cli_records_explicit_github_request_allowance(self):
         from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint

@@ -31,9 +31,11 @@ from ..pypi.release import (
     DistributionFile, MAX_FILE_PYTHON_DECLARATIONS, MAX_REQUIRES_PYTHON_TEXT,
     PackageReleaseEvidence, ProjectUrlCandidate, PublishedFileRequiresPython,
 )
+from ..pypi.simple_index import MAX_INDEX_FILES, MAX_INDEX_VERSIONS, SimpleIndexBasis, simple_index_url
 from ..repository_path import repository_relative_parts
 from .sample_python import (
-    PYTHON_LINE, WORKFLOW_TEXT_LIMIT, SampleFilePythonAssessment, SamplePythonScenario,
+    PYTHON_LINE, RANKED_SAMPLE_BASIS, WORKFLOW_TEXT_LIMIT,
+    AdapterRankDecision, SampleFilePythonAssessment, SamplePythonScenario,
     SampleReleasePythonAssessment, SelectedSamplePythonJob,
 )
 from ..workspace.native_boundary import ExactInvestigationTarget
@@ -46,7 +48,7 @@ from ..workspace.source_access import encode_source_catalog, read_source_catalog
 FORMAT = "caller-signature-sources/1"
 MOVE_FORMAT = "caller-signature-sources/2"
 SAMPLE_PYTHON_FORMAT = "caller-signature-sources/3"
-_SOURCE_FORMATS = {1: FORMAT, 2: MOVE_FORMAT, 3: SAMPLE_PYTHON_FORMAT}
+_SOURCE_FORMATS = {1: FORMAT, 2: MOVE_FORMAT, 3: SAMPLE_PYTHON_FORMAT, 4: "caller-signature-sources/4"}
 
 
 def _optional(shape):
@@ -467,7 +469,7 @@ _MOVE_VALUES = NativeValueCodec(tuple(
 ))
 _RECEIPT = RecordRef("source_acquisition_receipt")
 
-_PYTHON_SCENARIO_VALUES = NativeValueCodec((
+_PYTHON_SCENARIO_LAYOUTS = (
     RecordLayout("sample_python_job", SelectedSamplePythonJob, (("workflow_path", str), ("job", str))),
     RecordLayout("file_requires_python", PublishedFileRequiresPython, (
         ("filename", str), ("sha256", str), ("requires_python", _optional(str)), ("yanked", _optional(bool)),
@@ -485,6 +487,25 @@ _PYTHON_SCENARIO_VALUES = NativeValueCodec((
         ("dependency_path", _optional(str)), ("workflow_text", _optional(str)),
         ("python_line", _optional(str)), ("python_location", _optional(str)), ("reason", str),
         ("releases", _seq("sample_release_python")),
+    )),
+)
+_PYTHON_SCENARIO_VALUES = NativeValueCodec(_PYTHON_SCENARIO_LAYOUTS)
+_RANKED_SCENARIO_VALUES = NativeValueCodec(tuple(
+    replace(layout, fields=layout.fields + (("rank_adapters", bool),))
+    if layout.variant == "sample_python_job" else
+    replace(layout, fields=layout.fields + (("rank_decisions", _seq("adapter_rank_decision")),))
+    if layout.variant == "sample_python_scenario" else layout
+    for layout in _PYTHON_SCENARIO_LAYOUTS
+) + (
+    RecordLayout("simple_index_basis", SimpleIndexBasis, (
+        ("source_url", str), ("sha256", str), ("serial", int), ("observed_at", datetime), ("file_count", int),
+    )),
+    RecordLayout("adapter_rank_decision", AdapterRankDecision, (
+        ("package", str), ("constraint", str), ("state", LiteralValues(("pending", "confirmed", "unresolved"))),
+        ("reason", str), ("index", _optional(RecordRef("simple_index_basis"))),
+        ("checked_versions", int), ("unclassified_files", int), ("version", _optional(str)),
+        ("file", _optional(RecordRef("sample_file_python"))), ("exact_file", _optional(RecordRef("file_requires_python"))),
+        ("blocked_version", _optional(str)),
     )),
 ))
 _PYTHON_SCENARIO = RecordRef("sample_python_scenario")
@@ -780,6 +801,7 @@ def _validate_sample_python(value):
     scenario = value.sample_python
     if scenario is None:
         return
+    _validate_rank_decisions(value, scenario)
     validate_repository(scenario.repository)
     if validate_commit_sha(scenario.revision) != scenario.revision:
         raise ValueError("Noncanonical Python scenario revision.")
@@ -830,9 +852,72 @@ def _validate_sample_python(value):
                 raise ValueError("Invalid stable Python patch witness.")
 
 
+def _validate_rank_decisions(value, scenario):
+    ranked = scenario.selection.rank_adapters
+    decisions = scenario.rank_decisions
+    if not ranked:
+        if decisions:
+            raise ValueError("Annotation-only source evidence carries ranked decisions.")
+        return
+    if decisions and not scenario.python_line:
+        raise ValueError("Ranked decisions lack a declared Python line.")
+    keys = {(item.package, item.constraint) for item in decisions}
+    if len(decisions) != len(keys) or len(keys) > 12:
+        raise ValueError("Invalid ranked adapter decision count or identity.")
+    confirmed = {}
+    confirmed_constraints = set()
+    for item in decisions:
+        if (not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", item.package)
+                or not item.reason or len(item.reason) > 128 or len(item.constraint) > 1024
+                or not 0 <= item.checked_versions <= MAX_INDEX_VERSIONS + MAX_INDEX_FILES):
+            raise ValueError("Invalid ranked adapter decision scope.")
+        index = item.index
+        if index is None:
+            if item.state != "unresolved" or item.checked_versions or item.unclassified_files or item.file or item.blocked_version:
+                raise ValueError("Ranked selection lacks an index basis.")
+        else:
+            _digest(index.sha256)
+            if (index.source_url != simple_index_url(item.package) or index.serial < 0
+                    or not 0 <= item.unclassified_files <= index.file_count <= MAX_INDEX_FILES):
+                raise ValueError("Ranked index observation belongs to another scope.")
+        if (item.file is None) != (item.version is None) or (item.file is not None and item.blocked_version):
+            raise ValueError("Incomplete ranked adapter file selection.")
+        if item.file is not None:
+            file = item.file.file
+            _digest(file.sha256)
+            if (not item.checked_versions or not 0 < len(item.version) <= 128
+                    or not 0 < len(file.filename) <= 512 or file.yanked is not False
+                    or not file.requires_python or len(file.requires_python) > MAX_REQUIRES_PYTHON_TEXT
+                    or item.file.state != "overlaps" or not re.fullmatch(
+                        re.escape(scenario.python_line) + r"\.(?:0|[1-9][0-9]*)", item.file.witness_patch or ""
+                    )):
+                raise ValueError("Invalid ranked Python file predicate.")
+        if item.state == "confirmed":
+            if item.file is None or item.exact_file != item.file.file:
+                raise ValueError("Confirmed ranked adapter lacks the exact release file join.")
+            confirmed[item.package, item.version] = item.exact_file
+            confirmed_constraints.add((item.package, item.constraint, item.version))
+        elif item.state == "pending" and (item.file is None or item.exact_file is not None):
+            raise ValueError("Invalid pending ranked adapter file.")
+        elif item.exact_file is not None and (item.file is None or item.exact_file.filename != item.file.file.filename):
+            raise ValueError("Ranked release mismatch refers to another filename.")
+    for sample in value.acquisition.samples:
+        declaration = sample.candidate.declaration
+        if (sample.selection != RANKED_SAMPLE_BASIS
+                or (declaration.package, declaration.specifier, sample.version) not in confirmed_constraints):
+            raise ValueError("Ranked sample selection lacks its recorded constraint decision.")
+    for module in value.modules:
+        if module.role == "constraint_sample" and (module.package, module.version) not in confirmed:
+            raise ValueError("Ranked sample source lacks its confirmed release file.")
+    for release in scenario.releases:
+        exact = confirmed.get((release.package, release.version))
+        if exact is None or not any(row.file == exact for row in release.files):
+            raise ValueError("Ranked sample annotation does not preserve the joined file.")
+
+
 def source_codec_version(value: se.CallerSignatureSources) -> int:
     if value.sample_python is not None:
-        return 3
+        return 4 if value.sample_python.selection.rank_adapters else 3
     return 2 if any(module.repository_move is not None for module in value.acquisition.module_requests) else 1
 
 
@@ -846,8 +931,9 @@ def encode_sources(value: se.CallerSignatureSources | None, *, version: int = 1)
         catalog=parse_json(encode_source_catalog(value.catalog)) if value.catalog else None,
         modules=[module_fields(m) for m in value.modules], limits=encode_analysis_limits(value.analysis_limits),
         acquisition=parse_json(layout.encode(value.acquisition, _RECEIPT)))
-    if version == 3:
-        row["sample_python"] = parse_json(_PYTHON_SCENARIO_VALUES.encode(value.sample_python, _PYTHON_SCENARIO))
+    if version in {3, 4}:
+        scenario_layout = _RANKED_SCENARIO_VALUES if version == 4 else _PYTHON_SCENARIO_VALUES
+        row["sample_python"] = parse_json(scenario_layout.encode(value.sample_python, _PYTHON_SCENARIO))
     payload = json_bytes(row)
     decoded = decode_sources(payload, version=version)
     if (decoded.catalog.identity if decoded.catalog else None) != (value.catalog.identity if value.catalog else None) or decoded.modules != value.modules or decoded.acquisition != value.acquisition or decoded.analysis_limits != value.analysis_limits or decoded.sample_python != value.sample_python:
@@ -860,7 +946,7 @@ def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSou
     if parsed is None:
         return None
     fields = ("format", "catalog", "modules", "limits", "acquisition")
-    row = object_fields(parsed, (*fields, "sample_python") if version == 3 else fields)
+    row = object_fields(parsed, (*fields, "sample_python") if version in {3, 4} else fields)
     if version not in _SOURCE_FORMATS or row["format"] != _SOURCE_FORMATS[version]:
         raise ValueError("Unsupported caller/signature source representation.")
     limits = decode_analysis_limits(row["limits"])
@@ -883,8 +969,9 @@ def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSou
     layout = _VALUES if version == 1 else _MOVE_VALUES
     receipt = layout.decode(json_bytes(row["acquisition"]), _RECEIPT)
     _validate_receipt(receipt)
-    scenario = (_PYTHON_SCENARIO_VALUES.decode(json_bytes(row["sample_python"]), _PYTHON_SCENARIO)
-                if version == 3 else None)
+    scenario_layout = _RANKED_SCENARIO_VALUES if version == 4 else _PYTHON_SCENARIO_VALUES
+    scenario = (scenario_layout.decode(json_bytes(row["sample_python"]), _PYTHON_SCENARIO)
+                if version in {3, 4} else None)
     result = se.CallerSignatureSources(catalog, modules, limits, receipt, scenario)
     if version != source_codec_version(result):
         raise ValueError("Caller/signature source representation does not match its observations.")

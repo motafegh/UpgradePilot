@@ -1,0 +1,611 @@
+{
+  "experiment_boundary_check": "passed",
+  "fresh_provider_requests": 0,
+  "frozen_dashboard_qualification": {
+    "annotation-only": {
+      "acquisition_problems": [],
+      "action": "abstain",
+      "annotation": {
+        "line": "3.10",
+        "states": {
+          "fastapi 0.165.0": "excludes",
+          "starlette 1.10.0": "excludes"
+        }
+      },
+      "budget": {
+        "decoded_body_bytes": 436675,
+        "elapsed_seconds": 15.882559089999972,
+        "github_requests": 46,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 100
+        },
+        "per_stage": {
+          "library_sources": 40,
+          "native_inputs": 3,
+          "sample_python_workflow": 1,
+          "source_closure": 6,
+          "target_context": 14
+        },
+        "provider_requests": 64,
+        "stops": []
+      },
+      "exact_adapter_testclient_files": {},
+      "exit_status": 0,
+      "fallback_cue": [
+        "Comparison covers the httpx fallback if importing httpx2 raises ModuleNotFoundError (source-39)."
+      ],
+      "native_pairs": 12,
+      "rank_decisions": [],
+      "report_sha256": "19f743b37ab7de5feba5e5a452d59ae4c5c256e2e5b23f9f87592c0afd069d04",
+      "responses_reused": 1,
+      "selected_job_reason": "declared_python_line",
+      "visible_sample_versions": [
+        "Sampled adapter versions: fastapi 0.165.0, starlette 1.10.0."
+      ],
+      "workspace_revision": "35a3a4720c7d4ceeb9fb1c87d13673e8"
+    },
+    "higher-unknown": {
+      "acquisition_problems": [
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "unclassified_candidate_version",
+          "stage": "adapter_ranking"
+        },
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "unclassified_candidate_version",
+          "stage": "adapter_ranking"
+        },
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "unclassified_candidate_version",
+          "stage": "adapter_ranking"
+        },
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "index_not_found",
+          "stage": "adapter_ranking"
+        }
+      ],
+      "action": "abstain",
+      "annotation": {
+        "line": "3.10",
+        "states": {}
+      },
+      "budget": {
+        "decoded_body_bytes": 492433,
+        "elapsed_seconds": 2.4630430260000367,
+        "github_requests": 18,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 100
+        },
+        "per_stage": {
+          "library_sources": 2,
+          "native_inputs": 3,
+          "sample_python_workflow": 1,
+          "target_context": 14
+        },
+        "provider_requests": 20,
+        "stops": []
+      },
+      "exact_adapter_testclient_files": {},
+      "exit_status": 0,
+      "fallback_cue": [],
+      "native_pairs": 3,
+      "rank_decisions": [
+        {
+          "blocked_version": "0.165.0",
+          "checked_versions": 1,
+          "constraint": "",
+          "exact_file": null,
+          "file": null,
+          "index": {
+            "file_count": 742,
+            "observed_at": "2026-11-27T10:30:59.827597+00:00",
+            "serial": 43847139,
+            "sha256": "73be8b4861842f5839822c5b32d567b7c5cdc82a70896ddbde7992650a7e71b9",
+            "source_url": "https://pypi.org/simple/fastapi/"
+          },
+          "package": "fastapi",
+          "reason": "unclassified_candidate_version",
+          "state": "unresolved",
+          "unclassified_files": 0,
+          "version": null
+        },
+        {
+          "blocked_version": null,
+          "checked_versions": 0,
+          "constraint": "==8.3.3",
+          "exact_file": null,
+          "file": null,
+          "index": null,
+          "package": "pytest",
+          "reason": "index_not_found",
+          "state": "unresolved",
+          "unclassified_files": 0,
+          "version": null
+        }
+      ],
+      "report_sha256": "b9b5918c5a9844f8839bfc0d66bbd338b87c57a69b27217555f0c08c8ad240b1",
+      "responses_reused": 1,
+      "selected_job_reason": "declared_python_line",
+      "visible_sample_versions": [],
+      "workspace_revision": "fbbeb1f8fa724a6c87f26490fe5ff40c"
+    },
+    "mismatch": {
+      "acquisition_problems": [
+        {
+          "detail": "The selected index file was not established by the exact release response.",
+          "reason": "exact_release_file_mismatch",
+          "stage": "adapter_ranking"
+        },
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "exact_release_file_mismatch",
+          "stage": "adapter_ranking"
+        },
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "exact_release_file_mismatch",
+          "stage": "adapter_ranking"
+        },
+        {
+          "detail": "Ranked adapter selection remains unresolved.",
+          "reason": "index_not_found",
+          "stage": "adapter_ranking"
+        }
+      ],
+      "action": "abstain",
+      "annotation": {
+        "line": "3.10",
+        "states": {}
+      },
+      "budget": {
+        "decoded_body_bytes": 506120,
+        "elapsed_seconds": 2.442526038999972,
+        "github_requests": 18,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 100
+        },
+        "per_stage": {
+          "library_sources": 3,
+          "native_inputs": 3,
+          "sample_python_workflow": 1,
+          "target_context": 14
+        },
+        "provider_requests": 21,
+        "stops": []
+      },
+      "exact_adapter_testclient_files": {},
+      "exit_status": 0,
+      "fallback_cue": [],
+      "native_pairs": 3,
+      "rank_decisions": [
+        {
+          "blocked_version": null,
+          "checked_versions": 8,
+          "constraint": "",
+          "exact_file": {
+            "filename": "fastapi-0.162.5-py3-none-any.whl",
+            "requires_python": ">=3.10",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "yanked": false
+          },
+          "file": {
+            "file": {
+              "filename": "fastapi-0.162.5-py3-none-any.whl",
+              "requires_python": ">=3.10",
+              "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+              "yanked": false
+            },
+            "state": "overlaps",
+            "witness_patch": "3.10.0"
+          },
+          "index": {
+            "file_count": 742,
+            "observed_at": "2026-11-27T10:30:53.546454+00:00",
+            "serial": 43847139,
+            "sha256": "1e11f955b3045c45b1c5861ba9bb1770d65932d904f84018c2f1e5f4a32878e8",
+            "source_url": "https://pypi.org/simple/fastapi/"
+          },
+          "package": "fastapi",
+          "reason": "exact_release_file_mismatch",
+          "state": "unresolved",
+          "unclassified_files": 0,
+          "version": "0.162.5"
+        },
+        {
+          "blocked_version": null,
+          "checked_versions": 0,
+          "constraint": "==8.3.3",
+          "exact_file": null,
+          "file": null,
+          "index": null,
+          "package": "pytest",
+          "reason": "index_not_found",
+          "state": "unresolved",
+          "unclassified_files": 0,
+          "version": null
+        }
+      ],
+      "report_sha256": "c35232dbd71578b8314d7f436b80fc82c86355b1a0a25ae60e465ad9e2b1a6c2",
+      "responses_reused": 2,
+      "selected_job_reason": "declared_python_line",
+      "visible_sample_versions": [],
+      "workspace_revision": "68b35dc8022242619a5eb26e73406078"
+    },
+    "provider-budget": {
+      "acquisition_problems": [],
+      "action": "abstain",
+      "annotation": {
+        "line": "3.10",
+        "states": {
+          "fastapi 0.162.5": "overlaps",
+          "starlette 1.7.0": "overlaps"
+        }
+      },
+      "budget": {
+        "decoded_body_bytes": 1735541,
+        "elapsed_seconds": 6.355823630000032,
+        "github_requests": 35,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 50
+        },
+        "per_stage": {
+          "library_sources": 32,
+          "native_inputs": 3,
+          "sample_python_workflow": 1,
+          "target_context": 14
+        },
+        "provider_requests": 50,
+        "stops": [
+          {
+            "reason": "acquisition_provider_request_limit",
+            "stage": "library_sources"
+          }
+        ]
+      },
+      "exact_adapter_testclient_files": {
+        "fastapi": {
+          "path": "fastapi/testclient.py",
+          "repository": "fastapi/fastapi",
+          "revision": "5add7a458d629b07311d48261f696b5ac2bb9a5f",
+          "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+          "version": "0.162.5"
+        },
+        "starlette": {
+          "path": "starlette/testclient.py",
+          "repository": "Kludex/starlette",
+          "revision": "2269e9a08c1edd3dfdea865710f40f84c857b623",
+          "sha256": "9e85a77aeb913c0913b2a9de977ae617554ecd08a645ec89bca2e0809fff761b",
+          "version": "1.7.0"
+        }
+      },
+      "exit_status": 0,
+      "fallback_cue": [],
+      "native_pairs": 8,
+      "rank_decisions": [
+        {
+          "blocked_version": null,
+          "checked_versions": 8,
+          "constraint": "",
+          "exact_file": {
+            "filename": "fastapi-0.162.5-py3-none-any.whl",
+            "requires_python": ">=3.10",
+            "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+            "yanked": false
+          },
+          "file": {
+            "file": {
+              "filename": "fastapi-0.162.5-py3-none-any.whl",
+              "requires_python": ">=3.10",
+              "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+              "yanked": false
+            },
+            "state": "overlaps",
+            "witness_patch": "3.10.0"
+          },
+          "index": {
+            "file_count": 742,
+            "observed_at": "2026-11-27T10:30:53.584967+00:00",
+            "serial": 43847139,
+            "sha256": "1e11f955b3045c45b1c5861ba9bb1770d65932d904f84018c2f1e5f4a32878e8",
+            "source_url": "https://pypi.org/simple/fastapi/"
+          },
+          "package": "fastapi",
+          "reason": "exact_release_file_matched",
+          "state": "confirmed",
+          "unclassified_files": 0,
+          "version": "0.162.5"
+        },
+        {
+          "blocked_version": null,
+          "checked_versions": 4,
+          "constraint": ">=0.46.0",
+          "exact_file": {
+            "filename": "starlette-1.7.0-py3-none-any.whl",
+            "requires_python": ">=3.10",
+            "sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+            "yanked": false
+          },
+          "file": {
+            "file": {
+              "filename": "starlette-1.7.0-py3-none-any.whl",
+              "requires_python": ">=3.10",
+              "sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+              "yanked": false
+            },
+            "state": "overlaps",
+            "witness_patch": "3.10.0"
+          },
+          "index": {
+            "file_count": 312,
+            "observed_at": "2026-11-27T10:30:53.601951+00:00",
+            "serial": 42691247,
+            "sha256": "8af5b361e729d08b609b1dce9dfae0cffe4a95ca49e3679d2859fd276fda06e3",
+            "source_url": "https://pypi.org/simple/starlette/"
+          },
+          "package": "starlette",
+          "reason": "exact_release_file_matched",
+          "state": "confirmed",
+          "unclassified_files": 0,
+          "version": "1.7.0"
+        }
+      ],
+      "report_sha256": "8d621e2368f81a82850d144332786c4fb305d5d04d85ba03f18362a53f4f4e13",
+      "responses_reused": 21,
+      "selected_job_reason": "declared_python_line",
+      "visible_sample_versions": [],
+      "workspace_revision": "365917cf72a040af98d36415b9f8d4e0"
+    },
+    "success": {
+      "acquisition_problems": [],
+      "action": "abstain",
+      "annotation": {
+        "line": "3.10",
+        "states": {
+          "fastapi 0.162.5": "overlaps",
+          "starlette 1.7.0": "overlaps"
+        }
+      },
+      "budget": {
+        "decoded_body_bytes": 1952650,
+        "elapsed_seconds": 16.698032681999962,
+        "github_requests": 46,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 100
+        },
+        "per_stage": {
+          "library_sources": 40,
+          "native_inputs": 3,
+          "sample_python_workflow": 1,
+          "source_closure": 6,
+          "target_context": 14
+        },
+        "provider_requests": 64,
+        "stops": []
+      },
+      "exact_adapter_testclient_files": {
+        "fastapi": {
+          "path": "fastapi/testclient.py",
+          "repository": "fastapi/fastapi",
+          "revision": "5add7a458d629b07311d48261f696b5ac2bb9a5f",
+          "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+          "version": "0.162.5"
+        },
+        "starlette": {
+          "path": "starlette/testclient.py",
+          "repository": "Kludex/starlette",
+          "revision": "2269e9a08c1edd3dfdea865710f40f84c857b623",
+          "sha256": "9e85a77aeb913c0913b2a9de977ae617554ecd08a645ec89bca2e0809fff761b",
+          "version": "1.7.0"
+        }
+      },
+      "exit_status": 0,
+      "fallback_cue": [
+        "Comparison covers the httpx fallback if importing httpx2 raises ModuleNotFoundError (source-37)."
+      ],
+      "native_pairs": 12,
+      "rank_decisions": [
+        {
+          "blocked_version": null,
+          "checked_versions": 8,
+          "constraint": "",
+          "exact_file": {
+            "filename": "fastapi-0.162.5-py3-none-any.whl",
+            "requires_python": ">=3.10",
+            "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+            "yanked": false
+          },
+          "file": {
+            "file": {
+              "filename": "fastapi-0.162.5-py3-none-any.whl",
+              "requires_python": ">=3.10",
+              "sha256": "5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b",
+              "yanked": false
+            },
+            "state": "overlaps",
+            "witness_patch": "3.10.0"
+          },
+          "index": {
+            "file_count": 742,
+            "observed_at": "2026-11-27T10:30:53.613614+00:00",
+            "serial": 43847139,
+            "sha256": "1e11f955b3045c45b1c5861ba9bb1770d65932d904f84018c2f1e5f4a32878e8",
+            "source_url": "https://pypi.org/simple/fastapi/"
+          },
+          "package": "fastapi",
+          "reason": "exact_release_file_matched",
+          "state": "confirmed",
+          "unclassified_files": 0,
+          "version": "0.162.5"
+        },
+        {
+          "blocked_version": null,
+          "checked_versions": 4,
+          "constraint": ">=0.46.0",
+          "exact_file": {
+            "filename": "starlette-1.7.0-py3-none-any.whl",
+            "requires_python": ">=3.10",
+            "sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+            "yanked": false
+          },
+          "file": {
+            "file": {
+              "filename": "starlette-1.7.0-py3-none-any.whl",
+              "requires_python": ">=3.10",
+              "sha256": "67f8e99895493dd2911a03f11314af6ceebeae4e704bb9f43dfc6a9db151c93e",
+              "yanked": false
+            },
+            "state": "overlaps",
+            "witness_patch": "3.10.0"
+          },
+          "index": {
+            "file_count": 312,
+            "observed_at": "2026-11-27T10:30:53.631161+00:00",
+            "serial": 42691247,
+            "sha256": "8af5b361e729d08b609b1dce9dfae0cffe4a95ca49e3679d2859fd276fda06e3",
+            "source_url": "https://pypi.org/simple/starlette/"
+          },
+          "package": "starlette",
+          "reason": "exact_release_file_matched",
+          "state": "confirmed",
+          "unclassified_files": 0,
+          "version": "1.7.0"
+        }
+      ],
+      "report_sha256": "4d78a8ee52ee4bdfde915d81fdbac9faadbb55278b4f75255f26c6b54d3d6095",
+      "responses_reused": 21,
+      "selected_job_reason": "declared_python_line",
+      "visible_sample_versions": [
+        "Sampled adapter versions: fastapi 0.162.5, starlette 1.7.0."
+      ],
+      "workspace_revision": "8a7d1a9b35e74693a49b5216a96b86f5"
+    },
+    "unscoped": {
+      "acquisition_problems": [],
+      "action": "abstain",
+      "annotation": null,
+      "budget": {
+        "decoded_body_bytes": 434521,
+        "elapsed_seconds": 16.87022303699996,
+        "github_requests": 45,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 100
+        },
+        "per_stage": {
+          "library_sources": 40,
+          "native_inputs": 3,
+          "source_closure": 6,
+          "target_context": 14
+        },
+        "provider_requests": 63,
+        "stops": []
+      },
+      "exact_adapter_testclient_files": {},
+      "exit_status": 0,
+      "fallback_cue": [
+        "Comparison covers the httpx fallback if importing httpx2 raises ModuleNotFoundError (source-39)."
+      ],
+      "native_pairs": 12,
+      "rank_decisions": [],
+      "report_sha256": "437b397ff031a0f988e4b362b926891df015c8a2a8783fd940f4657b0f2b6374",
+      "responses_reused": 0,
+      "selected_job_reason": null,
+      "visible_sample_versions": [
+        "Sampled adapter versions: fastapi 0.165.0, starlette 1.10.0."
+      ],
+      "workspace_revision": "9144cece0a4a4e558f38b76bf22b78b7"
+    },
+    "wrong-job": {
+      "acquisition_problems": [
+        {
+          "detail": "Ranked sampling requires a declared Python line for the selected workflow job.",
+          "reason": "selected_target_job_not_found",
+          "stage": "adapter_ranking"
+        }
+      ],
+      "action": "abstain",
+      "annotation": {
+        "line": null,
+        "states": {}
+      },
+      "budget": {
+        "decoded_body_bytes": 81115,
+        "elapsed_seconds": 2.1616034600000376,
+        "github_requests": 18,
+        "limits": {
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": 180.0,
+          "github": 50,
+          "per_response_bytes": 8388608,
+          "providers": 100
+        },
+        "per_stage": {
+          "native_inputs": 3,
+          "sample_python_workflow": 1,
+          "target_context": 14
+        },
+        "provider_requests": 18,
+        "stops": []
+      },
+      "exact_adapter_testclient_files": {},
+      "exit_status": 0,
+      "fallback_cue": [],
+      "native_pairs": 3,
+      "rank_decisions": [],
+      "report_sha256": "ea97145da3137f4a10d0dd6396a51c36401d16f23922ebda4e1a234d27d49f0a",
+      "responses_reused": 1,
+      "selected_job_reason": "selected_target_job_not_found",
+      "visible_sample_versions": [],
+      "workspace_revision": "ef947a82d44c41cf97e44396c87231f0"
+    }
+  },
+  "full_suite": {
+    "environment": "offline-installed wheel, loopback-only namespace and unprivileged user",
+    "log_sha256": "6ff6921b8091331ee1354ff48dd3ba80039194a20c1f4b56eccd915636d6a50f",
+    "seconds": 267.41,
+    "skipped": 0,
+    "tests_passed": 1203
+  },
+  "installed_literal_source_and_index_facts_reopened": true,
+  "installed_saved_report_and_workspace_parity": true,
+  "missing_scope_exit": 2,
+  "new_and_legacy_source_family_round_trip_to_exact_bytes": true,
+  "ranked_source_representation": 4,
+  "renderer_version": 12,
+  "simple_index_module_sha256": "e56c3b7482dc7e4395e4e73ca57a4cb8191a105fb06360227cca27ac4d3f33c1",
+  "source_base_commit": "bb2f0495",
+  "target_execution": false,
+  "tracked_patch_sha256": "fd2f8eb0ef3b2adb0b8f1e81c0f3fdfa0fb56f389a9830dd6d49449356fa5f93",
+  "verification_class": "normal installed CLI on frozen provider responses and disclosed edited controls",
+  "wheel": {
+    "installed_product_modules_matching_source": 122,
+    "pip_check": "passed",
+    "sha256": "83e7dd8aca2204fb935f9019c3a3ae56bfc8aaf44fc929250216ffc9b822f2af"
+  }
+}

@@ -2016,8 +2016,20 @@ def _project_caller_signature_sample_python(p, sources, refs, file_sources):
                _fact("workflow_source", "Workflow source", workflow_ref),
                _fact("dependency_file", "Dependency file", scenario.dependency_path),
                _fact("python_line", "Declared Python line", scenario.python_line),
-               _fact("python_location", "Declaration location", scenario.python_location)),
+               _fact("python_location", "Declaration location", scenario.python_location),
+               *((_fact("sampling_mode", "Adapter sample selection", "ranked"),)
+                 if scenario.selection.rank_adapters else ())),
     )
+    sample_refs_by_release = {}
+    if sources.catalog is not None:
+        modules = {(module.source_id, module.path): module for module in sources.modules}
+        for file in sources.catalog.files:
+            module = modules.get((file.source_id, file.path))
+            if module is not None and module.role == "constraint_sample":
+                source_ref = file_sources[sources.catalog.descriptor(file)["file_id"]]
+                sample_refs_by_release.setdefault((module.package, module.version), []).append(source_ref)
+    if scenario.selection.rank_adapters:
+        _project_adapter_rank_decisions(p, scenario, workflow_ref, refs, sample_refs_by_release)
     if not scenario.releases:
         return
     observed = {(row.request.package, row.request.version): row.association.release
@@ -2039,10 +2051,7 @@ def _project_caller_signature_sample_python(p, sources, refs, file_sources):
             retrieved_at=snapshot.retrieved_at.isoformat() if snapshot else None,
             limitation="Selected metadata fields only. Platform, resolver choice and installation are unobserved.",
         )
-        sample_refs = tuple(file_sources[sources.catalog.descriptor(file)["file_id"]]
-                            for file in sources.catalog.files for module in sources.modules
-                            if (file.source_id, file.path) == (module.source_id, module.path)
-                            and (module.package, module.version) == key and module.role == "constraint_sample")
+        sample_refs = sample_refs_by_release.get(key, ())
         statements = {
             "overlaps": "A published non-yanked file declares an overlap with the selected Python line.",
             "excludes": "All checked non-yanked files exclude the selected Python line.",
@@ -2059,6 +2068,57 @@ def _project_caller_signature_sample_python(p, sources, refs, file_sources):
                    _fact("python_line", "Selected Python line", scenario.python_line),
                    _fact("metadata_source", "Published file metadata source", metadata)),
             source_ids=(workflow_ref, metadata, *sample_refs, *refs),
+        )
+
+
+def _project_adapter_rank_decisions(p, scenario, workflow_ref, refs, sample_refs_by_release):
+    index_refs = {}
+    for decision in scenario.rank_decisions:
+        index = decision.index
+        if index is not None and index not in index_refs:
+            index_refs[index] = p.source(
+                "package_metadata", locator=index.source_url, method="Bounded PyPI Simple Index JSON",
+                identity=(_fact("serial", "Index serial", index.serial),
+                          _fact("sha256", "Index response SHA-256", index.sha256),
+                          _fact("file_count", "Index file entries", index.file_count)),
+                retrieved_at=index.observed_at.isoformat(),
+                limitation="Selected index identity and recorded decisions. The full index body is not retained here.",
+            )
+        index_ref = index_refs.get(index)
+        sample_refs = sample_refs_by_release.get((decision.package, decision.version), ())
+        accepted = decision.state == "confirmed"
+        file = decision.file
+        facts = (
+            _fact("package", "Adapter package", decision.package),
+            _fact("constraint", "Visible version constraint", decision.constraint or "(unconstrained)"),
+            _fact("python_line", "Declared Python line", scenario.python_line),
+            _fact("index_source", "Index source", index_ref),
+            _fact("checked_versions", "Versions checked in descending order", decision.checked_versions),
+            _fact("unclassified_files", "Unclassifiable filenames", decision.unclassified_files),
+            _fact("version", "Index-selected version", decision.version),
+            _fact("blocked_version", "Unclassified candidate version", decision.blocked_version),
+            _fact("source_retained", "Ranked adapter source retained", bool(sample_refs)),
+        )
+        if file is not None:
+            facts += (_fact("file", "Index-selected file", file.file.filename),
+                      _fact("index_file_sha256", "Index file SHA-256", file.file.sha256),
+                      _fact("index_requires_python", "Index file Requires-Python", file.file.requires_python),
+                      _fact("patch_witness", "Overlapping stable Python patch", file.witness_patch))
+        if decision.exact_file is not None:
+            facts += (_fact("release_file_sha256", "Exact-release file SHA-256", decision.exact_file.sha256),
+                      _fact("release_requires_python", "Exact-release file Requires-Python", decision.exact_file.requires_python),
+                      _fact("release_file_yanked", "Exact-release file yanked", decision.exact_file.yanked))
+        p.assess(
+            "caller-signature-adapter-rank-" + sha256(("\0".join((decision.package, decision.constraint))).encode()).hexdigest(),
+            "Ranked adapter sample", "caller_signature.sample_python",
+            "confirmed" if accepted else "unresolved",
+            "The ranked index file matched the exact published release."
+            if accepted else "A ranked adapter sample could not be established.",
+            reason=decision.reason, status="available" if accepted else "problem",
+            strength="grounded_interpretation" if accepted else "unresolved",
+            proposition="An exact published file supports the selected adapter source sample for the declared Python line.",
+            source_ids=(workflow_ref, *((index_ref,) if index_ref is not None else ()), *sample_refs, *refs),
+            facts=facts,
         )
 
 
