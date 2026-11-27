@@ -1,0 +1,110 @@
+{
+  "format": "Existing schema 1 report and existing native source/analysis representations. Renderer 13.",
+  "historical_report_opens": {
+    "av_tracer": {
+      "original_output_matches_except_renderer_banner": true,
+      "report_sha256": "85fd07790ebb0e44eecda9b1f6688251e1d0dec7dc2d340dc66beb9105d69bd3"
+    },
+    "rainbowchess": {
+      "historical_workspace_preserves_original_first_view": true,
+      "original_output_matches_except_renderer_banner": true,
+      "report_sha256": "a9d50e5c0fdcf6866819af4fdaf018b29bc2c351a7d4b80fd156f5640e7763c7"
+    },
+    "spotify_lower_cap": {
+      "original_output_matches_except_renderer_banner": true,
+      "report_sha256": "3cb90a7884e1a4a432762e68afacf64175cc98679bce3a38d677fb8642220fb1"
+    }
+  },
+  "installed_tests": {
+    "isolated_cases_passed": 1208,
+    "isolated_cases_skipped": 1,
+    "isolated_log_sha256": "3ab381f997bcdb00557b49ab39daaa1040e93d18c600b76834309aa7eef23bc3",
+    "isolated_seconds": 274.811,
+    "nonroot_filesystem_case_passed": true,
+    "nonroot_log_sha256": "0c02d0bf5af8393515f97e96203566a3ac6193b646c9942aefa0558e9801b4d4",
+    "unique_cases_passed": 1209
+  },
+  "installed_wheel_sha256": "09b30f15479312734dc3b9fe3e1458303e035e374ad26cbabad1d113eb1b6dec",
+  "matching_product_files": 123,
+  "profile_runs": {
+    "rainbowchess": {
+      "body_network_dispatches": 0,
+      "exact_workspace_revision": "646f62dfd2e14f548a4b5aac8335263f",
+      "first_view": [
+        "Update: Werkzeug 3.1.7 -> 3.1.8",
+        "",
+        "Caller and signature fit (conditional source evidence)",
+        "Both exact signatures accept the recorded adapter call's arguments on 7 target paths.",
+        "Target calls: source-18 L49:11 redirect, source-18 L73:11 redirect, source-18 L107:19 redirect, source-18 L116:19 redirect, source-18 L124:9 redirect, source-18 L132:9 redirect, source-18 L137:8 redirect",
+        "Compared adapter call: source-29 L270:11 _wz_redirect",
+        "Old 3.1.7 signature: source-22 L235:0 redirect",
+        "Proposed 3.1.8 signature: source-23 L235:0 redirect",
+        "Named keywords accepted by both: code, Response.",
+        "Applies if execution reaches the recorded adapter call and these exact signatures. The adapter source is a sample. Installed versions and runtime dispatch remain unresolved for these paths.",
+        "CI dependency coverage: not evaluated",
+        "Runtime dependency state: not evaluated",
+        "Recorded maintainer action: abstain"
+      ],
+      "first_view_sha256": "13be008563c943261f5dbeb6e78ee99b64bc850e667bf9aa7fb7ffa493171607",
+      "github_requests": 38,
+      "native_result_and_ordered_requests_match_predecessor": true,
+      "paired_calls": 7,
+      "provider_requests": 51,
+      "recorded_action": "abstain",
+      "report_id": "f2dbe0fc-c890-4592-a114-3c8343146be7",
+      "report_sha256": "752938f2900b37691eecde8b6253159ec98d3fb97c5e90dd7c5dd20b1e530743",
+      "retained_original_sources_match_predecessor": true,
+      "saved_workspace_and_new_first_views_match": true,
+      "source_opens": {
+        "source-22": {
+          "saved_report_source_output_sha256": "8043db4dc7226f0442f1eea5e4c9b0f2fe2c012b02bd471f1a1bce069c14da9f",
+          "workspace_source_output_sha256": "ab16cd3f280df0d4a6f2790b3300f5bf1a79c666beedef6c5925a57c444c35be"
+        },
+        "source-23": {
+          "saved_report_source_output_sha256": "d423b94a81c1c42822770650ea2de7b35baa1ce787ea04ccc7f48dd84c85672e",
+          "workspace_source_output_sha256": "38b0344aa9be428380af6c25eb04de116e011c49b91184d8254ec5dac6593c35"
+        },
+        "source-29": {
+          "saved_report_source_output_sha256": "38f013f59e947acb850d9b7a9e99b63d5f27efe6cd13bcf25fb92a376ac19517",
+          "workspace_source_output_sha256": "a54d2277c0cc0ff95310129b646c5b21f6d71c4d602e5b263959cd7120cc8ac2"
+        }
+      },
+      "structured_witnesses": 50
+    },
+    "spotify_lower_cap": {
+      "body_network_dispatches": 0,
+      "exact_workspace_revision": "9eb56dadc519425783809c6df124b105",
+      "first_view": [
+        "Update: Werkzeug 3.1.5 -> 3.1.6",
+        "",
+        "Caller and signature fit (conditional source evidence)",
+        "More than one target or compared call is recorded.",
+        "See detailed witnesses for the recorded calls, outcomes and conditions.",
+        "",
+        "Adapter call source acquisition",
+        "Exact source acquisition for werkzeug.utils is incomplete.",
+        "Evidence references: source-44, source-16, source-39, source-18, source-21, source-14, source-15"
+      ],
+      "first_view_sha256": "34d73fb68aa383c10806a058157899316089a389dd657c0e02f9f78d8c8dbbbb",
+      "github_requests": 49,
+      "native_result_and_ordered_requests_match_predecessor": true,
+      "paired_calls": 0,
+      "provider_requests": 67,
+      "recorded_action": "abstain",
+      "report_id": "4679f3fa-24b7-4b77-b80d-7e8913b51610",
+      "report_sha256": "4f1cea5b9effe3319aba181d4c2dcfc3472fb91276f8138465bd2b2b592dfc6a",
+      "retained_original_sources_match_predecessor": true,
+      "saved_workspace_and_new_first_views_match": true,
+      "source_opens": {},
+      "structured_witnesses": 123
+    }
+  },
+  "projection_containment_controls": {
+    "different_exact_call_id": "kept detailed presentation",
+    "different_outcome": "kept detailed presentation",
+    "different_recorded_premise": "kept detailed presentation",
+    "explicit_import_fallback": "kept detailed presentation"
+  },
+  "purpose": "Layout and preservation verification using frozen public evidence. No independent maintainer usefulness measurement.",
+  "verification_script_sha256": "179abc996aaccaeb97e538719317eedd1048ad6f8cc1c356484e902870159b30"
+}

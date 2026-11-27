@@ -307,12 +307,54 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
                 selection = opened.native.sources.adapter_calls
                 self.assertEqual((selection.state, selection.reason), (expected_state, expected_reason))
                 self.assertNotIn("Conditional comparisons cover", output)
+                self.assertNotIn("Both exact signatures accept", output)
                 if label == "ambiguous":
                     self.assertEqual({path.module for path in selection.paths}, {"demo.api", "demo.alt"})
                     self.assertFalse(any("/pypi/demo/" in r.url for r in requests))
                 else:
                     modules = [r for r in opened.native.sources.acquisition.module_requests if r.request.package == "demo"]
                     self.assertEqual([r.state for r in modules], ["module_examined", "unavailable"])
+
+    def test_first_view_groups_only_complete_shared_adapter_argument_fit(self):
+        for label, removed in (("shared", False), ("rejected", True)):
+            with self.subTest(label=label):
+                self.store_path = self.root / (label + "-store")
+                self.report_path = self.root / (label + ".json")
+                code, output, _ = self.live(
+                    sample_adapter=True, relative_adapter=True, forwarded=False, extra_adapter_call=True,
+                    adapter_keyword_removed=removed, guard_arguments=("--follow-adapter-calls",),
+                )
+                self.assertEqual(code, 0, output)
+                first_view = output.split("\nDetailed evidence and action status", 1)[0]
+                self.assertIn("Conditional comparisons cover 2 target calls.", output)
+                report = read_report(self.report_path)
+                self.assertEqual(report.action.state, "abstain")
+                if removed:
+                    self.assertNotIn("Both exact signatures accept", first_view)
+                    self.assertIn("More than one target or compared call is recorded.", first_view)
+                    self.assertIn("Local violation: unexpected_keyword: option", output)
+                    continue
+                self.assertIn("Both exact signatures accept the recorded adapter call's arguments on 2 target paths.",
+                              first_view)
+                self.assertIn("Named keywords accepted by both: option.", first_view)
+                self.assertIn("Installed versions and runtime dispatch remain unresolved", first_view)
+                self.assertNotIn("More than one target or compared call is recorded.", first_view)
+                for role, version in (("Old", "1.0"), ("Proposed", "2.0")):
+                    source_id = next(s.source_id for s in report.sources if
+                                     s.retention == "retained_text" and any(
+                                         f.name == "version" and f.value == version for f in s.identity)
+                                     and any(f.name == "path" and f.value == "demo/api.py" for f in s.identity))
+                    self.assertIn(f"{role} {version} signature: {source_id} L1:0 send", first_view)
+                    self.assertIn("def send(*, option=None)", self.cold(
+                        self.revision_id(output), "--show-source", source_id,
+                    ))
+                saved_code, saved = self.run_cli(["--open-report", str(self.report_path)])
+                self.assertEqual(saved_code, 0, saved)
+                summary = first_view.split("Review at a glance\n", 1)[1]
+                for reopened in (saved, self.cold(self.revision_id(output))):
+                    self.assertEqual(summary, reopened.split("Review at a glance\n", 1)[1].split(
+                        "\nDetailed evidence and action status", 1,
+                    )[0])
 
     def test_adapter_call_flag_requires_live_caller_signature_profile(self):
         for arguments in (

@@ -123,7 +123,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 12",
+            f"Recorded generator version: {report.generator_version}; renderer version: 13",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -180,10 +180,14 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
             or not all(transition.get(name) for name in ("package", "old_version", "proposed_version"))):
         return []
 
-    sections = _signature_overview(report, transition)
     adapter_calls = assessments.get("caller-signature-adapter-calls")
+    sections = []
     if adapter_calls is not None and adapter_calls.owner == "caller_signature.acquisition":
-        sections.extend(("", "Adapter call source acquisition", adapter_calls.detail, _evidence_refs(adapter_calls)))
+        sections = _shared_adapter_call_overview(report, adapter_calls, transition)
+    if not sections:
+        sections = _signature_overview(report, transition)
+        if adapter_calls is not None and adapter_calls.owner == "caller_signature.acquisition":
+            sections.extend(("", "Adapter call source acquisition", adapter_calls.detail, _evidence_refs(adapter_calls)))
     sections.extend(_ranked_adapter_overview(report, assessments.get("caller-signature-sample-python")))
     sections.extend(_ci_log_overview(report))
     sections.extend(_ci_command_overview(report, assessments.get("ci")))
@@ -455,6 +459,39 @@ def _signature_overview(
         if item.assessment_id in {"ci", "runtime"} and item.status == "not_evaluated":
             lines.append(f"{item.topic}: {item.state}")
     lines.append(_evidence_refs(*paired_witnesses, *open_questions))
+    return lines
+
+
+def _shared_adapter_call_overview(
+    report: InvestigationReport, acquisition: ReportAssessment, transition: dict[str, str],
+) -> list[str]:
+    if (acquisition.status, acquisition.state, acquisition.reason) != (
+        "available", "examined", "both_versions_examined",
+    ):
+        return []
+    facts = {fact.name: fact.value for fact in acquisition.facts}
+    if len(facts) != len(acquisition.facts) or not all(facts.get(name) for name in (
+        "paired_calls", "shared_target_calls", "shared_compared_call",
+        "shared_old_signature", "shared_proposed_signature",
+    )):
+        return []
+
+    lines = [
+        "",
+        "Caller and signature fit (conditional source evidence)",
+        f"Both exact signatures accept the recorded adapter call's arguments on {facts['paired_calls']} target paths.",
+        f"Target calls: {facts['shared_target_calls']}",
+        f"Compared adapter call: {facts['shared_compared_call']}",
+        f"Old {transition['old_version']} signature: {facts['shared_old_signature']}",
+        f"Proposed {transition['proposed_version']} signature: {facts['shared_proposed_signature']}",
+    ]
+    if keywords := facts.get("shared_named_keywords"):
+        lines.append(f"Named keywords accepted by both: {keywords}.")
+    lines.append("Applies if execution reaches the recorded adapter call and these exact signatures. "
+                 "The adapter source is a sample. Installed versions and runtime dispatch remain unresolved for these paths.")
+    lines.extend(f"{item.topic}: {item.state}" for item in report.assessments
+                 if item.assessment_id in {"ci", "runtime"} and item.status == "not_evaluated")
+    lines.append(f"Recorded maintainer action: {report.action.state}")
     return lines
 
 

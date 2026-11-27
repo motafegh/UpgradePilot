@@ -168,6 +168,8 @@ Add `--rank-adapter-samples` with that workflow and job to select adapter versio
 
 Add `--follow-adapter-calls` to a live caller/signature command to look for one additional changed-module pair. UpgradePilot uses a reached adapter declaration and the unresolved call's recorded import to select the module. Both exact versions share the original acquisition limits. The option can spend some of the remaining GitHub requests on the pair before continuing other source reads. If the admitted paths suggest several modules, the report records the ambiguity and ordinary source closure can use the remaining slots. The report distinguishes module acquisition from a paired signature comparison and preserves the conditional path and any displaced coverage. This option also works with `--rank-adapter-samples`.
 
+When multiple recorded target calls share one complete argument-fit result, the first view puts the shared outcome, conditional path and both exact signature references together. Use `--show-source` to open the referenced source. The detailed report retains the individual comparisons and their premises.
+
 ### Add one selected historical CI job
 
 The explicit `caller-signature-ci` profile combines caller/signature analysis with a bounded log observation from one selected failed GitHub Actions job. It requires `--expected-base`, `--expected-head`, positive `--ci-run-id`, `--ci-run-attempt`, and `--ci-job-id`, and a private `--workspace-store`. Use the exact PR head and attempt when selecting the job. Access to the log depends on GitHub permissions, and a missing log remains an explicit evidence problem.

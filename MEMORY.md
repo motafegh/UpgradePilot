@@ -1,13 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-27
+**Last updated:** 2026-11-28
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
 
-**Adapter pair first-view comparison verified — November 27.** The [saved-report comparison](working-memory/2026-11-27_adapter-pair-first-view-comparison.md) grouped RainbowChess's seven homogeneous pairs using exact native call and signature identities and verified four original source links. Spotify's partial acquisition and AV-Tracer's differing outcomes and premises preserved their current detail. The named Flask guard requires inspection of the original text. **Next:** build the compact first view from the existing typed pairing and recorded path premises, and verify live and saved delivery. Independent maintainer usefulness remains open.
+**Shared adapter call first view delivered — November 28.** The [installed build](working-memory/2026-11-28_adapter-pair-first-view-build.md) puts RainbowChess's seven shared conditional fits beside the compared call and both exact signatures. The detailed comparisons, acquisition ledger and abstention match the earlier evidence. CLI, report and Workspace show the same new opening. Spotify's partial result and the three historical controls retain their evidence. **Next:** prepare a matched maintainer task comparison over the delivered opening and the same retained sources. Independent usefulness and time savings remain unmeasured.
+
+**Adapter pair first-view comparison verified — November 27.** The [saved-report comparison](working-memory/2026-11-27_adapter-pair-first-view-comparison.md) grouped RainbowChess's seven homogeneous pairs using exact native call and signature identities and verified four original source links. Spotify's partial acquisition and AV-Tracer's differing outcomes and premises preserved their current detail. The named Flask guard requires inspection of the original text.
 
 **RainbowChess adapter call transfer qualified — November 27.** The [prospectively frozen trial](working-memory/2026-11-27_rainbowchess-adapter-transfer.md) ran the installed opt-in on Werkzeug 3.1.7 → 3.1.8 through Flask 3.1.3. It completed seven conditional pairs at 38 GitHub and 51 total charges, kept all 36 baseline witnesses, and reproduced both arms offline. The walkthrough located the shared outcome, branch premise and exact signature references in the detailed witnesses.
 

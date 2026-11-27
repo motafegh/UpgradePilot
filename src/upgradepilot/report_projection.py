@@ -11,6 +11,7 @@ Absent inputs stay explicit, and an empty candidate horizon never becomes absenc
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+from dataclasses import replace
 from datetime import UTC, datetime
 from hashlib import sha256
 from importlib.metadata import PackageNotFoundError, version
@@ -20,7 +21,7 @@ from uuid import uuid4
 from packaging.utils import canonicalize_version
 
 from .caller_signature.analysis import fact_identity
-from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult
+from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult, SourceComparisonCandidate
 from .caller_signature.source_evidence import CallerSignatureSources
 from .ci.dependency_exercise import (
     DependencyCICoverageResult, WorkflowDependencyCoverageInput,
@@ -2036,20 +2037,33 @@ def _project_adapter_call_acquisition(p, sources, run, refs, file_sources):
              fact_identity("call", path.adapter_file, path.adapter_span))
             for path in observed.paths
         }
-        signatures = {sig.fact_id: sig.qualified_name for unit in run.result.units if unit.facts
+        signatures = {sig.fact_id: sig for unit in run.result.units if unit.facts
                       for sig in unit.facts.signatures}
-        paired = defaultdict(set)
+        paired = defaultdict(list)
+        versioned_witnesses = 0
+        roles = {"old_dependency", "proposed_dependency"}
         for witness in run.result.candidates:
             call = (witness.root_call_id, witness.comparison.call_id)
             callee = witness.callee_role
-            if (call in origins and callee.module == observed.module
-                    and callee.role in {"old_dependency", "proposed_dependency"}):
-                paired[call, signatures[witness.comparison.signature_id]].add(callee.role)
-        target_calls = {call[0] for (call, _), roles in paired.items() if len(roles) == 2}
+            if callee.role not in roles:
+                continue
+            versioned_witnesses += 1
+            if call in origins and callee.module == observed.module:
+                signature = signatures[witness.comparison.signature_id]
+                paired[call, signature.qualified_name].append(witness)
+        target_calls = {call[0] for (call, _), rows in paired.items()
+                        if {w.callee_role.role for w in rows} == roles}
         count = len(target_calls)
         facts.append(_fact("paired_calls", "Target calls with both version witnesses", count))
         if count:
             detail += f" Conditional comparisons cover {count} target {'call' if count == 1 else 'calls'}."
+        if (observed.state == "examined" and 1 < count == len(origins) == len(paired)
+                and versioned_witnesses == 2 * count):
+            overview, signature_sources = _shared_adapter_call_facts(
+                run.result, paired.values(), signatures, file_sources, sources.catalog.target,
+            )
+            facts.extend(overview)
+            locations += signature_sources
     p.assess(
         "caller-signature-adapter-calls", "Adapter call source acquisition", "caller_signature.acquisition",
         observed.state, detail, reason=observed.reason,
@@ -2060,6 +2074,63 @@ def _project_adapter_call_acquisition(p, sources, run, refs, file_sources):
         limitations=("The result applies to admitted static paths and preserves their runtime conditions.",),
         question="Which exact module sources or conditional comparisons were obtained?",
     )
+
+
+def _shared_adapter_call_facts(result, pairs, signatures, file_sources, target):
+    """Project one common, complete result for all versioned witnesses, if proven."""
+    calls = {call.fact_id: call for unit in result.units if unit.facts for call in unit.facts.calls}
+    versions = {"old_dependency": target.old_version, "proposed_dependency": target.proposed_version}
+    common: dict[str, SourceComparisonCandidate] = {}
+    roots = []
+    for rows in pairs:
+        root = calls[rows[0].root_call_id]
+        roots.append(root)
+        for witness in rows:
+            role = witness.callee_role.role
+            comparison = witness.comparison
+            if (witness.callee_role.version != versions[role]
+                    or comparison.outcome != "bound" or not comparison.checks_complete
+                    or witness.import_fallback is not None
+                    or "execution_reaches_selected_body_and_branch" not in witness.premises):
+                return (), ()
+            exemplar = common.setdefault(role, witness)
+            binding = root.binding
+            original_binding = calls[exemplar.root_call_id].binding
+            # Scope and trace describe each root's location and history. The
+            # shared fit still requires the same binding state and reasons.
+            if (comparison != exemplar.comparison or witness.premises != exemplar.premises
+                    or (binding is None) != (original_binding is None)
+                    or (binding and replace(binding, scope=original_binding.scope,
+                                            trace=original_binding.trace) != original_binding)):
+                return (), ()
+
+    old, proposed = (common[role] for role in versions)
+    old_fit, proposed_fit = old.comparison, proposed.comparison
+    if (replace(old_fit, signature_id=proposed_fit.signature_id) != proposed_fit
+            or old.premises != proposed.premises):
+        return (), ()
+
+    def location(fact, label):
+        return f"{file_sources[fact.unit_id]} L{fact.span.line}:{fact.span.column} {label}"
+
+    compared = calls[old_fit.call_id]
+    old_signature, proposed_signature = (signatures[fit.signature_id] for fit in (old_fit, proposed_fit))
+    roots.sort(key=lambda root: (file_sources[root.unit_id], root.span.line, root.span.column))
+    shown_roots = roots[:8]
+    target_locations = ", ".join(location(root, root.expression) for root in shown_roots)
+    if len(roots) > len(shown_roots):
+        target_locations += f" and {len(roots) - len(shown_roots)} more in detailed witnesses"
+    facts = (
+        _fact("shared_target_calls", "Target calls in the shared comparison", target_locations),
+        _fact("shared_compared_call", "Shared compared call", location(compared, compared.expression)),
+        _fact("shared_old_signature", "Shared old signature", location(old_signature, old_signature.qualified_name)),
+        _fact("shared_proposed_signature", "Shared proposed signature",
+              location(proposed_signature, proposed_signature.qualified_name)),
+    )
+    named_keywords = ", ".join(k.name for k in old_fit.keyword_reception if k.outcome == "named_parameter")
+    if named_keywords:
+        facts += (_fact("shared_named_keywords", "Shared named keywords", named_keywords),)
+    return facts, (file_sources[old_signature.unit_id], file_sources[proposed_signature.unit_id])
 
 
 def _project_caller_signature_sample_python(p, sources, refs, file_sources):

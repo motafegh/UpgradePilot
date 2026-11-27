@@ -635,7 +635,8 @@ class NativeSourceClientCompositionTests(TestCase):
     def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40,
                              repository_move=False, sample_adapter=False, sample_requires_python=">=3.11",
                              higher_rank_requires_python=">=3.11", rank_file_sha="4" * 64,
-                             relative_adapter=False, competing_adapter_calls=False):
+                             relative_adapter=False, competing_adapter_calls=False,
+                             extra_adapter_call=False, adapter_keyword_removed=False):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
@@ -720,13 +721,21 @@ class NativeSourceClientCompositionTests(TestCase):
                         content = 'demo==2.0\nrelay\n' if sample_adapter else 'demo==2.0\n'
                         assert revision == head
                     elif file_path == 'app.py':
-                        content = ('from relay import send\n' if sample_adapter else 'from demo.api import send\n') + 'send(option=1)\n'
+                        content = 'from relay import send\n' if sample_adapter else 'from demo.api import send\n'
+                        if extra_adapter_call:
+                            content += ('from relay import ready\nready()\n'
+                                        'def first():\n    return send(option=1)\n'
+                                        'def second():\n    return send(option=2)\n')
+                        else:
+                            content += 'send(option=1)\n'
                         assert revision == head
                     elif sample_adapter and file_path == 'relay.py':
                         assert revision == '2' * 40
                         content = 'from demo.api import send\n'
                     elif relative_adapter and file_path == 'relay/__init__.py':
                         content = 'from .helpers import send as send\n'
+                        if extra_adapter_call:
+                            content += 'def ready():\n    pass\n'
                     elif relative_adapter and file_path == 'relay/helpers.py':
                         content = ('from demo.api import send as forward\n'
                                    'def send(option):\n    return forward(option=option)\n')
@@ -745,7 +754,8 @@ class NativeSourceClientCompositionTests(TestCase):
                         content = f'def send(*, {keyword}=None):\n pass\n'
                     else:
                         assert file_path == 'demo/api.py' and revision in {'c' * 40, 'd' * 40}
-                        content = 'def send(*, option=None):\n pass\n'
+                        keyword = 'replacement' if adapter_keyword_removed and revision == 'd' * 40 else 'option'
+                        content = f'def send(*, {keyword}=None):\n pass\n'
                         if forwarded:
                             content = 'from ._core import send\n'
                     payload = dict(type='file', path=file_path, encoding='base64',
