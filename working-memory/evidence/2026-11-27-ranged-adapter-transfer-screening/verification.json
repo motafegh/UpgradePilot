@@ -1,0 +1,812 @@
+{
+  "decision": "no case admitted; frozen ranked method remains unqualified for a contrasting rank-driven changed-dependency comparison",
+  "primary_scope": {
+    "method": "e87e8ac1 installed product wheel",
+    "wheel_sha256": "83e7dd8aca2204fb935f9019c3a3ae56bfc8aaf44fc929250216ffc9b822f2af",
+    "purpose": "Qualify one ordinary independent ranged-adapter case before inspecting any candidate ranking or comparison result.",
+    "searches_ordered": [
+      {
+        "bump": "urllib3",
+        "adapter": "requests"
+      },
+      {
+        "bump": "sqlalchemy",
+        "adapter": "sqlmodel"
+      },
+      {
+        "bump": "pydantic-core",
+        "adapter": "pydantic"
+      },
+      {
+        "bump": "botocore",
+        "adapter": "boto3"
+      },
+      {
+        "bump": "starlette",
+        "adapter": "fastapi"
+      },
+      {
+        "bump": "typing-extensions",
+        "adapter": "pydantic"
+      },
+      {
+        "bump": "idna",
+        "adapter": "requests"
+      }
+    ],
+    "discovery": {
+      "search_limit": 7,
+      "page_size": 30,
+      "per_family_candidate_limit": 5,
+      "eligibility_rest_read_limit": 48
+    },
+    "admission": [
+      "First qualifying candidate in frozen queue, ordered by upstream route familiarity, then GitHub recent update order. Existing Dashboard and LAFS proof targets excluded.",
+      "Ordinary PR with a single exact dependency transition in requirements syntax and an unchanged explicit ranged adapter declaration in that same target manifest.",
+      "One immutable head workflow with a literal supported Python major.minor line and direct install of the dependency file, interpreted by the installed product parser.",
+      "Target supported lexical call via the declared adapter. Static changed-dependency import in the immediately sampled adapter module (orientation source only), or via an already admitted external adapter hop. Later source closure alone is insufficient.",
+      "Do not consult PyPI ranking, releases or UpgradePilot outcomes during case selection. One orientation revision can establish a plausible route, without assuming the ranked release preserves it."
+    ],
+    "passes": [
+      "A full comparison requires a common three-mode provider response basis and identical budgets.",
+      "Positive selection transfer requires a declaration-driven candidate change and a retained paired changed-dependency witness tied to that selection.",
+      "Preserve unchanged selection, incomplete path, unsupported, or inconclusive outcomes, and any stage-specific stop."
+    ]
+  },
+  "supplement_scope": {
+    "reason": "The first queue found no candidate with an explicit range; three discovery queries returned HTTP 403 under parallel dispatch.",
+    "method_and_admission": "unchanged",
+    "recovery": "Retry each unavailable family once, sequentially and in original order. Continue using at most five titles per family and the same 48-GET static eligibility ceiling across both passes.",
+    "historical_fallback": [
+      {
+        "repo": "napalm-automation/napalm",
+        "pr": 2171,
+        "bump": "urllib3",
+        "adapter": "requests"
+      },
+      {
+        "repo": "soxoj/maigret",
+        "pr": 1600,
+        "bump": "urllib3",
+        "adapter": "requests"
+      },
+      {
+        "repo": "mozilla/PollBot",
+        "pr": 423,
+        "bump": "urllib3",
+        "adapter": "requests"
+      },
+      {
+        "repo": "Deep-MI/FastSurfer",
+        "pr": 710,
+        "bump": "urllib3",
+        "adapter": "requests"
+      },
+      {
+        "repo": "microsoft/ograg2",
+        "pr": 26,
+        "bump": "urllib3",
+        "adapter": "requests"
+      }
+    ],
+    "disposition": "Stop on first eligible case or after these queues and the original source/workflow requirements, whichever comes first."
+  },
+  "discovery_attempts": [
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump urllib3 from\"",
+      "status": 200,
+      "total": 411701,
+      "incomplete_results": false,
+      "raw_title_matches": 11,
+      "queued": 5
+    },
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump sqlalchemy from\"",
+      "status": 200,
+      "total": 53386,
+      "incomplete_results": false,
+      "raw_title_matches": 8,
+      "queued": 5
+    },
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump pydantic-core from\"",
+      "status": 200,
+      "total": 7431,
+      "incomplete_results": false,
+      "raw_title_matches": 10,
+      "queued": 5
+    },
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump botocore from\"",
+      "status": 403,
+      "total": null,
+      "incomplete_results": null,
+      "raw_title_matches": 0,
+      "queued": 0
+    },
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump starlette from\"",
+      "status": 200,
+      "total": 28305,
+      "incomplete_results": false,
+      "raw_title_matches": 13,
+      "queued": 5
+    },
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump typing-extensions from\"",
+      "status": 403,
+      "total": null,
+      "incomplete_results": null,
+      "raw_title_matches": 0,
+      "queued": 0
+    },
+    {
+      "phase": "primary",
+      "query": "is:pr in:title \"bump idna from\"",
+      "status": 403,
+      "total": null,
+      "incomplete_results": null,
+      "raw_title_matches": 0,
+      "queued": 0
+    },
+    {
+      "phase": "recovery_and_historical",
+      "query": "is:pr in:title \"bump botocore from\"",
+      "status": 200,
+      "total": 62548,
+      "incomplete_results": false,
+      "raw_title_matches": 8,
+      "queued": 5
+    },
+    {
+      "phase": "recovery_and_historical",
+      "query": "is:pr in:title \"bump typing-extensions from\"",
+      "status": 200,
+      "total": 17006,
+      "incomplete_results": false,
+      "raw_title_matches": 13,
+      "queued": 5
+    },
+    {
+      "phase": "recovery_and_historical",
+      "query": "is:pr in:title \"bump idna from\"",
+      "status": 200,
+      "total": 54173,
+      "incomplete_results": false,
+      "raw_title_matches": 13,
+      "queued": 5
+    },
+    {
+      "phase": "recovery_and_historical",
+      "query": "frozen historical fallbacks",
+      "queued": 5
+    }
+  ],
+  "candidate_count": 40,
+  "immutable_reads": {
+    "primary_plus_recovery": 38,
+    "split_manifest_lookaside": 6,
+    "all": 44,
+    "by_host": {
+      "api.github.com": 19,
+      "raw.githubusercontent.com": 25
+    }
+  },
+  "native_crosscheck": {
+    "single_exact_requirement_changes": 18,
+    "pinned": 11,
+    "adapter_absent": 7,
+    "explicit_range": 0,
+    "prefilter_disagreement": [
+      [
+        "superdesk/superdesk-client-core#5178",
+        "e2e/server/requirements.txt",
+        false
+      ]
+    ]
+  },
+  "candidate_dispositions": [
+    {
+      "url": "https://github.com/ncsu-landscape-dynamics/plant_aid/pull/3",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "6ef4d37a7f420b2aef95035d3ed03710d78c0df18df6c0160f42d66efb0a2e40",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "scripts/scrapers/requirements.txt",
+      "head": "32f800e62e5930adbedb6d009e581c917ac902b9",
+      "base": "908893a12f9a208ce28b69432e1e4a5d946de769",
+      "manifest_sha256": "0e6224f018b49f1e7d484933ad3aa407bb049d3d440f25bfea54a7e1442e9af4",
+      "versions": {
+        "-": "1.26.14",
+        "+": "2.8.0"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.28.2"
+    },
+    {
+      "url": "https://github.com/aktonay/ultralytics/pull/1",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "6d6f02ebfd8960af5a15af743e859f6b56c8c78858fd0ecdb8cb5eabc03bb163",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 19
+    },
+    {
+      "url": "https://github.com/n12k1991/mcp-ashby/pull/2",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "101ede23702315c33592e8e447116ce051c7f2c519ef78e25792134b313b044f",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/bmw-software-engineering/lobster/pull/739",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "0fb16e084931eade4d8aea74b63ea22c262e49161ae7f4b6bc5d837037d8fb2d",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 3
+    },
+    {
+      "url": "https://github.com/OpenTrafficCam/OTVision/pull/506",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "2f46c56404b4ff27f63e11be1c95e53ec85fe56d9abbaab031f8360ee5bd6427",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/pi-stonelab/plataforma-agentica-stonelab/pull/32",
+      "bump": "sqlalchemy",
+      "adapter": "sqlmodel",
+      "public_diff_sha256": "5a5b1c5111ae813f1fc23f5ce6717a9c86502de90272c92b89c556cd20501802",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "backend/requirements.txt",
+      "head": "0a7da5222d386d8348be295db1a59397bde21ef8",
+      "base": "c9089d9f0720037061492a8ebbe866333522e8e3",
+      "manifest_sha256": "4f9d66d2bbd2917766ce3cf99b4a3fbd0a33b210a72cc46af5d605e9df1d2997",
+      "versions": {
+        "-": "2.1.8",
+        "+": "2.1.9"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/mozilla/bugbot/pull/3114",
+      "bump": "sqlalchemy",
+      "adapter": "sqlmodel",
+      "public_diff_sha256": "109a6425357a54be2a9be62e8455eceaad2f59e4f2f7071b986082933f7bef00",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 2
+    },
+    {
+      "url": "https://github.com/SSC-ICT-Innovatie/nl-kat-coordination/pull/5624",
+      "bump": "sqlalchemy",
+      "adapter": "sqlmodel",
+      "public_diff_sha256": "6d813cccac91e84f088d4e2170ea0705eb61a6b88fc138d980166428a93fe747",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 22
+    },
+    {
+      "url": "https://github.com/sattisupport-seller/sattiseller/pull/8",
+      "bump": "sqlalchemy",
+      "adapter": "sqlmodel",
+      "public_diff_sha256": "18ca00f8bc87a60f3e616308ee18217069812c46672756dd8dbf6f90f3b6138a",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "server/requirements.txt",
+      "head": "9595eb03e583788ca2d1401a643156c9b8c2f772",
+      "base": "27ef8fdb422c8656902c0d5117380d3bab3116a3",
+      "manifest_sha256": "3b4eddd68a7637c6b7f52407b40dbdc15fab144085ace11882110f215e4676e1",
+      "versions": {
+        "-": "2.0.36",
+        "+": "2.1.9"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/officialarghya29/FocTrack/pull/19",
+      "bump": "sqlalchemy",
+      "adapter": "sqlmodel",
+      "public_diff_sha256": "184a7445b81d29be8824b445ffd739c6b1a006dd0573dc23a31018b77d06683a",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "backend/requirements.txt",
+      "head": "de8e4ec2353e2a7824d8cc8ceb941110419c46a2",
+      "base": "ee02d800e43e766b61f319f2bb721d8a842352ec",
+      "manifest_sha256": "f6a10cb9c4e1f29446920476e666e6d637892eff0b68e41a35a50e8607c72e57",
+      "versions": {
+        "-": "2.0.36",
+        "+": "2.1.9"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/ITPD-Almo/modular-llm-gateway/pull/158",
+      "bump": "pydantic-core",
+      "adapter": "pydantic",
+      "public_diff_sha256": "9ca04004ca006cccfda7e6e2a313eb3fd8e4468585e680abc6a135a57ea96cf4",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements-runtime.txt",
+      "head": "1674362c0209f109f5520bd45a2c6c02fdb07fbb",
+      "base": "68f77a20c0ff9dd634619f69ca03daf21f569643",
+      "manifest_sha256": "2ae95d76e58fbf29a2e426023a7a247a60fde0e2c30dfe29be3d7b4eedd830d5",
+      "versions": {
+        "-": "2.50.2",
+        "+": "2.50.5"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.14.2"
+    },
+    {
+      "url": "https://github.com/ImperialCollegeLondon/paricia/pull/720",
+      "bump": "pydantic-core",
+      "adapter": "pydantic",
+      "public_diff_sha256": "d7a70de84aaa384b04742a4ef52f1961eee7c926ec6b44bfbbe0cb5cb88d8622",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 3
+    },
+    {
+      "url": "https://github.com/Blave-TW/blave-agent/pull/11",
+      "bump": "pydantic-core",
+      "adapter": "pydantic",
+      "public_diff_sha256": "4e4ae6804f9b145336f4bdbe349b7459e9578189b5cf4575518b95bca4588808",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/CraftRom/accord-niche/pull/55",
+      "bump": "pydantic-core",
+      "adapter": "pydantic",
+      "public_diff_sha256": "d38b6328754ea194e80aa684eb8c96ef9795fa76c40746a66d3757cd17839187",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "backend/requirements-lock.txt",
+      "head": "9627246961e50782dfe61249363e1330e1610a98",
+      "base": "18f0948cc6a5b8e18118e2d64480eaa24760f236",
+      "manifest_sha256": "de1001d13b600942a2f0ba04cf7a68280c1eef7c272e654af3cc167811374af5",
+      "versions": {
+        "-": "2.46.5",
+        "+": "2.50.4"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.14.3"
+    },
+    {
+      "url": "https://github.com/KlubJagiellonski/pola-backend/pull/5655",
+      "bump": "pydantic-core",
+      "adapter": "pydantic",
+      "public_diff_sha256": "a1b87c967738f5a29a545139b3a79e19b0a4f1ad7f2b0c76ccf5b1f89d1f65a9",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 3
+    },
+    {
+      "url": "https://github.com/Prajwal2757/ForgeMind/pull/6",
+      "bump": "starlette",
+      "adapter": "fastapi",
+      "public_diff_sha256": "137172fef4c72a14f4af1b8039ca653281d3ba8afa095f409c599c8eb9127cf6",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements.txt",
+      "head": "3e70c9bdaa2ba9a4ce44beb154444841dba07e1a",
+      "base": "ad9398c5fbec9e1cb3c1bbd67e45789a62c9ad34",
+      "manifest_sha256": "f94ce802cdf152b03bc51a31820acadeac1b30dcc1c23f16ab062646b2126643",
+      "versions": {
+        "-": "1.7.0",
+        "+": "1.10.0"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/n12k1991/mcp-ashby/pull/1",
+      "bump": "starlette",
+      "adapter": "fastapi",
+      "public_diff_sha256": "e287b2d5de607ba09aa21e6008d9311ce7e1c349f6fcf2f4fd9369e878626377",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/pillow0705/humanity-math/pull/18",
+      "bump": "starlette",
+      "adapter": "fastapi",
+      "public_diff_sha256": "db3013a980fa44686138d09a8d37241026f0ea6a3cc1efec6bc7241a2820103c",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements.txt",
+      "head": "f08d357a1351bd51b18e166a8e5d7cd1b0704c87",
+      "base": "dc7feea943c57efdc660a57fff780ef644533d8b",
+      "manifest_sha256": "bbc6878c7be3cf841b3ec0621459d5314d528b75ad16f06112ec6d48588743d5",
+      "versions": {
+        "-": "0.46.2",
+        "+": "1.10.0"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==0.115.12"
+    },
+    {
+      "url": "https://github.com/sattisupport-seller/sattiseller/pull/10",
+      "bump": "starlette",
+      "adapter": "fastapi",
+      "public_diff_sha256": "d9c6504490a5634f631ea1fb5b6802694188ace3c5d723f6bf4e31aff8653fff",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "server/requirements.txt",
+      "head": "252cb2ea2aafdbeeea755c4d4335201e1903866a",
+      "base": "88f7334b6894d1f6e6c5d7f1dab38abf1a49a927",
+      "manifest_sha256": "8fc989f2c838f906ca9502a6e02d0fc2efb9d2b00b398e0efe1cacb49199f935",
+      "versions": {
+        "-": "1.3.1",
+        "+": "1.10.0"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==0.163.2"
+    },
+    {
+      "url": "https://github.com/ajl2718/whereabouts/pull/42",
+      "bump": "starlette",
+      "adapter": "fastapi",
+      "public_diff_sha256": "843349498fe115a3bfb2336a37e870ec1994ea0efe3bef55ec4286aa5bce3a41",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 3
+    },
+    {
+      "url": "https://github.com/vallkeyhq/developer-tools/pull/26",
+      "bump": "botocore",
+      "adapter": "boto3",
+      "public_diff_sha256": "a46cff91268c284903a3ecd63fab1a7364554095d1063c7aa982b6e80692b363",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "python/requirements-test.txt",
+      "head": "e30cb772eae32bd0f93ff3e06d63055c2cfbf6e6",
+      "base": "c93c0510162fd57da9458e2616c2e09a5ba6fb82",
+      "manifest_sha256": "d6bdf97eb2d5b6e47714b524af9a5a5e0eab012555af963d4f10e031510785a8",
+      "versions": {
+        "-": "1.42.70",
+        "+": "1.44.4"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/ONLYOFFICE-QA/opencv_documents_comparer/pull/1805",
+      "bump": "botocore",
+      "adapter": "boto3",
+      "public_diff_sha256": "b268d19b4baac51cc2e3262d9a59ad5df6c551a7e9e683abcf5c78f313045e04",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/ccnmtl/r4r/pull/353",
+      "bump": "botocore",
+      "adapter": "boto3",
+      "public_diff_sha256": "d6ad3ce7051d00cd657de6692d005bd242a9547008dddcd043ec7ab38ccb55b3",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements.txt",
+      "head": "dc93e50b27a047d3bc9375a303a5766036c64b4e",
+      "base": "a371fe2d8db8668b5bdc31acc248707a53f3c2b2",
+      "manifest_sha256": "658ec80e81d03595e8d7fc948426bf9ec4876e058eda598d3e5a25a77a0cfa9a",
+      "versions": {
+        "-": "1.44.3",
+        "+": "1.44.9"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==1.44.9"
+    },
+    {
+      "url": "https://github.com/ccnmtl/pypanopto/pull/1278",
+      "bump": "botocore",
+      "adapter": "boto3",
+      "public_diff_sha256": "054f85741259da22eff293b5d01cce0de505a3b9b1750ad93c68690f6a16030a",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements.txt",
+      "head": "f7704be645115b0393dd21169f298ecac462b478",
+      "base": "ad51b2b04f11e9b70cf5c8e90c49118aae5405f2",
+      "manifest_sha256": "7f0509ab378ac0c761fdad09fc44bc3fbdf05cd33d2766f1008b04dee2e5cbb5",
+      "versions": {
+        "-": "1.44.4",
+        "+": "1.44.9"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==1.44.4"
+    },
+    {
+      "url": "https://github.com/ccnmtl/footprints/pull/3855",
+      "bump": "botocore",
+      "adapter": "boto3",
+      "public_diff_sha256": "8f7f4dae804d0b292dcd8a1c0ab4da621e2804131e3ce1f5b1c21956f0636c69",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements.txt",
+      "head": "8cec1e45419986968ac4e418b81508b4ee3f5186",
+      "base": "330fbda96cbec0375352663b2c9db2241686e17c",
+      "manifest_sha256": "86f23b97f7a5771ac3816cca70a3efd123c19979045679e7b0eb260448948792",
+      "versions": {
+        "-": "1.44.4",
+        "+": "1.44.9"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==1.44.4"
+    },
+    {
+      "url": "https://github.com/freva-org/py-oidc-auth/pull/61",
+      "bump": "typing-extensions",
+      "adapter": "pydantic",
+      "public_diff_sha256": "3a69c09621311b7f42435aa275eb85ebb4e1324c3e5e4d1359dc96d0e9a3e3fd",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/NatLibFi/ekirjasto-circulation/pull/367",
+      "bump": "typing-extensions",
+      "adapter": "pydantic",
+      "public_diff_sha256": "f5750a101a2ff5d90b4372abd02630e8e699b3fdb34969f1e121cd4cd459e1ec",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/schillgc/Julia/pull/36",
+      "bump": "typing-extensions",
+      "adapter": "pydantic",
+      "public_diff_sha256": "73abe0fe9a6f3f8d6d3bec7b95b1ef2547a660ca294fa843fd3fe3273749b2a9",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "Python/Frameworks/Django/Hires/requirements.txt",
+      "head": "6b5966cba288993b7011a3e6941a2b1ca1caff40",
+      "base": "49fe2e6bfc6da4bc1c33bbec800780e21e2cbd40",
+      "manifest_sha256": "a0aa08f5ec8b98d51719aa3abcdbc40b545002039a1fb761c6aeacf3c83f68fb",
+      "versions": {
+        "-": "4.14.0",
+        "+": "4.16.0"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/JeffWang0325/Image-Identification-for-Self-Driving-Cars/pull/663",
+      "bump": "typing-extensions",
+      "adapter": "pydantic",
+      "public_diff_sha256": "86d1a3188c8ba27522a7a7bbb3410dee0fd290e9352ba3b77618f7423d3c89eb",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "requirements.txt",
+      "head": "564eb5bf465b65704977940430ac15749ffd6255",
+      "base": "c79f2c014ad7cf5978f7739ce1dc87b1764faa99",
+      "manifest_sha256": "807970d2f3cd958b838ce2a54f560851df56dd91990b31b92b78b3459934ccdd",
+      "versions": {
+        "-": "3.7.4.3",
+        "+": "4.16.0"
+      },
+      "adapter_status": "absent",
+      "adapter_specifier": null
+    },
+    {
+      "url": "https://github.com/hqy0421/r-eacf78df1825ecb90dec/pull/7",
+      "bump": "typing-extensions",
+      "adapter": "pydantic",
+      "public_diff_sha256": "58aefc70ee7d8bd0f14a4a8a12e0c91988c2b777a3dbfe5d5c1a7b620b0044f3",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/ncsu-landscape-dynamics/plant_aid/pull/1",
+      "bump": "idna",
+      "adapter": "requests",
+      "public_diff_sha256": "91e8c1d0a6873e58670a4d82e3e9e016b06f29f8bf941ab9882f2d9f0559063b",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "scripts/scrapers/requirements.txt",
+      "head": "957cda971ff0e6f8f3531944a9f4ddb08f56964f",
+      "base": "908893a12f9a208ce28b69432e1e4a5d946de769",
+      "manifest_sha256": "28407e663bbb704e8966e738b8d3c85d06d8f37e80974d5e76eb4e57d2124a07",
+      "versions": {
+        "-": "3.4",
+        "+": "3.15"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.28.2"
+    },
+    {
+      "url": "https://github.com/n12k1991/mcp-ashby/pull/6",
+      "bump": "idna",
+      "adapter": "requests",
+      "public_diff_sha256": "2b65f95a84f93e18d4dcba3d5fe0495fc715ca08bfd9d2332502faf3278be369",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/superdesk/superdesk-client-core/pull/5178",
+      "bump": "idna",
+      "adapter": "requests",
+      "public_diff_sha256": "7aa189e321caf15a6f428be05a013014305010da173318d649b1d7ee5770de5d",
+      "patch_scope": "preliminary_manifest_prefilter_only",
+      "manifest": "e2e/server/requirements.txt",
+      "head": "bbad72f341a630ca80d1a23867b682740903133f",
+      "base": "c4f79dcc96b2548f1cace5712330b3491853ecf4",
+      "manifest_sha256": "be273f21fc939aad62d7a8efbbad544763c11e7b65517bf90031372dae81412a",
+      "versions": {
+        "-": "3.10",
+        "+": "3.15"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.32.5"
+    },
+    {
+      "url": "https://github.com/TehseenTech/Penetration-List/pull/4",
+      "bump": "idna",
+      "adapter": "requests",
+      "public_diff_sha256": "109fa6d6d9cd1bfef24ebe99815d2e2dc2eda1986f74969d2b4986336760dab6",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": "Vulnerabilities_Scripts/Log4shell-Vulnerability-Scanner/requirements.txt",
+      "head": "439cb5fe266d5fa88d12289b773fe39305abab41",
+      "base": "5191278f307c80b987be7bc6f6d6cf746c09a2bf",
+      "manifest_sha256": "0c715ca379cf6742c88429c4a70ab8f18659be3aeb2208b217476d779cde882a",
+      "versions": {
+        "-": "3.2",
+        "+": "3.15"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.26.0"
+    },
+    {
+      "url": "https://github.com/neonephos/neonephos_website/pull/213",
+      "bump": "idna",
+      "adapter": "requests",
+      "public_diff_sha256": "1519a7509fdfb8fb0bb05a89394629e62aa31fe283edd709a67fbf2179f5dc30",
+      "patch_scope": "single_exact_requirements_change",
+      "manifest": ".github/workflows/requirements.txt",
+      "head": "012a7028bd0dc41357975586b33171b81c0d18fc",
+      "base": "1ea540bf47c38c2a6b1a587d63f8c37cf93c3276",
+      "manifest_sha256": "72065420c1b4019bf8ff7de2e1bb60ab612ac869b626a18d4367a94bb235ae95",
+      "versions": {
+        "-": "3.11",
+        "+": "3.15"
+      },
+      "adapter_status": "pinned",
+      "adapter_specifier": "==2.32.5"
+    },
+    {
+      "url": "https://github.com/napalm-automation/napalm/pull/2171",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "c0baddb299b8b701d34d6c6f4885af7c25c4ce9ce6bbeb86760d296cfe767102",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/soxoj/maigret/pull/1600",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "e6c3a1f2d4a79019c9a9cc26f584424641c06178a0507fc06d952461c0d46e2a",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/mozilla/PollBot/pull/423",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "8a16f9f1e65f722517f8de7d8e74ef43aed7715f5d4a29903ee1504ebdd43b4c",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    },
+    {
+      "url": "https://github.com/Deep-MI/FastSurfer/pull/710",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "40d0579955ffc4a6acb0565141fb4c2fcbc6c8253a41ba6f2759b731a5109c1f",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 2
+    },
+    {
+      "url": "https://github.com/microsoft/ograg2/pull/26",
+      "bump": "urllib3",
+      "adapter": "requests",
+      "public_diff_sha256": "2df2f3f05fbb4b27c623dcbd9b7f425a185d6306349acc167bc110ba4280ce6a",
+      "patch_scope": "outside_screened_patch_scope",
+      "changed_paths_count": 1
+    }
+  ],
+  "split_manifest_lookaside_scope": {
+    "purpose": "Inspect whether a small fixed subset of immutable heads reveals alternative supported declaration paths after the original screen concluded. Results remain separate from original admission.",
+    "locators": [
+      {
+        "case": "ITPD-Almo/modular-llm-gateway#158",
+        "path": "pyproject.toml"
+      },
+      {
+        "case": "ITPD-Almo/modular-llm-gateway#158",
+        "path": "requirements-runtime.in"
+      },
+      {
+        "case": "Prajwal2757/ForgeMind#6",
+        "path": "pyproject.toml"
+      },
+      {
+        "case": "pi-stonelab/plataforma-agentica-stonelab#32",
+        "path": "backend/pyproject.toml"
+      },
+      {
+        "case": "officialarghya29/FocTrack#19",
+        "path": "backend/pyproject.toml"
+      },
+      {
+        "case": "neonephos/neonephos_website#213",
+        "path": ".github/workflows/requirements.in"
+      }
+    ]
+  },
+  "split_manifest_lookaside": [
+    {
+      "case": "ITPD-Almo/modular-llm-gateway#158",
+      "path": "pyproject.toml",
+      "revision": "1674362c0209f109f5520bd45a2c6c02fdb07fbb",
+      "status": 200,
+      "body_sha256": "90db5f4326560cb43dbd349fd568b2d75952005f9d7528d0a34cb6f41b095186",
+      "adapter_declarations": []
+    },
+    {
+      "case": "ITPD-Almo/modular-llm-gateway#158",
+      "path": "requirements-runtime.in",
+      "revision": "1674362c0209f109f5520bd45a2c6c02fdb07fbb",
+      "status": 404,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "Prajwal2757/ForgeMind#6",
+      "path": "pyproject.toml",
+      "revision": "3e70c9bdaa2ba9a4ce44beb154444841dba07e1a",
+      "status": 404,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "pi-stonelab/plataforma-agentica-stonelab#32",
+      "path": "backend/pyproject.toml",
+      "revision": "0a7da5222d386d8348be295db1a59397bde21ef8",
+      "status": 200,
+      "body_sha256": "00d7ac1346a2c191650944c55cddbf213363f2d57aabea3a1bffa60322d9f229",
+      "adapter_declarations": []
+    },
+    {
+      "case": "officialarghya29/FocTrack#19",
+      "path": "backend/pyproject.toml",
+      "revision": "de8e4ec2353e2a7824d8cc8ceb941110419c46a2",
+      "status": 200,
+      "body_sha256": "1fcc35b06e35213da449c4ff32cdf5811b8dd6bde3b50b64d7b42fb445a6f3cf",
+      "adapter_declarations": []
+    },
+    {
+      "case": "neonephos/neonephos_website#213",
+      "path": ".github/workflows/requirements.in",
+      "revision": "012a7028bd0dc41357975586b33171b81c0d18fc",
+      "status": 404,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "split_manifest_static_control": {
+    "basis": "synthetic, static and isolated; actual installed producer and workflow parser",
+    "range_source": "pyproject.toml",
+    "range": "<3,>=2.30",
+    "adapter_call": "requests.get",
+    "exact_dependency_source": "requirements.txt",
+    "python_line": "3.9",
+    "workflow_install_declaration": "observed",
+    "proof": "split declarations and workflow consumption coexist in the current static inputs",
+    "excluded_claims": [
+      "runtime activation of separate adapter",
+      "ranking result",
+      "changed dependency witness",
+      "ordinary target transfer"
+    ]
+  },
+  "offline_installed_contract_tests": {
+    "framework": "unittest",
+    "network_namespace_isolated": true,
+    "tests_by_file": {
+      "test_target_source_context.py": 15,
+      "test_target_artifact_environment.py": 13,
+      "test_caller_signature_source_acquisition.py": 25,
+      "test_caller_signature_delivery.py": 32
+    },
+    "total_passed": 85
+  },
+  "normal_comparisons_started": 0,
+  "pypi_ranking_reads": 0
+}
