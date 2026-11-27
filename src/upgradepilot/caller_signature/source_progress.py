@@ -6,6 +6,7 @@ from collections.abc import Callable
 from dataclasses import replace
 from datetime import datetime, timezone
 from hashlib import sha256
+from time import monotonic
 
 from ..dependency.change import DependencyVersionChange
 from ..github.api import GitHubAcquisitionError, GitHubResponseError
@@ -15,18 +16,20 @@ from ..target.source_context import TargetSourceAcquirer, source_id
 from ..workspace.native_boundary import exact_investigation_target
 from ..workspace.source_access import RetainedSourceCatalog, RetainedSourceFile, RetainedSourceScope
 from .acquisition import AcquisitionSession
+from .adapter_calls import ADAPTER_CALL_ANALYSIS_SCOPE, PAIR_MODULE_ATTEMPTS, nominate_adapter_call_paths
 from .bindings import ImportFact
 from .correspondence import PythonSourceModule, absolute_import, module_name
-from .evidence import AnalysisLimits
+from .evidence import AnalysisLimits, MeasuredDuration, SourceAnalysisInput
 from .sample_python import (
     RankedAdapterSampler, SamplePythonScenario, SelectedSamplePythonJob,
     acquire_sample_python_declaration, annotate_sample_releases,
 )
 from .source_acquisition import AdapterSourceExplorer, ExaminedPythonModule, PythonModuleSourceRequest
 from .source_evidence import (
-    AcquisitionProblem, CallerSignatureSources, SourceAcquisitionReceipt, SourceFileReceipt,
+    AcquisitionProblem, AdapterCallAcquisition, CallerSignatureSources, SourceAcquisitionReceipt, SourceFileReceipt,
     SourceMaterialOmission, SourceProblem, SourceSampleSelection, TargetSourceReceipt,
 )
+from .worker import run_source_analysis
 
 
 def _origin_for_module(module, origin, references):
@@ -130,6 +133,7 @@ def collect_source_progress(
     publish: Callable[[CallerSignatureSources], None],
     *,
     selected_sample_python_job: SelectedSamplePythonJob | None = None,
+    follow_adapter_calls: bool = False,
 ) -> CallerSignatureSources:
     """Acquire bounded source questions and publish returned material between stages."""
     dependency = inputs.dependency
@@ -137,6 +141,7 @@ def collect_source_progress(
         raise ValueError("Source acquisition requires an established dependency transition.")
     target = exact_investigation_target(inputs.identity, dependency)
     sample_python = None
+    adapter_calls = AdapterCallAcquisition("pending", "source_preparation_pending") if follow_adapter_calls else None
     rank_adapters = selected_sample_python_job is not None and selected_sample_python_job.rank_adapters
     release_client = None
     file_python = {}
@@ -181,7 +186,7 @@ def collect_source_progress(
             sample_releases = {(module.package, module.version) for module in modules if module.role == "constraint_sample"}
             scenario = annotate_sample_releases(scenario, sample_releases, file_python)
             scenario = replace(scenario, rank_decisions=tuple(explorer.ranked_sampler.decisions.values()))
-        sources = CallerSignatureSources(catalog, modules, limits, acquisition, scenario)
+        sources = CallerSignatureSources(catalog, modules, limits, acquisition, scenario, adapter_calls)
         publish(sources)
         return sources
 
@@ -232,6 +237,66 @@ def collect_source_progress(
                 (candidate,), sample.imports, sample.references, dependency.normalized_package,
             )
         )
+
+    def available_reads():
+        return min(
+            run.max_module_files - run.module_attempts,
+            session.policy.github_requests - session.github_requests,
+            session.policy.provider_requests - session.provider_requests,
+        )
+
+    def follow_reached_calls():
+        nonlocal adapter_calls
+        if available_reads() < PAIR_MODULE_ATTEMPTS:
+            adapter_calls = AdapterCallAcquisition("unresolved", "insufficient_pair_reserve")
+            return
+        catalog, modules, _ = _source_material(target, context, libraries, limits)
+        if catalog is None or not any(module.role == "constraint_sample" for module in modules):
+            adapter_calls = AdapterCallAcquisition("unresolved", "adapter_source_unavailable")
+            return
+        # Closure may resume when the nomination is absent or ambiguous.
+        # Preserve room for its remaining reads as well as a possible pair.
+        if len(catalog.files) + available_reads() > limits.max_files:
+            adapter_calls = AdapterCallAcquisition("unresolved", "insufficient_analysis_file_capacity")
+            return
+
+        started = monotonic()
+        initial = SourceAnalysisInput(catalog, modules, limits)
+        observation = run_source_analysis(initial)
+        reason = "preliminary_analysis_unavailable"
+        paths, origins = (), {}
+        if observation.result is not None:
+            requested = selected_modules | {receipt.request.module for receipt in receipts
+                                             if receipt.request.package == dependency.normalized_package}
+            paths, origins, exceeded = nominate_adapter_call_paths(initial, observation.result, requested)
+            if exceeded:
+                reason = "call_path_limit"
+            elif len(origins) > 1:
+                reason = "multiple_changed_modules"
+            elif origins:
+                reason = "paired_acquisition_pending"
+            else:
+                reason = "no_reached_changed_call"
+        elapsed = MeasuredDuration.from_seconds(monotonic() - started, ADAPTER_CALL_ANALYSIS_SCOPE)
+        if elapsed.seconds >= limits.timeout_seconds:
+            reason = "analysis_time_exhausted"
+        adapter_calls = AdapterCallAcquisition(
+            "unresolved", reason, observation.input_sha256, elapsed, paths=paths,
+        )
+        if reason != "paired_acquisition_pending":
+            return
+        module, = origins
+        adapter_calls = replace(adapter_calls, state="acquiring", module=module)
+        snapshot("partial")
+        with session.stage("adapter_call_pair"):
+            examine_pairs(((module, origins[module]),))
+        statuses = [receipt.state for receipt in receipts
+                    if receipt.request.package == dependency.normalized_package and receipt.request.module == module]
+        complete = statuses == ["module_examined"] * PAIR_MODULE_ATTEMPTS
+        adapter_calls = replace(
+            adapter_calls, state="examined" if complete else "partial",
+            reason="both_versions_examined" if complete else "incomplete_exact_pair",
+        )
     with session.stage("target_context", reserve_github=session.policy.source_request_reserve):
         try:
             acquired = TargetSourceAcquirer(session=session).acquire(
@@ -247,6 +312,8 @@ def collect_source_progress(
         problems.append(SourceProblem(acquired.stage, acquired.reason, acquired.detail))
         if sample_python is not None:
             sample_python = replace(sample_python, reason="source_context_unavailable")
+        if adapter_calls is not None:
+            adapter_calls = AdapterCallAcquisition("unresolved", "source_context_unavailable")
         return snapshot("failed")
     context = acquired
     target_receipt = _target_receipt(context)
@@ -277,13 +344,16 @@ def collect_source_progress(
             record_exploration(exploration)
 
     with session.stage("source_closure"):
+        reserve_callback = None
+        if adapter_calls is not None:
+            if exploration is not None and exploration.samples:
+                reserve_callback = follow_reached_calls
+            else:
+                adapter_calls = AdapterCallAcquisition("unresolved", "adapter_source_unavailable")
         _examine_internal_modules(context, libraries, examine, closure_omissions,
                                   indirect_members=_indirect_import_members(exploration) if exploration else (),
-                                  available_reads=lambda: min(
-                                      run.max_module_files - run.module_attempts,
-                                      session.policy.github_requests - session.github_requests,
-                                      session.policy.provider_requests - session.provider_requests,
-                                  ))
+                                  available_reads=available_reads,
+                                  before_pair_reserve=reserve_callback)
         try:
             session.finish_acquisition()
         except (GitHubAcquisitionError, GitHubResponseError) as exc:
@@ -305,7 +375,9 @@ def collect_source_progress(
                 sample_python = declared
     return snapshot("complete")
 
-def _examine_internal_modules(context, libraries, examine, omissions, *, indirect_members, available_reads):
+def _examine_internal_modules(
+    context, libraries, examine, omissions, *, indirect_members, available_reads, before_pair_reserve=None,
+):
     """Apply the qualified import priority to questions inside observed inventories."""
     interest = set(indirect_members)
     for reference in context.references:
@@ -368,6 +440,13 @@ def _examine_internal_modules(context, libraries, examine, omissions, *, indirec
         # A new file needs one request, and a selected pair should have room for both.
         remaining = available_reads()
         priority = min(pending[key][1] for key in selected)
+        # If there is no usable nomination, the same pending queue can use the
+        # released allowance. A failed paired request still charges the session.
+        if (before_pair_reserve is not None and remaining < len(selected) + PAIR_MODULE_ATTEMPTS
+                and (not indirect_members or priority != 2)):
+            before_pair_reserve()
+            before_pair_reserve = None
+            remaining = available_reads()
         for key in selected:
             _, _, _, parent, question = pending.pop(key)
             omission_reason = None
@@ -391,3 +470,5 @@ def _examine_internal_modules(context, libraries, examine, omissions, *, indirec
             outcome = examine(question)
             if isinstance(outcome, ExaminedPythonModule):
                 queue.append(outcome)
+    if before_pair_reserve is not None:
+        before_pair_reserve()

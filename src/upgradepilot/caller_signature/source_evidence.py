@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Literal
 
+from .analysis import SourceSpan
 from .bindings import ImportFact, ReferenceFact
 from .correspondence import PythonSourceModule
 from .evidence import AnalysisLimits, MeasuredDuration, SourceAnalysisInput
@@ -285,12 +286,36 @@ class SourceAcquisitionReceipt:
 
 
 @dataclass(frozen=True)
+class AdapterCallPath:
+    """Source locations behind one conditional changed-module question."""
+
+    module: str
+    target_file: str
+    target_span: SourceSpan
+    adapter_file: str
+    adapter_span: SourceSpan
+    import_line: int
+    imported_binding: str
+
+
+@dataclass(frozen=True)
+class AdapterCallAcquisition:
+    state: Literal["pending", "unresolved", "acquiring", "examined", "partial"]
+    reason: str
+    preliminary_input_sha256: str | None = None
+    preliminary_elapsed: MeasuredDuration | None = None
+    module: str | None = None
+    paths: tuple[AdapterCallPath, ...] = ()
+
+
+@dataclass(frozen=True)
 class CallerSignatureSources:
     catalog: RetainedSourceCatalog | None
     modules: tuple[PythonSourceModule, ...]
     analysis_limits: AnalysisLimits
     acquisition: SourceAcquisitionReceipt
     sample_python: SamplePythonScenario | None = None
+    adapter_calls: AdapterCallAcquisition | None = None
 
     def analysis_input(self) -> SourceAnalysisInput | None:
         """No analysis is ready before any classified Python text is retained."""

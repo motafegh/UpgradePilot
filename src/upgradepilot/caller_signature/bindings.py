@@ -297,6 +297,13 @@ class _Frame:
         )
 
 
+def collect_imports(identity: str, tree: ast.Module) -> tuple[ImportFact, ...]:
+    """Return syntactic import facts without repeating binding analysis."""
+    collector = _ImportCollector(identity)
+    collector.visit(tree)
+    return tuple(sorted(collector.facts, key=lambda fact: fact.line))
+
+
 class _Analyzer:
     """Module/class statements first, then hypothetical function bodies.
 
@@ -307,9 +314,7 @@ class _Analyzer:
 
     def __init__(self, identity, content, tree):
         self.identity, self.content, self.tree = identity, content, tree
-        collector = _ImportCollector(identity)
-        collector.visit(tree)
-        self.imports = collector.facts
+        self.imports = collect_imports(identity, tree)
         self.references = []
         self.functions = []
         self.module = _Frame("module", "module", {}, set(), set(), set())
@@ -835,7 +840,7 @@ class _Analyzer:
                     trace=(self.step(argument, frame, "parameter", argument.arg),),
                 )
             self.block(node.body, frame)
-        return tuple(sorted(self.imports, key=lambda f: f.line)), tuple(
+        return self.imports, tuple(
             sorted(self.references, key=lambda r: r.line)
         )
 

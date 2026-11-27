@@ -634,7 +634,8 @@ class NativeSourceClientCompositionTests(TestCase):
 
     def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40,
                              repository_move=False, sample_adapter=False, sample_requires_python=">=3.11",
-                             higher_rank_requires_python=">=3.11", rank_file_sha="4" * 64):
+                             higher_rank_requires_python=">=3.11", rank_file_sha="4" * 64,
+                             relative_adapter=False, competing_adapter_calls=False):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
@@ -707,7 +708,7 @@ class NativeSourceClientCompositionTests(TestCase):
                     tree = path.rsplit('/', 1)[-1]
                     paths = ('app.py', 'requirements.txt') if tree == trees[head] else ('demo/api.py',)
                     if sample_adapter and tree == trees['2' * 40]:
-                        paths = ('relay.py',)
+                        paths = ('relay/__init__.py', 'relay/helpers.py') if relative_adapter else ('relay.py',)
                     if forwarded and tree != trees[head]:
                         paths += ('demo/_core.py',)
                     payload = dict(sha=tree, truncated=False,
@@ -724,6 +725,14 @@ class NativeSourceClientCompositionTests(TestCase):
                     elif sample_adapter and file_path == 'relay.py':
                         assert revision == '2' * 40
                         content = 'from demo.api import send\n'
+                    elif relative_adapter and file_path == 'relay/__init__.py':
+                        content = 'from .helpers import send as send\n'
+                    elif relative_adapter and file_path == 'relay/helpers.py':
+                        content = ('from demo.api import send as forward\n'
+                                   'def send(option):\n    return forward(option=option)\n')
+                        if competing_adapter_calls:
+                            content = ('from demo.alt import send as other\n'
+                                       + content.replace('    return forward', '    other(option=option)\n    return forward'))
                     elif sample_adapter and file_path == '.github/workflows/python.yml':
                         assert revision == head
                         content = ('on: [pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n'

@@ -660,6 +660,7 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         "caller-signature-coverage": {"complete", "partial", "failed"},
         "caller-signature-analysis": {"completed", "failed", "timed_out", "interrupted"},
         "caller-signature-sample-python": {"declared", "unresolved"},
+        "caller-signature-adapter-calls": {"pending", "unresolved", "acquiring", "examined", "partial"},
         "ci-job-log": {
             "observed_keyword_error", "unclassified_log", "unavailable",
         },

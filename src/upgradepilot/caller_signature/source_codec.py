@@ -15,6 +15,8 @@ from hashlib import sha256
 import re
 
 from . import source_evidence as se
+from .adapter_calls import ADAPTER_CALL_ANALYSIS_SCOPE, PAIR_MODULE_ATTEMPTS
+from .analysis import SourceSpan
 from .bindings import BindingAssessment, BindingTraceStep, ImportFact, ReferenceFact, binding_state
 from .evidence import MeasuredDuration
 from .native_codec import DURATION_LAYOUT
@@ -23,6 +25,7 @@ from .result_codec import (
     encode_analysis_limits, module_fields,
 )
 from ..github.identity import validate_commit_sha, validate_repository
+from ..package_identity import normalize_package_name
 from ..github.api import GITHUB_API_ROOT
 from ..github.tag import (GitHubTagCommitEvidence, GitHubTagRepositoryRedirect,
                           repository_move_redirect, tag_reference_path)
@@ -48,7 +51,10 @@ from ..workspace.source_access import encode_source_catalog, read_source_catalog
 FORMAT = "caller-signature-sources/1"
 MOVE_FORMAT = "caller-signature-sources/2"
 SAMPLE_PYTHON_FORMAT = "caller-signature-sources/3"
-_SOURCE_FORMATS = {1: FORMAT, 2: MOVE_FORMAT, 3: SAMPLE_PYTHON_FORMAT, 4: "caller-signature-sources/4"}
+_SOURCE_FORMATS = {
+    1: FORMAT, 2: MOVE_FORMAT, 3: SAMPLE_PYTHON_FORMAT,
+    4: "caller-signature-sources/4", 5: "caller-signature-sources/5",
+}
 
 
 def _optional(shape):
@@ -510,6 +516,25 @@ _RANKED_SCENARIO_VALUES = NativeValueCodec(tuple(
 ))
 _PYTHON_SCENARIO = RecordRef("sample_python_scenario")
 
+_ADAPTER_CALL_VALUES = NativeValueCodec((
+    DURATION_LAYOUT,
+    RecordLayout("adapter_call_span", SourceSpan, (
+        ("line", int), ("column", int), ("end_line", int), ("end_column", int),
+    )),
+    RecordLayout("adapter_call_path", se.AdapterCallPath, (
+        ("module", str), ("target_file", str), ("target_span", RecordRef("adapter_call_span")),
+        ("adapter_file", str), ("adapter_span", RecordRef("adapter_call_span")),
+        ("import_line", int), ("imported_binding", str),
+    )),
+    RecordLayout("adapter_call_acquisition", se.AdapterCallAcquisition, (
+        ("state", LiteralValues(("pending", "unresolved", "acquiring", "examined", "partial"))),
+        ("reason", str), ("preliminary_input_sha256", _optional(str)),
+        ("preliminary_elapsed", _optional(RecordRef("measured_duration"))),
+        ("module", _optional(str)), ("paths", _seq("adapter_call_path")),
+    )),
+))
+_ADAPTER_CALLS = RecordRef("adapter_call_acquisition")
+
 
 def _digest(value):
     if type(value) is not str or re.fullmatch(r"[0-9a-f]{64}", value) is None:
@@ -915,7 +940,97 @@ def _validate_rank_decisions(value, scenario):
             raise ValueError("Ranked sample annotation does not preserve the joined file.")
 
 
+def _validate_adapter_calls(value):
+    observed = value.adapter_calls
+    if observed is None:
+        return
+    reasons = {
+        "pending": {"source_preparation_pending"},
+        "unresolved": {
+            "insufficient_pair_reserve", "insufficient_analysis_file_capacity", "source_context_unavailable",
+            "adapter_source_unavailable", "preliminary_analysis_unavailable", "analysis_time_exhausted",
+            "call_path_limit", "multiple_changed_modules", "no_reached_changed_call",
+        },
+        "acquiring": {"paired_acquisition_pending"},
+        "examined": {"both_versions_examined"},
+        "partial": {"incomplete_exact_pair"},
+    }
+    if observed.reason not in reasons[observed.state] or value.acquisition.origin != "native_observation":
+        raise ValueError("Invalid adapter call acquisition disposition.")
+    if (observed.preliminary_input_sha256 is None) != (observed.preliminary_elapsed is None):
+        raise ValueError("Incomplete adapter call preliminary analysis.")
+    if observed.preliminary_elapsed is not None:
+        _digest(observed.preliminary_input_sha256)
+        if observed.preliminary_elapsed.scope != ADAPTER_CALL_ANALYSIS_SCOPE:
+            raise ValueError("Invalid adapter call preliminary analysis scope.")
+    has_module = observed.state in {"acquiring", "examined", "partial"}
+    if has_module != (observed.module is not None):
+        raise ValueError("Adapter call disposition belongs to another question.")
+    allowed_paths = has_module or observed.reason in {
+        "call_path_limit", "multiple_changed_modules", "analysis_time_exhausted",
+    }
+    if (len(set(observed.paths)) != len(observed.paths) or len(observed.paths) > value.analysis_limits.max_pairs
+            or observed.paths and (not allowed_paths or observed.preliminary_elapsed is None or value.catalog is None)):
+        raise ValueError("Invalid adapter call path coverage.")
+    modules = {path.module for path in observed.paths}
+    if has_module and modules != {observed.module} or observed.reason == "multiple_changed_modules" and len(modules) < 2:
+        raise ValueError("Adapter call module differs from its retained paths.")
+    if not observed.paths:
+        return
+
+    catalog = value.catalog
+    package = catalog.target.normalized_package
+    roles = {(m.source_id, m.path): m.role for m in value.modules}
+    scopes = {scope.source_id: scope for scope in catalog.scopes}
+    retained = {catalog.descriptor(f)["file_id"]: (f, roles.get((f.source_id, f.path))) for f in catalog.files}
+    source_lines = {}
+    def checked_file(file_id, span, expected_role):
+        item = retained.get(file_id)
+        if item is None or item[1] != expected_role:
+            raise ValueError("Adapter call path lacks its retained source role.")
+        file = item[0]
+        if file_id not in source_lines:
+            text = file.content.replace("\r\n", "\n").replace("\r", "\n")
+            source_lines[file_id] = tuple(len(line.encode()) for line in text.split("\n"))
+        lines = source_lines[file_id]
+        if (not 1 <= span.line <= span.end_line <= len(lines)
+                or not 0 <= span.column <= lines[span.line - 1]
+                or not 0 <= span.end_column <= lines[span.end_line - 1]
+                or (span.line, span.column) >= (span.end_line, span.end_column)):
+            raise ValueError("Adapter call coordinates exceed retained source.")
+        return file, len(lines)
+
+    retained_imports = set()
+    for path in observed.paths:
+        checked_file(path.target_file, path.target_span, "target_repository")
+        file, line_count = checked_file(path.adapter_file, path.adapter_span, "constraint_sample")
+        if (len(path.module) > 512 or len(path.imported_binding) > 1024
+                or not all(part.isidentifier() for part in path.module.split("."))
+                or normalize_package_name(path.module.split(".")[0]) != package
+                or not (path.imported_binding == path.module or path.imported_binding.startswith(path.module + "."))
+                or not 1 <= path.import_line <= line_count):
+            raise ValueError("Invalid changed-package import in adapter call acquisition.")
+        scope = scopes[file.source_id]
+        retained_imports.add((f"{scope.repository}@{scope.revision}:{file.path}", path.import_line))
+
+    if has_module:
+        rows = [r for r in value.acquisition.module_requests if (r.request.package, r.request.module) == (package, observed.module)]
+        if (len(rows) > PAIR_MODULE_ATTEMPTS or len({r.request.version_basis for r in rows}) != len(rows)
+                or any(not isinstance(r.request.origin, ImportFact)
+                       or (r.request.origin.source_id, r.request.origin.line) not in retained_imports
+                       or r.request.origin.module != observed.module
+                       or r.request.version_basis not in {"old_dependency", "proposed_dependency"}
+                       or r.request.version != (catalog.target.old_version if r.request.version_basis == "old_dependency"
+                                                 else catalog.target.proposed_version) for r in rows)):
+            raise ValueError("Adapter call acquisition lacks its original changed-module questions.")
+        complete = len(rows) == PAIR_MODULE_ATTEMPTS and all(r.state == "module_examined" for r in rows)
+        if observed.state != "acquiring" and (observed.state == "examined") != complete:
+            raise ValueError("Adapter call acquisition differs from its exact-version receipts.")
+
+
 def source_codec_version(value: se.CallerSignatureSources) -> int:
+    if value.adapter_calls is not None:
+        return 5
     if value.sample_python is not None:
         return 4 if value.sample_python.selection.rank_adapters else 3
     return 2 if any(module.repository_move is not None for module in value.acquisition.module_requests) else 1
@@ -931,12 +1046,18 @@ def encode_sources(value: se.CallerSignatureSources | None, *, version: int = 1)
         catalog=parse_json(encode_source_catalog(value.catalog)) if value.catalog else None,
         modules=[module_fields(m) for m in value.modules], limits=encode_analysis_limits(value.analysis_limits),
         acquisition=parse_json(layout.encode(value.acquisition, _RECEIPT)))
-    if version in {3, 4}:
-        scenario_layout = _RANKED_SCENARIO_VALUES if version == 4 else _PYTHON_SCENARIO_VALUES
-        row["sample_python"] = parse_json(scenario_layout.encode(value.sample_python, _PYTHON_SCENARIO))
+    if version in {3, 4, 5}:
+        scenario_layout = _PYTHON_SCENARIO_VALUES if version == 3 else _RANKED_SCENARIO_VALUES
+        row["sample_python"] = (parse_json(scenario_layout.encode(value.sample_python, _PYTHON_SCENARIO))
+                                if value.sample_python is not None else None)
+    if version == 5:
+        row["adapter_calls"] = parse_json(_ADAPTER_CALL_VALUES.encode(value.adapter_calls, _ADAPTER_CALLS))
     payload = json_bytes(row)
     decoded = decode_sources(payload, version=version)
-    if (decoded.catalog.identity if decoded.catalog else None) != (value.catalog.identity if value.catalog else None) or decoded.modules != value.modules or decoded.acquisition != value.acquisition or decoded.analysis_limits != value.analysis_limits or decoded.sample_python != value.sample_python:
+    if ((decoded.catalog.identity if decoded.catalog else None) != (value.catalog.identity if value.catalog else None)
+            or decoded.modules != value.modules or decoded.acquisition != value.acquisition
+            or decoded.analysis_limits != value.analysis_limits or decoded.sample_python != value.sample_python
+            or decoded.adapter_calls != value.adapter_calls):
         raise ValueError("Source family encoding changed retained meaning.")
     return payload
 
@@ -946,7 +1067,11 @@ def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSou
     if parsed is None:
         return None
     fields = ("format", "catalog", "modules", "limits", "acquisition")
-    row = object_fields(parsed, (*fields, "sample_python") if version in {3, 4} else fields)
+    if version in {3, 4, 5}:
+        fields += ("sample_python",)
+    if version == 5:
+        fields += ("adapter_calls",)
+    row = object_fields(parsed, fields)
     if version not in _SOURCE_FORMATS or row["format"] != _SOURCE_FORMATS[version]:
         raise ValueError("Unsupported caller/signature source representation.")
     limits = decode_analysis_limits(row["limits"])
@@ -969,12 +1094,15 @@ def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSou
     layout = _VALUES if version == 1 else _MOVE_VALUES
     receipt = layout.decode(json_bytes(row["acquisition"]), _RECEIPT)
     _validate_receipt(receipt)
-    scenario_layout = _RANKED_SCENARIO_VALUES if version == 4 else _PYTHON_SCENARIO_VALUES
+    scenario_layout = _PYTHON_SCENARIO_VALUES if version == 3 else _RANKED_SCENARIO_VALUES
     scenario = (scenario_layout.decode(json_bytes(row["sample_python"]), _PYTHON_SCENARIO)
-                if version in {3, 4} else None)
-    result = se.CallerSignatureSources(catalog, modules, limits, receipt, scenario)
+                if row.get("sample_python") is not None else None)
+    adapter_calls = (_ADAPTER_CALL_VALUES.decode(json_bytes(row["adapter_calls"]), _ADAPTER_CALLS)
+                     if version == 5 else None)
+    result = se.CallerSignatureSources(catalog, modules, limits, receipt, scenario, adapter_calls)
     if version != source_codec_version(result):
         raise ValueError("Caller/signature source representation does not match its observations.")
     _validate_catalog_joins(result)
     _validate_sample_python(result)
+    _validate_adapter_calls(result)
     return result

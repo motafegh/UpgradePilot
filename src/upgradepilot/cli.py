@@ -104,6 +104,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Select the static job ID in --sample-python-workflow.")
     parser.add_argument("--rank-adapter-samples", action="store_true",
                         help="Select adapter samples using the declared Python line of the selected job.")
+    parser.add_argument("--follow-adapter-calls", action="store_true",
+                        help="Use reached adapter calls to seek one exact changed-module pair within source limits.")
     parser.add_argument("--workspace-store", metavar="PATH",
                         help="Explicit private store outside Git checkouts for caller/signature progress.")
     parser.add_argument("--open-workspace", metavar="PATH",
@@ -128,6 +130,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             parser.error(str(error))
     if args.rank_adapter_samples and python_job is None:
         parser.error("--rank-adapter-samples requires --sample-python-workflow and --sample-python-job.")
+    if args.follow_adapter_calls and (
+        args.evidence_profile not in {"caller-signature", "caller-signature-ci"}
+        or args.open_report is not None or args.open_workspace is not None
+    ):
+        parser.error("--follow-adapter-calls requires a live caller-signature profile.")
     ci_coordinates = (args.ci_run_id, args.ci_run_attempt, args.ci_job_id)
     if combined:
         if (
@@ -307,6 +314,7 @@ def _run_caller_signature(
             args.repository, args.pull_number, session=session, host=host,
             expected_base=args.expected_base, expected_head=args.expected_head,
             selected_sample_python_job=python_job,
+            follow_adapter_calls=args.follow_adapter_calls,
             **ci_args,
         )
     codes = {"input": 2, "acquisition": 3, "response": 4, "analysis": 10, "report": 8, "publication": 11}

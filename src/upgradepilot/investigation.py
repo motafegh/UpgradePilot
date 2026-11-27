@@ -730,6 +730,7 @@ def investigate_caller_signature_progress(
     selected_ci_job: SelectedCIJob | None = None,
     ci_actions_client: GitHubActionsClient | None = None,
     selected_sample_python_job: SelectedSamplePythonJob | None = None,
+    follow_adapter_calls: bool = False,
 ) -> CheckpointRevision:
     """Run the source profile, optionally acquiring *one* exact CI job observation."""
     with session.stage("native_inputs"):
@@ -750,18 +751,21 @@ def investigate_caller_signature_progress(
 
     def acquire(_request):
         sources = collect_source_progress(inputs, session, publish_sources,
-                                          selected_sample_python_job=selected_sample_python_job)
+                                          selected_sample_python_job=selected_sample_python_job,
+                                          follow_adapter_calls=follow_adapter_calls)
         return CapabilityResult(
             "problem" if sources.acquisition.state == "failed" else "observed",
             "Source acquisition disposition: " + sources.acquisition.state, sources,
         )
 
     analysis_input = None
+    preliminary_seconds = None
 
     def analyze(_request):
         if analysis_input is None:
             raise ValueError("No admitted source analysis input.")
-        run = run_source_analysis(analysis_input)
+        run = (run_source_analysis(analysis_input) if preliminary_seconds is None else
+               run_source_analysis(analysis_input, previous_seconds=preliminary_seconds))
         capture.capture_caller_signature_comparison(run)
         workspace_host.publish_native_progress(capture.partial_snapshot())
         return CapabilityResult(
@@ -769,12 +773,15 @@ def investigate_caller_signature_progress(
             "Source analysis disposition: " + run.state, run,
         )
 
+    acquisition_effects = {"repository_read", "registry_read"}
+    if follow_adapter_calls:
+        acquisition_effects.add("bounded_static_analysis")
     acquisition = HostCapability(
         "caller_signature_source_acquisition",
         LifecycleMethodIdentity("caller_signature.acquisition",
                                 "caller_signature.source_progress.collect_source_progress",
                                 "1", None, "caller-signature-source-acquisition/1", None, ()),
-        frozenset({"repository_read", "registry_read"}), lambda value: value == scope, acquire,
+        frozenset(acquisition_effects), lambda value: value == scope, acquire,
     )
     analysis = HostCapability(
         "caller_signature_source_analysis",
@@ -841,6 +848,8 @@ def investigate_caller_signature_progress(
         assert isinstance(sources, CallerSignatureSources)
         if sources.acquisition.state != "failed":
             analysis_input = sources.analysis_input()
+            if sources.adapter_calls is not None and sources.adapter_calls.preliminary_elapsed is not None:
+                preliminary_seconds = sources.adapter_calls.preliminary_elapsed.seconds
             if analysis_input is not None:
                 execute(analysis, "caller_signature_sources", "Analyze the published source material.")
         if selected_ci is not None:

@@ -14,6 +14,7 @@ to Workspace/application integration, not this worker.
 """
 from __future__ import annotations
 
+import math
 import os
 from pathlib import Path
 import subprocess
@@ -96,14 +97,16 @@ def _write_private(path: Path, payload: bytes) -> None:
         stream.write(payload)
 
 
-def run_source_analysis(source_input: SourceAnalysisInput) -> SourceAnalysisRun:
-    """Execute once, without retries/cap enlargement or durable-publication claims."""
+def run_source_analysis(source_input: SourceAnalysisInput, *, previous_seconds: float = 0.0) -> SourceAnalysisRun:
+    """Execute once within the original time limit, including any preliminary analysis."""
+    if not math.isfinite(previous_seconds) or previous_seconds < 0:
+        raise ValueError("Invalid elapsed analysis time.")
     start = time.monotonic()
     # Malformed/oversized prepared inputs are caller admission errors before launch.
     # They are not a completed producer run or a result showing no exposure.
     input_data = encode_analysis_input(source_input)
     digest = sha256(input_data).hexdigest()
-    limit = source_input.limits.timeout_seconds
+    limit = max(0.0, source_input.limits.timeout_seconds - previous_seconds)
     state, reason, result, returncode, origin, detail = "failed", None, None, None, None, None
     try:
         with tempfile.TemporaryDirectory(prefix="upgradepilot-source-analysis-") as directory:

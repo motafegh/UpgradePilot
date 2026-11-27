@@ -1,0 +1,696 @@
+{
+  "method": "Installed product CLI with transport-only replay of the retained LAFS responses; no target execution.",
+  "wheel_sha256": "c0d4402f7e2c9a75c4875e1f669d5a30f15d8fa69b137c44d56f7543db924e6e",
+  "installed_python_modules_verified": 123,
+  "installed_product_tests": {
+    "passed": 1207,
+    "suite_passed": 1206,
+    "suite_skips": 1,
+    "suite_seconds": 253.974,
+    "suite_log_sha256": "ce776e91ed507c32c003a173e0663847f38e5cad8aeaaea59fd96e986c716195",
+    "nonroot_permission_test_passed": true,
+    "nonroot_log_sha256": "eb801384ab9e7f212a6b93aa90b434c6abeebc5a259a6b2e1a44b7488bb9f82d"
+  },
+  "profiles": {
+    "positive": {
+      "report_id": "31b800fe-bbed-4f33-a9b9-e829029885b7",
+      "report_sha256": "3b0d9eb3a6a1c412b2f86cc1d975d18302875077dcf67704721a9c6bfa1407ed",
+      "workspace_revision": "1dcfd57d8f054088b90b7d0ff7de27ab",
+      "source_codec_version": 5,
+      "source_coverage": "partial",
+      "library_module_attempts": 12,
+      "material_omissions": 11,
+      "github_requests": 49,
+      "provider_requests": 62,
+      "decoded_bytes": 872414,
+      "network_dispatches": 0,
+      "stops": [],
+      "analysis": {
+        "input_sha256": "071fc5d0f7f1ae9daa3d466e233b23bb5dc60a238d84308bf749e49c10084107",
+        "witnesses": 100,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_calls": 4,
+        "final_worker_seconds": 2.3325603060002322
+      },
+      "adapter_call_acquisition": {
+        "state": "examined",
+        "reason": "both_versions_examined",
+        "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+        "preliminary_elapsed": {
+          "seconds_hex": "0x1.edd6c3235c000p+0",
+          "scope": "adapter_call_preparation"
+        },
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 79,
+              "column": 15,
+              "end_line": 79,
+              "end_column": 28
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 128,
+              "column": 19,
+              "end_line": 128,
+              "end_column": 32
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 141,
+              "column": 11,
+              "end_line": 141,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 182,
+              "column": 11,
+              "end_line": 182,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "exact_modules": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "problem": null
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "module_examined",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+          "problem": null
+        }
+      ],
+      "source_acquisition_effects": [
+        "bounded_static_analysis",
+        "registry_read",
+        "repository_read"
+      ]
+    },
+    "baseline": {
+      "report_id": "9fc84e75-da96-4aa3-883d-923519bb7e24",
+      "report_sha256": "8b33acdc7dbc08eed73d102cee69531237b81f0089acd1b4bcdb6e78b2dfe280",
+      "workspace_revision": "5cd375a106c740489b8f35bec9c4f6c7",
+      "source_codec_version": 4,
+      "source_coverage": "partial",
+      "library_module_attempts": 12,
+      "material_omissions": 9,
+      "github_requests": 39,
+      "provider_requests": 44,
+      "decoded_bytes": 644791,
+      "network_dispatches": 0,
+      "stops": [],
+      "analysis": {
+        "input_sha256": "70ee7a84309e67ef51be981df2ac2a623299415fbf13d6e3d575c73feaa2ac22",
+        "witnesses": 92,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_calls": 0,
+        "final_worker_seconds": 2.4557303699984914
+      },
+      "adapter_call_acquisition": null,
+      "exact_modules": [],
+      "source_acquisition_effects": [
+        "registry_read",
+        "repository_read"
+      ]
+    },
+    "unscoped": {
+      "report_id": "51279ddf-56b9-43dd-9d90-c6f36ed4fee1",
+      "report_sha256": "f17d2830ba3299455c49827d4b74d500c6d682a8b1b51455ee200c74626a02dd",
+      "workspace_revision": "d4871bff31b84bb993d31251963c1278",
+      "source_codec_version": 5,
+      "source_coverage": "partial",
+      "library_module_attempts": 12,
+      "material_omissions": 11,
+      "github_requests": 48,
+      "provider_requests": 61,
+      "decoded_bytes": 903197,
+      "network_dispatches": 0,
+      "stops": [],
+      "analysis": {
+        "input_sha256": "071fc5d0f7f1ae9daa3d466e233b23bb5dc60a238d84308bf749e49c10084107",
+        "witnesses": 100,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_calls": 4,
+        "final_worker_seconds": 2.4054867020022357
+      },
+      "adapter_call_acquisition": {
+        "state": "examined",
+        "reason": "both_versions_examined",
+        "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+        "preliminary_elapsed": {
+          "seconds_hex": "0x1.fc67c275c8000p+0",
+          "scope": "adapter_call_preparation"
+        },
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 79,
+              "column": 15,
+              "end_line": 79,
+              "end_column": 28
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 128,
+              "column": 19,
+              "end_line": 128,
+              "end_column": 32
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 141,
+              "column": 11,
+              "end_line": 141,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 182,
+              "column": 11,
+              "end_line": 182,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "exact_modules": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "problem": null
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "module_examined",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "source_sha256": "41173251ee0951119a380a991a710272c6f02ac1242fb8140d98933652d5d16e",
+          "problem": null
+        }
+      ]
+    },
+    "one-sided": {
+      "report_id": "ad2ba6ce-e084-426a-a443-79108e54028d",
+      "report_sha256": "4b1f18e0d6589193526bee08069cd675cba25055c21d163bcc174bdd41d43519",
+      "workspace_revision": "97fddf786c8d4b6fb36bb5507b2fd1f9",
+      "source_codec_version": 5,
+      "source_coverage": "partial",
+      "library_module_attempts": 12,
+      "material_omissions": 11,
+      "github_requests": 49,
+      "provider_requests": 62,
+      "decoded_bytes": 837503,
+      "network_dispatches": 0,
+      "stops": [],
+      "analysis": {
+        "input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "witnesses": 96,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_calls": 0,
+        "final_worker_seconds": 2.2257723879993137
+      },
+      "adapter_call_acquisition": {
+        "state": "partial",
+        "reason": "incomplete_exact_pair",
+        "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+        "preliminary_elapsed": {
+          "seconds_hex": "0x1.ed42350810000p+0",
+          "scope": "adapter_call_preparation"
+        },
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 79,
+              "column": 15,
+              "end_line": 79,
+              "end_column": 28
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 128,
+              "column": 19,
+              "end_line": 128,
+              "end_column": 32
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 141,
+              "column": 11,
+              "end_line": 141,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 182,
+              "column": 11,
+              "end_line": 182,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "exact_modules": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "problem": null
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "unavailable",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "source_sha256": null,
+          "problem": "not_found_or_inaccessible"
+        }
+      ]
+    },
+    "wrong-release": {
+      "report_id": "e388f646-76fa-4878-9b8c-3999be70ab72",
+      "report_sha256": "a3a626c8b2fcf574ba79df47737d500de1cf1ad6d0315e07f841999f8ca14185",
+      "workspace_revision": "ec6c07df48344179983fa6367281a293",
+      "source_codec_version": 5,
+      "source_coverage": "partial",
+      "library_module_attempts": 12,
+      "material_omissions": 11,
+      "github_requests": 43,
+      "provider_requests": 53,
+      "decoded_bytes": 724825,
+      "network_dispatches": 0,
+      "stops": [],
+      "analysis": {
+        "input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "witnesses": 96,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_calls": 0,
+        "final_worker_seconds": 2.2253292109999165
+      },
+      "adapter_call_acquisition": {
+        "state": "partial",
+        "reason": "incomplete_exact_pair",
+        "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+        "preliminary_elapsed": {
+          "seconds_hex": "0x1.fcb4b31458000p+0",
+          "scope": "adapter_call_preparation"
+        },
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 79,
+              "column": 15,
+              "end_line": 79,
+              "end_column": 28
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 128,
+              "column": 19,
+              "end_line": 128,
+              "end_column": 32
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 141,
+              "column": 11,
+              "end_line": 141,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 182,
+              "column": 11,
+              "end_line": 182,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "exact_modules": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "problem": null
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "unavailable",
+          "revision": null,
+          "source_sha256": null,
+          "problem": "identity_mismatch"
+        }
+      ]
+    },
+    "github-cap": {
+      "report_id": "8e87927a-2d5e-4cf3-8103-4dcbc368dcd8",
+      "report_sha256": "ecaed1e57a0786c0592fcf1d9441d1b14d69bc98fdb831f660d3ab0d66e8ec3c",
+      "workspace_revision": "b52ef3e1663f46a0866970f9166c2088",
+      "source_codec_version": 5,
+      "source_coverage": "partial",
+      "library_module_attempts": 12,
+      "material_omissions": 11,
+      "github_requests": 48,
+      "provider_requests": 61,
+      "decoded_bytes": 837480,
+      "network_dispatches": 0,
+      "stops": [
+        {
+          "stage": "adapter_call_pair",
+          "reason": "acquisition_request_limit"
+        }
+      ],
+      "analysis": {
+        "input_sha256": "777a52f741d6233d6af199bea3acf69897aaa9d79ac199ac1eb3d9987db50a22",
+        "witnesses": 96,
+        "baseline_witnesses_preserved": 92,
+        "paired_target_calls": 0,
+        "final_worker_seconds": 2.1479858530001366
+      },
+      "adapter_call_acquisition": {
+        "state": "partial",
+        "reason": "incomplete_exact_pair",
+        "preliminary_input_sha256": "850665c4a4a846f49644ef5faffbcb62ae8d324a26fd38e61a9c368e6c4f620a",
+        "preliminary_elapsed": {
+          "seconds_hex": "0x1.065bbf6c46000p+1",
+          "scope": "adapter_call_preparation"
+        },
+        "module": "werkzeug.utils",
+        "paths": [
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 79,
+              "column": 15,
+              "end_line": 79,
+              "end_column": 28
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 128,
+              "column": 19,
+              "end_line": 128,
+              "end_column": 32
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 141,
+              "column": 11,
+              "end_line": 141,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          },
+          {
+            "module": "werkzeug.utils",
+            "target_file": "5754ec33704d5f7116e12e1fee7346a54d2ea1d1307e2039277a060fe43686b6",
+            "target_span": {
+              "line": 182,
+              "column": 11,
+              "end_line": 182,
+              "end_column": 24
+            },
+            "adapter_file": "c021af0c600c7cc917077dcf508bcb95f36d2330803e66afaf7052da4250d33f",
+            "adapter_span": {
+              "line": 263,
+              "column": 11,
+              "end_line": 263,
+              "end_column": 63
+            },
+            "import_line": 13,
+            "imported_binding": "werkzeug.utils.redirect"
+          }
+        ]
+      },
+      "exact_modules": [
+        {
+          "version": "3.1.3",
+          "role": "old_dependency",
+          "state": "module_examined",
+          "revision": "6389612fd1ee1bd93579eed5026e8fd471d04abd",
+          "source_sha256": "d52b54a88e396dcc49c78b23f35a953d01f95fc56e5a0b4809588923f04a83e7",
+          "problem": null
+        },
+        {
+          "version": "3.1.6",
+          "role": "proposed_dependency",
+          "state": "refused",
+          "revision": "04da1b5221b7a7b57e82246e4b5741d37a6b2e56",
+          "source_sha256": null,
+          "problem": "acquisition_request_limit"
+        }
+      ]
+    }
+  },
+  "offline_readers": {
+    "new_report": true,
+    "new_workspace": true,
+    "both_exact_source_roles": true,
+    "historical_ranked_report_v4": true,
+    "historical_ranked_workspace_v4": true
+  },
+  "qualification": "Product delivery for the exposed LAFS case. Independent public transfer and maintainer usefulness remain open."
+}

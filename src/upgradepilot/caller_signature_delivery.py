@@ -106,6 +106,7 @@ def investigate_and_deliver_caller_signature(
     selected_ci_job: SelectedCIJob | None = None,
     ci_actions_client: GitHubActionsClient | None = None,
     selected_sample_python_job: SelectedSamplePythonJob | None = None,
+    follow_adapter_calls: bool = False,
 ) -> CallerSignatureDelivery:
     """Run each producer once, publish the exact report, then return earned handoff.
 
@@ -120,6 +121,7 @@ def investigate_and_deliver_caller_signature(
             expected_base=expected_base, expected_head=expected_head,
             selected_ci_job=selected_ci_job, ci_actions_client=ci_actions_client,
             selected_sample_python_job=selected_sample_python_job,
+            follow_adapter_calls=follow_adapter_calls,
         )
     except Exception as error:
         if host.publication_blocked:

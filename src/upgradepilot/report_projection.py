@@ -19,6 +19,7 @@ from uuid import uuid4
 
 from packaging.utils import canonicalize_version
 
+from .caller_signature.analysis import fact_identity
 from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult
 from .caller_signature.source_evidence import CallerSignatureSources
 from .ci.dependency_exercise import (
@@ -1959,6 +1960,8 @@ def project_caller_signature_report(
     file_sources, producer_sources = _project_caller_signature_text(p, boundary, native)
     refs = producer_sources or (pr_source,)
     _project_caller_signature_coverage(p, native.sources, refs, file_sources)
+    if native.sources is not None and native.sources.adapter_calls is not None:
+        _project_adapter_call_acquisition(p, native.sources, native.comparison, refs, file_sources)
     _project_caller_signature_analysis(p, native.comparison, refs, file_sources)
     if native.sources is not None and native.sources.sample_python is not None:
         _project_caller_signature_sample_python(p, native.sources, refs, file_sources)
@@ -1986,6 +1989,76 @@ def project_caller_signature_report(
         ("Only admitted original source text is retained. Omitted or unavailable files cannot be opened.",
          "The native producer sources preserve full receipts, costs, paths, traces, gaps and admission limits.",
          "Report delivery and original source text do not establish installed behavior or authorize a maintainer action."),
+    )
+
+
+def _project_adapter_call_acquisition(p, sources, run, refs, file_sources):
+    observed = sources.adapter_calls
+    locations = tuple(dict.fromkeys(
+        file_sources[file_id] for path in observed.paths for file_id in (path.target_file, path.adapter_file)
+    ))
+    facts = [_fact("call_paths", "Conditional call paths considered", len(observed.paths))]
+    if observed.preliminary_input_sha256 is not None:
+        facts.extend((
+            _fact("preliminary_input_sha256", "Preliminary analysis input", observed.preliminary_input_sha256),
+            _fact("preliminary_seconds", "Preliminary analysis seconds (exact float)", observed.preliminary_elapsed.seconds_hex),
+        ))
+    if observed.module is not None:
+        facts.append(_fact("selected_module", "Selected changed module", observed.module))
+        target = sources.catalog.target
+        for row in sources.acquisition.module_requests:
+            question = row.request
+            if (question.package, question.module) != (target.normalized_package, observed.module):
+                continue
+            status = row.problem.reason if row.problem else row.state
+            facts.append(_fact(question.version_basis, question.version_basis.replace("_", " ").capitalize(),
+                               f"{question.version}: {status}"))
+
+    details = {
+        "source_preparation_pending": "Source preparation is pending.",
+        "source_context_unavailable": "Exact target source context is unavailable.",
+        "adapter_source_unavailable": "No adapter source sample was available for preliminary analysis.",
+        "insufficient_pair_reserve": "The shared acquisition allowance has fewer than two remaining reads.",
+        "insufficient_analysis_file_capacity": "The remaining source work could exceed the retained analysis file limit.",
+        "preliminary_analysis_unavailable": "The preliminary analysis did not complete.",
+        "analysis_time_exhausted": "Preliminary analysis used the available analysis time.",
+        "call_path_limit": "The preliminary call-path evidence reached its retention limit.",
+        "multiple_changed_modules": "The retained paths suggest more than one changed module.",
+        "no_reached_changed_call": "No examined adapter body justified a new changed-module question.",
+        "paired_acquisition_pending": f"Examining both exact versions of {observed.module}.",
+        "incomplete_exact_pair": f"Exact source acquisition for {observed.module} is incomplete.",
+        "both_versions_examined": f"Examined both exact versions of {observed.module}.",
+    }
+    detail = details[observed.reason]
+    if observed.module and run is not None and run.result is not None:
+        origins = {
+            (fact_identity("call", path.target_file, path.target_span),
+             fact_identity("call", path.adapter_file, path.adapter_span))
+            for path in observed.paths
+        }
+        signatures = {sig.fact_id: sig.qualified_name for unit in run.result.units if unit.facts
+                      for sig in unit.facts.signatures}
+        paired = defaultdict(set)
+        for witness in run.result.candidates:
+            call = (witness.root_call_id, witness.comparison.call_id)
+            callee = witness.callee_role
+            if (call in origins and callee.module == observed.module
+                    and callee.role in {"old_dependency", "proposed_dependency"}):
+                paired[call, signatures[witness.comparison.signature_id]].add(callee.role)
+        target_calls = {call[0] for (call, _), roles in paired.items() if len(roles) == 2}
+        count = len(target_calls)
+        facts.append(_fact("paired_calls", "Target calls with both version witnesses", count))
+        if count:
+            detail += f" Conditional comparisons cover {count} target {'call' if count == 1 else 'calls'}."
+    p.assess(
+        "caller-signature-adapter-calls", "Adapter call source acquisition", "caller_signature.acquisition",
+        observed.state, detail, reason=observed.reason,
+        status="available" if observed.state == "examined" else "problem",
+        strength="recorded_fact" if observed.state == "examined" else "unresolved",
+        proposition="A reached adapter declaration and an import trace justify an exact changed-module question.",
+        facts=tuple(facts), source_ids=locations + refs,
+        limitations=("The result applies to admitted static paths and preserves their runtime conditions.",),
+        question="Which exact module sources or conditional comparisons were obtained?",
     )
 
 

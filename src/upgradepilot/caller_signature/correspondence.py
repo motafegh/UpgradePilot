@@ -183,7 +183,7 @@ def _lexical_body_nodes(body):
         yield from visit(statement)
 
 
-def _body_calls(body):
+def lexical_body_calls(body):
     """Calls in the selected lexical body, not its nested callbacks."""
     return (node for node in _lexical_body_nodes(body) if isinstance(node, ast.Call))
 
@@ -742,7 +742,7 @@ class _SourceCandidates:
             if edge in ancestry:
                 self.gap("call_body_cycle", destination, signature.span)
                 continue
-            allowed = {SourceSpan.of(n) for n in _body_calls(definition.body)}
+            allowed = {SourceSpan.of(n) for n in lexical_body_calls(definition.body)}
             for child in destination["facts"].calls:
                 if child.span in allowed:
                     self.follow(destination, child, root_id, steps,

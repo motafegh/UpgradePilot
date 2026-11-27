@@ -181,6 +181,9 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
         return []
 
     sections = _signature_overview(report, transition)
+    adapter_calls = assessments.get("caller-signature-adapter-calls")
+    if adapter_calls is not None and adapter_calls.owner == "caller_signature.acquisition":
+        sections.extend(("", "Adapter call source acquisition", adapter_calls.detail, _evidence_refs(adapter_calls)))
     sections.extend(_ranked_adapter_overview(report, assessments.get("caller-signature-sample-python")))
     sections.extend(_ci_log_overview(report))
     sections.extend(_ci_command_overview(report, assessments.get("ci")))

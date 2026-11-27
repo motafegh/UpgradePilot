@@ -73,6 +73,16 @@ class NativeAnalysisResultTests(TestCase):
         refuse(lambda r: r["limits"].update(timeout_seconds_hex="1.0"))
         refuse(lambda r: r.update(analysis_profile="unknown"))
 
+    def test_consumed_preliminary_time_does_not_start_a_second_worker(self):
+        source = prepared()
+        from hashlib import sha256
+
+        with patch("upgradepilot.caller_signature.worker.subprocess.run") as launch:
+            run = run_source_analysis(source, previous_seconds=source.limits.timeout_seconds)
+        launch.assert_not_called()
+        self.assertEqual((run.state, run.reason), ("timed_out", "bounded_worker_deadline"))
+        self.assertEqual(run.input_sha256, sha256(encode_analysis_input(source)).hexdigest())
+
     def test_result_refuses_substituted_inputs_missing_facts_work_and_unknown_method(self):
         source = prepared()
         payload = encode_analysis_result(produce_source_analysis(source), source)

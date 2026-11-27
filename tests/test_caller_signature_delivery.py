@@ -254,6 +254,78 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
                     self.assertNotIn("https://api.github.com/repos/owner/relay/git/ref/tags/1.0", paths)
                     self.assertFalse(any(m.role == "constraint_sample" for m in opened.native.sources.modules))
 
+    def test_adapter_call_opt_in_acquires_exact_pair_from_relative_adapter_body(self):
+        from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
+        from upgradepilot.caller_signature.source_codec import encode_sources
+
+        flags = ("--follow-adapter-calls", "--rank-adapter-samples",
+                 "--sample-python-workflow", ".github/workflows/python.yml", "--sample-python-job", "build")
+        code, output, requests = self.live(sample_adapter=True, sample_requires_python=">=3.10",
+                                            relative_adapter=True, forwarded=False, guard_arguments=flags)
+        self.assertEqual(code, 0, output)
+        self.assertIn("Conditional comparisons cover 1 target call.", output)
+        fetched = [r.url for r in requests]
+        helper = next(i for i, url in enumerate(fetched) if "/contents/relay/helpers.py?" in url)
+        first_pair = fetched.index("https://pypi.org/pypi/demo/1.0/json")
+        self.assertLess(helper, first_pair)
+        revision = self.revision_id(output)
+        opened = open_caller_signature_checkpoint(CheckpointStore.open(self.store_path, read_only=True), revision)
+        sources = opened.native.sources
+        selection = sources.adapter_calls
+        self.assertEqual((selection.state, selection.module), ("examined", "demo.api"))
+        path, = selection.paths
+        self.assertEqual((path.target_span.line, path.adapter_span.line, path.import_line), (2, 3, 1))
+        pair_reads = [event for event in sources.acquisition.transport.requests if event.stage == "adapter_call_pair"]
+        self.assertTrue(pair_reads)
+        history = opened.selected.revision.lifecycle_history
+        acquisition, = [record for record in history.records if record.kind == "execution_attempt"
+                        and record.method.owner == "caller_signature.acquisition"]
+        self.assertIn("bounded_static_analysis", json.loads(acquisition.method.configuration)["effects"])
+        self.assertEqual(opened.report, read_report(self.report_path))
+        self.assertIn("Conditional comparisons cover 1 target call.", self.cold(revision))
+        with self.assertRaisesRegex(ValueError, "retained source role"):
+            encode_sources(replace(sources, adapter_calls=replace(
+                selection, paths=(replace(path, adapter_file=path.target_file),),
+            )), version=5)
+
+    def test_adapter_call_opt_in_preserves_partial_and_ambiguous_evidence(self):
+        from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
+
+        for label, kwargs, expected_state, expected_reason in (
+            ("missing", {"proposed_missing": True}, "partial", "incomplete_exact_pair"),
+            ("ambiguous", {"competing_adapter_calls": True}, "unresolved", "multiple_changed_modules"),
+        ):
+            with self.subTest(label=label):
+                self.store_path = self.root / (label + "-store")
+                self.report_path = self.root / (label + ".json")
+                code, output, requests = self.live(sample_adapter=True, relative_adapter=True, forwarded=False,
+                                                    guard_arguments=("--follow-adapter-calls",), **kwargs)
+                self.assertEqual(code, 0, output)
+                opened = open_caller_signature_checkpoint(
+                    CheckpointStore.open(self.store_path, read_only=True), self.revision_id(output),
+                )
+                selection = opened.native.sources.adapter_calls
+                self.assertEqual((selection.state, selection.reason), (expected_state, expected_reason))
+                self.assertNotIn("Conditional comparisons cover", output)
+                if label == "ambiguous":
+                    self.assertEqual({path.module for path in selection.paths}, {"demo.api", "demo.alt"})
+                    self.assertFalse(any("/pypi/demo/" in r.url for r in requests))
+                else:
+                    modules = [r for r in opened.native.sources.acquisition.module_requests if r.request.package == "demo"]
+                    self.assertEqual([r.state for r in modules], ["module_examined", "unavailable"])
+
+    def test_adapter_call_flag_requires_live_caller_signature_profile(self):
+        for arguments in (
+            ("owner/target", "1", "--github-auth", "token-env"),
+            ("--open-report", "missing.json"),
+            ("--open-workspace", "missing", "--revision", "x"),
+        ):
+            with self.subTest(arguments=arguments), patch("upgradepilot.cli.AcquisitionSession") as session, \
+                    redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as caught:
+                self.run_cli((*arguments, "--follow-adapter-calls"))
+            self.assertEqual(caught.exception.code, 2)
+            session.assert_not_called()
+
     def test_live_cli_records_explicit_github_request_allowance(self):
         from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
         code, output, _ = self.live(guard_arguments=("--source-github-requests", "56"))

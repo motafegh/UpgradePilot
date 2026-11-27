@@ -166,6 +166,8 @@ Add `--sample-python-workflow .github/workflows/python.yml --sample-python-job b
 
 Add `--rank-adapter-samples` with that workflow and job to select adapter versions using the declared Python line. Within the checked stable version identities, the ranked path requires a non-yanked index file with a known Python overlap and an exact release response that agrees on the file. Unclassified candidate metadata or a failed file join leaves that choice unresolved. The report retains the index identity, selected file and source disposition for offline inspection.
 
+Add `--follow-adapter-calls` to a live caller/signature command to look for one additional changed-module pair. UpgradePilot uses a reached adapter declaration and the unresolved call's recorded import to select the module. Both exact versions share the original acquisition limits. If the admitted paths suggest several modules, the report records the ambiguity and ordinary source closure can use the remaining slots. The report distinguishes module acquisition from a paired signature comparison and preserves the conditional path and any displaced coverage. This option also works with `--rank-adapter-samples`.
+
 ### Add one selected historical CI job
 
 The explicit `caller-signature-ci` profile combines caller/signature analysis with a bounded log observation from one selected failed GitHub Actions job. It requires `--expected-base`, `--expected-head`, positive `--ci-run-id`, `--ci-run-attempt`, and `--ci-job-id`, and a private `--workspace-store`. Use the exact PR head and attempt when selecting the job. Access to the log depends on GitHub permissions, and a missing log remains an explicit evidence problem.

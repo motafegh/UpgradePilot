@@ -201,6 +201,7 @@ _CI_COVERAGE_V3 = replace(
 _CALLER_SIGNATURE_SOURCES_V2 = replace(FAMILY_CONTRACTS["caller_signature_sources"], producer_version="2")
 _CALLER_SIGNATURE_SOURCES_V3 = replace(FAMILY_CONTRACTS["caller_signature_sources"], producer_version="3")
 _CALLER_SIGNATURE_SOURCES_V4 = replace(FAMILY_CONTRACTS["caller_signature_sources"], producer_version="4")
+_CALLER_SIGNATURE_SOURCES_V5 = replace(FAMILY_CONTRACTS["caller_signature_sources"], producer_version="5")
 _VALUES = NativeValueCodec(
     INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS + IMPACT_LAYOUTS
 )
@@ -261,6 +262,8 @@ def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
         return _CALLER_SIGNATURE_SOURCES_V3
     if type(version) is int and version == 4 and family == "caller_signature_sources":
         return _CALLER_SIGNATURE_SOURCES_V4
+    if type(version) is int and version == 5 and family == "caller_signature_sources":
+        return _CALLER_SIGNATURE_SOURCES_V5
     if type(version) is not int or version != 1:
         raise NativeReconstructionError(
             "unsupported_native_codec",
