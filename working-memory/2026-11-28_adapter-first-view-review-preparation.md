@@ -6,12 +6,14 @@ November 28, 2026. The [installed first view](2026-11-28_adapter-pair-first-view
 
 Each condition uses the same exact saved report. The grouped condition is the actual renderer 13 output. For the baseline, a private offline render disables only the shared adapter call overview, so the renderer uses its existing first-view fallback. The earlier packet protocol removed the entire opening. Keeping the existing fallback and other first-view sections here isolates the new feature, including on the ranked LAFS report. The header, detailed body, retained sources, topic and task match within each case.
 
-| Case | Role in the review | Baseline old / proposed signature reference | Grouped old / proposed signature reference |
+| Case | Role in the review | Baseline first individual old / proposed witness signature reference | Grouped old / proposed signature reference |
 | --- | --- | ---: | ---: |
 | RainbowChess #58 | Seven shared conditional fits | Lines 3,520 / 3,616 | Lines 25 / 26 |
 | LAFS #29 | Four shared conditional fits with ranked adapter sampling | Lines 1,962 / 2,058 | Lines 25 / 26 |
 | Spotify #140 | One-sided acquisition at the request limit | Identical views | Identical views |
 | AV-Tracer #11 | Conditional proposed-side keyword rejection | Identical views | Identical views |
+
+The baseline acquisition details also label both signatures earlier, at lines 149 and 150 in RainbowChess and 152 and 153 in LAFS. The [development walkthrough](2026-11-28_adapter-first-view-development-review.md#navigation-and-authority-findings) records these positions separately from the first individual witnesses.
 
 The installed CLI reproduced the LAFS report from frozen provider responses at 49 GitHub and 62 total request charges, with zero network dispatches. Its structured analysis and ordered ledger match the earlier qualification. Both positive cases use the known Flask-to-Werkzeug mechanism. The controls measure whether readers preserve a partial stop and a rejection. This is a focused layout study. It does not cover the broader report-versus-ordinary-review question.
 

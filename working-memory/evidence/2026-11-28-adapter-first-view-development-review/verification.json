@@ -1,0 +1,424 @@
+{
+  "answer_count": 8,
+  "archive_receipt_sha256": "2ecb723048eb3b8ee3db1a37378daba8f20a9712018d611d7e0c49fe9eb06d32",
+  "case_pairs": {
+    "av_tracer": {
+      "byte_identical_reports": true,
+      "searches_by_condition": {
+        "baseline": 2,
+        "grouped": 2
+      },
+      "sections_from_detailed_heading_identical": true,
+      "source_opens_by_condition": {
+        "baseline": 3,
+        "grouped": 3
+      }
+    },
+    "lafs": {
+      "byte_identical_reports": false,
+      "first_individual_witness_signature_lines_in_baseline": [
+        1962,
+        2058
+      ],
+      "first_role_labelled_signature_references": {
+        "baseline": [
+          152,
+          153
+        ],
+        "grouped": [
+          25,
+          26
+        ]
+      },
+      "searches_by_condition": {
+        "baseline": 2,
+        "grouped": 0
+      },
+      "sections_from_detailed_heading_identical": true,
+      "shared_outcome_line_in_grouped": 22,
+      "source_opens_by_condition": {
+        "baseline": 3,
+        "grouped": 3
+      }
+    },
+    "rainbowchess": {
+      "byte_identical_reports": false,
+      "first_individual_witness_signature_lines_in_baseline": [
+        3520,
+        3616
+      ],
+      "first_role_labelled_signature_references": {
+        "baseline": [
+          149,
+          150
+        ],
+        "grouped": [
+          25,
+          26
+        ]
+      },
+      "searches_by_condition": {
+        "baseline": 2,
+        "grouped": 0
+      },
+      "sections_from_detailed_heading_identical": true,
+      "shared_outcome_line_in_grouped": 22,
+      "source_opens_by_condition": {
+        "baseline": 3,
+        "grouped": 3
+      }
+    },
+    "spotify": {
+      "byte_identical_reports": true,
+      "pr_title_reports_different_old_version": {
+        "assessed_old_version": "3.1.5",
+        "title_old_version": "3.1.3"
+      },
+      "searches_by_condition": {
+        "baseline": 2,
+        "grouped": 2
+      },
+      "sections_from_detailed_heading_identical": true,
+      "source_opens_by_condition": {
+        "baseline": 2,
+        "grouped": 2
+      }
+    }
+  },
+  "date": "2026-11-28",
+  "disposition": "Retain the opt-in opening. Defer independent usability until eligible readers are available. Move to a retained-evidence-first applicability checkpoint for the RainbowChess redirect branch.",
+  "evaluation_mode": "One exposed AI/developer, author of preparation and original key. Each packet opened separately in assigned order. Same cases were seen in both conditions.",
+  "grade_basis": "Exposed developer grading against the unchanged frozen rubric, exact IDs and retained evidence. Neither counters nor grades estimate independent reviewer performance.",
+  "grading_addendum_sha256": "632e437b431a24f0fa383af4dd48160fb82a37dc3a2f90586baf591f85ae257e",
+  "next_question_evidence": {
+    "app_redirect": {
+      "locator": "https://github.com/pallets/flask/blob/22d924701a6ae2e4cd01e9a15bbaf3946094af65/src/flask/sansio/app.py",
+      "source_id": "source-30",
+      "view_sha256": "a2906d81c1ae8e8e2199979a9972fe35cd26aa0027f03edebab2093070b0b17d"
+    },
+    "app_type": {
+      "locator": "https://github.com/pallets/flask/blob/22d924701a6ae2e4cd01e9a15bbaf3946094af65/src/flask/app.py",
+      "source_id": "source-25",
+      "view_sha256": "1735f9a4c3d43a516f0a3bbdada32dfa75ec0a61402dc004ef6b562d2a9f7159"
+    },
+    "helper_branch": {
+      "locator": "https://github.com/pallets/flask/blob/22d924701a6ae2e4cd01e9a15bbaf3946094af65/src/flask/helpers.py",
+      "source_id": "source-29",
+      "view_sha256": "3ee3667052f06ade2c575c017ee39119bbbf68c02a5e0dbe26feb17f089ccc4f"
+    },
+    "target_route": {
+      "locator": "https://github.com/hongyime/rainbowchess/blob/68875f5b75082828447281d891107969ebcec0b1/main.py",
+      "source_id": "source-18",
+      "view_sha256": "8cc7c0e852cc95953d1f43b7d5ec794ad8635ea34ac81634ff2f5484e85058b3"
+    }
+  },
+  "operator_key_sha256": "9d22fb69221f7e2fc2ca9177a54e57c8d5741e2c093a4561742e30c24af985d9",
+  "prepared_packets_commit": "be02a29486d6f99699024b6ba82ef1bc5f68e048",
+  "remaining_proposition": "Whether one exact-head RainbowChess route uses the app-context redirect branch with the modeled loaded declarations.",
+  "reviewer_population_independent": false,
+  "reviews": {
+    "a-01": {
+      "additional_report_searches": 0,
+      "case": "rainbowchess",
+      "case_recovered": true,
+      "condition": "grouped",
+      "critical_errors": [],
+      "navigation_log_sha256": "fbe908a17ae8430c1543bf09240c6abc2698b538271eb600b99a0a41f9877e93",
+      "packet_sha256": "24af73a628e124da6fcc1a165289976dafd1510e97e667fde02dad787dcc51e8",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact version transition and both revisions"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Both local outcomes and seven paths recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Both original signatures and the adapter call tied to the comparison"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "Sampled path, actual loading and dispatch qualified"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "A same-process observation distinguishes fallback and app dispatch; action retained"
+        }
+      },
+      "report_text_sha256": "d823106d39244b13a836742332d839c31779fb65e031d25123d03eac4302090a",
+      "response_sha256": "bb39699597cbe4f645ee9586e1dc21723e162d88eb7e041701c8bacab6963f67",
+      "source_opens": [
+        "source-29",
+        "source-22",
+        "source-23"
+      ]
+    },
+    "a-02": {
+      "additional_report_searches": 2,
+      "case": "spotify",
+      "case_recovered": true,
+      "condition": "baseline",
+      "critical_errors": [],
+      "navigation_log_sha256": "530ea23736a0a3e569f4fa4cfe16b93c14966044aa3ff5b8bcb893af5673ab16",
+      "packet_sha256": "6e1dc30d8a5685b55555a4aa0bb454d2f74d39b682d282be5c49f012da689b8d",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact recorded transition chosen despite different PR title"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Three old-side witnesses and proposed acquisition refusal recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Acquisition assessment and retained original text correctly distinguished"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "No invented proposed outcome; old side conditional"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "Proposed-version source acquisition would address the static stop; action retained"
+        }
+      },
+      "report_text_sha256": "dbd908f11fb6bdf19325e562c62c8ede2e871f59dcc3e63b5398ed8fc28e34bd",
+      "response_sha256": "80f42da9e33bdd0753191283088ddeb3f22e78928da53f2ba36fb62e544597bf",
+      "source_opens": [
+        "source-39",
+        "source-34"
+      ]
+    },
+    "a-03": {
+      "additional_report_searches": 2,
+      "case": "av_tracer",
+      "case_recovered": true,
+      "condition": "grouped",
+      "critical_errors": [],
+      "navigation_log_sha256": "114869e49dd52ad0afa148a939d8580fce5627a52fe4ec59cf907995841956a3",
+      "packet_sha256": "02cf787f25320cd5ac8c93c2dd4390e05990f9de0aa4ffa164fce02a7538d280",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact version transition and both revisions"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Old fit and proposed unexpected app keyword recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Versioned witnesses and matching original source references cited"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "Sampled path and receiver/MRO premises recognized"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "Observe actual initializer/keyword in exact-head runtime; action retained"
+        }
+      },
+      "report_text_sha256": "71fb996994b17f8d584bdc93f6e461c954dfefd22c418fa1eb9fbc7461ada93c",
+      "response_sha256": "8149d16f68546aef58535b24e151e733b03db23d783461ec38af0044d5d29099",
+      "source_opens": [
+        "source-29",
+        "source-36",
+        "source-31"
+      ]
+    },
+    "a-04": {
+      "additional_report_searches": 2,
+      "case": "lafs",
+      "case_recovered": true,
+      "condition": "baseline",
+      "critical_errors": [],
+      "navigation_log_sha256": "a8eebf96cfaec61bcd26dc58cd2bd0735733f9d314e83a6defc81f9d2725d952",
+      "packet_sha256": "96a956c17dc4ec5dd4033ef6955e61773878ab66234afe0306dd4ba00ddfb928",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact version transition and both revisions"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Both local outcomes and four paths recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Two exact signatures and forwarded call cited"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "Ranked file match treated as sample evidence; runtime dispatch unresolved"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "Loaded-source and branch observation proposed; action retained"
+        }
+      },
+      "report_text_sha256": "4500b18af3534dee4674eb5eda78facfa82ac9c17e92fdf05d154e6c32ba09cf",
+      "response_sha256": "f14d1583557681524de0b454e028e64aeb96de56ff1f17bb83dd425e49c93385",
+      "source_opens": [
+        "source-40",
+        "source-16",
+        "source-17"
+      ]
+    },
+    "b-01": {
+      "additional_report_searches": 2,
+      "case": "rainbowchess",
+      "case_recovered": true,
+      "condition": "baseline",
+      "critical_errors": [],
+      "navigation_log_sha256": "67871ebf165d364938abf645a794e0803d081f6b56f3362c8cac66cad3be4ba3",
+      "packet_sha256": "60b50bf1baec048d6d35fbd4f204dcaa6d52926c479a395b01febecd9c362315",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact version transition and both revisions"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Both local outcomes and seven paths recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Both original signatures and the adapter call tied to the comparison"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "Sampled path, actual loading and dispatch qualified"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "A same-process observation distinguishes fallback and app dispatch; action retained"
+        }
+      },
+      "report_text_sha256": "f4450f78cbb8b50eb3b8a7c750c848564e5e984f77e0ef98ae37a8f658bad7f0",
+      "response_sha256": "f800616b2428ce530346aac6fe2ac27eb7514cc8d4dbfdf7fb83e3216da29024",
+      "source_opens": [
+        "source-29",
+        "source-22",
+        "source-23"
+      ]
+    },
+    "b-02": {
+      "additional_report_searches": 2,
+      "case": "spotify",
+      "case_recovered": true,
+      "condition": "grouped",
+      "critical_errors": [],
+      "navigation_log_sha256": "4eab27060be339f88e2981b552ef5761f741555d94d1142cac3fb875ce7d639a",
+      "packet_sha256": "6e1dc30d8a5685b55555a4aa0bb454d2f74d39b682d282be5c49f012da689b8d",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact recorded transition chosen despite different PR title"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Three old-side witnesses and proposed acquisition refusal recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Acquisition assessment and retained original text correctly distinguished"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "No invented proposed outcome; old side conditional"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "Proposed-version source acquisition would address the static stop; action retained"
+        }
+      },
+      "report_text_sha256": "dbd908f11fb6bdf19325e562c62c8ede2e871f59dcc3e63b5398ed8fc28e34bd",
+      "response_sha256": "71e3015bb72dda4f2be9a935016c1b4c3e6bf0f29df1eaba6b62f5ac611a95eb",
+      "source_opens": [
+        "source-39",
+        "source-34"
+      ]
+    },
+    "b-03": {
+      "additional_report_searches": 2,
+      "case": "av_tracer",
+      "case_recovered": true,
+      "condition": "baseline",
+      "critical_errors": [],
+      "navigation_log_sha256": "129ade9758494d3c797c34db8a0346755803828d49faada01a093de0b51cce04",
+      "packet_sha256": "02cf787f25320cd5ac8c93c2dd4390e05990f9de0aa4ffa164fce02a7538d280",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact version transition and both revisions"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Old fit and proposed unexpected app keyword recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Versioned witnesses and matching original source references cited"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "Sampled path and receiver/MRO premises recognized"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "Observe actual initializer/keyword in exact-head runtime; action retained"
+        }
+      },
+      "report_text_sha256": "71fb996994b17f8d584bdc93f6e461c954dfefd22c418fa1eb9fbc7461ada93c",
+      "response_sha256": "e4112916c7051e50dfd214de35e50ac9772f1e0564db20b5743bd376979f000c",
+      "source_opens": [
+        "source-29",
+        "source-36",
+        "source-31"
+      ]
+    },
+    "b-04": {
+      "additional_report_searches": 0,
+      "case": "lafs",
+      "case_recovered": true,
+      "condition": "grouped",
+      "critical_errors": [],
+      "navigation_log_sha256": "6274114512687a54f0d0443ed7290c011aae09fededce4c8bfa61ec277531b4b",
+      "packet_sha256": "ef6b200dae20c2f9f50786b4a5ce958992ad5e6e33c10bf696c8355ffb5030dd",
+      "question_grades": {
+        "q1": {
+          "grade": "correct",
+          "reason": "Exact version transition and both revisions"
+        },
+        "q2": {
+          "grade": "correct",
+          "reason": "Both local outcomes and four paths recovered"
+        },
+        "q3": {
+          "grade": "correct",
+          "reason": "Two exact signatures and forwarded call cited"
+        },
+        "q4": {
+          "grade": "correct",
+          "reason": "Ranked file match treated as sample evidence; runtime dispatch unresolved"
+        },
+        "q5": {
+          "grade": "correct",
+          "reason": "Loaded-source and branch observation proposed; action retained"
+        }
+      },
+      "report_text_sha256": "ab9e7044589b3ddea46dfbac65e27ae59f6206f77cc21ffef8d22992277722e9",
+      "response_sha256": "f773db97a691e31d8e4f88eb23c7c696f965b43fa51dc7de1ccbf47ead96519b",
+      "source_opens": [
+        "source-40",
+        "source-16",
+        "source-17"
+      ]
+    }
+  },
+  "timings_collected": false
+}
