@@ -1,0 +1,260 @@
+{
+  "baseline": {
+    "av_tracer_combined": {
+      "available_claim": "The report explicitly separates the static app rejection from the selected job error and same-job installation token.",
+      "direct_source_checks": [
+        {
+          "cold_view_sha256": "49efc5a39a6d99c176038bf22120cc8296fa0d1c4af0abe2d5344baeeb04a1da",
+          "content_sha256": "3349230dd87260809182440c138f745c18ddfc6dd31aa2871688578cc1f20676",
+          "package": "starlette",
+          "path": "starlette/testclient.py",
+          "revision": "0c4b68ac4e179a788e38bac28f299dcad0f36e99",
+          "role": "constraint_sample",
+          "selected_lines": {
+            "starlette_forwards_app": 400
+          },
+          "source_id": "source-29",
+          "version": "0.27.0"
+        },
+        {
+          "cold_view_sha256": "cc8f9e48a1c2df3d47db72b4d966b16cd53ae04c2d6ec5745121f964e52b356b",
+          "content_sha256": "6bfda818e4b0fed70879aac8397c476aa80c8266314b266d4d38e72eff60ce2f",
+          "package": "httpx",
+          "path": "httpx/_client.py",
+          "revision": "cc206cf2dad42600479962ac1daaa44675cfaf56",
+          "role": "old_dependency",
+          "selected_lines": {
+            "httpx_old_app_parameter": 642
+          },
+          "source_id": "source-36",
+          "version": "0.25.2"
+        },
+        {
+          "cold_view_sha256": "e0cd1abc7b7fb9d793c7b98d5d73c0675676827513b6ebd8c79da182c453e05c",
+          "content_sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+          "package": "httpx",
+          "path": "httpx/_client.py",
+          "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+          "role": "proposed_dependency",
+          "selected_lines": {
+            "client_class": 594
+          },
+          "source_id": "source-31",
+          "version": "0.28.1"
+        }
+      ],
+      "first_view_sha256": "adafa8e66c583df337e5a9e41669e0e2df5a2d01792f74b1aed1ba6918757f86",
+      "identity": {
+        "base_sha": "527a004918c0f825e97c3583404242605fd58ec2",
+        "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+        "pull_number": "11",
+        "repository": "ivaronkun-Ahey/AV-Tracer"
+      },
+      "selected_job_excerpt": {
+        "attempt": 1,
+        "job": 125180284415,
+        "run": 41416124208,
+        "source_id": "source-48",
+        "source_view_sha256": "bd22406f1368d1a756742b8874aada6aaf5d2dd278267b15c56de96d9ce7dafd"
+      },
+      "unavailable_claim": "An observed loaded initializer and controlled upgrade causality."
+    },
+    "rainbowchess": {
+      "available_claim": "The sampled app-context call differs from the fallback, and both exact Werkzeug signatures fit its selected argument shape in the explicit local check.",
+      "direct_source_reads": [
+        {
+          "cold_view_sha256": "90857ee7311689d667c2d4e2d9b6c8d37df881b670e576890471c07cfc7f31b2",
+          "content_sha256": "2fefcb8afad476c65385c015e7742dde084abc28b400920d3ca01ebaa50e43b2",
+          "package": "",
+          "path": "main.py",
+          "revision": "68875f5b75082828447281d891107969ebcec0b1",
+          "role": "target_repository",
+          "selected_lines": {
+            "redirect_to_play": 49,
+            "route_registration": 36
+          },
+          "source_id": "source-18",
+          "version": ""
+        },
+        {
+          "cold_view_sha256": "38f013f59e947acb850d9b7a9e99b63d5f27efe6cd13bcf25fb92a376ac19517",
+          "content_sha256": "ac96607bbfc9dbcf09d5442fe7e90d7f8a046b0df7d8f3fc3535b44112016d71",
+          "package": "flask",
+          "path": "src/flask/helpers.py",
+          "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+          "role": "constraint_sample",
+          "selected_lines": {
+            "context_call": 268,
+            "fallback_call": 270
+          },
+          "source_id": "source-29",
+          "version": "3.1.3"
+        },
+        {
+          "cold_view_sha256": "0946411c4dfb3bb092ca3022599aeae2ca1e63ca35f74f1fbb971134542b85f8",
+          "content_sha256": "93bb56f0b1d14a57548baccab0528aec0c5afd62f8ceed5edb03cdb6122cbbba",
+          "package": "flask",
+          "path": "src/flask/app.py",
+          "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+          "role": "constraint_sample",
+          "selected_lines": {
+            "base_import": 44,
+            "declared_class": 81,
+            "dispatch": 1511
+          },
+          "source_id": "source-25",
+          "version": "3.1.3"
+        },
+        {
+          "cold_view_sha256": "75a2daaed71f3d911e577d6be5f36cdafaae0df1addaa57ccf8eca626cc23ab5",
+          "content_sha256": "a0c7b44d1b12716d2a75a22a6af56c93c3fdaa212f018e551e7d45020917f279",
+          "package": "flask",
+          "path": "src/flask/ctx.py",
+          "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+          "role": "constraint_sample",
+          "selected_lines": {
+            "matching_app_context": 382,
+            "push_context": 384
+          },
+          "source_id": "source-27",
+          "version": "3.1.3"
+        },
+        {
+          "cold_view_sha256": "833e558d20877dde7ff27b7a0629687b3fb933e5a5175271d95be5a84a31ae74",
+          "content_sha256": "5dd419992b4198f22cf2df77b63c7aa4eec19b78286c068e3569057141da19ab",
+          "package": "flask",
+          "path": "src/flask/globals.py",
+          "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+          "role": "constraint_sample",
+          "selected_lines": {
+            "app_lookup": 29,
+            "proxy_declaration": 28
+          },
+          "source_id": "source-28",
+          "version": "3.1.3"
+        },
+        {
+          "cold_view_sha256": "73ff6e2457311d6917daf437510dacf0508ffb87718392e181d7b2d7e8d5a743",
+          "content_sha256": "c211944500e43748e6852e021ceec343de861a5652d2411390a9009284639785",
+          "package": "flask",
+          "path": "src/flask/sansio/app.py",
+          "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+          "role": "constraint_sample",
+          "selected_lines": {
+            "app_method": 893,
+            "forwarded_response": 908,
+            "werkzeug_alias": 18
+          },
+          "source_id": "source-30",
+          "version": "3.1.3"
+        },
+        {
+          "cold_view_sha256": "8043db4dc7226f0442f1eea5e4c9b0f2fe2c012b02bd471f1a1bce069c14da9f",
+          "content_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b",
+          "package": "werkzeug",
+          "path": "src/werkzeug/utils.py",
+          "revision": "005d93bf3437226ab185d2edc6132918d3e45763",
+          "role": "old_dependency",
+          "selected_lines": {
+            "named_parameters": 236,
+            "signature": 235
+          },
+          "source_id": "source-22",
+          "version": "3.1.7"
+        },
+        {
+          "cold_view_sha256": "d423b94a81c1c42822770650ea2de7b35baa1ce787ea04ccc7f48dd84c85672e",
+          "content_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b",
+          "package": "werkzeug",
+          "path": "src/werkzeug/utils.py",
+          "revision": "c1a26b45fb06d5e086b4d6be820c3302f588d815",
+          "role": "proposed_dependency",
+          "selected_lines": {
+            "named_parameters": 236,
+            "signature": 235
+          },
+          "source_id": "source-23",
+          "version": "3.1.8"
+        }
+      ],
+      "first_view_sha256": "3754620d09eed15111f8d1ad5b2f641aca98c57a4195cc2bf1a822849ecab3ff",
+      "identity": {
+        "base_sha": "0a5c6143f0b1707504e34f13b51b8f60e093a4c7",
+        "head_sha": "68875f5b75082828447281d891107969ebcec0b1",
+        "pull_number": "58",
+        "repository": "hongyime/rainbowchess"
+      },
+      "measured_additional_requirement": "Eight exact original-source views including two releases. The ordinary first view omits the separate app-context relationship.",
+      "unavailable_claim": "Which branch and loaded callable an actual request reached."
+    }
+  },
+  "candidate_screen": {
+    "changed_manifest": "requirements-tests.txt",
+    "disposition": "Screen exact-head target use before selecting a selector explanation comparison. Release text alone supports attributed behavior descriptions.",
+    "identity": {
+      "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+      "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "pull_number": 1559,
+      "repository": "mapproxy/mapproxy"
+    },
+    "matching_packet_body_count": 19,
+    "ordinary_report_window_stop": {
+      "assessment_id": "support-drop",
+      "cap": 4096,
+      "observed_characters": 9524,
+      "reason": "recorded_owner_result"
+    },
+    "saved_report_sha256": "c1a5e6efb467d2d565c59087aad237dee23c639977641e7193686969cc67990d",
+    "scope": "Two authentic 4.0 changelog passages, with direct version-heading selection. No admitted MapProxy selector call or representative fixture tied to them in this packet.",
+    "upstream_exact_proposed_changelog": {
+      "breaking_change_spans": [
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          19
+        ]
+      ],
+      "content_sha256": "7c01508a58ab9e5dbcb4444834434c52e4bfe803d65e28f551b48f938de25864",
+      "git_blob": "3a26eac6274483def2ccc7b4ea4e7239f576ad9f",
+      "heading_section_end_line": 102,
+      "path": "docs/src/markdown/about/changelog.md",
+      "revision": "ff1a5ce7e5addc31626d7b6053511fecdb4f6320",
+      "tag": "refs/tags/4.0",
+      "tree": "475c56815c7fbc1dd5779a25652810e54767f904",
+      "version_heading_line": 6
+    },
+    "versions": [
+      "3.0.4",
+      "4.0"
+    ]
+  },
+  "disposition": "Defer model execution on the screened examples. Case-informed direct inspection recovers the alternate source path; the material uncertainty is missing runtime evidence. The contrast already states the relevant evidentiary distinction.",
+  "observations": [
+    "No fresh provider acquisition, model request, target execution or source change.",
+    "No independent reader or timing measurement. Scope is design feasibility."
+  ],
+  "scope": {
+    "date": "2026-11-28",
+    "decision_rule": "Pass a model comparison to execution readiness only if a materially unresolved reader explanation or navigation obstacle remains with sufficient source evidence and a benefit that can be measured against this baseline.",
+    "installed_wheel_sha256": "09b30f15479312734dc3b9fe3e1458303e035e374ad26cbabad1d113eb1b6dec",
+    "method": "Read the installed offline first view and use direct source IDs or path-scoped literal search over the same retained material. Case-informed search choices.",
+    "prior_exposure": "Both cases and their conclusions have been seen in earlier development work.",
+    "report_sha256": {
+      "av_tracer_combined": "e307eb2843cd4b5a63319b869f06907e8f4d8da867511554994e436acb4f8850",
+      "rainbowchess": "752938f2900b37691eecde8b6253159ec98d3fb97c5e90dd7c5dd20b1e530743"
+    },
+    "repository_commit": "716bb9012047dc07157c3c633c22a362d0eb962b",
+    "task": {
+      "av_tracer_combined": "Separate the local old/proposed signature result from the exact-job observation and name the smallest missing process evidence.",
+      "rainbowchess": "Identify what the seven static pairs cover, follow the app-context alternative on /newgame, and say what would establish the executed branch and loaded identity."
+    }
+  },
+  "scope_sha256": "f3e28abc3d0366c11bf312d0bd660fd0cc125e291833067788ef7965e867a303",
+  "validation_script_sha256": {
+    "baseline.py": "a4085ad48e06ac85c327ef2f5315dfd22c268c3e612dc902e6a0b383343df32e",
+    "screen-mapproxy.py": "cd8c8bd81c500c1e6ceed872cec474db58233f5aaaa749b43cc52b9053fbf075"
+  }
+}

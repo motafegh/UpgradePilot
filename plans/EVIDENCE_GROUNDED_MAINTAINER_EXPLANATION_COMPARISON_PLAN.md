@@ -10,6 +10,12 @@ Start with a read-only baseline walkthrough on the exposed HTTPX PR. Use the sav
 
 For HTTPX, the example expected answer describes the conditional five-keyword fit under the sampled Starlette HTTPX fallback, the unknown installed binding and branch, and a scoped observation at the `TestClient` call that could resolve that branch. Any separately retained CI context must carry its own capture identity and observation scope. The November source-only invocation leaves CI/runtime unperformed. The historical Docker build and October empty query remain separate evidence. [Applicability disposition](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md)
 
+### Admission for a release behavior and target-use task
+
+When a retained release note names concrete behavioral conditions, first recover the cited version section from the exact upstream artifact using direct lookup. Preserve a complete-window refusal in the ordinary report. Selecting a few clauses for a focused task supports attributed claims about those clauses and carries its own narrower scope.
+
+A task about target applicability also needs exact target material showing the relevant use or fixture. Distinguish an upstream statement, a source-bound target use, and an executed observation. If the target-use premise is absent, route it to evidence acquisition or record the missing premise. If direct lookup and a concise deterministic explanation already answer the task, defer inference. A readiness comparison should show a specific unresolved interpretation or navigation obstacle on sufficient matched evidence before selecting a model.
+
 ## Earlier experiments and what to reuse
 
 | Earlier work | Outcome | Reuse or re-entry condition |
