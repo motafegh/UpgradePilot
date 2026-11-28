@@ -1,0 +1,457 @@
+{
+  "captured_inventory": {
+    "commit_response_sha256": "d88d2ef99f486b6fec6fa70dcdb9557c3c02dc0c26f8cf98361f1f70f0743ff8",
+    "inventory_entries": 61,
+    "proxy_source_retained_in_this_report": false,
+    "scope": "Inventory only. Exact-head CI execution or job/step coverage was not evaluated.",
+    "selected_run_attempt_job_or_trace": null,
+    "tree_response_sha256": "ca3e3a9a36b8f3da533e6aa61caeb65a1e9d15c0e7f4bb3ede27b55cdee93af2",
+    "tree_sha": "731b9d527672f911fec28b34e5254d6059cb2125",
+    "workflow_bodies_retained_in_this_report": 0,
+    "workflow_paths": [
+      ".github/workflows/auto-merge-bots.yml",
+      ".github/workflows/codeql.yml",
+      ".github/workflows/dependabot-auto-merge.yml",
+      ".github/workflows/dependency-review.yml",
+      ".github/workflows/greetings.yml",
+      ".github/workflows/label.yml",
+      ".github/workflows/labeler.yml",
+      ".github/workflows/scorecard.yml",
+      ".github/workflows/summary.yml",
+      ".github/workflows/trufflehog.yml"
+    ]
+  },
+  "date": "2026-11-28",
+  "disposition": {
+    "ai": "No inference can supply the missing runtime observation. Evidence-grounded explanation may be evaluated on a separately supported question.",
+    "applicability": "Normal sampled WSGI dispatch suggests the separate app-context path. Loaded receiver, selected call and execution remain unobserved.",
+    "follow_up": "Retain the unresolved runtime proposition. Reopen when exact-head target-owned evidence can link this route, a process, the selected branch and loaded callee.",
+    "new_runner_or_collection": "deferred",
+    "reason": "Same local fits, no matching current process observation and no measured decision-changing regression.",
+    "source_fit": "Both exact Werkzeug declarations bind the explicitly selected app-context forwarded arguments."
+  },
+  "exact_report": {
+    "analysis_input_sha256": "b749589db562a6b35efc254b13eb208bca888b08edd53f47c26d2bc2442d6658",
+    "cold_open_output_sha256": {
+      "saved_report": "73ff6e2457311d6917daf437510dacf0508ffb87718392e181d7b2d7e8d5a743",
+      "workspace": "a54d2277c0cc0ff95310129b646c5b21f6d71c4d602e5b263959cd7120cc8ac2"
+    },
+    "id": "f2dbe0fc-c890-4592-a114-3c8343146be7",
+    "recorded_ci_runtime": {
+      "ci": "not evaluated",
+      "runtime": "not evaluated"
+    },
+    "recorded_maintainer_action": "abstain",
+    "sha256": "752938f2900b37691eecde8b6253159ec98d3fb97c5e90dd7c5dd20b1e530743",
+    "workspace_revision": "646f62dfd2e14f548a4b5aac8335263f"
+  },
+  "exact_target": {
+    "base_sha": "0a5c6143f0b1707504e34f13b51b8f60e093a4c7",
+    "head_sha": "68875f5b75082828447281d891107969ebcec0b1",
+    "normalized_package": "werkzeug",
+    "old_version": "3.1.7",
+    "proposed_version": "3.1.8",
+    "pull_number": 58,
+    "repository": "hongyime/rainbowchess"
+  },
+  "existing_product": {
+    "adapter_call_paths": 7,
+    "app_context_branch_call_line": 268,
+    "app_context_downstream_product_witnesses": 0,
+    "app_context_werkzeug_call_line": 905,
+    "blocked_receiver_binding": {
+      "possible_imports": [],
+      "reasons": [
+        "relative_import_origin_unresolved",
+        "branch_alternatives",
+        "delayed_global_read"
+      ],
+      "scope": "module/function:redirect@249",
+      "state": "unknown",
+      "trace": [
+        {
+          "column": 0,
+          "end_column": 32,
+          "end_line": 18,
+          "input_name": null,
+          "line": 18,
+          "name": "current_app",
+          "operation": "import",
+          "origin": "globals.current_app",
+          "scope": "module",
+          "source_id": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be"
+        },
+        {
+          "column": 0,
+          "end_column": 32,
+          "end_line": 18,
+          "input_name": null,
+          "line": 18,
+          "name": "current_app",
+          "operation": "import_binding",
+          "origin": null,
+          "scope": "module",
+          "source_id": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be"
+        },
+        {
+          "column": 0,
+          "end_column": 34,
+          "end_line": 25,
+          "input_name": null,
+          "line": 24,
+          "name": "current_app",
+          "operation": "branch_join",
+          "origin": null,
+          "scope": "module",
+          "source_id": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be"
+        },
+        {
+          "column": 15,
+          "end_column": 56,
+          "end_line": 268,
+          "input_name": null,
+          "line": 268,
+          "name": "",
+          "operation": "delayed_global_read",
+          "origin": null,
+          "scope": "module/function:redirect@249",
+          "source_id": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be"
+        },
+        {
+          "column": 15,
+          "end_column": 56,
+          "end_line": 268,
+          "input_name": null,
+          "line": 268,
+          "name": "current_app",
+          "operation": "reference",
+          "origin": null,
+          "scope": "module/function:redirect@249",
+          "source_id": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be"
+        }
+      ],
+      "unbound_possible": false,
+      "unknown_possible": true
+    },
+    "blocking_gap": "callable_relationship_unresolved",
+    "report_witnesses": 50,
+    "selected_root_call_id": "8542e854075acd06089c44a99e01722d0719035ac244f105858e0f5852b4744f",
+    "selected_root_version_witnesses": 2,
+    "witnessed_versioned_call_line": 270
+  },
+  "explicit_local_argument_checks": {
+    "3.1.7": {
+      "app_context_forwarded_call": {
+        "call_id": "0d548f1eca9b81ba4258b32b8cf08f503d23c78874a283629d4b7ed08f06da9c",
+        "call_span": {
+          "column": 15,
+          "end_column": 9,
+          "end_line": 909,
+          "line": 905
+        },
+        "named_reception": {
+          "Response": "named_parameter",
+          "code": "named_parameter"
+        },
+        "outcome": "bound",
+        "receiver_mode": "as_written",
+        "remaining_premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "signature_id": "4ac3e5d393145e091910dd22eb93df752a73bf68a75346b225aa047fbce81b1a",
+        "signature_span": {
+          "column": 0,
+          "end_column": 19,
+          "end_line": 272,
+          "line": 235
+        },
+        "violations": []
+      },
+      "existing_direct_fallback": {
+        "call_id": "f87f9c174f8c5c668b8c69a0ab1c3e87b9bc57ac1eab1c8a4be3e45dde11e605",
+        "call_span": {
+          "column": 11,
+          "end_column": 63,
+          "end_line": 270,
+          "line": 270
+        },
+        "named_reception": {
+          "Response": "named_parameter",
+          "code": "named_parameter"
+        },
+        "outcome": "bound",
+        "receiver_mode": "as_written",
+        "remaining_premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "signature_id": "4ac3e5d393145e091910dd22eb93df752a73bf68a75346b225aa047fbce81b1a",
+        "signature_span": {
+          "column": 0,
+          "end_column": 19,
+          "end_line": 272,
+          "line": 235
+        },
+        "violations": []
+      },
+      "source": {
+        "content_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b",
+        "file_id": "792079b9d448bf988a071db0063bec3503e789d8c2a0012285727e07ead9ffc4",
+        "native_coverage": "complete_file",
+        "path": "src/werkzeug/utils.py",
+        "revision": "005d93bf3437226ab185d2edc6132918d3e45763",
+        "source_id": "source-22",
+        "source_role": "old_dependency",
+        "version": "3.1.7"
+      }
+    },
+    "3.1.8": {
+      "app_context_forwarded_call": {
+        "call_id": "0d548f1eca9b81ba4258b32b8cf08f503d23c78874a283629d4b7ed08f06da9c",
+        "call_span": {
+          "column": 15,
+          "end_column": 9,
+          "end_line": 909,
+          "line": 905
+        },
+        "named_reception": {
+          "Response": "named_parameter",
+          "code": "named_parameter"
+        },
+        "outcome": "bound",
+        "receiver_mode": "as_written",
+        "remaining_premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "signature_id": "a180e3ae126dca85bc4ba740882c342d3f1255e13c6add702d2c1f9d699bfd5b",
+        "signature_span": {
+          "column": 0,
+          "end_column": 19,
+          "end_line": 272,
+          "line": 235
+        },
+        "violations": []
+      },
+      "existing_direct_fallback": {
+        "call_id": "f87f9c174f8c5c668b8c69a0ab1c3e87b9bc57ac1eab1c8a4be3e45dde11e605",
+        "call_span": {
+          "column": 11,
+          "end_column": 63,
+          "end_line": 270,
+          "line": 270
+        },
+        "named_reception": {
+          "Response": "named_parameter",
+          "code": "named_parameter"
+        },
+        "outcome": "bound",
+        "receiver_mode": "as_written",
+        "remaining_premises": [
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ],
+        "signature_id": "a180e3ae126dca85bc4ba740882c342d3f1255e13c6add702d2c1f9d699bfd5b",
+        "signature_span": {
+          "column": 0,
+          "end_column": 19,
+          "end_line": 272,
+          "line": 235
+        },
+        "violations": []
+      },
+      "source": {
+        "content_sha256": "d418ab2d9993bc93fdbfa7718cc5e94ab282b1f86acda24fcd41c2edd979318b",
+        "file_id": "ef836fa3dee1b2d0bc999cde8bcace437e6a4c14a999d7853ba55ae72ce53d03",
+        "native_coverage": "complete_file",
+        "path": "src/werkzeug/utils.py",
+        "revision": "c1a26b45fb06d5e086b4d6be820c3302f588d815",
+        "source_id": "source-23",
+        "source_role": "proposed_dependency",
+        "version": "3.1.8"
+      }
+    },
+    "no_receiver_insertion_control": {
+      "call_id": "b33275e2a58f01cc37563ab18f88d8b0c248784a7bfdaf473f2cf332b8cbf8af",
+      "call_span": {
+        "column": 15,
+        "end_column": 56,
+        "end_line": 268,
+        "line": 268
+      },
+      "named_reception": {
+        "code": "named_parameter"
+      },
+      "outcome": "rejected",
+      "receiver_mode": "as_written",
+      "remaining_premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established"
+      ],
+      "signature_id": "526f34e5431cff62bd51cd0e85b585f749ee12b0efa1b54832e91f27f016134e",
+      "signature_span": {
+        "column": 4,
+        "end_column": 9,
+        "end_line": 909,
+        "line": 893
+      },
+      "violations": [
+        {
+          "parameter": "location",
+          "reason": "missing_required_argument"
+        }
+      ]
+    },
+    "proxy_call_to_app_signature": {
+      "call_id": "b33275e2a58f01cc37563ab18f88d8b0c248784a7bfdaf473f2cf332b8cbf8af",
+      "call_span": {
+        "column": 15,
+        "end_column": 56,
+        "end_line": 268,
+        "line": 268
+      },
+      "named_reception": {
+        "code": "named_parameter"
+      },
+      "outcome": "bound",
+      "receiver_mode": "one_receiver_assumed",
+      "remaining_premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ],
+      "signature_id": "526f34e5431cff62bd51cd0e85b585f749ee12b0efa1b54832e91f27f016134e",
+      "signature_span": {
+        "column": 4,
+        "end_column": 9,
+        "end_line": 909,
+        "line": 893
+      },
+      "violations": []
+    },
+    "root_to_helper": {
+      "call_id": "8542e854075acd06089c44a99e01722d0719035ac244f105858e0f5852b4744f",
+      "call_span": {
+        "column": 11,
+        "end_column": 28,
+        "end_line": 49,
+        "line": 49
+      },
+      "named_reception": {},
+      "outcome": "bound",
+      "receiver_mode": "as_written",
+      "remaining_premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established"
+      ],
+      "signature_id": "3b76e6ecf8d468b147bc3d0f8e6a912a5ffde427bf108896a8d0ca145ec69c6c",
+      "signature_span": {
+        "column": 0,
+        "end_column": 63,
+        "end_line": 270,
+        "line": 249
+      },
+      "violations": []
+    }
+  },
+  "repo_commit": "10023a942ec98b9be0c656956e314ec021e90cbf",
+  "source_chain": {
+    "app_redirect": {
+      "content_sha256": "c211944500e43748e6852e021ceec343de861a5652d2411390a9009284639785",
+      "coordinates": {
+        "app_redirect_actual_forwarded_response": 908,
+        "app_redirect_signature": 893,
+        "werkzeug_import": 18
+      },
+      "file_id": "3ab5cc19a61bae75ee45f771f91c3220b8d66bc139350be636a73f3e9ebe36f8",
+      "native_coverage": "complete_file",
+      "path": "src/flask/sansio/app.py",
+      "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+      "source_id": "source-30",
+      "source_role": "constraint_sample",
+      "version": "3.1.3"
+    },
+    "current_app_proxy": {
+      "content_sha256": "5dd419992b4198f22cf2df77b63c7aa4eec19b78286c068e3569057141da19ab",
+      "coordinates": {
+        "context_app_member": 29,
+        "current_app_proxy": 28,
+        "flask_app_context_variable": 24
+      },
+      "file_id": "c814b02bd560459176c21630a5d7a20df869ce05b0e363b037bdc446a815569e",
+      "native_coverage": "complete_file",
+      "path": "src/flask/globals.py",
+      "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+      "source_id": "source-28",
+      "source_role": "constraint_sample",
+      "version": "3.1.3"
+    },
+    "flask_context": {
+      "content_sha256": "a0c7b44d1b12716d2a75a22a6af56c93c3fdaa212f018e551e7d45020917f279",
+      "coordinates": {
+        "app_owning_context": 246,
+        "check_app_context": 382,
+        "push_app_context": 384,
+        "set_app_context": 253
+      },
+      "file_id": "55a4dfcba4d90da90f79839c7a33f4e1497deadf316d4e98bdfd3b5abf5d816c",
+      "native_coverage": "complete_file",
+      "path": "src/flask/ctx.py",
+      "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+      "source_id": "source-27",
+      "source_role": "constraint_sample",
+      "version": "3.1.3"
+    },
+    "flask_wsgi_and_dispatch": {
+      "content_sha256": "93bb56f0b1d14a57548baccab0528aec0c5afd62f8ceed5edb03cdb6122cbbba",
+      "coordinates": {
+        "dispatch_from_full_request": 917,
+        "dispatch_handler": 902,
+        "flask_base_import": 44,
+        "wsgi_context_push": 1510,
+        "wsgi_dispatch": 1511
+      },
+      "file_id": "00225ff41d76bef0f6ce25f815830c310db17f13d1631da4b267b84bd25bce8a",
+      "native_coverage": "complete_file",
+      "path": "src/flask/app.py",
+      "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+      "source_id": "source-25",
+      "source_role": "constraint_sample",
+      "version": "3.1.3"
+    },
+    "helper": {
+      "content_sha256": "ac96607bbfc9dbcf09d5442fe7e90d7f8a046b0df7d8f3fc3535b44112016d71",
+      "coordinates": {
+        "app_context_branch": 267,
+        "app_redirect": 268,
+        "direct_fallback": 270
+      },
+      "file_id": "7ab83e00d8ef14839bbaf0cf24844baeef963da4e4db587302b26fee851ff8be",
+      "native_coverage": "complete_file",
+      "path": "src/flask/helpers.py",
+      "revision": "22d924701a6ae2e4cd01e9a15bbaf3946094af65",
+      "source_id": "source-29",
+      "source_role": "constraint_sample",
+      "version": "3.1.3"
+    },
+    "target_handler": {
+      "content_sha256": "2fefcb8afad476c65385c015e7742dde084abc28b400920d3ca01ebaa50e43b2",
+      "declared_methods": [
+        "POST",
+        "GET"
+      ],
+      "file_id": "cd9d419918a59ee6028877c8086b0bb3fa3ec42f32297433354e6a0119ef27af",
+      "function_line": 37,
+      "native_coverage": "complete_file",
+      "path": "main.py",
+      "redirect_call_line": 49,
+      "registered_route": "/newgame",
+      "revision": "68875f5b75082828447281d891107969ebcec0b1",
+      "source_id": "source-18",
+      "source_role": "target_repository",
+      "version": ""
+    }
+  },
+  "verification_script_sha256": "8315e285c064abbcc11476237bd788b6ec7933da9c916dd45aab83a8be5dfd7e"
+}
