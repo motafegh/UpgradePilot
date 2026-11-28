@@ -1,0 +1,329 @@
+{
+  "acquisition": {
+    "scope": {
+      "api_body_limit": 6291456,
+      "archive_body_limit": 12582912,
+      "base": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+      "exclusions": "Runtime reachability, installed distribution and job coverage require separate observation.",
+      "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "members_limit": 10000,
+      "pull_number": 1559,
+      "question": "Find an exact-head production or test selector operation connected to either the template or iframe behavior clauses.",
+      "repository": "mapproxy/mapproxy",
+      "requests": 3,
+      "socket_timeout_seconds": 12,
+      "unpacked_regular_bytes_limit": 67108864
+    },
+    "target_requests": [
+      {
+        "bytes": 3102,
+        "elapsed_seconds": 0.7272,
+        "sha256": "e6ae4c3f914e4630093dcc1ba5eb4c270a4780e8b0271965a948681dcc7f712e",
+        "status": 200,
+        "url": "https://api.github.com/repos/mapproxy/mapproxy/git/commits/ac01b8901935bfc16a0195277b4aec1c43275897"
+      },
+      {
+        "bytes": 189558,
+        "elapsed_seconds": 1.0325,
+        "sha256": "ba685ea36e27c2171f1a1c6e76aea506aba1abd74f045b6f742f6085d650cacd",
+        "status": 200,
+        "url": "https://api.github.com/repos/mapproxy/mapproxy/git/trees/c883dc8bea559e5357b7a84772b5ba801efb1ad3?recursive=1"
+      },
+      {
+        "bytes": 5557086,
+        "elapsed_seconds": 4.1214,
+        "sha256": "5baa0bc13a6eafe23244917621402a5099f1884ae62fde3e923d01555c984edf",
+        "status": 200,
+        "url": "https://codeload.github.com/mapproxy/mapproxy/tar.gz/ac01b8901935bfc16a0195277b4aec1c43275897"
+      }
+    ],
+    "wrapper_requests": [
+      {
+        "bytes": 3845,
+        "elapsed_seconds": 0.4488,
+        "sha256": "bd8253b185a57766edc2026757a08f7d6e83f8a28801ad52972ae79d86e97d14",
+        "status": 200,
+        "url": "https://pypi.org/pypi/webtest/3.0.0/json"
+      },
+      {
+        "bytes": 31858,
+        "elapsed_seconds": 0.4958,
+        "sha256": "2a001a9efa40d2a7e5d9cd8d1527c75f41814eb6afce2c3d207402547b1e5ead",
+        "status": 200,
+        "url": "https://files.pythonhosted.org/packages/41/c7/3897bd62366cb4a50bfb411d37efca9fa33bf07a7c1c22fce8f6ad2664ff/WebTest-3.0.0-py3-none-any.whl"
+      },
+      {
+        "bytes": 5900,
+        "elapsed_seconds": 0.426,
+        "sha256": "eba23c67315f79bc13125b729773ae934a8a263771afea3c696b62a1ff083a3b",
+        "status": 200,
+        "url": "https://pypi.org/pypi/beautifulsoup4/4.14.3/json"
+      },
+      {
+        "bytes": 107721,
+        "elapsed_seconds": 0.7494,
+        "sha256": "0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb",
+        "status": 200,
+        "url": "https://files.pythonhosted.org/packages/1a/39/47f9197bdd44df24d67ac8893641e16f386c984a0619ef2ee4c51fbbc019/beautifulsoup4-4.14.3-py3-none-any.whl"
+      }
+    ]
+  },
+  "baseline_disposition": {
+    "comparison_disposition": "Defer model testing for this task. Direct evidence lookup explains the relevant path, and a target use of either affected condition remains unestablished.",
+    "coverage_limit": "Static inspection of the verified target snapshot and two pinned wrapper distributions. Runtime behavior, indirect plugins, imports resolved in CI and dynamic calls remain unresolved.",
+    "scoped_release_claim": "The exact 4.0 release documents template and iframe selector changes.",
+    "target_claim": "The explicit test dependency/implementation path can import Soup Sieve. The representative tracked response path uses lxml. No affected Soup Sieve selector path or matching fixture was identified by this exact-head screen."
+  },
+  "case": {
+    "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+    "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "pull_number": 1559,
+    "repository": "mapproxy/mapproxy"
+  },
+  "date": "2026-11-28",
+  "exact_wrapper_source_proof": {
+    "bs4_css_dispatch": {
+      "lines": {
+        "css_api": 194,
+        "import_soup_sieve": 37
+      },
+      "path": "bs4/css.py",
+      "sha256": "fe6fe5ff84865879d8eb6d15276d63fea407d515f7a7dd6c6157a680ac5a2ec3"
+    },
+    "bs4_package_import": {
+      "lines": {
+        "css_import": 71
+      },
+      "path": "bs4/__init__.py",
+      "sha256": "13bc22569ee840ad0985d018c697a165af1daefdd6fec26fe6879316205f479a"
+    },
+    "bs4_tag_selector": {
+      "lines": {
+        "css_select": 3149
+      },
+      "path": "bs4/element.py",
+      "sha256": "a179a3ecb1bfd8da6c0caf749aaef7ab43cc2b416314120649e4d324b570c137"
+    },
+    "webtest_dispatch": {
+      "lines": {
+        "get_method": 273,
+        "request_returns_response": 620,
+        "response_import": 25,
+        "response_type": 79
+      },
+      "path": "webtest/app.py",
+      "sha256": "fd60f8af2903f255395c200ba546d6268c405b09687cfb6c536d1313b4b76cba"
+    },
+    "webtest_response": {
+      "lines": {
+        "beautiful_soup_import": 10,
+        "html_invokes_bs4": 398,
+        "html_property": 385,
+        "lxml_etree_import": 446,
+        "lxml_html_branch": 456,
+        "lxml_property": 430,
+        "lxml_xml_branch": 458
+      },
+      "path": "webtest/response.py",
+      "sha256": "504675730ec954c689ab7d5d27f084cfab378fee5c4aede5c0e8b83103f557ca"
+    }
+  },
+  "inspected_wrappers": {
+    "beautifulsoup4": {
+      "filename": "beautifulsoup4-4.14.3-py3-none-any.whl",
+      "registry_declared_requirements": [
+        "soupsieve>=1.6.1",
+        "typing-extensions>=4.0.0",
+        "cchardet; extra == \"cchardet\"",
+        "chardet; extra == \"chardet\"",
+        "charset-normalizer; extra == \"charset-normalizer\"",
+        "html5lib; extra == \"html5lib\"",
+        "lxml; extra == \"lxml\""
+      ],
+      "version": "4.14.3",
+      "wheel_sha256": "0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb"
+    },
+    "webtest": {
+      "filename": "WebTest-3.0.0-py3-none-any.whl",
+      "registry_declared_requirements": [
+        "WebOb (>=1.2)",
+        "waitress (>=0.8.5)",
+        "beautifulsoup4",
+        "docutils ; extra == 'docs'",
+        "pylons-sphinx-themes (>=1.0.8) ; extra == 'docs'",
+        "Sphinx (>=1.8.1) ; extra == 'docs'",
+        "coverage ; extra == 'tests'",
+        "PasteDeploy ; extra == 'tests'",
+        "pyquery ; extra == 'tests'",
+        "pytest ; extra == 'tests'",
+        "pytest-cov ; extra == 'tests'",
+        "WSGIProxy2 ; extra == 'tests'"
+      ],
+      "version": "3.0.0",
+      "wheel_sha256": "2a001a9efa40d2a7e5d9cd8d1527c75f41814eb6afce2c3d207402547b1e5ead"
+    }
+  },
+  "next_scope": "Review the complete changelog source-window boundary for its existing Python-support responsibility, retaining exact direct source access as the baseline.",
+  "ordinary_saved_report_comparison": {
+    "action": "abstain",
+    "interpretation": "The 4.0 section alone reaches the documented complete-window stop. Selecting two scoped paragraphs is a different observation, not a complete support-window evaluation.",
+    "offline_render_sha256": "39cada0bd8e6ca37a6ff4fd33eeadfde004841acfcfbe9e883f517b205e3c9ef",
+    "proposed_release_section": {
+      "characters": 9524,
+      "end_line": 102,
+      "heading": "4.0",
+      "start_line": 6,
+      "utf8_bytes": 9524
+    },
+    "retained_original": {
+      "characters": 32407,
+      "cold_source_view_sha256": "ed20913cac554026140c78e2a9a84fbbf1c25946aa34077181c98047e930d46b",
+      "content_sha256": "7c01508a58ab9e5dbcb4444834434c52e4bfe803d65e28f551b48f938de25864",
+      "source_id": "source-38"
+    },
+    "saved_report_sha256": "c1a5e6efb467d2d565c59087aad237dee23c639977641e7193686969cc67990d"
+  },
+  "repository_commit": "2d3c3ada437ceb0a577fb66ac623cabf070a1c8f",
+  "scan": {
+    "binary_or_non_utf8_files": 57,
+    "binary_or_non_utf8_suffix_counts": {
+      ".dbf": 1,
+      ".gif": 1,
+      ".gpkg": 2,
+      ".ico": 2,
+      ".jpeg": 1,
+      ".mbtiles": 1,
+      ".png": 30,
+      ".shp": 1,
+      ".shx": 1,
+      ".ttf": 2,
+      ".txt": 1,
+      ".woff2": 14
+    },
+    "literal_dynamic_api_matches": [],
+    "named_attributes": {
+      "lxml": 134,
+      "xml": 5
+    },
+    "non_utf8_text_readme_ascii_keyword_check": {
+      "bytes": 315,
+      "matching_terms": 0,
+      "path": "mapproxy/test/schemas/wms/1.3.0/ReadMe.txt"
+    },
+    "package_imports": {
+      "webtest": 2
+    },
+    "python_files_parsed": 293,
+    "text_pattern_matches": [
+      {
+        "line": 24,
+        "path": "CHANGES.txt",
+        "terms": [
+          "soupsieve"
+        ]
+      },
+      {
+        "line": 5,
+        "path": "requirements-tests.txt",
+        "terms": [
+          "beautifulsoup4"
+        ]
+      },
+      {
+        "line": 65,
+        "path": "requirements-tests.txt",
+        "terms": [
+          "soupsieve"
+        ]
+      }
+    ],
+    "utf8_non_binary_files": 605,
+    "webtest_import_sites": [
+      {
+        "kind": "import",
+        "line": 23,
+        "name": "webtest",
+        "path": "mapproxy/test/system/__init__.py"
+      },
+      {
+        "kind": "import",
+        "line": 21,
+        "name": "webtest",
+        "path": "mapproxy/test/system/test_demo.py"
+      }
+    ]
+  },
+  "separate_complete_window_stop": {
+    "assessment_id": "support-drop",
+    "cap": 4096,
+    "observed_characters": 9524,
+    "reason": "recorded_owner_result"
+  },
+  "snapshot": {
+    "absent_regular_files": [],
+    "regular_tracked_files": 662,
+    "skipped_special_members": [],
+    "tree_sha": "c883dc8bea559e5357b7a84772b5ba801efb1ad3",
+    "unpacked_verified_bytes": 18700046,
+    "verified_files": 662
+  },
+  "target_source_proof": {
+    "representative_test": {
+      "lines": {
+        "test_app_get": 67,
+        "xml_response_view": 71
+      },
+      "path": "mapproxy/test/system/test_wms.py",
+      "sha256": "59d069b3c734209a0296508bf126f47763a5f3d7cef4f75280ab30e406b689b6"
+    },
+    "test_requirements": {
+      "lines": {
+        "beautiful_soup": 5,
+        "soup_sieve": 65,
+        "webtest": 78
+      },
+      "path": "requirements-tests.txt",
+      "sha256": "896349360949402eb81177cf8309b8f5e3b59c758f94c50abde4b9605571a771"
+    },
+    "testapp_adapter": {
+      "lines": {
+        "fixture_uses_adapter": 57,
+        "get_delegates": 35,
+        "head_delegates": 38,
+        "testapp_class": 28,
+        "webtest_import": 23
+      },
+      "path": "mapproxy/test/system/__init__.py",
+      "sha256": "fcf2f70901624b1672867e67a784b1a0eb7f49b76cc70d3d6037fcbdf868fff0"
+    }
+  },
+  "transition": [
+    "3.0.4",
+    "4.0"
+  ],
+  "upstream_exact_notes": {
+    "breaking_change_spans": [
+      [
+        8,
+        12
+      ],
+      [
+        13,
+        19
+      ]
+    ],
+    "content_sha256": "7c01508a58ab9e5dbcb4444834434c52e4bfe803d65e28f551b48f938de25864",
+    "git_blob": "3a26eac6274483def2ccc7b4ea4e7239f576ad9f",
+    "heading_section_end_line": 102,
+    "path": "docs/src/markdown/about/changelog.md",
+    "revision": "ff1a5ce7e5addc31626d7b6053511fecdb4f6320",
+    "tag": "refs/tags/4.0",
+    "tree": "475c56815c7fbc1dd5779a25652810e54767f904",
+    "version_heading_line": 6
+  },
+  "validation_script_sha256": {
+    "capture.py": "d17ac38d5588c37f5abb961246019709e2fdf0de737c0169001d662ee9b967f2",
+    "dependencies.py": "73cbe0f4e9e1888f173f6fcc12eb4362540af293e57f936b43806fcfaf9074e0",
+    "screen.py": "bd0e5701a69b966652ae63f0dae4fa79fc8c08ee652d222ae36eb9b0613b2ec3"
+  }
+}
